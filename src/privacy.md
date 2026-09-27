@@ -17,7 +17,7 @@
 
 앱에서 입력하는 모든 정보는 사용자의 기기 안에 저장됩니다. 홈 화면 위젯과 데이터를 주고받을 때도 같은 기기 안의 앱 전용 공유 공간만 씁니다. 앱을 삭제하면 이 데이터도 함께 삭제됩니다. 주량체커는 이 정보를 외부 서버로 보내는 일이 없으며, 차곡도 로그인하지 않으면 마찬가지입니다.
 
-**차곡에서 로그인하시면**, 기록(어느 통장에 무엇을 언제 기록했는지, 사진으로 확인된 기록인지)이 Google Firebase의 클라우드 데이터베이스에 사용자 계정별로 저장됩니다. 기기를 바꿔도 기록이 이어지게 하기 위한 것이며, 본인 계정으로만 읽고 쓸 수 있습니다. **입금할 때 쓴 사진은 올리지 않습니다** — 사진은 기기에만 남으므로 기기를 바꾸면 사진 자리에 안내만 나옵니다. 로그아웃하셔도 서버의 기록은 남아 다시 로그인하면 이어 쓰실 수 있고, 계정과 기록을 완전히 지우고 싶으시면 문의해 주시면 삭제해 드립니다.
+**차곡에서 로그인하시면**, 기록(어느 통장에 무엇을 언제 기록했는지, 사진으로 확인된 기록인지)이 Google Firebase의 클라우드 데이터베이스에 사용자 계정별로 저장됩니다. 기기를 바꿔도 기록이 이어지게 하기 위한 것이며, 본인 계정으로만 읽고 쓸 수 있습니다. **입금할 때 쓴 사진은 올리지 않습니다** — 사진은 기기에만 남으므로 기기를 바꾸면 사진 자리에 안내만 나옵니다. 로그아웃하셔도 서버의 기록은 남아 다시 로그인하면 이어 쓰실 수 있습니다. 계정과 서버의 기록을 완전히 지우려면 차곡 앱의 설정 > 계정 > 계정 삭제를 누르세요 — 즉시 지워지며 되돌릴 수 없고, 기기에 있는 기록은 그대로 남습니다.
 
 다만 기기에서 iCloud 백업을 켜 두었다면, iOS가 기기를 백업할 때 이 앱의 데이터도 함께 백업됩니다. 이는 iOS가 사용자 본인의 iCloud 계정으로 암호화해 보관하는 것이고 앱이 따로 전송하는 것이 아니며, 개발자는 그 백업에 접근할 수 없습니다. 원하지 않으면 기기 설정 > 사용자 이름 > iCloud > iCloud 백업에서 백업을 끄거나 이 앱을 백업 대상에서 제외할 수 있습니다.
 
@@ -74,7 +74,7 @@ DrinkChecker does not collect your personal information, and what you record nev
 
 Everything you enter in the app is stored on your own device. When the app exchanges data with its Home Screen widget, it uses only a private storage area on the same device. Deleting the app deletes this data too. DrinkChecker never sends this information to any server, and neither does Chagok if you do not sign in.
 
-**If you sign in to Chagok**, your records (which account you logged to, what and when, and whether a photo confirmed the entry) are stored in Google Firebase's cloud database under your account, so they follow you to a new device. Only your own account can read or write them. **Photos you take when depositing are never uploaded** — they stay on the device, so on a new device you'll see a notice where the photo was. Signing out leaves your records on the server so you can pick up where you left off when you sign in again; to delete your account and records completely, contact us and we'll remove them.
+**If you sign in to Chagok**, your records (which account you logged to, what and when, and whether a photo confirmed the entry) are stored in Google Firebase's cloud database under your account, so they follow you to a new device. Only your own account can read or write them. **Photos you take when depositing are never uploaded** — they stay on the device, so on a new device you'll see a notice where the photo was. Signing out leaves your records on the server so you can pick up where you left off when you sign in again. To delete your account and server records completely, go to Settings > Account > Delete Account in Chagok — deletion is immediate and can't be undone, and records on your device stay.
 
 If iCloud Backup is turned on, your device backup includes this app's data. That backup is made and encrypted by iOS under your own iCloud account — the app does not send anything itself, and the developer cannot access it. You can turn it off, or exclude this app from it, under Settings > [your name] > iCloud > iCloud Backup.
 
