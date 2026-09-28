@@ -37,7 +37,7 @@
 
 ### 5. 제3자 서비스
 
-두 앱 모두 3절의 사용 통계를 위해 Google Firebase Analytics를 씁니다. 차곡은 로그인과 클라우드 백업을 위해 **Firebase Authentication**(Apple·Google 로그인)과 **Cloud Firestore**(기록 보관)도 함께 쓰며, 이는 로그인하신 경우에만 동작합니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다. 앱이 사용하는 오픈소스 라이브러리 목록은 설정 > 오픈소스 라이선스에서 확인할 수 있습니다.
+두 앱 모두 3절의 사용 통계를 위해 Google Firebase Analytics를 씁니다. 차곡은 로그인과 클라우드 백업을 위해 **Firebase Authentication**(Apple·Google 로그인)과 **Cloud Firestore**(기록 보관)도 함께 쓰며, 이는 로그인하신 경우에만 동작합니다. 설정에서 고객 지원·이용약관·개인정보처리방침을 열면 이 문서를 보여 주기 위해 앱이 **GitHub Pages**(GitHub, Inc.)에서 페이지를 불러옵니다. 이때 일반적인 웹 페이지를 열 때처럼 IP 주소 같은 접속 정보가 GitHub에 전달될 수 있으며, 운영자는 이 정보를 받거나 보관하지 않습니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다. 앱이 사용하는 오픈소스 라이브러리 목록은 설정 > 오픈소스 라이선스에서 확인할 수 있습니다.
 
 ### 6. 아동의 개인정보
 
@@ -96,7 +96,7 @@ This app only requests the minimum device permissions that specific service actu
 
 ### 5. Third-party services
 
-Both apps use Google Firebase Analytics for the usage statistics in section 3. For sign-in and cloud backup, Chagok also uses **Firebase Authentication** (Sign in with Apple and Google) and **Cloud Firestore** (to keep your records), which run only if you sign in. Neither app includes advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records. The list of open-source libraries the app uses is available under Settings > Open Source Licenses.
+Both apps use Google Firebase Analytics for the usage statistics in section 3. For sign-in and cloud backup, Chagok also uses **Firebase Authentication** (Sign in with Apple and Google) and **Cloud Firestore** (to keep your records), which run only if you sign in. When you open Support, Terms of Service, or the Privacy Policy in Settings, the app loads these pages from **GitHub Pages** (GitHub, Inc.). As with opening any web page, connection details such as your IP address may reach GitHub; the operator does not receive or keep this information. Neither app includes advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records. The list of open-source libraries the app uses is available under Settings > Open Source Licenses.
 
 ### 6. Children's privacy
 
