@@ -45,7 +45,7 @@
 
 ### 7. 변경 사항
 
-이 방침이 변경되면 앱 업데이트를 통해 반영되며, 이 화면에서 최신 내용을 확인할 수 있습니다.
+이 방침이 변경되면 이 페이지에 바로 반영됩니다. 앱 안에서도 이 페이지를 그대로 보여 주므로 늘 최신 내용을 확인할 수 있습니다.
 
 ### 차곡(Chagok) 추가 조항 — 사진 인식 기능의 예외
 
@@ -104,7 +104,7 @@ Neither app is directed at children, and neither has child-directed features or 
 
 ### 7. Changes
 
-Any change to this policy will ship as part of an app update, and this page will always reflect the current version.
+Any change to this policy is published on this page right away. The app shows this same page, so you always see the current version.
 
 ### Chagok addendum — photo-recognition exception
 

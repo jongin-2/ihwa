@@ -36,5 +36,18 @@ for src in sorted((ROOT/'src').glob('*.md')):
     dst.write_text(f'<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
                    f'<meta name="robots" content="noindex"><title>{html.escape(title)} — ihwa</title><style>{CSS}</style></head><body><main>\n{body}\n</main></body></html>\n')
     print('→', dst.relative_to(ROOT))
+    # 앱 안 웹뷰용 언어별 페이지(docs/<이름>/ko/, /en/) — 한국어 절과 English 절을 떼어 한 언어만 보여 준다.
+    # 원문 구조: <a id="ko"></a> ## 한국어 … --- <a id="en"></a> ## English …
+    md = src.read_text()
+    names = md.split('\n', 1)[0][2:].split(' · ')  # '# 이용약관 · Terms of Service'
+    ko = md.split('<a id="ko"></a>', 1)[1].split('<a id="en"></a>', 1)[0].rsplit('\n---', 1)[0]
+    en = md.split('<a id="en"></a>', 1)[1]
+    for lang, part, name in (('ko', ko, names[0]), ('en', en, names[-1])):
+        part = part.strip().split('\n', 1)[1]  # '## 한국어' / '## English' 줄은 뗀다
+        _, lbody = render(f'# {name}\n\n' + part)
+        ldst = ROOT/'docs'/src.stem/lang/'index.html'; ldst.parent.mkdir(parents=True, exist_ok=True)
+        ldst.write_text(f'<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+                        f'<meta name="robots" content="noindex"><title>{html.escape(name)} — ihwa</title><style>{CSS}</style></head><body><main>\n{lbody}\n</main></body></html>\n')
+        print('→', ldst.relative_to(ROOT))
 (ROOT/'docs'/'index.html').write_text('<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>ihwa</title>'
-    f'<style>{CSS}</style></head><body><main><h1>ihwa</h1><p><a href="support/">고객 지원 · Support</a></p><p><a href="privacy/">개인정보처리방침 · Privacy Policy</a></p></main></body></html>\n')
+    f'<style>{CSS}</style></head><body><main><h1>ihwa</h1><p><a href="support/">고객 지원 · Support</a></p><p><a href="privacy/">개인정보처리방침 · Privacy Policy</a></p><p><a href="terms/">이용약관 · Terms of Service</a></p></main></body></html>\n')
