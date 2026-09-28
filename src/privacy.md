@@ -5,25 +5,25 @@
 <a id="ko"></a>
 ## 한국어
 
-주량체커는 개인정보를 수집하지 않고, 기록한 내용이 기기 밖으로 나가지 않습니다. 차곡도 **로그인하지 않으면** 마찬가지입니다. 차곡에서 기기를 바꿔도 기록을 이어 쓰고 싶어 **로그인하시면**, 계정 식별자와 기록이 서버에 보관됩니다(1·2절). 두 앱 모두 앱을 개선하기 위한 익명 사용 통계를 보냅니다(3절).
+주량체커는 개인정보를 수집하지 않고, 기록한 내용이 기기 밖으로 나가지 않습니다. 차곡도 **계정을 연결하지 않으면** 마찬가지입니다. 차곡에서 기기를 바꿔도 기록을 이어 쓰고 싶어 **계정을 연결하시면**, 계정 식별자와 기록이 서버에 보관됩니다(1·2절). 두 앱 모두 앱을 개선하기 위한 익명 사용 통계를 보냅니다(3절).
 
 ### 1. 수집하는 정보
 
 **주량체커**는 계정이나 로그인이 없으며, 이름·이메일·전화번호 등 어떤 개인 식별 정보도 요청하거나 수집하지 않습니다. 사용자를 알아볼 수 있는 식별자도 만들지 않습니다(3절의 통계 도구가 설치마다 붙이는 무작위 식별자는 이름·연락처와 연결되지 않습니다).
 
-**차곡**은 로그인이 **선택**입니다. 로그인하지 않아도 모든 기능을 쓸 수 있고, 그때는 주량체커와 동일하게 개인 식별 정보를 받지 않습니다. 기기를 바꿔도 기록을 이어 쓰고 싶을 때 Apple 또는 Google 계정으로 로그인하실 수 있으며, **로그인하시면** 앱은 그 계정이 발급하는 사용자 식별자와, 계정이 제공하는 경우 이름·이메일 주소를 받습니다. 이 정보는 로그인 상태 유지와 기록을 해당 계정에 묶는 데만 쓰며, 광고나 분석에는 쓰지 않습니다. 로그아웃하시면 이 정보는 기기에서 지워집니다.
+**차곡**은 계정 연결이 **선택**입니다. 계정을 연결하지 않아도 모든 기능을 쓸 수 있고, 그때는 주량체커와 동일하게 개인 식별 정보를 받지 않습니다. 기기를 바꿔도 기록을 이어 쓰고 싶을 때 Apple 또는 Google 계정을 연결하실 수 있으며(가입이 아니라 서버 보관을 위한 연결입니다), **연결하시면** 앱은 그 계정이 발급하는 사용자 식별자와, 계정이 제공하는 경우 이름·이메일 주소를 받습니다. 이 정보는 연결 상태 유지와 기록을 해당 계정에 묶는 데만 쓰며, 광고나 분석에는 쓰지 않습니다. 연결을 해제하시면 이 정보는 기기와 서버에서 지워집니다.
 
 ### 2. 데이터 저장 방식
 
-앱에서 입력하는 모든 정보는 사용자의 기기 안에 저장됩니다. 홈 화면 위젯과 데이터를 주고받을 때도 같은 기기 안의 앱 전용 공유 공간만 씁니다. 앱을 삭제하면 이 데이터도 함께 삭제됩니다. 주량체커는 이 정보를 외부 서버로 보내는 일이 없으며, 차곡도 로그인하지 않으면 마찬가지입니다.
+앱에서 입력하는 모든 정보는 사용자의 기기 안에 저장됩니다. 홈 화면 위젯과 데이터를 주고받을 때도 같은 기기 안의 앱 전용 공유 공간만 씁니다. 앱을 삭제하면 이 데이터도 함께 삭제됩니다. 주량체커는 이 정보를 외부 서버로 보내는 일이 없으며, 차곡도 계정을 연결하지 않으면 마찬가지입니다.
 
-**차곡에서 로그인하시면**, 기록(어느 통장에 무엇을 언제 기록했는지, 사진으로 확인된 기록인지)이 Google Firebase의 클라우드 데이터베이스에 사용자 계정별로 저장됩니다. 기기를 바꿔도 기록이 이어지게 하기 위한 것이며, 본인 계정으로만 읽고 쓸 수 있습니다. **입금할 때 쓴 사진은 올리지 않습니다** — 사진은 기기에만 남으므로 기기를 바꾸면 사진 자리에 안내만 나옵니다. 로그아웃하셔도 서버의 기록은 남아 다시 로그인하면 이어 쓰실 수 있습니다. 계정과 서버의 기록을 완전히 지우려면 차곡 앱의 설정 > 계정 > 계정 삭제를 누르세요 — 즉시 지워지며 되돌릴 수 없고, 기기에 있는 기록은 그대로 남습니다.
+**차곡에서 계정을 연결하시면**, 기록(어느 통장에 무엇을 언제 기록했는지 — 앨범 사진으로 입금했으면 사진을 찍은 날짜 포함, 사진으로 확인된 기록인지)과 **지금 연결된 기기를 가리는 임의 번호**(앱을 설치할 때 만드는 번호로, 기기 모델·광고 식별자와 무관합니다)가 Google Firebase의 클라우드 데이터베이스에 사용자 계정별로 저장됩니다. 기기를 바꿔도 기록이 이어지게 하기 위한 것이며, 본인 계정으로만 읽고 쓸 수 있습니다. **입금할 때 쓴 사진은 올리지 않습니다** — 사진은 기기에만 남으므로 기기를 바꾸면 사진 자리에 안내만 나옵니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 예전 기기의 연결은 자동으로 해제됩니다(예전 기기의 기록은 그 기기에 남습니다). 계정과 서버의 기록을 지우려면 차곡 앱의 설정 > 계정 연결 > 연결 해제를 누르세요 — 즉시 지워지며 되돌릴 수 없고, 기기에 있는 기록은 그대로 남습니다.
 
 다만 기기에서 iCloud 백업을 켜 두었다면, iOS가 기기를 백업할 때 이 앱의 데이터도 함께 백업됩니다. 이는 iOS가 사용자 본인의 iCloud 계정으로 암호화해 보관하는 것이고 앱이 따로 전송하는 것이 아니며, 개발자는 그 백업에 접근할 수 없습니다. 원하지 않으면 기기 설정 > 사용자 이름 > iCloud > iCloud 백업에서 백업을 끄거나 이 앱을 백업 대상에서 제외할 수 있습니다.
 
 ### 3. 네트워크 통신과 사용 통계
 
-주량체커는 사용자가 기록한 내용을 주고받는 서버가 없습니다. 차곡은 **로그인하지 않으면** 마찬가지고, 로그인하시면 2절에 적은 대로 기록이 서버에 보관됩니다. 입력한 내용은 기기에도 그대로 있어 인터넷이 없어도 핵심 기능이 동작합니다(아래 "차곡 추가 조항"의 도서 정보 조회는 예외). 차곡의 사진 인식처럼 기기 내에서 처리되는 기능도 처리가 전부 기기 안에서 끝나며, 사진이 기기 밖으로 전송되지 않습니다.
+주량체커는 사용자가 기록한 내용을 주고받는 서버가 없습니다. 차곡은 **계정을 연결하지 않으면** 마찬가지고, 연결하시면 2절에 적은 대로 기록이 서버에 보관됩니다. 입력한 내용은 기기에도 그대로 있어 인터넷이 없어도 핵심 기능이 동작합니다(아래 "차곡 추가 조항"의 도서 정보 조회는 예외). 차곡의 사진 인식처럼 기기 내에서 처리되는 기능도 처리가 전부 기기 안에서 끝나며, 사진이 기기 밖으로 전송되지 않습니다.
 
 다만 어떤 기능이 실제로 이용되는지 알기 위해 Google Firebase Analytics로 **익명 사용 통계**를 보냅니다. 앱이 직접 보내는 것은 해당 기능을 이용했다는 사실뿐입니다. **이 통계는 앱마다 다릅니다.** 차곡은 다음 아홉 가지를 보냅니다: 입금 완료(어디서 시작했는지·어느 통장인지·사진으로 확인됐는지·보상 종류) · 사진 판별 결과(성공/실패) · 판별 실패 뒤 손으로 채움 · 온보딩 완료(고른 통장 개수) · 통장 열기·숨기기 · 목표 설정·달성(기간만) · 알림 권한 허용/거부 · 명세서·등급·배지·통장 사본 화면 열람 · 저장 실패(어느 단계인지와 사유 코드만). 주량체커가 직접 보내는 항목은 다음 일곱 가지입니다: 한 잔을 기록함(앱에서인지 위젯에서인지만) · 위젯 설치 · 주량(한도) 설정(온보딩인지 설정인지만) · 한도 점검 카드 응답(적용/닫음) · 기록 되돌리기 · 알림 권한 허용/거부 · 저장 실패(어느 단계인지만).
 
@@ -37,11 +37,11 @@
 
 ### 5. 제3자 서비스
 
-두 앱 모두 3절의 사용 통계를 위해 Google Firebase Analytics를 씁니다. 차곡은 로그인과 클라우드 백업을 위해 **Firebase Authentication**(Apple·Google 로그인)과 **Cloud Firestore**(기록 보관)도 함께 쓰며, 이는 로그인하신 경우에만 동작합니다. 설정에서 고객 지원·이용약관·개인정보처리방침을 열면 이 문서를 보여 주기 위해 앱이 **GitHub Pages**(GitHub, Inc.)에서 페이지를 불러옵니다. 이때 일반적인 웹 페이지를 열 때처럼 IP 주소 같은 접속 정보가 GitHub에 전달될 수 있으며, 운영자는 이 정보를 받거나 보관하지 않습니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다. 앱이 사용하는 오픈소스 라이브러리 목록은 설정 > 오픈소스 라이선스에서 확인할 수 있습니다.
+두 앱 모두 3절의 사용 통계를 위해 Google Firebase Analytics를 씁니다. 차곡은 계정 연결과 서버 보관을 위해 **Firebase Authentication**(Apple·Google 계정 연결)과 **Cloud Firestore**(기록 보관)도 함께 쓰며, 이는 계정을 연결하신 경우에만 동작합니다. 설정에서 고객 지원·이용약관·개인정보처리방침을 열면 이 문서를 보여 주기 위해 앱이 **GitHub Pages**(GitHub, Inc.)에서 페이지를 불러옵니다. 이때 일반적인 웹 페이지를 열 때처럼 IP 주소 같은 접속 정보가 GitHub에 전달될 수 있으며, 운영자는 이 정보를 받거나 보관하지 않습니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다. 앱이 사용하는 오픈소스 라이브러리 목록은 설정 > 오픈소스 라이선스에서 확인할 수 있습니다.
 
 ### 6. 아동의 개인정보
 
-두 앱 모두 아동을 대상으로 하지 않으며, 아동을 겨냥한 기능이나 별도 수집은 없습니다. 3절의 사용 통계는 사용자와 연결되지 않는 익명 정보입니다. 차곡에서 로그인하시는 경우에 받는 것은 1절에 적은 계정 식별자와 이름·이메일뿐입니다.
+두 앱 모두 아동을 대상으로 하지 않으며, 아동을 겨냥한 기능이나 별도 수집은 없습니다. 3절의 사용 통계는 사용자와 연결되지 않는 익명 정보입니다. 차곡에서 계정을 연결하시는 경우에 받는 것은 1절에 적은 계정 식별자와 이름·이메일뿐입니다.
 
 ### 7. 변경 사항
 
@@ -64,25 +64,25 @@
 <a id="en"></a>
 ## English
 
-DrinkChecker does not collect your personal information, and what you record never leaves your device. The same is true of Chagok **if you do not sign in**. If you sign in to Chagok so your records follow you to a new device, your account identifier and records are kept on a server (sections 1 and 2). Both apps send anonymous usage statistics to help improve them (section 3).
+DrinkChecker does not collect your personal information, and what you record never leaves your device. The same is true of Chagok **if you do not connect an account**. If you connect an account to Chagok so your records follow you to a new device, your account identifier and records are kept on a server (sections 1 and 2). Both apps send anonymous usage statistics to help improve them (section 3).
 
 ### 1. Information we collect
 
 **DrinkChecker** has no account or login. It never requests or collects any personally identifying information — no name, email, or phone number — and does not create an identifier that could identify you (the analytics tool in section 3 assigns a random per-installation identifier that is not linked to your name or contact details).
 
-**Chagok** makes sign-in **optional**. Every feature works without signing in, and in that case, like DrinkChecker, it receives no personally identifying information. If you want your records to follow you to a new device, you can sign in with your Apple or Google account. **When you sign in**, the app receives the user identifier that account issues and, if the account provides them, your name and email address. These are used only to keep you signed in and to link your records to your account — never for advertising or analytics. Signing out removes this information from the device.
+**Chagok** makes connecting an account **optional**. Every feature works without it, and in that case, like DrinkChecker, it receives no personally identifying information. If you want your records to follow you to a new device, you can connect your Apple or Google account (this is not a sign-up — it only links a place to keep your records). **When you connect**, the app receives the user identifier that account issues and, if the account provides them, your name and email address. These are used only to keep the connection and to link your records to your account — never for advertising or analytics. Disconnecting removes this information from the device and the server.
 
 ### 2. How your data is stored
 
-Everything you enter in the app is stored on your own device. When the app exchanges data with its Home Screen widget, it uses only a private storage area on the same device. Deleting the app deletes this data too. DrinkChecker never sends this information to any server, and neither does Chagok if you do not sign in.
+Everything you enter in the app is stored on your own device. When the app exchanges data with its Home Screen widget, it uses only a private storage area on the same device. Deleting the app deletes this data too. DrinkChecker never sends this information to any server, and neither does Chagok if you do not connect an account.
 
-**If you sign in to Chagok**, your records (which account you logged to, what and when, and whether a photo confirmed the entry) are stored in Google Firebase's cloud database under your account, so they follow you to a new device. Only your own account can read or write them. **Photos you take when depositing are never uploaded** — they stay on the device, so on a new device you'll see a notice where the photo was. Signing out leaves your records on the server so you can pick up where you left off when you sign in again. To delete your account and server records completely, go to Settings > Account > Delete Account in Chagok — deletion is immediate and can't be undone, and records on your device stay.
+**If you connect an account to Chagok**, your records (which account you logged to, what and when — including the date a photo was taken if you deposited from your library — and whether a photo confirmed the entry) and **a random number identifying the currently connected device** (created when the app is installed; unrelated to your device model or advertising identifier) are stored in Google Firebase's cloud database under your account, so they follow you to a new device. Only your own account can read or write them. **Photos you take when depositing are never uploaded** — they stay on the device, so on a new device you'll see a notice where the photo was. An account connects to one device at a time; connecting the same account on another device automatically disconnects the old one (its records stay on it). To delete your account and server records, go to Settings > Connected Account > Disconnect in Chagok — deletion is immediate and can't be undone, and records on your device stay.
 
 If iCloud Backup is turned on, your device backup includes this app's data. That backup is made and encrypted by iOS under your own iCloud account — the app does not send anything itself, and the developer cannot access it. You can turn it off, or exclude this app from it, under Settings > [your name] > iCloud > iCloud Backup.
 
 ### 3. Network communication and usage statistics
 
-DrinkChecker has no server that exchanges what you record. Neither does Chagok **if you do not sign in**; if you sign in, your records are kept on a server as described in section 2. What you enter also stays on your device, so the core features work with no internet connection (the book information lookup in the "Chagok addendum" below is the exception). Where a feature does on-device processing — such as Chagok's photo recognition — that processing happens entirely on the device: photos are never sent off-device.
+DrinkChecker has no server that exchanges what you record. Neither does Chagok **if you do not connect an account**; if you do, your records are kept on a server as described in section 2. What you enter also stays on your device, so the core features work with no internet connection (the book information lookup in the "Chagok addendum" below is the exception). Where a feature does on-device processing — such as Chagok's photo recognition — that processing happens entirely on the device: photos are never sent off-device.
 
 To learn which features people actually use, the app does send **anonymous usage statistics** through Google Firebase Analytics. Each records only that a feature was used. **This differs by app.** Chagok sends these nine: deposit completed (where it started, which account, whether a photo confirmed it, reward kind) · photo check result (success/failure) · filled in by hand after a failed check · onboarding finished (how many accounts you chose) · account opened or hidden · goal set or reached (period only) · notification permission granted or denied · statement, tier, badge, or account-copy screen viewed · a save failed (only which step and a reason code). DrinkChecker itself sends these seven: a drink was logged (only whether from the app or the widget) · the widget was added · a drink limit was set (only whether during setup or from Settings) · the limit check-in card was answered (applied or dismissed) · an entry was undone · whether notification permission was granted or denied · a save failed (only which step).
 
@@ -96,11 +96,11 @@ This app only requests the minimum device permissions that specific service actu
 
 ### 5. Third-party services
 
-Both apps use Google Firebase Analytics for the usage statistics in section 3. For sign-in and cloud backup, Chagok also uses **Firebase Authentication** (Sign in with Apple and Google) and **Cloud Firestore** (to keep your records), which run only if you sign in. When you open Support, Terms of Service, or the Privacy Policy in Settings, the app loads these pages from **GitHub Pages** (GitHub, Inc.). As with opening any web page, connection details such as your IP address may reach GitHub; the operator does not receive or keep this information. Neither app includes advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records. The list of open-source libraries the app uses is available under Settings > Open Source Licenses.
+Both apps use Google Firebase Analytics for the usage statistics in section 3. To connect an account and keep your records, Chagok also uses **Firebase Authentication** (connecting an Apple or Google account) and **Cloud Firestore** (to keep your records), which run only if you connect an account. When you open Support, Terms of Service, or the Privacy Policy in Settings, the app loads these pages from **GitHub Pages** (GitHub, Inc.). As with opening any web page, connection details such as your IP address may reach GitHub; the operator does not receive or keep this information. Neither app includes advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records. The list of open-source libraries the app uses is available under Settings > Open Source Licenses.
 
 ### 6. Children's privacy
 
-Neither app is directed at children, and neither has child-directed features or collects anything separately from children. The usage statistics in section 3 are anonymous and not linked to any person. If you sign in to Chagok, the only things it receives are the account identifier and name and email described in section 1.
+Neither app is directed at children, and neither has child-directed features or collects anything separately from children. The usage statistics in section 3 are anonymous and not linked to any person. If you connect an account to Chagok, the only things it receives are the account identifier and name and email described in section 1.
 
 ### 7. Changes
 
