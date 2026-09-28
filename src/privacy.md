@@ -49,7 +49,7 @@
 
 ### 차곡(Chagok) 추가 조항 — 사진 인식 기능의 예외
 
-이 앱은 술·독서·영화·운동 기록을 돕는 사진 인식 기능이 있습니다. 사진 분석은 전부 기기 안에서 끝나며(Apple Intelligence 지원 기기는 기기 내 AI, 그 밖의 기기는 기기 내 글자 인식), 사진은 기기 밖으로 나가지 않습니다. 다만 "사진으로 인식하기"로 찍은 사진이 책 표지로 판단되면, 표지에서 읽어 낸 책 제목 텍스트(사진도 개인식별정보도 아님)만 저자 등 도서 정보를 찾기 위해 외부 도서 정보 제공처(Open Library)로 전송될 수 있습니다. 사진 인식을 쓰지 않고 직접 입력하면 이 조회 자체가 발생하지 않습니다.
+이 앱은 술·독서·영화·운동 기록을 돕는 사진 인식 기능이 있습니다. 사진 분석은 전부 기기 안에서 끝나며(Apple Intelligence 지원 기기는 기기 내 AI, 그 밖의 기기는 기기 내 글자 인식·이미지 분류), 사진은 기기 밖으로 나가지 않습니다. 다만 "사진으로 인식하기"로 찍은 사진이 책(표지 또는 뒷면)으로 판단되면, 표지에서 읽어 낸 책 제목 텍스트 또는 책 뒷면 바코드의 ISBN 번호(사진도 개인식별정보도 아님)만 저자 등 도서 정보를 찾기 위해 외부 도서 정보 제공처(Open Library)로 전송될 수 있습니다. 사진 인식을 쓰지 않고 직접 입력하면 이 조회 자체가 발생하지 않습니다.
 
 ### 운영자와 문의
 
@@ -108,7 +108,7 @@ Any change to this policy is published on this page right away. The app shows th
 
 ### Chagok addendum — photo-recognition exception
 
-This app has a photo-recognition feature that helps log drinks, books, movies, and workouts. Photo analysis always happens on the device (on-device AI on Apple Intelligence devices, on-device text recognition elsewhere), and no photo ever leaves the device. However, if a photo taken with "Fill from Photo" is judged to be a book cover, only the book title text read from the cover (not a photo, not personal data) may be sent to an external book database (Open Library) to look up details such as the author. Typing entries yourself instead means this lookup never happens.
+This app has a photo-recognition feature that helps log drinks, books, movies, and workouts. Photo analysis always happens on the device (on-device AI on Apple Intelligence devices, on-device text recognition and image classification elsewhere), and no photo ever leaves the device. However, if a photo taken with "Fill from Photo" is judged to be a book (its cover or back), only the book title text read from the cover, or the ISBN number from the barcode on the back (not a photo, not personal data), may be sent to an external book database (Open Library) to look up details such as the author. Typing entries yourself instead means this lookup never happens.
 
 ### Operator and contact
 
