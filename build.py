@@ -34,7 +34,7 @@ for src in sorted((ROOT/'src').glob('*.md')):
     title, body = render(src.read_text())
     dst = ROOT/'docs'/src.stem/'index.html'; dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(f'<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-                   f'<meta name="robots" content="noindex"><title>{html.escape(title)} — ihwa</title><style>{CSS}</style></head><body><main>\n{body}\n</main></body></html>\n')
+                   f'<meta name="robots" content="noindex"><title>{html.escape(title)}</title><style>{CSS}</style></head><body><main>\n{body}\n</main></body></html>\n')
     print('→', dst.relative_to(ROOT))
     # 앱 안 웹뷰용 언어별 페이지(docs/<이름>/ko/, /en/) — 한국어 절과 English 절을 떼어 한 언어만 보여 준다.
     # 원문 구조: <a id="ko"></a> ## 한국어 … --- <a id="en"></a> ## English …
@@ -47,7 +47,7 @@ for src in sorted((ROOT/'src').glob('*.md')):
         _, lbody = render(f'# {name}\n\n' + part)
         ldst = ROOT/'docs'/src.stem/lang/'index.html'; ldst.parent.mkdir(parents=True, exist_ok=True)
         ldst.write_text(f'<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-                        f'<meta name="robots" content="noindex"><title>{html.escape(name)} — ihwa</title><style>{CSS}</style></head><body><main>\n{lbody}\n</main></body></html>\n')
+                        f'<meta name="robots" content="noindex"><title>{html.escape(name)}</title><style>{CSS}</style></head><body><main>\n{lbody}\n</main></body></html>\n')
         print('→', ldst.relative_to(ROOT))
-(ROOT/'docs'/'index.html').write_text('<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>ihwa</title>'
-    f'<style>{CSS}</style></head><body><main><h1>ihwa</h1><p><a href="support/">고객 지원 · Support</a></p><p><a href="privacy/">개인정보처리방침 · Privacy Policy</a></p><p><a href="terms/">이용약관 · Terms of Service</a></p></main></body></html>\n')
+(ROOT/'docs'/'index.html').write_text('<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Jongin Lee</title>'
+    f'<style>{CSS}</style></head><body><main><h1>Jongin Lee</h1><p><a href="support/">고객 지원 · Support</a></p><p><a href="privacy/">개인정보처리방침 · Privacy Policy</a></p><p><a href="terms/">이용약관 · Terms of Service</a></p></main></body></html>\n')

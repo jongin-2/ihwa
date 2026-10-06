@@ -53,7 +53,7 @@
 
 ### 운영자와 문의
 
-운영: ihwa · 개인정보 보호책임자: 이종인
+운영자·개인정보 보호책임자: 이종인
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
@@ -112,7 +112,7 @@ This app has a photo-recognition feature that helps log drinks, books, movies, a
 
 ### Operator and contact
 
-Operated by ihwa · Privacy officer: Jongin Lee
+Operator and privacy officer: Jongin Lee
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
