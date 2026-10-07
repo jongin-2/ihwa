@@ -34,7 +34,7 @@
 | 앱 | 앱이 직접 보내는 항목 |
 |---|---|
 | **주량체커** (7가지) | 한 잔을 기록함(앱에서인지 위젯에서인지만) · 위젯 설치 · 주량(한도) 설정(온보딩인지 설정인지만) · 한도 점검 카드 응답(적용/닫음) · 기록 되돌리기 · 알림 권한 허용/거부 · 저장 실패(어느 단계인지만). |
-| **차곡** (9가지) | 기록 완료(어디서 시작했는지·어느 취미인지·사진으로 확인됐는지·포인트 종류) · 사진 판별 결과(성공/실패) · 판별 실패 뒤 손으로 채움 · 온보딩 완료(고른 취미 개수) · 취미 추가·숨기기 · 목표 설정·달성(기간만) · 알림 권한 허용/거부 · 기록 요약·배지·포인트 받는 법 화면 열람 · 저장 실패(어느 단계인지와 사유 코드만). |
+| **차곡** (9가지) | 기록 완료(어디서 시작했는지·어느 취미인지·사진으로 확인됐는지·차곡 종류) · 사진 판별 결과(성공/실패) · 판별 실패 뒤 손으로 채움 · 온보딩 완료(고른 취미 개수) · 취미 추가·숨기기 · 목표 설정·달성(기간만) · 알림 권한 허용/거부 · 기록 요약·배지·차곡(CGK) 쌓는 법 화면 열람 · 저장 실패(어느 단계인지와 사유 코드만). |
 
 이와 별도로 두 앱 모두 Firebase Analytics가 통계 도구로서 다음을 자동으로 기록합니다: 앱 설치마다 무작위로 정해지는 식별자(이름·연락처·광고 식별자와 연결되지 않음), 앱을 연 횟수·사용 시간 같은 기본 사용 정보, 기기 종류·OS 버전·앱 버전, IP 주소로 추정한 대략적인 지역(국가·도시 수준 — Google이 IP 주소 일부를 가린 뒤 추정합니다).
 
@@ -102,7 +102,7 @@ To learn which features people actually use, the apps do send **anonymous usage 
 | App | What the app itself sends |
 |---|---|
 | **DrinkChecker** (seven) | a drink was logged (only whether from the app or the widget) · the widget was added · a drink limit was set (only whether during setup or from Settings) · the limit check-in card was answered (applied or dismissed) · an entry was undone · whether notification permission was granted or denied · a save failed (only which step). |
-| **Chagok** (nine) | record logged (where it started, which hobby, whether a photo confirmed it, points kind) · photo check result (success/failure) · filled in by hand after a failed check · onboarding finished (how many hobbies you chose) · hobby added or hidden · goal set or reached (period only) · notification permission granted or denied · summary, badge, or how-points-work screen viewed · a save failed (only which step and a reason code). |
+| **Chagok** (nine) | record logged (where it started, which hobby, whether a photo confirmed it, CGK kind) · photo check result (success/failure) · filled in by hand after a failed check · onboarding finished (how many hobbies you chose) · hobby added or hidden · goal set or reached (period only) · notification permission granted or denied · summary, badge, or how-CGK-works screen viewed · a save failed (only which step and a reason code). |
 
 Separately, in both apps, Firebase Analytics as an analytics tool automatically records: a random identifier created for each installation of the app (not linked to your name, contact details, or advertising identifier), basic usage such as how often and how long the app is opened, your device model, OS version and app version, and an approximate region derived from your IP address (country or city level — Google masks part of the IP address before estimating it).
 

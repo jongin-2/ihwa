@@ -13,7 +13,7 @@
 
 **주량체커:** 개인 음주량을 기록해 사용자가 정한 한도와 비교해 보여 주고 홈 화면 위젯으로 빠르게 기록할 수 있게 돕습니다.
 
-**차곡(Chagok):** 독서·음악·술·운동·영화 등 취미 활동을 기록하면 포인트가 쌓이는 방식으로 기록합니다.
+**차곡(Chagok):** 독서·음악·술·운동·영화 등 취미 활동을 기록하면 차곡(CGK)이 쌓이는 방식으로 기록합니다.
 
 ### 2. 데이터 손실에 대한 책임
 
@@ -56,7 +56,7 @@ The apps are free, personal-use apps that help you manage information you set an
 
 **DrinkChecker:** logs your drinks against a limit you set and lets you log quickly from a home-screen widget.
 
-**Chagok (차곡):** logs hobby activities (reading, music, drinking, exercise, movies, and more) and adds up points for each record.
+**Chagok (차곡):** logs hobby activities (reading, music, drinking, exercise, movies, and more) and adds up CGK for each record.
 
 ### 2. Data loss
 

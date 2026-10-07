@@ -47,19 +47,19 @@
 
 **Q. 사진으로 인식하기가 안 돼요.**
 
-사진 인식은 14가지 취미 모두에서 쓸 수 있습니다 — 책 표지·영화표·탑승권·공연 티켓·술 라벨처럼 글자가 있으면 더 정확합니다. 글자가 선명하게 보이도록 밝은 곳에서 가까이 찍어 주세요. 인식하지 못하면 **"다시 찍기"·"이 사진으로 계속"·"사진 없이 진행"** 중에서 고를 수 있고, 다시 찍어 인식되면 포인트를 더 받습니다. 사진 분석은 기기 안에서만 이뤄지고, 기록할 때 쓴 사진은 기기 안에만 사본으로 남아 기록에서 다시 볼 수 있습니다(서버로는 보내지 않습니다).
+사진 인식은 14가지 취미 모두에서 쓸 수 있습니다 — 책 표지·영화표·탑승권·공연 티켓·술 라벨처럼 글자가 있으면 더 정확합니다. 글자가 선명하게 보이도록 밝은 곳에서 가까이 찍어 주세요. 인식하지 못하면 **"다시 찍기"·"이 사진으로 계속"·"사진 없이 진행"** 중에서 고를 수 있고, 다시 찍어 인식되면 차곡이 더 쌓입니다. 사진 분석은 기기 안에서만 이뤄지고, 기록할 때 쓴 사진은 기기 안에만 사본으로 남아 기록에서 다시 볼 수 있습니다(서버로는 보내지 않습니다).
 
 **Q. 카메라 권한을 꺼도 쓸 수 있나요?**
 
 네. "직접 입력"으로 모든 취미에 기록할 수 있습니다. 다시 사진으로 기록하려면 기기 설정 > 차곡 > 카메라를 켜 주세요.
 
-**Q. 기록했는데 포인트가 늘지 않았어요(+0P).**
+**Q. 기록했는데 차곡(CGK)이 늘지 않았어요(+0 CGK).**
 
-기록은 횟수 제한 없이 남지만, 포인트는 규칙에 따라 받습니다. 같은 날 같은 것을 다시 기록했거나 그날 그 취미에서 포인트를 받을 수 있는 횟수를 다 채우셨다면 기록은 남지만 0P예요. 기기 시간이 맞지 않거나 기록이 확인되지 않아도 0P이고, 이 두 가지는 기록 화면과 기록 상세에 한 줄로 알려드립니다.
+기록은 횟수 제한 없이 남지만, 차곡(CGK)은 규칙에 따라 쌓입니다. 같은 날 같은 것을 다시 기록했거나 그날 그 취미에서 차곡이 쌓이는 횟수를 다 채우셨다면 기록은 남지만 0 CGK예요. 기기 시간이 맞지 않거나 기록이 확인되지 않아도 0 CGK이고, 이 두 가지는 기록 화면과 기록 상세에 한 줄로 알려드립니다.
 
-**Q. 포인트는 어떻게 정해지나요?**
+**Q. 차곡(CGK)은 어떻게 정해지나요?**
 
-두 가지로 정해집니다 — **사진으로 확인했는지**와 **그 취미에서 처음 기록하는 것인지**. 직접 적은, 전에 기록한 것이 가장 적고 처음일수록·사진일수록 더 받습니다. 취미마다 기본 포인트가 달라(여행처럼 큰 경험일수록 많이) 실제 포인트도 취미별로 다릅니다. 앱의 취미 탭 ⓘ "포인트 받는 법"에서 표로 볼 수 있습니다.
+두 가지로 정해집니다 — **사진으로 확인했는지**와 **그 취미에서 처음 기록하는 것인지**. 직접 적은, 전에 기록한 것이 가장 적고 처음일수록·사진일수록 더 받습니다. 취미마다 기본 차곡이 달라(여행처럼 큰 경험일수록 많이) 실제 차곡도 취미별로 다릅니다. 앱의 취미 탭 ⓘ "차곡(CGK) 쌓는 법"에서 표로 볼 수 있습니다.
 
 **Q. 알림이 오지 않아요.**
 
@@ -71,7 +71,7 @@
 
 **Q. 기록을 지우거나 취미를 숨기고 싶어요.**
 
-취미 화면에서 기록을 누르면 삭제할 수 있습니다(등록한 기록은 고칠 수 없습니다). 취미는 취미 화면 오른쪽 위 ⋯에서 숨길 수 있고, 기록과 포인트는 그대로 남아 취미 탭에서 언제든 다시 표시할 수 있습니다. 앱 안에는 되돌리기가 없어 지운 기록은 복구할 수 없습니다.
+취미 화면에서 기록을 누르면 삭제할 수 있습니다(등록한 기록은 고칠 수 없습니다). 취미는 취미 화면 오른쪽 위 ⋯에서 숨길 수 있고, 기록과 차곡은 그대로 남아 취미 탭에서 언제든 다시 표시할 수 있습니다. 앱 안에는 되돌리기가 없어 지운 기록은 복구할 수 없습니다.
 
 **Q. 차곡 계정과 서버 기록을 지우고 싶어요.**
 
@@ -134,19 +134,19 @@ Go to Settings > Delete All Records in the app. Your limit and settings stay as 
 
 **Q. Fill from Photo doesn't recognize my photo.**
 
-Photo recognition works for all 14 hobbies — it's most accurate when there's text, like a book cover, movie ticket, boarding pass, show ticket, or bottle label. Take the photo up close in good light so the text is sharp. If it can't recognize the photo, you can choose **Retake**, **Continue with This Photo**, or **Continue Without Photo**; retaking and getting a match earns more points. Photos are analyzed only on your device, and the photo you used is kept only on your device so you can see it in the record later (it is never uploaded).
+Photo recognition works for all 14 hobbies — it's most accurate when there's text, like a book cover, movie ticket, boarding pass, show ticket, or bottle label. Take the photo up close in good light so the text is sharp. If it can't recognize the photo, you can choose **Retake**, **Continue with This Photo**, or **Continue Without Photo**; retaking and getting a match earns more CGK. Photos are analyzed only on your device, and the photo you used is kept only on your device so you can see it in the record later (it is never uploaded).
 
 **Q. Can I use the app with camera access turned off?**
 
 Yes. You can log any hobby with Type In. To record with photos again, turn on Camera in your device's Settings > Chagok.
 
-**Q. I logged something but my points didn't go up (+0 pts).**
+**Q. I logged something but my CGK didn't go up (+0 CGK).**
 
-Records are unlimited, but points follow the rules. Logging the same thing again on the same day, or using up that hobby's points for the day, keeps the record but earns 0 pts. You also get 0 pts if your device clock looks off or the record couldn't be verified — those two are explained in one line on the logging screen and in the record details.
+Records are unlimited, but CGK follows the rules. Logging the same thing again on the same day, or using up that hobby's CGK for the day, keeps the record but earns 0 CGK. You also get 0 CGK if your device clock looks off or the record couldn't be verified — those two are explained in one line on the logging screen and in the record details.
 
-**Q. How are points decided?**
+**Q. How is CGK decided?**
 
-Two things decide it — **whether the record was confirmed by a photo** and **whether it's the first time you've logged it in that hobby**. Typing in something you've logged before earns the least; first-time and photo-confirmed records earn more. Each hobby also has its own base points (bigger experiences earn more), so the actual numbers differ by hobby. Tap ⓘ on the Hobbies tab to see the table.
+Two things decide it — **whether the record was confirmed by a photo** and **whether it's the first time you've logged it in that hobby**. Typing in something you've logged before earns the least; first-time and photo-confirmed records earn more. Each hobby also has its own base CGK (bigger experiences earn more), so the actual numbers differ by hobby. Tap ⓘ on the Hobbies tab to see the table.
 
 **Q. I'm not getting reminders.**
 
@@ -158,7 +158,7 @@ Say "Quick log in Chagok" or "Log Reading in Chagok" and Chagok opens to the cam
 
 **Q. I want to delete a record or hide a hobby.**
 
-Tap a record on a hobby's screen to delete it (records can't be edited once saved). You can hide a hobby from ⋯ at the top right of its screen; its records and points stay, and you can show it again anytime from the Hobbies tab. The app has no undo, so deleted records can't be restored.
+Tap a record on a hobby's screen to delete it (records can't be edited once saved). You can hide a hobby from ⋯ at the top right of its screen; its records and CGK stay, and you can show it again anytime from the Hobbies tab. The app has no undo, so deleted records can't be restored.
 
 **Q. I want to delete my Chagok account and server records.**
 
