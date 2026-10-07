@@ -21,7 +21,7 @@
 
 앱에서 입력하는 모든 정보는 사용자의 기기 안에 저장됩니다. 홈 화면 위젯과 데이터를 주고받을 때도 같은 기기 안의 앱 전용 공유 공간만 씁니다. 앱을 삭제하면 이 데이터도 함께 삭제됩니다. 계정을 연결하지 않는 한 앱은 이 정보를 외부 서버로 보내는 일이 없습니다.
 
-**차곡에서 계정을 연결하시면**, 기록(어느 통장에 무엇을 언제 기록했는지 — 앨범 사진으로 입금했으면 사진을 찍은 날짜 포함, 사진으로 확인된 기록인지)과 **지금 연결된 기기를 가리는 임의 번호**(앱을 설치할 때 만드는 번호로, 기기 모델·광고 식별자와 무관합니다)가 Google Firebase의 클라우드 데이터베이스에 사용자 계정별로 저장됩니다. 기기를 바꿔도 기록이 이어지게 하기 위한 것이며, 본인 계정으로만 읽고 쓸 수 있습니다. **입금할 때 쓴 사진은 올리지 않습니다** — 사진은 기기에만 남으므로 기기를 바꾸면 사진 자리에 안내만 나옵니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 예전 기기의 연결은 자동으로 해제됩니다(예전 기기의 기록은 그 기기에 남습니다). 계정과 서버의 기록을 지우려면 차곡 앱의 설정 > 계정 연결 > 연결 해제를 누르세요 — 즉시 지워지며 되돌릴 수 없고, 기기에 있는 기록은 그대로 남습니다.
+**차곡에서 계정을 연결하시면**, 기록(어느 취미에 무엇을 언제 기록했는지 — 앨범 사진으로 기록했으면 사진을 찍은 날짜 포함, 사진으로 확인된 기록인지)과 **지금 연결된 기기를 가리는 임의 번호**(앱을 설치할 때 만드는 번호로, 기기 모델·광고 식별자와 무관합니다)가 Google Firebase의 클라우드 데이터베이스에 사용자 계정별로 저장됩니다. 기기를 바꿔도 기록이 이어지게 하기 위한 것이며, 본인 계정으로만 읽고 쓸 수 있습니다. **입금할 때 쓴 사진은 올리지 않습니다** — 사진은 기기에만 남으므로 기기를 바꾸면 사진 자리에 안내만 나옵니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 예전 기기의 연결은 자동으로 해제됩니다(예전 기기의 기록은 그 기기에 남습니다). 계정과 서버의 기록을 지우려면 차곡 앱의 설정 > 계정 연결 > 연결 해제를 누르세요 — 즉시 지워지며 되돌릴 수 없고, 기기에 있는 기록은 그대로 남습니다.
 
 다만 기기에서 iCloud 백업을 켜 두었다면, iOS가 기기를 백업할 때 이 앱의 데이터도 함께 백업됩니다. 이는 iOS가 사용자 본인의 iCloud 계정으로 암호화해 보관하는 것이고 앱이 따로 전송하는 것이 아니며, 개발자는 그 백업에 접근할 수 없습니다. 원하지 않으면 기기 설정 > 사용자 이름 > iCloud > iCloud 백업에서 백업을 끄거나 이 앱을 백업 대상에서 제외할 수 있습니다.
 
@@ -34,7 +34,7 @@
 | 앱 | 앱이 직접 보내는 항목 |
 |---|---|
 | **주량체커** (7가지) | 한 잔을 기록함(앱에서인지 위젯에서인지만) · 위젯 설치 · 주량(한도) 설정(온보딩인지 설정인지만) · 한도 점검 카드 응답(적용/닫음) · 기록 되돌리기 · 알림 권한 허용/거부 · 저장 실패(어느 단계인지만). |
-| **차곡** (9가지) | 입금 완료(어디서 시작했는지·어느 통장인지·사진으로 확인됐는지·보상 종류) · 사진 판별 결과(성공/실패) · 판별 실패 뒤 손으로 채움 · 온보딩 완료(고른 통장 개수) · 통장 열기·숨기기 · 목표 설정·달성(기간만) · 알림 권한 허용/거부 · 명세서·등급·배지·통장 사본 화면 열람 · 저장 실패(어느 단계인지와 사유 코드만). |
+| **차곡** (9가지) | 기록 완료(어디서 시작했는지·어느 취미인지·사진으로 확인됐는지·포인트 종류) · 사진 판별 결과(성공/실패) · 판별 실패 뒤 손으로 채움 · 온보딩 완료(고른 취미 개수) · 취미 추가·숨기기 · 목표 설정·달성(기간만) · 알림 권한 허용/거부 · 기록 요약·배지·포인트 받는 법 화면 열람 · 저장 실패(어느 단계인지와 사유 코드만). |
 
 이와 별도로 두 앱 모두 Firebase Analytics가 통계 도구로서 다음을 자동으로 기록합니다: 앱 설치마다 무작위로 정해지는 식별자(이름·연락처·광고 식별자와 연결되지 않음), 앱을 연 횟수·사용 시간 같은 기본 사용 정보, 기기 종류·OS 버전·앱 버전, IP 주소로 추정한 대략적인 지역(국가·도시 수준 — Google이 IP 주소 일부를 가린 뒤 추정합니다).
 
@@ -42,7 +42,7 @@
 
 ### 4. 기기 권한
 
-앱이 요청하는 기기 권한은 그 서비스가 실제로 필요로 하는 최소한으로 제한됩니다 — 예를 들어 주량체커는 음주량이 한도를 넘을 때 알려주기 위해 **알림** 권한을, 차곡은 술·독서·영화·운동 기록을 사진으로 자동 인식하기 위해 **카메라**(앨범에서 사진을 고르는 경우에는 사진 보관함) 권한을, 입금하지 않은 날 저녁에 한 번 알려드리기 위해 **알림** 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 어떤 권한을 왜 쓰는지는 이 방침과 앱 화면에서 안내됩니다(예: 주량체커는 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끔). 모든 권한은 언제든 기기 설정에서 끌 수 있고, 꺼도 앱의 핵심 기능에는 영향이 없습니다(카메라 권한을 끄면 차곡의 사진 인식만 못 쓰고 직접 입력은 그대로 됩니다).
+앱이 요청하는 기기 권한은 그 서비스가 실제로 필요로 하는 최소한으로 제한됩니다 — 예를 들어 주량체커는 음주량이 한도를 넘을 때 알려주기 위해 **알림** 권한을, 차곡은 술·독서·영화·운동 기록을 사진으로 자동 인식하기 위해 **카메라**(앨범에서 사진을 고르는 경우에는 사진 보관함) 권한을, 기록하지 않은 날 저녁에 한 번 알려드리기 위해 **알림** 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 어떤 권한을 왜 쓰는지는 이 방침과 앱 화면에서 안내됩니다(예: 주량체커는 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끔). 모든 권한은 언제든 기기 설정에서 끌 수 있고, 꺼도 앱의 핵심 기능에는 영향이 없습니다(카메라 권한을 끄면 차곡의 사진 인식만 못 쓰고 직접 입력은 그대로 됩니다).
 
 ### 5. 제3자 서비스
 
@@ -89,7 +89,7 @@ Unless you connect an account, the apps never request or collect any personally 
 
 Everything you enter in the app is stored on your own device. When the app exchanges data with its Home Screen widget, it uses only a private storage area on the same device. Deleting the app deletes this data too. Unless you connect an account, the apps never send this information to any server.
 
-**If you connect an account to Chagok**, your records (which account you logged to, what and when — including the date a photo was taken if you deposited from your library — and whether a photo confirmed the entry) and **a random number identifying the currently connected device** (created when the app is installed; unrelated to your device model or advertising identifier) are stored in Google Firebase's cloud database under your account, so they follow you to a new device. Only your own account can read or write them. **Photos you take when depositing are never uploaded** — they stay on the device, so on a new device you'll see a notice where the photo was. An account connects to one device at a time; connecting the same account on another device automatically disconnects the old one (its records stay on it). To delete your account and server records, go to Settings > Connected Account > Disconnect in Chagok — deletion is immediate and can't be undone, and records on your device stay.
+**If you connect an account to Chagok**, your records (which hobby you logged to, what and when — including the date a photo was taken if you logged from your library — and whether a photo confirmed the entry) and **a random number identifying the currently connected device** (created when the app is installed; unrelated to your device model or advertising identifier) are stored in Google Firebase's cloud database under your account, so they follow you to a new device. Only your own account can read or write them. **Photos you take when depositing are never uploaded** — they stay on the device, so on a new device you'll see a notice where the photo was. An account connects to one device at a time; connecting the same account on another device automatically disconnects the old one (its records stay on it). To delete your account and server records, go to Settings > Connected Account > Disconnect in Chagok — deletion is immediate and can't be undone, and records on your device stay.
 
 If iCloud Backup is turned on, your device backup includes this app's data. That backup is made and encrypted by iOS under your own iCloud account — the app does not send anything itself, and the developer cannot access it. You can turn it off, or exclude this app from it, under Settings > [your name] > iCloud > iCloud Backup.
 
@@ -102,7 +102,7 @@ To learn which features people actually use, the apps do send **anonymous usage 
 | App | What the app itself sends |
 |---|---|
 | **DrinkChecker** (seven) | a drink was logged (only whether from the app or the widget) · the widget was added · a drink limit was set (only whether during setup or from Settings) · the limit check-in card was answered (applied or dismissed) · an entry was undone · whether notification permission was granted or denied · a save failed (only which step). |
-| **Chagok** (nine) | deposit completed (where it started, which account, whether a photo confirmed it, reward kind) · photo check result (success/failure) · filled in by hand after a failed check · onboarding finished (how many accounts you chose) · account opened or hidden · goal set or reached (period only) · notification permission granted or denied · statement, tier, badge, or account-copy screen viewed · a save failed (only which step and a reason code). |
+| **Chagok** (nine) | record logged (where it started, which hobby, whether a photo confirmed it, points kind) · photo check result (success/failure) · filled in by hand after a failed check · onboarding finished (how many hobbies you chose) · hobby added or hidden · goal set or reached (period only) · notification permission granted or denied · summary, badge, or how-points-work screen viewed · a save failed (only which step and a reason code). |
 
 Separately, in both apps, Firebase Analytics as an analytics tool automatically records: a random identifier created for each installation of the app (not linked to your name, contact details, or advertising identifier), basic usage such as how often and how long the app is opened, your device model, OS version and app version, and an approximate region derived from your IP address (country or city level — Google masks part of the IP address before estimating it).
 
