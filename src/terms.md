@@ -50,7 +50,7 @@
 
 **Applies to: DrinkChecker**
 
-The app is a free, personal-use app that help you manage information you set and record yourself. {{OPERATED_SENTENCE}}
+The app is a free, personal-use app that helps you manage information you set and record yourself. {{OPERATED_SENTENCE}}
 
 DrinkChecker logs your drinks against a limit you set and lets you log quickly from a home-screen widget.
 
