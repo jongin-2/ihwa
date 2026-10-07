@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """src/*.md → docs/<이름>/index.html (GitHub Pages). 외부 라이브러리 없이 필요한 문법만 바꾼다:
-제목(#·##·###), 문단, **굵게**, [글](주소), 가로줄(---), 그대로 둔 <a id>."""
+제목(#·##·###), 문단, **굵게**, [글](주소), 가로줄(---), 그대로 둔 <a id>, 표(| 칸 | — 2026-10-07 앱별 차이를 본문 중간에 표로 적기 위해 추가)."""
 import re, pathlib, html
 ROOT = pathlib.Path(__file__).parent
 
 # 사용자에게 보이는 운영자 표기 — 여기 한 곳에서만 바꾼다(src/*.md에는 {{키}}로 들어 있다).
 # 2026-10-06 종인님: "아직 사업자를 낸 게 아니니 사용자에게 보이는 건 본명", "나중에 ihwa로 바꿀 거 고려해서
 # 지금 노출되는 부분만 이종인으로". 사업자를 내면 아래를 ihwa 쪽 값으로 바꾸고 build.py → 푸시(앱 새 빌드 불필요).
-# 함께 바꿀 곳(이 저장소 밖): App Store Connect 저작권(두 앱, 지금 "© 2026 Jongin Lee").
+# 함께 바꿀 곳(이 저장소 밖): App Store Connect 저작권(주량체커·차곡, 지금 "© 2026 Jongin Lee").
 OPERATOR = {
-    '운영_문장': '두 앱 모두 이종인이 운영하며, 개인정보 보호책임자도 겸합니다.',  # ihwa 때: 두 앱 모두 ihwa가 운영합니다(개인정보 보호책임자: 이종인).
-    'OPERATED_SENTENCE': 'Both apps are operated by Jongin Lee, who is also the privacy officer.',  # ihwa 때: Both apps are operated by ihwa (privacy officer: Jongin Lee).
+    '운영_문장': '이종인이 운영하며, 개인정보 보호책임자도 겸합니다.',  # ihwa 때: ihwa가 운영합니다(개인정보 보호책임자: 이종인). 차곡 출시 때 '두 앱 모두 …'로(pending/chagok/README.md)
+    'OPERATED_SENTENCE': 'The app is operated by Jongin Lee, who is also the privacy officer.',  # ihwa 때: The app is operated by ihwa (privacy officer: Jongin Lee). 차곡 출시 때 'Both apps are …'로
     '운영_줄': '운영자·개인정보 보호책임자: 이종인',  # ihwa 때: 운영: ihwa · 개인정보 보호책임자: 이종인
     'OPERATOR_LINE': 'Operator and privacy officer: Jongin Lee',  # ihwa 때: Operated by ihwa · Privacy officer: Jongin Lee
 }
@@ -24,12 +24,20 @@ CSS = """:root{--bg:#fff;--fg:#1c1c1e;--sub:#6e6e73;--line:#e5e5ea;--link:#0a7c3
 @media (prefers-color-scheme:dark){:root{--bg:#000;--fg:#f2f2f7;--sub:#98989d;--line:#2c2c2e;--link:#4cd07d}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
 main{max-width:720px;margin:0 auto;padding:32px 16px 64px}h1{font-size:1.6rem;line-height:1.3;margin:0 0 8px}h2{font-size:1.3rem;margin:40px 0 8px}h3{font-size:1.05rem;margin:28px 0 4px}
-p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);margin:40px 0}.lang{color:var(--sub)}"""
+p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);margin:40px 0}.lang{color:var(--sub)}
+.tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{color:var(--sub);font-weight:600}"""
 def inline(t):
     t = html.escape(t, quote=False).replace('&lt;a id=', '<a id=').replace('&gt;&lt;/a&gt;', '></a>')
     t = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', t)
     t = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', t)
     return t
+def table(b):
+    """| 머리 | 머리 |\n|---|---|\n| 칸 | 칸 | → <table>. 둘째 줄(구분선)은 건너뛴다."""
+    rows = [[c.strip() for c in l.strip().strip('|').split('|')] for l in b.split('\n')]
+    head, body = rows[0], [r for r in rows[2:]]
+    th = ''.join(f'<th>{inline(c)}</th>' for c in head)
+    tr = ''.join('<tr>' + ''.join(f'<td>{inline(c)}</td>' for c in r) + '</tr>' for r in body)
+    return f'<div class="tbl"><table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
 def render(md):
     out, title = [], ''
     blocks = []
@@ -45,6 +53,7 @@ def render(md):
         elif b == '---': out.append('<hr>')
         elif b.startswith('<a id='): out.append(b)
         elif b.startswith('[한국어]'): out.append(f'<p class="lang">{inline(b)}</p>')
+        elif all(l.startswith('|') for l in b.split('\n')): out.append(table(b))
         else: out.append(f'<p>{inline(b)}</p>')
     return title, '\n'.join(out)
 for src in sorted((ROOT/'src').glob('*.md')):

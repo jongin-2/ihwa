@@ -7,15 +7,17 @@
 
 ### 1. 서비스 소개
 
-**적용 앱: 주량체커**
+**적용 앱: 주량체커 · 차곡**
 
 앱은 사용자가 스스로 설정·기록한 정보를 관리할 수 있도록 돕는 무료 개인용 앱입니다. {{운영_문장}}
 
-주량체커는 개인 음주량을 기록해 사용자가 정한 한도와 비교해 보여 주고 홈 화면 위젯으로 빠르게 기록할 수 있게 돕습니다.
+**주량체커:** 개인 음주량을 기록해 사용자가 정한 한도와 비교해 보여 주고 홈 화면 위젯으로 빠르게 기록할 수 있게 돕습니다.
+
+**차곡(Chagok):** 독서·음악·술·운동·영화 등 취미 활동을 은행 통장·잔액 형식으로 기록합니다.
 
 ### 2. 데이터 손실에 대한 책임
 
-사용자가 기록한 내용은 기기에 저장됩니다(자세한 수집 범위는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/) 참고). 기기 분실·초기화·앱 삭제 또는 앱 안에서 기록을 삭제하면(예: 주량체커 설정의 "모든 기록 삭제") 데이터가 복구 불가능하게 손실될 수 있습니다. 데이터 손실에 대해 운영자는 책임지지 않습니다.
+사용자가 기록한 내용은 기기에 저장됩니다(자세한 수집 범위는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/) 참고). 다만 **차곡에서 Apple 또는 Google 계정을 연결하시면** 기록이 해당 계정으로 서버에도 보관되어, 기기를 바꿔도 새 기기에서 같은 계정을 연결하면 기록을 복원할 수 있습니다(한 계정은 한 기기에만 연결되며, 입금할 때 쓴 사진은 서버에 올리지 않으므로 옮겨지지 않습니다). 계정 연결을 해제하면 서버에 보관된 기록은 지워지고 기기에만 남습니다. 계정을 연결하지 않으셨거나 주량체커를 쓰시는 경우, 기기 분실·초기화·앱 삭제 또는 앱 안에서 기록을 삭제하면(예: 주량체커 설정의 "모든 기록 삭제") 데이터가 복구 불가능하게 손실될 수 있습니다. 어느 경우든 데이터 손실에 대해 운영자는 책임지지 않습니다.
 
 ### 3. 보증의 부인
 
@@ -48,15 +50,17 @@
 
 ### 1. About the service
 
-**Applies to: DrinkChecker**
+**Applies to: DrinkChecker · Chagok**
 
-The app is a free, personal-use app that help you manage information you set and record yourself. {{OPERATED_SENTENCE}}
+The apps are free, personal-use apps that help you manage information you set and record yourself. {{OPERATED_SENTENCE}}
 
-DrinkChecker logs your drinks against a limit you set and lets you log quickly from a home-screen widget.
+**DrinkChecker:** logs your drinks against a limit you set and lets you log quickly from a home-screen widget.
+
+**Chagok (차곡):** logs hobby activities (reading, music, drinking, exercise, movies, and more) as balances in a bank-style account for each category.
 
 ### 2. Data loss
 
-The records you create are stored on your device (see the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/) for what is collected). Losing or resetting your device, deleting the app, or deleting records in the app (such as "Delete All Records" in DrinkChecker's Settings) can permanently delete your data. The operator is not responsible for data loss.
+The records you create are stored on your device (see the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/) for what is collected). **If you connect an Apple or Google account to Chagok**, your records are also kept on a server under that account, so connecting the same account on a new device restores them (an account connects to one device at a time, and photos used for deposits are never uploaded and do not carry over). Disconnecting the account deletes the records kept on the server; they stay only on your device. If you have not connected an account, or you are using DrinkChecker, losing or resetting your device, deleting the app, or deleting records in the app (such as "Delete All Records" in DrinkChecker's Settings) can permanently delete your data. In either case the operator is not responsible for data loss.
 
 ### 3. Disclaimer of warranties
 
