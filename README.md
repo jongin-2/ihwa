@@ -7,4 +7,10 @@
 - 이용약관: https://jongin-2.github.io/ihwa/terms/
 - 앱 안에서 여는 언어별 주소: `…/<support|privacy|terms>/ko/`, `…/en/`(build.py가 `## 한국어`·`## English` 절을 떼어 만든다)
 
+## 방침·약관을 고칠 때 — 이전 판을 반드시 남긴다(2026-10-10 종인님)
+1. 고치기 **전에** 지금 `src/<privacy|terms>.md`를 `src/archive/<privacy|terms>/<그 판의 최종 수정일>.md`로 그대로 복사한다.
+2. `src/…md`를 고치고 최종 수정일을 바꾼다.
+3. `python3 build.py` → 커밋·푸시. 현재 판 끝에 '이전 버전 / Previous versions' 목록이, 보관 판(`/<문서>/archive/<날짜>/`, `/ko/`·`/en/`) 위에는 "이 문서는 <날짜> 판입니다 · 현재 버전 보기"가 자동으로 붙는다.
+- 보관 판은 지우거나 고치지 않는다(당시 사용자에게 보인 문서 그대로). 주량체커 방침 첫 보관: 2026-09-28 판(10-10 계정 연결 개정 직전).
+
 원문은 `src/*.md`, `python3 build.py`로 `docs/`를 만든다(GitHub Pages가 `docs/`를 게시). 고치면 `python3 build.py` 후 커밋·푸시만 하면 두 앱에 바로 반영된다(Notion 사본은 폐기).
