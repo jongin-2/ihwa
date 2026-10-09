@@ -22,7 +22,7 @@
 계정을 연결하면 기록(술 종류·양·날짜·시각·한도)과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
 
 - **국외 이전 고지**: 계정 정보(계정 식별자·이메일·이름)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
-- **삭제**: 설정 > 계정 > 연결 해제를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 폰의 기록은 그대로 남습니다. 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제되고(서버 기록은 유지), 그 기기의 기록도 그대로 남습니다.
+- **삭제**: 설정 맨 위 '연결된 계정' 아래의 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 폰의 기록은 그대로 남습니다. 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제되고(서버 기록은 유지), 그 기기의 기록도 그대로 남습니다.
 
 다만 기기에서 iCloud 백업을 켜 두었다면, iOS가 기기를 백업할 때 이 앱의 데이터도 함께 백업됩니다. 이는 iOS가 사용자 본인의 iCloud 계정으로 암호화해 보관하는 것이고 앱이 따로 전송하는 것이 아니며, 개발자는 그 백업에 접근할 수 없습니다. 원하지 않으면 기기 설정 > 사용자 이름 > iCloud > iCloud 백업에서 백업을 끄거나 이 앱을 백업 대상에서 제외할 수 있습니다.
 
@@ -84,7 +84,7 @@ Everything you enter in the app is stored on your own device. When the app excha
 If you connect an account, your records (drink type, amount, date and time, and limit) and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new phone. Only your own account can read or write that space.
 
 - **International transfer**: your account details (account identifier, email, name) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
-- **Deletion**: tapping Settings > Account > Disconnect deletes your records and account from the server immediately. The records on your phone stay. If you connect the same account on another device, the earlier device is disconnected (the server copy stays) and keeps its records too.
+- **Deletion**: tapping Disconnect under Connected Account at the top of Settings deletes your records and account from the server immediately. The records on your phone stay. If you connect the same account on another device, the earlier device is disconnected (the server copy stays) and keeps its records too.
 
 If iCloud Backup is turned on, your device backup includes this app's data. That backup is made and encrypted by iOS under your own iCloud account — the app does not send anything itself, and the developer cannot access it. You can turn it off, or exclude this app from it, under Settings > [your name] > iCloud > iCloud Backup.
 
