@@ -4,3 +4,7 @@
 
 - 근거: 응원석 저장소 `spec/analytics.md`(통계 6개), `spec/server/README.md`(서버에 보내는 것: 응원팀 코드·잠금화면 시작용 기기 토큰·앱 종류·언어).
 - 함께 바꿀 것: build.py `OPERATOR` 운영자 문장(여러 앱), App Store Connect 응원석 방침·지원 URL, 앱 `src/lib/legal.ts`.
+
+
+## 10-10 게시 완료
+종인님 컨펌("응") 뒤 `src/privacy.md`·`src/terms.md`에 합침(적용 앱: 주량체커 · 응원석). 이전 판 보관: 방침 2026-10-10 판(주량체커 전용), 약관 2026-09-28 판. 이 폴더의 privacy-section.md·*-merged.md는 근거로 남김.
