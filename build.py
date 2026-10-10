@@ -111,5 +111,18 @@ for src in sorted((ROOT/'src').glob('*.md')):
     build(fill(src.read_text()), ROOT/'docs'/src.stem, src.stem)
     for v in archives(src.stem):
         build(fill((ROOT/'src'/'archive'/src.stem/f'{v}.md').read_text()), ROOT/'docs'/src.stem/'archive'/v, src.stem, archived=v)
+# ---- 옛 주소 이동 페이지 ----
+# 지원 페이지는 2026-10-10에 내렸지만, 판매 중인 주량체커 1.2.0의 ko·en-US·en-GB 스토어 지원 URL이 /support/(ko|en)/에 고정돼 있다
+# (출시된 버전은 supportUrl을 못 고침 — 409). 그 링크가 404가 되지 않게 방침 페이지(문의 이메일 포함)로 넘긴다.
+# 다음 버전에서 세 현지화의 supportUrl을 방침 주소로 바꾼 뒤에도, 옛 버전을 보는 사람이 있을 수 있어 남겨 둔다.
+REDIRECTS = {'support': 'privacy'}
+for old, new in REDIRECTS.items():
+    for sub in ('', 'ko/', 'en/'):
+        dst = ROOT/'docs'/old/sub/'index.html'; dst.parent.mkdir(parents=True, exist_ok=True)
+        target = f'../{new}/{sub}' if not sub else f'../../{new}/{sub}'
+        dst.write_text(f'<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex">'
+                       f'<meta http-equiv="refresh" content="0; url={target}"><link rel="canonical" href="{target}"><title>→</title></head>'
+                       f'<body><p><a href="{target}">개인정보처리방침 · Privacy Policy</a></p></body></html>\n')
+        print('→', dst.relative_to(ROOT), '(이동)')
 (ROOT/'docs'/'index.html').write_text('<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>' + SITE_NAME + '</title>'
     f'<style>{CSS}</style></head><body><main><h1>' + SITE_NAME + '</h1><p><a href="privacy/">개인정보처리방침 · Privacy Policy</a></p><p><a href="terms/">이용약관 · Terms of Service</a></p></main></body></html>\n')
