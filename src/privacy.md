@@ -38,13 +38,7 @@
 
 **응원석**은 경기 점수·일정·순위를 운영자 서버(Cloudflare)에서 받습니다. 이때 일반적인 웹 요청처럼 IP 주소 같은 접속 정보가 Cloudflare를 거치며, 운영자는 이를 따로 보관하지 않습니다.
 
-다만 어떤 기능이 실제로 이용되는지 알기 위해 Google Firebase Analytics로 **익명 사용 통계**를 보냅니다. 앱이 직접 보내는 것은 해당 기능을 이용했다는 사실뿐입니다.
-
-응원석이 직접 보내는 항목은 다음 여섯 가지입니다: 위젯 설치 · 응원팀을 고름(처음 실행인지 내 자리인지, 고른 구단) · 실시간 현황이 켜짐(앱에서인지 서버에서인지) · 실시간 현황 켜기/끄기/iOS에서 꺼짐 · 위젯·잠금 화면을 눌러 앱을 엶 · 서버 연결 실패(어느 화면인지만).
-
-주량체커가 직접 보내는 항목은 다음 일곱 가지입니다: 한 잔을 기록함(앱에서인지 위젯에서인지만) · 위젯 설치 · 주량(한도) 설정(온보딩인지 설정인지만) · 한도 점검 카드 응답(적용/닫음) · 기록 되돌리기 · 알림 권한 허용/거부 · 저장 실패(어느 단계인지만).
-
-이와 별도로 Firebase Analytics가 통계 도구로서 다음을 자동으로 기록합니다: 앱 설치마다 무작위로 정해지는 식별자(이름·연락처·광고 식별자와 연결되지 않음), 앱을 연 횟수·사용 시간 같은 기본 사용 정보, 기기 종류·OS 버전·앱 버전, IP 주소로 추정한 대략적인 지역(국가·도시 수준 — Google이 IP 주소 일부를 가린 뒤 추정합니다).
+서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준 — Google이 IP 주소 일부를 가린 뒤 추정합니다)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다.
 
 **통계로 보내지 않는 것**: 사용자가 기록한 내용 자체입니다. 마신 양·술 종류·마신 시각·설정한 한도 값·한도를 넘었는지 여부는 통계에 어떤 형태로도 담기지 않습니다(계정을 연결했을 때 2절의 백업 공간에만 저장됩니다). 광고 식별자(IDFA)도 수집하지 않으며, 광고나 사용자 추적에 이 정보를 쓰지 않습니다. 크래시 리포트도 보내지 않습니다.
 
@@ -70,7 +64,7 @@
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-10-10
+최종 수정일: 2026-10-11
 
 ---
 
@@ -110,9 +104,7 @@ If you don't connect an account, there is no server that exchanges what you reco
 
 **CheerSeat** gets scores, schedules and standings from the operator's server (Cloudflare). As with any web request, connection details such as your IP address pass through Cloudflare; the operator does not keep them.
 
-To learn which features people actually use, the app does send **anonymous usage statistics** through Google Firebase Analytics. It records only that a feature was used. CheerSeat itself sends these six items: the widget was added · a team was chosen (first launch or My Seat, and which club) · a Live Activity started (by the app or the server) · Live Activities turned on/off/disabled in iOS · the app was opened from the widget or Lock Screen · a server connection failed (only which screen). DrinkChecker itself sends these seven items: a drink was logged (only whether from the app or the widget) · the widget was added · a drink limit was set (only whether during setup or from Settings) · the limit check-in card was answered (applied or dismissed) · an entry was undone · whether notification permission was granted or denied · a save failed (only which step).
-
-Separately, Firebase Analytics as an analytics tool automatically records: a random identifier created for each installation of the app (not linked to your name, contact details, or advertising identifier), basic usage such as how often and how long the app is opened, your device model, OS version and app version, and an approximate region derived from your IP address (country or city level — Google masks part of the IP address before estimating it).
+To analyze statistics for improving the service, the apps automatically collect **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation of the app) and an **approximate region** derived from your IP address (country or city level — Google masks part of the IP address before estimating it) through Google Firebase Analytics. This information is not used to identify you and is not linked to your name, contact details, or advertising identifier.
 
 **What the statistics never include**: the contents of what you record. How much you drank, what you drank, when, the limit you set, and whether you went over it are never included in the statistics in any form (if you connect an account, they are stored only in the backup space in section 2). The app does not collect an advertising identifier (IDFA), and none of this is used for advertising or to track you. It sends no crash reports.
 
@@ -138,4 +130,4 @@ Any change to this policy is published on this page right away. The app shows th
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-10-10
+Last updated: 2026-10-11
