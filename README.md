@@ -1,11 +1,12 @@
-# ihwa — 공개 고객 지원·개인정보처리방침
+# ihwa — 공개 개인정보처리방침·이용약관
+
+> 고객 지원 페이지는 2026-10-10 주량체커 1.2.0 출시와 함께 내렸다(앱 안 지원 메뉴 삭제 #149, 스토어 지원 URL은 방침 주소). 문의는 방침·약관 본문의 이메일로 받는다(심사 1.5).
 
 주량체커(DrinkChecker)·차곡(Chagok) 두 앱이 함께 쓰는 **공개 페이지**다. **약관·방침·지원의 원문은 여기뿐이다** — 앱은 본문을 들고 있지 않고 아래 언어별 주소를 주소가 보이지 않는 앱 안 웹뷰로 연다(Safari 시트는 도메인이 드러나 쓰지 않는다)(2026-09-28 종인님 규칙: 앱 출시 없이 고칠 수 있게). App Store Support URL·방침 URL도 이 주소다.
 
-- 고객 지원: https://jongin-2.github.io/ihwa/support/
 - 개인정보처리방침: https://jongin-2.github.io/ihwa/privacy/
 - 이용약관: https://jongin-2.github.io/ihwa/terms/
-- 앱 안에서 여는 언어별 주소: `…/<support|privacy|terms>/ko/`, `…/en/`(build.py가 `## 한국어`·`## English` 절을 떼어 만든다)
+- 앱 안에서 여는 언어별 주소: `…/<privacy|terms>/ko/`, `…/en/`(build.py가 `## 한국어`·`## English` 절을 떼어 만든다)
 
 ## 방침·약관을 고칠 때 — 이전 판을 반드시 남긴다(2026-10-10 종인님)
 1. 고치기 **전에** 지금 `src/<privacy|terms>.md`를 `src/archive/<privacy|terms>/<그 판의 최종 수정일>.md`로 그대로 복사한다.

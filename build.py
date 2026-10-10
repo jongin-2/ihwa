@@ -112,4 +112,4 @@ for src in sorted((ROOT/'src').glob('*.md')):
     for v in archives(src.stem):
         build(fill((ROOT/'src'/'archive'/src.stem/f'{v}.md').read_text()), ROOT/'docs'/src.stem/'archive'/v, src.stem, archived=v)
 (ROOT/'docs'/'index.html').write_text('<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>' + SITE_NAME + '</title>'
-    f'<style>{CSS}</style></head><body><main><h1>' + SITE_NAME + '</h1><p><a href="support/">고객 지원 · Support</a></p><p><a href="privacy/">개인정보처리방침 · Privacy Policy</a></p><p><a href="terms/">이용약관 · Terms of Service</a></p></main></body></html>\n')
+    f'<style>{CSS}</style></head><body><main><h1>' + SITE_NAME + '</h1><p><a href="privacy/">개인정보처리방침 · Privacy Policy</a></p><p><a href="terms/">이용약관 · Terms of Service</a></p></main></body></html>\n')
