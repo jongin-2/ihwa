@@ -25,7 +25,7 @@ const PAGE_STYLE = `(function(){var s=document.createElement('style');s.textCont
 type Words = { terms: string; privacy: string; close: string; offline: string; retry: string; back: string; emailCopied: string };
 // 주량체커 20개 언어 번역(2026-10-12 기준)에서 옮김
 const WORDS: Record<string, Words> = {
-  'ko': {"terms": "이용약관", "privacy": "개인정보 처리방침", "close": "닫기", "offline": "인터넷에 연결되면 볼 수 있어요", "retry": "다시 시도", "back": "이전 문서", "emailCopied": "이메일 주소를 복사했어요"},
+  'ko': {"terms": "이용약관", "privacy": "개인정보처리방침", "close": "닫기", "offline": "인터넷에 연결되면 볼 수 있어요", "retry": "다시 시도", "back": "이전 문서", "emailCopied": "이메일 주소를 복사했어요"},
   'en': {"terms": "Terms of Service", "privacy": "Privacy Policy", "close": "Close", "offline": "Available when you’re online", "retry": "Try Again", "back": "Previous page", "emailCopied": "Email address copied"},
   'ja': {"offline": "インターネットに接続すると表示されます", "retry": "再試行", "back": "前のページ", "emailCopied": "メールアドレスをコピーしました", "terms": "利用規約", "privacy": "プライバシーポリシー", "close": "閉じる"},
   'zh-Hant': {"offline": "連上網路即可查看", "retry": "重試", "back": "上一頁", "emailCopied": "已複製電子郵件地址", "terms": "服務條款", "privacy": "隱私權政策", "close": "關閉"},
