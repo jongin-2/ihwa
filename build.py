@@ -25,7 +25,7 @@ CSS = """:root{--bg:#fff;--fg:#1c1c1e;--sub:#6e6e73;--line:#e5e5ea;--link:#0a7c3
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
 main{max-width:720px;margin:0 auto;padding:32px 16px 64px}h1{font-size:1.6rem;line-height:1.3;margin:0 0 8px}h2{font-size:1.3rem;margin:40px 0 8px}h3{font-size:1.05rem;margin:28px 0 4px}
 p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);margin:40px 0}.lang{color:var(--sub)}
-.ver{color:var(--sub);font-size:.95rem}.old{background:var(--line);border-radius:10px;padding:12px 14px;margin:0 0 20px}
+.ver{margin:4px 0 20px}.ver select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 28px 6px 10px;margin-left:6px;min-height:44px}.old{background:var(--line);border-radius:10px;padding:12px 14px;margin:0 0 20px}
 .tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{color:var(--sub);font-weight:600}"""
 def inline(t):
     t = html.escape(t, quote=False).replace('&lt;a id=', '<a id=').replace('&gt;&lt;/a&gt;', '></a>')
@@ -60,27 +60,37 @@ def render(md):
 # ---- 이전 판 보관(2026-10-10 종인님 "개인정보처리방침은 수정하면 기존 본도 볼 수 있어야 해", "이용약관도") ----
 # 문서를 고치기 전에 지금 판을 src/archive/<문서>/<그 판의 수정일>.md로 복사해 둔다(내용은 그대로, 운영자 표기 자리도 그대로).
 # 빌드하면 /<문서>/archive/<날짜>/(+ /ko/·/en/)로 게시되고, 현재 판 끝에 '이전 버전' 목록이, 보관 판 위에는 "이전 판" 안내와 현재 판 링크가 붙는다.
-LABEL = {'ko': ('이전 버전', '이 문서는 {d} 판입니다.', '현재 버전 보기'),
-         'en': ('Previous versions', 'This is the version of {d}.', 'View the current version')}
+LABEL = {'ko': ('버전', '이 문서는 {d} 판입니다.', '현재 버전 보기', '현재'),
+         'en': ('Version', 'This is the version of {d}.', 'View the current version', 'current')}
+# 날짜 표기: 한국어 2026. 10. 11.(토스·쿠팡 시행일 표기), 영어 2026-10-11
+def fmt(d, lang): return f'{int(d[:4])}. {int(d[5:7])}. {int(d[8:10])}.' if lang == 'ko' else d
+def current_date(md): m = re.search(r'최종 수정일: (\d{4}-\d{2}-\d{2})', md); return m.group(1) if m else None
 def archives(stem):
     d = ROOT/'src'/'archive'/stem
     return sorted((x.stem for x in d.glob('*.md')), reverse=True) if d.exists() else []
-def versions_html(stem, langs, prefix):
-    """현재 판 끝에 붙는 이전 판 목록. prefix = 현재 페이지에서 /<문서>/까지의 상대 경로('' 또는 '../')."""
+def versions_html(stem, langs, prefix, cur=None, now=None):
+    """문서 맨 위 버전 고르기(10-12 종인님 "이전 버전 확인하는 UI 다른 사례 보고 개선해, 보통 드롭다운 리스트박스 같은 형태야").
+    예전엔 맨 아래 날짜 링크 한 줄이라 찾기 어려웠다. prefix = 지금 페이지에서 /<문서>/까지의 상대 경로, cur = 보고 있는 보관 판 날짜(현재 판이면 None).
+    iOS 웹뷰에선 기본 선택 목록(휠)이 뜬다. 스크립트가 꺼져도 아래 noscript 링크로 갈 수 있다"""
     vs = archives(stem)
     if not vs: return ''
     rows = []
     for lang in langs:
         sub = '' if len(langs) > 1 else f'{lang}/'
-        links = ' · '.join(f'<a href="{prefix}archive/{v}/{sub}">{v}</a>' for v in vs)
-        rows.append(f'<p class="ver">{LABEL[lang][0]}: {links}</p>')
-    return '<hr>' + ''.join(rows)
+        # 토스처럼 제목 바로 아래, 날짜가 곧 이름(10-12 사례 확인: 토스 제목 아래 시행일 드롭다운, 쿠팡 본문 끝 "다른 버전 보기")
+        head = f'{fmt(now, lang)} ({LABEL[lang][3]})' if now else LABEL[lang][3]
+        opts = [(f'{prefix}{sub}', head, cur is None)] + [(f'{prefix}archive/{v}/{sub}', fmt(v, lang), cur == v) for v in vs]
+        o = ''.join(f'<option value="{u}"{" selected" if sel else ""}>{html.escape(t)}</option>' for u, t, sel in opts)
+        links = ' · '.join(f'<a href="{u}">{html.escape(t)}</a>' for u, t, _ in opts)
+        rows.append(f'<p class="ver"><select aria-label="{LABEL[lang][0]}" onchange="location.href=this.value">{o}</select>'
+                    f'<noscript> {links}</noscript></p>')
+    return ''.join(rows)
 def banner_html(date, langs, prefix):
     """보관 판 맨 위 안내. prefix = 보관 페이지에서 /<문서>/까지의 상대 경로."""
     rows = []
     for lang in langs:
         sub = '' if len(langs) > 1 else f'{lang}/'
-        rows.append(f'{LABEL[lang][1].format(d=date)} <a href="{prefix}{sub}">{LABEL[lang][2]}</a>')
+        rows.append(f'{LABEL[lang][1].format(d=fmt(date, lang))} <a href="{prefix}{sub}">{LABEL[lang][2]}</a>')
     return '<p class="old">' + '<br>'.join(rows) + '</p>'
 def page(dst, lang, title, body):
     dst.parent.mkdir(parents=True, exist_ok=True)
@@ -93,20 +103,25 @@ def split_lang(md):
     ko = md.split('<a id="ko"></a>', 1)[1].split('<a id="en"></a>', 1)[0].rsplit('\n---', 1)[0]
     en = md.split('<a id="en"></a>', 1)[1]
     return names, ko.strip().split('\n', 1)[1], en.strip().split('\n', 1)[1]  # '## 한국어' / '## English' 줄은 뗀다
+def under_title(body, extra):
+    """버전 고르기를 제목(h1) 바로 아래에"""
+    i = body.find('</h1>')
+    return body[:i + 5] + extra + body[i + 5:] if i >= 0 else extra + body
+NOW = {}
 def build(md, base, stem, archived=None):
     """base = 출력 폴더(docs/<문서> 또는 docs/<문서>/archive/<날짜>). archived = 보관 판 날짜(현재 판이면 None)."""
+    if not archived: NOW[stem] = current_date(md)
     title, body = render(md)
     up = '../../' if archived else ''
     top = banner_html(archived, ['ko', 'en'], up) if archived else ''
-    bottom = '' if archived else versions_html(stem, ['ko', 'en'], '')
-    page(base/'index.html', 'ko', title, top + body + bottom)
+    page(base/'index.html', 'ko', title, top + under_title(body, versions_html(stem, ['ko', 'en'], up, archived, NOW.get(stem))))
     # 앱 안 웹뷰용 언어별 페이지(/ko/, /en/) — 한 언어만 보여 준다.
     names, ko, en = split_lang(md)
     for lang, part, name in (('ko', ko, names[0]), ('en', en, names[-1])):
         _, lbody = render(f'# {name}\n\n' + part)
-        top = banner_html(archived, [lang], '../../../') if archived else ''
-        bottom = '' if archived else versions_html(stem, [lang], '../')
-        page(base/lang/'index.html', lang, name, top + lbody + bottom)
+        up = '../../../' if archived else '../'
+        top = banner_html(archived, [lang], up) if archived else ''
+        page(base/lang/'index.html', lang, name, top + under_title(lbody, versions_html(stem, [lang], up, archived, NOW.get(stem))))
 for src in sorted((ROOT/'src').glob('*.md')):
     build(fill(src.read_text()), ROOT/'docs'/src.stem, src.stem)
     for v in archives(src.stem):
