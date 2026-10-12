@@ -4,7 +4,8 @@
 //
 // 이용약관·개인정보처리방침을 공용 사이트(jongin-2/ihwa) 페이지 그대로, 주소가 보이지 않는 앱 안 웹뷰로 보여 주는 화면 전체(머리글 포함).
 // 이동 방식(react-navigation·expo-router)과 무관하게 같은 모양이 되도록 머리글을 직접 그린다 — 앱은 이 화면을 모달 시트로 띄우고 네이티브 머리글은 숨긴다.
-//  · 머리글: 가운데 문서 이름(17pt 굵게), 오른쪽 ✕(닫기), 본문 링크로 넘어간 문서에서만 왼쪽 ‹(이전 문서). 누르는 칸 44pt.
+//  · 머리글: 가운데 문서 이름(17pt 굵게), 오른쪽 원형 ✕(닫기), 본문 링크로 넘어간 문서에서만 왼쪽 원형 ‹(이전 문서). 원은 30pt 회색(iOS 시트 표준 닫기 단추 —
+//    애플 지도·설정 시트), 누르는 칸 44pt. 아이콘은 라이브러리 없이 선 두 개로 그린다(앱마다 그림 라이브러리가 달라서). 10-12 종인님 "좋은 걸로 너가 기준 잡고"
 //  · 본문: 페이지 큰 제목(h1)은 머리글과 겹쳐 숨기고, 바탕은 시트와 한 판(투명), 글자는 iOS 본문 글꼴(다이내믹 타입).
 //    페이지 맨 위 버전 고르기(현재·이전 판 날짜 드롭다운)는 사이트가 그린다.
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
@@ -61,14 +62,23 @@ export default function LegalDocView({ doc, lang, tint, onClose }: { doc: LegalD
         <View style={styles.side}>
           {canGoBack && (
             <Pressable onPress={() => web.current?.goBack()} hitSlop={8} style={styles.btn} accessibilityRole="button" accessibilityLabel={w.back}>
-              <Text style={[styles.back, { color: tint }]}>‹</Text>
+              {({ pressed }) => (
+                <View style={[styles.circle, pressed && styles.pressed]}>
+                  <View style={[styles.chev, { borderColor: tint }]} />
+                </View>
+              )}
             </Pressable>
           )}
         </View>
         <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} accessibilityRole="header">{w[shown]}</Text>
         <View style={[styles.side, { alignItems: 'flex-end' }]}>
           <Pressable onPress={onClose} hitSlop={8} style={styles.btn} accessibilityRole="button" accessibilityLabel={w.close}>
-            <Text style={styles.close}>✕</Text>
+            {({ pressed }) => (
+              <View style={[styles.circle, pressed && styles.pressed]}>
+                <View style={[styles.bar, { transform: [{ rotate: '45deg' }] }]} />
+                <View style={[styles.bar, { transform: [{ rotate: '-45deg' }] }]} />
+              </View>
+            )}
           </Pressable>
         </View>
       </View>
@@ -121,8 +131,10 @@ const styles = StyleSheet.create({
   side: { width: 52 },
   title: { flex: 1, textAlign: 'center', fontSize: 17, fontWeight: '600', color: PlatformColor('label') },
   btn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  back: { fontSize: 30, fontWeight: '300', marginTop: -3 },
-  close: { fontSize: 17, fontWeight: '600', color: PlatformColor('secondaryLabel') },
+  circle: { width: 30, height: 30, borderRadius: 15, backgroundColor: PlatformColor('tertiarySystemFill'), alignItems: 'center', justifyContent: 'center' },
+  pressed: { opacity: 0.5 },
+  bar: { position: 'absolute', width: 12, height: 2, borderRadius: 1, backgroundColor: PlatformColor('secondaryLabel') },
+  chev: { width: 9, height: 9, borderLeftWidth: 2, borderBottomWidth: 2, borderRadius: 1, transform: [{ rotate: '45deg' }], marginLeft: 3 },
   web: { flex: 1, backgroundColor: 'transparent' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 24 },
   msg: { fontSize: 17, color: PlatformColor('secondaryLabel'), textAlign: 'center' },
