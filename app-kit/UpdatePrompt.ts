@@ -137,7 +137,8 @@ let alertShowing = false;
 function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   if (alertShowing) return;
   const w = updateWords(cfg.lang);
-  const v = s.latest ?? '';
+  // 새 번호는 지금보다 높을 때만 — 무조건 업데이트를 스토어 반영보다 먼저 켰을 때 낮은 번호가 보이지 않게
+  const v = s.latest && compareVersions(s.latest, cfg.currentVersion) > 0 ? s.latest : '';
   alertShowing = true;
   const done = () => { alertShowing = false; };
   const update = { text: w.updateNow, style: 'default' as const, isPreferred: true, onPress: () => { done(); openStore(cfg.appStoreId); } };
