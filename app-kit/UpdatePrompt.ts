@@ -126,10 +126,9 @@ export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
   return state;
 }
 
+/** App Store 앱 페이지 — 애플 표준 링크(https). 기기에서는 App Store 앱이 바로 열린다(유니버설 링크), App Store가 없는 곳(시뮬레이터)은 웹 페이지. */
 export function openStore(appStoreId: string) {
-  Linking.openURL(`itms-apps://apps.apple.com/app/id${appStoreId}`).catch(() =>
-    Linking.openURL(`https://apps.apple.com/app/id${appStoreId}`).catch(() => {}),
-  );
+  Linking.openURL(`https://apps.apple.com/app/id${appStoreId}`).catch(() => {});
 }
 
 let alertShowing = false;
