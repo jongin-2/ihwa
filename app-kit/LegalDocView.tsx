@@ -86,7 +86,7 @@ export default function LegalDocView({ doc, lang, tint, onClose }: { doc: LegalD
         <View style={styles.center}>
           <Text style={styles.msg}>{w.offline}</Text>
           <Pressable onPress={() => { setFailed(false); setAttempt((a) => a + 1); }} style={styles.btn} accessibilityRole="button">
-            <Text style={[styles.retry, { color: tint }]}>{w.retry}</Text>
+            {({ pressed }) => <Text style={[styles.retry, { color: tint }, pressed && styles.pressed]}>{w.retry}</Text>}
           </Pressable>
         </View>
       ) : (
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   title: { flex: 1, textAlign: 'center', fontSize: 17, fontWeight: '600', color: PlatformColor('label') },
   btn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   circle: { width: 30, height: 30, borderRadius: 15, backgroundColor: PlatformColor('tertiarySystemFill'), alignItems: 'center', justifyContent: 'center' },
-  pressed: { opacity: 0.5 },
+  pressed: { opacity: 0.6 }, // 앱들의 Tap(PRESSED_OPACITY 0.6)과 같게 — 2026-10-14 차곡 빌드 11 회귀 DSN-02
   bar: { position: 'absolute', width: 12, height: 2, borderRadius: 1, backgroundColor: PlatformColor('secondaryLabel') },
   chev: { width: 9, height: 9, borderLeftWidth: 2, borderBottomWidth: 2, borderRadius: 1, transform: [{ rotate: '45deg' }], marginLeft: 3 },
   web: { flex: 1, backgroundColor: 'transparent' },
