@@ -24,7 +24,7 @@
 계정을 연결하면 기록(술 종류·양·날짜·시각·한도)과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
 
 - **국외 이전 고지**: 계정 정보(계정 식별자·이메일·이름)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
-- **삭제**: 설정 맨 위 '연결된 계정' 아래의 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 폰의 기록은 그대로 남습니다. 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제되고(서버 기록은 유지), 그 기기의 기록도 그대로 남습니다.
+- **삭제**: 설정 맨 위 계정 카드의 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 폰의 기록은 그대로 남습니다. 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제되고(서버 기록은 유지), 그 기기의 기록도 그대로 남습니다.
 
 **차곡**: 계정을 연결하면 기록(어느 취미에 무엇을 언제 기록했는지 — 앨범 사진으로 기록했으면 사진을 찍은 날짜 포함, 사진으로 확인된 기록인지)과 지금 연결된 기기를 구별하는 무작위 번호가 위와 같은 방식(Google Firebase Cloud Firestore, 계정 정보는 미국·기록은 대한민국 서울 리전)으로 계정별 공간에 저장됩니다. **기록에 쓴 사진은 서버에 올리지 않습니다** — 사진은 기기에만 남아, 기기를 바꾸면 사진 자리에 안내만 보입니다. 서버의 기록과 계정은 설정의 계정 카드에서 '연결 해제'를 누르면 바로 지워지며(되돌릴 수 없음), 이 폰의 기록은 그대로 남습니다.
 
@@ -48,7 +48,7 @@
 
 ### 5. 제3자 서비스
 
-앱은 3절의 사용 통계를 위해 Google Firebase Analytics를, 계정을 연결했을 때 2절의 백업을 위해 Firebase Authentication·Cloud Firestore와 Sign in with Apple·Google 로그인을 씁니다. 설정에서 이용약관·개인정보처리방침을 열면 이 문서를 보여 주기 위해 앱이 **GitHub Pages**(GitHub, Inc.)에서 페이지를 불러옵니다. 이때 일반적인 웹 페이지를 열 때처럼 IP 주소 같은 접속 정보가 GitHub에 전달될 수 있으며, 운영자는 이 정보를 받거나 보관하지 않습니다. 차곡은 주량체커와 같은 Firebase 서비스에 더해, 3절의 도서 정보 조회를 위해 Open Library와 국립중앙도서관을 씁니다. 응원석은 Google Firebase Analytics(3절), 운영자 서버를 위한 Cloudflare, 잠금 화면 점수 전달을 위한 Apple 푸시 알림 서비스(APNs)를 씁니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase Analytics에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다.
+앱은 3절의 사용 통계를 위해 Google Firebase Analytics를, 계정을 연결했을 때 2절의 백업을 위해 Firebase Authentication·Cloud Firestore와 Sign in with Apple·Google 로그인을 씁니다. 앱을 켤 때 업데이트 안내가 필요한지 확인하기 위해, 그리고 설정에서 이용약관·개인정보처리방침을 열 때 앱이 **GitHub Pages**(GitHub, Inc.)에서 작은 설정 파일과 문서 페이지를 불러옵니다. 이때 일반적인 웹 페이지를 열 때처럼 IP 주소 같은 접속 정보가 GitHub에 전달될 수 있으며, 운영자는 이 정보를 받거나 보관하지 않습니다. 차곡은 주량체커와 같은 Firebase 서비스에 더해, 3절의 도서 정보 조회를 위해 Open Library와 국립중앙도서관을 씁니다. 응원석은 Google Firebase Analytics(3절), 운영자 서버를 위한 Cloudflare, 잠금 화면 점수 전달을 위한 Apple 푸시 알림 서비스(APNs)를 씁니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase Analytics에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다.
 
 ### 6. 아동의 개인정보
 
@@ -90,7 +90,7 @@ What you enter in the app is stored on your device and is deleted when you delet
 If you connect an account, your records (drink type, amount, date and time, and limit) and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new phone. Only your own account can read or write that space.
 
 - **International transfer**: your account details (account identifier, email, name) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
-- **Deletion**: tapping Disconnect under Connected Account at the top of Settings deletes your records and account from the server immediately. The records on your phone stay. If you connect the same account on another device, the earlier device is disconnected (the server copy stays) and keeps its records too.
+- **Deletion**: tapping Disconnect on the account card at the top of Settings deletes your records and account from the server immediately. The records on your phone stay. If you connect the same account on another device, the earlier device is disconnected (the server copy stays) and keeps its records too.
 
 **Chagok**: if you connect an account, your records (which hobby, what and when — including the date a photo was taken if you logged from your photo library — and whether a record was confirmed by a photo) and a random number that identifies the currently connected device are stored in a per-account space the same way (Google Firebase Cloud Firestore; account details in the United States, records in the Seoul region of South Korea). **Photos you use for records are never uploaded** — they stay on your device, so on a new device a note appears in their place. Tapping Disconnect on the account card in Settings deletes your server records and account immediately (this cannot be undone); the records on your phone stay.
 
@@ -114,7 +114,7 @@ The app only requests the minimum device permissions that the service actually n
 
 ### 5. Third-party services
 
-The app uses Google Firebase Analytics for the usage statistics in section 3 and, if you connect an account, Firebase Authentication, Cloud Firestore, Sign in with Apple and Google Sign-In for the backup in section 2. When you open Terms of Service or the Privacy Policy in Settings, the app loads these pages from **GitHub Pages** (GitHub, Inc.). As with opening any web page, connection details such as your IP address may reach GitHub; the operator does not receive or keep this information. Chagok uses the same Firebase services as DrinkChecker, plus Open Library and the National Library of Korea for the book lookup in section 3. CheerSeat uses Google Firebase Analytics (section 3), Cloudflare for the operator's server, and the Apple Push Notification service (APNs) to deliver scores to your Lock Screen. The app does not include advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records.
+The app uses Google Firebase Analytics for the usage statistics in section 3 and, if you connect an account, Firebase Authentication, Cloud Firestore, Sign in with Apple and Google Sign-In for the backup in section 2. When the app opens, it checks whether an update notice is needed, and when you open Terms of Service or the Privacy Policy in Settings it shows those pages — for both, it loads a small settings file and the pages from **GitHub Pages** (GitHub, Inc.). As with opening any web page, connection details such as your IP address may reach GitHub; the operator does not receive or keep this information. Chagok uses the same Firebase services as DrinkChecker, plus Open Library and the National Library of Korea for the book lookup in section 3. CheerSeat uses Google Firebase Analytics (section 3), Cloudflare for the operator's server, and the Apple Push Notification service (APNs) to deliver scores to your Lock Screen. The app does not include advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records.
 
 ### 6. Children's privacy
 
