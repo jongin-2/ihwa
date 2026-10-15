@@ -7,17 +7,19 @@
 
 ### 1. 서비스 소개
 
-**적용 앱: 주량체커 · 응원석**
+**적용 앱: 주량체커 · 응원석 · 차곡**
 
 앱은 사용자가 스스로 설정·기록한 정보를 관리할 수 있도록 돕는 무료 개인용 앱입니다. {{운영_문장}}
 
 주량체커는 개인 음주량을 기록해 사용자가 정한 한도와 비교해 보여 주고 홈 화면 위젯으로 빠르게 기록할 수 있게 돕습니다.
 
+차곡은 독서·음악·술·운동·영화 등 취미를 기록하면 차곡(CGK)이 쌓이는 취미 기록 앱입니다.
+
 응원석은 사용자가 고른 응원팀의 KBO(한국 프로야구) 경기 점수·일정·순위를 앱, 홈 화면 위젯, 잠금 화면 실시간 현황으로 보여 줍니다.
 
 ### 2. 데이터 손실에 대한 책임
 
-사용자가 기록한 내용은 기기에 저장됩니다(자세한 수집 범위는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/) 참고). 기기 분실·초기화·앱 삭제 또는 앱 안에서 기록을 삭제하면(예: 주량체커 설정의 "모든 기록 삭제") 데이터가 복구 불가능하게 손실될 수 있습니다. 데이터 손실에 대해 운영자는 책임지지 않습니다.
+사용자가 기록한 내용은 기기에 저장됩니다(자세한 수집 범위는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/) 참고). 주량체커·차곡에서 Apple 또는 Google 계정을 연결하면 기록이 그 계정으로 서버에도 보관되어 새 기기에서 같은 계정을 연결하면 복원할 수 있고, 연결을 해제하면 서버의 기록은 지워집니다(차곡의 사진은 서버에 올리지 않아 옮겨지지 않습니다). 계정을 연결하지 않았다면 기기 분실·초기화·앱 삭제 또는 앱 안에서 기록을 삭제하면(예: 주량체커 설정의 "모든 기록 삭제") 데이터가 복구 불가능하게 손실될 수 있습니다. 데이터 손실에 대해 운영자는 책임지지 않습니다.
 
 ### 3. 보증의 부인
 
@@ -43,11 +45,15 @@
 
 **상표**: 구단 이름과 엠블럼은 각 구단의, KBO는 한국야구위원회의 상표입니다. 응원석은 KBO·구단과 제휴하지 않은, 개인이 만든 독립 앱이며 구단을 구별해 보여 주기 위해서만 이름과 엠블럼을 씁니다.
 
+### 차곡 추가 조항
+
+**차곡(CGK)**: 차곡은 기록을 셀 때 쓰는 앱 안의 점수로, 돈의 가치가 없고 현금·상품·다른 서비스로 바꾸거나 다른 사람에게 넘길 수 없습니다. 점수를 매기는 규칙은 앱을 고치면서 바뀔 수 있습니다.
+
 ### 문의
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-10-10
+최종 수정일: 2026-10-15
 
 ---
 
@@ -56,17 +62,19 @@
 
 ### 1. About the service
 
-**Applies to: DrinkChecker · CheerSeat**
+**Applies to: DrinkChecker · CheerSeat · Chagok**
 
 The app is a free, personal-use app that helps you manage information you set and record yourself. {{OPERATED_SENTENCE}}
 
 DrinkChecker logs your drinks against a limit you set and lets you log quickly from a home-screen widget.
 
+Chagok is a hobby log: record reading, music, drinks, exercise, films and more, and your CGK adds up.
+
 CheerSeat shows the KBO (Korean professional baseball) scores, schedule and standings for the team you choose, in the app, in a Home Screen widget and as a Live Activity on your Lock Screen.
 
 ### 2. Data loss
 
-The records you create are stored on your device (see the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/) for what is collected). Losing or resetting your device, deleting the app, or deleting records in the app (such as "Delete All Records" in DrinkChecker's Settings) can permanently delete your data. The operator is not responsible for data loss.
+The records you create are stored on your device (see the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/) for what is collected). If you connect an Apple or Google account in DrinkChecker or Chagok, your records are also kept on a server under that account and can be restored by connecting the same account on a new device; disconnecting deletes the server copy (Chagok photos are never uploaded, so they don't transfer). Without a connected account, losing or resetting your device, deleting the app, or deleting records in the app (such as "Delete All Records" in DrinkChecker's Settings) can permanently delete your data. The operator is not responsible for data loss.
 
 ### 3. Disclaimer of warranties
 
@@ -92,8 +100,12 @@ These terms may change on this page; continuing to use the app after a change me
 
 **Trademarks**: Club names and emblems are trademarks of their respective clubs, and KBO is a trademark of the Korea Baseball Organization. CheerSeat is an independent app made by an individual developer, not affiliated with the KBO or any club, and uses club names and emblems only to identify the clubs.
 
+### Chagok addendum
+
+**CGK**: CGK is an in-app score for counting your records. It has no monetary value and cannot be exchanged for cash, goods or other services, or transferred to anyone else. The rules for awarding it may change as the app is updated.
+
 ### Contact
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-10-10
+Last updated: 2026-10-15
