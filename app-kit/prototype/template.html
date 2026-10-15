@@ -1,0 +1,81 @@
+<title>__TITLE__ 프로토타입</title>
+<style>
+  /* 공용 프로토타입 틀 — 원본 ihwa-site/app-kit/prototype/template.html. 앱마다 prd/prototype/template.html로 글자 그대로 복사한다(빌드 점검이 대조).
+     앱마다 다른 값(이름·강조색·화면 목록)은 prd/prototype/screens.json에만 둔다. 2026-10-15 종인님 "통일하게 해", "모바일에서 주로 보는 것도 고려", "반응형으로 하면 되는거 아니야?" */
+  :root { --bg:#eef0f3; --bar:#ffffff; --text:#1c1c1e; --sub:#6b6b70; --line:#e2e2e6; --accent:__ACCENT__; --on-accent:#ffffff; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#000000; --bar:#1c1c1e; --text:#ffffff; --sub:#98989d; --line:#38383a; color-scheme:dark; } }
+  :root[data-theme="dark"] { --bg:#000000; --bar:#1c1c1e; --text:#ffffff; --sub:#98989d; --line:#38383a; color-scheme:dark; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", sans-serif; }
+  .app { display:flex; flex-direction:column; height:100%; }
+  .bar { position:sticky; top:env(safe-area-inset-top, 0px); z-index:2; background:var(--bar); border-bottom:1px solid var(--line); }
+  .head { display:flex; align-items:baseline; gap:8px; padding:10px 16px 2px; }
+  .head h1 { margin:0; font-size:15px; font-weight:700; }
+  .head span { font-size:12px; color:var(--sub); }
+  .tabs { display:flex; gap:4px; overflow-x:auto; scroll-snap-type:x proximity; padding:6px 12px 8px; scrollbar-width:none; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab { flex:0 0 auto; scroll-snap-align:start; min-height:36px; padding:0 14px; border:0; border-radius:18px; background:transparent;
+    color:var(--sub); font:600 14px/36px inherit; font-family:inherit; cursor:pointer; white-space:nowrap; }
+  .tab.on { background:var(--accent); color:var(--on-accent); }
+  .stage { flex:1 1 auto; min-height:0; overflow:hidden; position:relative; }
+  /* 목업은 설계 폭(MAX_W)으로 그리고, 화면이 좁으면 통째로 줄여 폭에 맞춘다 — 폰에서 가로 잘림 없음(Figma '화면에 맞추기'와 같은 방식) */
+  iframe { position:absolute; top:0; left:50%; border:0; background:var(--bg); transform-origin:top center; }
+</style>
+<div class="app">
+  <div class="bar">
+    <div class="head"><h1>__TITLE__</h1><span>__UPDATED__ 기준</span></div>
+    <nav class="tabs" id="tabs"></nav>
+  </div>
+  <div class="stage" id="stage"><iframe id="frame" title="화면 미리보기"></iframe></div>
+</div>
+<script>
+  var SCREENS = __SCREENS__;            // [{key, label, html(base64)}]
+  var MAX_W = 1400;                     // 넓은 목업을 줄여 맞출 때의 최대 폭(반응형으로 안 되는 것만)
+  function decode(b64) { var s = atob(b64), b = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) b[i] = s.charCodeAt(i); return new TextDecoder('utf-8').decode(b); }
+  var tabs = document.getElementById('tabs'), frame = document.getElementById('frame'), stage = document.getElementById('stage');
+  // 목업을 먼저 화면 폭으로 그려 보고, 실제 내용 폭이 더 넓으면 그 폭으로 다시 그린 뒤 화면 폭에 맞게 통째로 줄인다.
+  function fit() {
+    var w = stage.clientWidth, h = stage.clientHeight, cw = w;
+    frame.style.transform = 'translateX(-50%)'; frame.style.width = w + 'px'; frame.style.height = h + 'px';
+    try {  // 가운데 정렬로 양옆에 넘친 것까지 잡도록 보이는 요소들의 좌우 끝을 잰다
+      var d = frame.contentDocument, l = 0, r = w;
+      d.querySelectorAll('body > *, body > * > *, body > * > * > *').forEach(function (el) { var b = el.getBoundingClientRect(); if (b.width) { l = Math.min(l, b.left); r = Math.max(r, b.right); } });
+      cw = Math.min(MAX_W, Math.ceil(r - l) + (l < 0 ? 32 : 0));
+    } catch (e) {}
+    var k = w / cw;
+    frame.style.width = cw + 'px'; frame.style.height = (h / k) + 'px';
+    frame.style.transform = 'translateX(-50%) scale(' + k + ')';
+  }
+  // 검토 조작·설명(.proto-controls, 여러 개면 모아서)은 좁은 화면에서 접어 두고 '검토 조작'을 눌러 연다 — 화면이 먼저 보이게
+  function foldControls() {
+    try {
+      var d = frame.contentDocument;
+      var ps = [].filter.call(d.querySelectorAll('.proto-controls'), function (el) { return !el.parentElement.closest('.proto-controls'); });
+      if (!ps.length || d.querySelector('.proto-fold') || stage.clientWidth >= 700) return;
+      var det = d.createElement('details'), sum = d.createElement('summary'), st = d.createElement('style');
+      det.className = 'proto-fold'; sum.textContent = '검토 조작';
+      st.textContent = '.proto-fold{width:min(440px,calc(100% - 24px));margin:0 auto}.proto-fold>summary{list-style:none;cursor:pointer;font:600 14px -apple-system,sans-serif;padding:12px 16px;border-radius:14px;background:rgba(127,127,127,.14);text-align:center}.proto-fold>summary::-webkit-details-marker{display:none}.proto-fold>summary::after{content:" ▾"}.proto-fold[open]>summary::after{content:" ▴"}.proto-fold[open]>summary{margin-bottom:8px}';
+      d.head.appendChild(st); ps[0].parentNode.insertBefore(det, ps[0]); det.appendChild(sum);
+      ps.forEach(function (p) { det.appendChild(p); });   // 여러 조각이어도 '검토 조작' 하나로 모은다
+    } catch (e) {}
+  }
+  // 반응형: 좁은 화면(폰)에서는 목업의 폰 그림(.proto-device)·노치(.proto-notch)를 떼고 바깥 여백(.proto-page)을 줄여 화면을 폭 100%로 — 줄이지 않고 실제 글자 크기
+  function responsive() {
+    try {
+      var d = frame.contentDocument, st = d.createElement('style');
+      st.textContent = '@media (max-width:520px){.proto-page{padding:12px 0 0!important;gap:12px!important}.proto-device{width:100%!important;max-width:none!important;height:auto!important;min-height:100vh;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}.proto-device>*{border-radius:0!important}.proto-notch{display:none!important}}';
+      d.head.appendChild(st);
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () { responsive(); foldControls(); fit(); setTimeout(fit, 300); });
+  function show(key) {
+    var s = SCREENS.find(function (x) { return x.key === key; }) || SCREENS[0];
+    tabs.querySelectorAll('.tab').forEach(function (b) { b.classList.toggle('on', b.dataset.key === s.key); if (b.dataset.key === s.key) b.scrollIntoView({ inline: 'nearest', block: 'nearest' }); });
+    frame.srcdoc = decode(s.html);
+    try { history.replaceState(null, '', '#' + s.key); } catch (e) {}
+  }
+  SCREENS.forEach(function (s) { var b = document.createElement('button'); b.className = 'tab'; b.textContent = s.label; b.dataset.key = s.key; b.onclick = function () { show(s.key); }; tabs.appendChild(b); });
+  addEventListener('resize', fit); fit();
+  show((location.hash || '').slice(1));
+</script>

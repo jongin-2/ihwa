@@ -36,6 +36,14 @@
 - 고칠 땐 원본만 고치고 세 앱에 다시 복사. 각 앱 빌드 점검(check-docs-sync)이 원본과 다르면 막는다.
 - 필요한 라이브러리: react-native-webview, expo-clipboard.
 
+## 프로토타입·시안 검토판 — 네 앱 공용 틀(2026-10-15)
+종인님 "프로토타입이나 검토판이 앱마다 달라 이유 찾아서 깃허브나 노션처럼 통일하게 해", "모바일에서 주로 보는 것도 고려", "반응형으로 하면 되는거 아니야?", "정책 잡아주고 각 섹션이 하라고".
+- 원본: `app-kit/prototype/template.html`(프로토타입 틀), `review-template.html`(시안 검토판 틀), `build-prototype.py`(둘을 만드는 생성기). 기준은 주량체커 세션이 잡는다.
+- 각 앱은 **글자 그대로** 복사: 틀 둘 → `prd/prototype/`, 생성기 → `impl/scripts/build-prototype.py`. 앱마다 다른 값은 `prd/prototype/screens.json` 하나(`{"title", "accent", "screens": [{"key", "label", "path"(선택, 기본 prd/<key>/mockup.html)}]}`). 빌드 점검(check-docs-sync)이 원본과 다르면 막는다. 고칠 땐 원본만 고치고 네 앱에 다시 복사.
+- 생성물(깃 무시): `impl/out/prototype/index.html`(프로토타입 Artifact), `impl/out/review/index.html`(시안 검토판 Artifact — 내용은 `impl/out/review/body.html`에만, 없으면 "진행 중인 시안 없음"). 생성물을 `prd/`에 두지 않는다.
+- 폰에서 보기(반응형): 폭 520pt 이하면 틀이 목업 안에 규칙을 넣어 폰 그림을 떼고 화면을 폭 100%로, 검토용 설명·조작을 '검토 조작' 하나로 접는다. 그러려면 목업에 공용 이름표를 붙인다 — 바깥 틀 `proto-page`, 폰 그림 `proto-device`, 노치·다이내믹 아일랜드 그림 `proto-notch`, 검토용 설명·조작(여러 개 가능) `proto-controls`. 이름표가 없으면 그 목업은 예전처럼 보이고, 넓으면 틀이 통째로 줄여 맞춘다(마지막 수단).
+- 검토판 내용 모양: `<h1>질문</h1>` · `<p class="cmp">비교: 사례와 같은 점·다른 점</p>` · `<div class="grid">` 안에 `<figure class="card rec">`(추천은 rec + `<span class="badge">추천</span>`). 폰에서는 한 줄에 카드 하나.
+
 ## 앱 업데이트 안내 — 모든 앱 공용(2026-10-14)
 종인님 "업데이트 유도 방식은 모든 앱 동일하게 하고, 앱에 따라 업데이트 미룰 수 있는 것과 무조건일 수는 있어".
 - 원본: `app-kit/UpdatePrompt.ts` — 각 앱은 글자 그대로 복사해 쓴다(라이브러리 없음). 앱을 열 때마다(처음 실행·백그라운드에서 돌아올 때) App Store 공개 조회로 최신 버전을 보고, 새것이 있으면 iOS 경고 창 `새 버전이 있어요` / `버전 {v}` · `나중에` · `지금 업데이트`. '나중에'를 눌러도 다음에 열면 다시 뜬다(종인님 결정). 설정 버전 줄의 `업데이트` 단추는 `useUpdateState()`.

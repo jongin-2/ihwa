@@ -1,0 +1,28 @@
+<title>__TITLE__ 시안 검토판</title>
+<style>
+  /* 공용 시안 검토판 틀 — 원본 ihwa-site/app-kit/prototype/review-template.html, 앱마다 prd/prototype/review-template.html로 글자 그대로 복사.
+     내용은 impl/out/review/body.html(깃 무시)에만 쓴다 — 없으면 "진행 중인 시안 없음". 폰에서 한 줄에 카드 하나, 넓으면 여러 줄.
+     쓰는 모양: <h1>질문</h1> <p class="cmp">비교: 사례·같은 점·다른 점</p> <div class="grid"><figure class="card rec">…<figcaption><b>A. 이름</b><span class="badge">추천</span><p>설명</p></figcaption></figure>…</div> */
+  :root { --bg:#f4f4f6; --card:#ffffff; --fg:#1c1c1e; --sub:#6c6c70; --line:#e2e2e6; --accent:__ACCENT__; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#000000; --card:#1c1c1e; --fg:#ffffff; --sub:#98989d; --line:#38383a; color-scheme:dark; } }
+  :root[data-theme="dark"] { --bg:#000000; --card:#1c1c1e; --fg:#ffffff; --sub:#98989d; --line:#38383a; color-scheme:dark; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 -apple-system, "Apple SD Gothic Neo", sans-serif; padding-block:20px 40px; padding-inline:16px; }
+  main { max-width:960px; margin:0 auto; display:grid; gap:14px; }
+  .app { font-size:13px; font-weight:600; color:var(--sub); }
+  h1 { margin:0; font-size:20px; text-wrap:balance; }
+  h2 { margin:8px 0 0; font-size:16px; }
+  p { margin:4px 0; color:var(--sub); }
+  .cmp { color:var(--fg); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; }
+  .card { margin:0; min-width:0; background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .card.rec { border:2px solid var(--accent); }
+  .card img { display:block; width:100%; height:auto; }
+  .card figcaption { padding:10px 12px 12px; }
+  .badge { margin-left:6px; font-size:12px; font-weight:700; color:#ffffff; background:var(--accent); border-radius:8px; padding:1px 7px; }
+  ul { margin:4px 0; padding-left:20px; color:var(--sub); }
+  .empty { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; }
+</style>
+<main>
+  <div class="app">__TITLE__ 시안 검토판</div>
+__BODY__
+</main>
