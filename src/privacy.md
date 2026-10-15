@@ -7,7 +7,7 @@
 
 **적용 앱: 주량체커 · 응원석 · 차곡**
 
-세 앱 모두 기본으로는 개인정보를 수집하지 않습니다. 주량체커·차곡은 설정에서 '계정 연결'(Apple·Google)을 한 경우에만 계정 정보와 기록을 백업 서버에 저장하고(2절), 응원석은 '실시간 현황'을 켠 경우에만 잠금 화면에 점수를 띄우기 위한 기기 토큰을 운영자 서버에 보관합니다(2절). 세 앱 모두 앱을 개선하기 위해 익명 사용 통계를 보냅니다(3절). 각 절에서 앱 이름으로 구분해 적었습니다.
+세 앱 모두 기본으로는 개인정보를 수집하지 않습니다. 주량체커·차곡은 설정에서 '계정 연결'(Apple·Google)을 한 경우에만 계정 정보와 기록을 백업 서버에 저장하고(2절), 응원석은 '실시간 현황'을 켜거나 위젯을 놓은 경우에만 점수를 바로 띄우기 위한 기기 토큰을 운영자 서버에 보관합니다(2절). 세 앱 모두 앱을 개선하기 위해 익명 사용 통계를 보냅니다(3절). 각 절에서 앱 이름으로 구분해 적었습니다.
 
 ### 1. 수집하는 정보
 
@@ -28,9 +28,9 @@
 
 **차곡**: 계정을 연결하면 기록(어느 취미에 무엇을 언제 기록했는지 — 앨범 사진으로 기록했으면 사진을 찍은 날짜 포함, 사진으로 확인된 기록인지)과 지금 연결된 기기를 구별하는 무작위 번호가 위와 같은 방식(Google Firebase Cloud Firestore, 계정 정보는 미국·기록은 대한민국 서울 리전)으로 계정별 공간에 저장됩니다. **기록에 쓴 사진은 서버에 올리지 않습니다** — 사진은 기기에만 남아, 기기를 바꾸면 사진 자리에 안내만 보입니다. 서버의 기록과 계정은 설정의 계정 카드에서 '연결 해제'를 누르면 바로 지워지며(되돌릴 수 없음), 이 폰의 기록은 그대로 남습니다.
 
-**응원석**: 고른 응원팀과 '실시간 현황' 켜기·끄기는 기기 안에만 저장합니다. '실시간 현황'을 켠 경우에만, 경기가 시작될 때 잠금 화면에 점수를 띄우기 위해 Apple이 발급하는 **기기 토큰**(사람을 알아볼 수 없는 무작위 값)과 **응원팀 코드**, **앱 언어**를 운영자 서버에 보관합니다.
+**응원석**: 고른 응원팀과 '실시간 현황' 켜기·끄기는 기기 안에만 저장합니다. '실시간 현황'을 켠 경우에만, 경기가 시작될 때 잠금 화면에 점수를 띄우기 위해 Apple이 발급하는 **기기 토큰**(사람을 알아볼 수 없는 무작위 값)과 **응원팀 코드**, **앱 언어**를 운영자 서버에 보관합니다. iOS 26 이상에서 홈 화면·잠금 화면에 위젯을 놓으면, 점수가 바뀔 때 위젯을 바로 새로 그리기 위해 Apple이 발급하는 **위젯 토큰**(사람을 알아볼 수 없는 무작위 값)과 **응원팀 코드**를 운영자 서버에 보관합니다.
 
-- **국외 이전 고지**: 운영자 서버는 Cloudflare, Inc.(미국)의 서비스이며 데이터베이스는 아시아·태평양 지역에서 운영됩니다. '실시간 현황'을 켤 때와 응원팀을 바꿀 때 인터넷으로 전송되며, '실시간 현황'을 끄면 서버에서 바로 지웁니다. 앱을 지우면 Apple이 토큰을 무효로 하고 서버도 그 토큰을 지웁니다.
+- **국외 이전 고지**: 운영자 서버는 Cloudflare, Inc.(미국)의 서비스이며 데이터베이스는 아시아·태평양 지역에서 운영됩니다. '실시간 현황'을 켤 때, 위젯을 놓을 때, 응원팀을 바꿀 때 인터넷으로 전송되며, '실시간 현황'을 끄면 그 토큰을 서버에서 바로 지웁니다. 앱을 지우는 등으로 Apple이 토큰을 무효로 하면 서버도 그 토큰을 지웁니다.
 
 ### 3. 네트워크 통신과 사용 통계
 
@@ -48,7 +48,7 @@
 
 ### 5. 제3자 서비스
 
-앱은 3절의 사용 통계를 위해 Google Firebase Analytics를, 계정을 연결했을 때 2절의 백업을 위해 Firebase Authentication·Cloud Firestore와 Sign in with Apple·Google 로그인을 씁니다. 앱을 켤 때 업데이트 안내가 필요한지 확인하기 위해, 그리고 설정에서 이용약관·개인정보처리방침을 열 때 앱이 **GitHub Pages**(GitHub, Inc.)에서 작은 설정 파일과 문서 페이지를 불러옵니다. 이때 일반적인 웹 페이지를 열 때처럼 IP 주소 같은 접속 정보가 GitHub에 전달될 수 있으며, 운영자는 이 정보를 받거나 보관하지 않습니다. 최신 버전 번호는 App Store(Apple)의 공개 조회로 확인하며, 이때도 IP 주소 같은 접속 정보가 Apple에 전달될 수 있습니다. 차곡은 주량체커와 같은 Firebase 서비스에 더해, 3절의 도서 정보 조회를 위해 Open Library와 국립중앙도서관을 씁니다. 응원석은 Google Firebase Analytics(3절), 운영자 서버를 위한 Cloudflare, 잠금 화면 점수 전달을 위한 Apple 푸시 알림 서비스(APNs)를 씁니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase Analytics에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다.
+주량체커·차곡은 3절의 사용 통계를 위해 Google Firebase Analytics를, 계정을 연결했을 때 2절의 백업을 위해 Firebase Authentication·Cloud Firestore와 Sign in with Apple·Google 로그인을 씁니다. 세 앱 모두 설정에서 이용약관·개인정보처리방침을 열 때 **GitHub Pages**(GitHub, Inc.)에서 문서 페이지를 불러옵니다. 주량체커·차곡은 앱을 켤 때 업데이트 안내가 필요한지 확인하려고, 같은 곳의 작은 설정 파일과 App Store(Apple)의 공개 조회로 최신 버전 번호를 확인합니다. 이때 일반적인 웹 페이지를 열 때처럼 IP 주소 같은 접속 정보가 GitHub·Apple에 전달될 수 있으며, 운영자는 이 정보를 받거나 보관하지 않습니다. 차곡은 이에 더해, 3절의 도서 정보 조회를 위해 Open Library와 국립중앙도서관을 씁니다. 응원석은 Google Firebase Analytics(3절), 운영자 서버를 위한 Cloudflare, 잠금 화면·위젯 점수 전달을 위한 Apple 푸시 알림 서비스(APNs)를 씁니다. 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다. Firebase Analytics에는 3절에 적은 정보만 전달되며, 기록 내용은 전달되지 않습니다.
 
 ### 6. 아동의 개인정보
 
@@ -73,7 +73,7 @@
 
 **Applies to: DrinkChecker · CheerSeat · Chagok**
 
-By default none of the apps collects your personal information. DrinkChecker and Chagok store your account details and records on a backup server only if you connect an account (Apple or Google) in Settings (section 2), and CheerSeat keeps a device token on the operator's server only if you turn on Live Activities, so it can show the score on your Lock Screen (section 2). All three apps send anonymous usage statistics to help improve them (section 3). Each section names the app it applies to.
+By default none of the apps collects your personal information. DrinkChecker and Chagok store your account details and records on a backup server only if you connect an account (Apple or Google) in Settings (section 2), and CheerSeat keeps a device token on the operator's server only if you turn on Live Activities or add a widget, so it can show the score right away (section 2). All three apps send anonymous usage statistics to help improve them (section 3). Each section names the app it applies to.
 
 ### 1. Information we collect
 
@@ -94,9 +94,9 @@ If you connect an account, your records (drink type, amount, date and time, and 
 
 **Chagok**: if you connect an account, your records (which hobby, what and when — including the date a photo was taken if you logged from your photo library — and whether a record was confirmed by a photo) and a random number that identifies the currently connected device are stored in a per-account space the same way (Google Firebase Cloud Firestore; account details in the United States, records in the Seoul region of South Korea). **Photos you use for records are never uploaded** — they stay on your device, so on a new device a note appears in their place. Tapping Disconnect on the account card in Settings deletes your server records and account immediately (this cannot be undone); the records on your phone stay.
 
-**CheerSeat**: your team and the Live Activities setting are stored on your device only. Only if Live Activities are on, the app keeps a **device token** issued by Apple (a random value that cannot identify you), your **team code** and the **app language** on the operator's server, so it can start the Live Activity on your Lock Screen when a game begins.
+**CheerSeat**: your team and the Live Activities setting are stored on your device only. Only if Live Activities are on, the app keeps a **device token** issued by Apple (a random value that cannot identify you), your **team code** and the **app language** on the operator's server, so it can start the Live Activity on your Lock Screen when a game begins. On iOS 26 or later, if you add a widget to your Home Screen or Lock Screen, the app keeps a **widget token** issued by Apple (a random value that cannot identify you) and your **team code** on the operator's server, so the widget can redraw right away when the score changes.
 
-- **International transfer**: the operator's server runs on Cloudflare, Inc. (United States), with the database in the Asia-Pacific region. This data is sent over the internet when you turn Live Activities on or change your team, and is deleted from the server as soon as you turn Live Activities off. If you delete the app, Apple invalidates the token and the server deletes it.
+- **International transfer**: the operator's server runs on Cloudflare, Inc. (United States), with the database in the Asia-Pacific region. This data is sent over the internet when you turn Live Activities on, add a widget or change your team. The Live Activities token is deleted from the server as soon as you turn Live Activities off. When Apple invalidates a token, for example because you deleted the app, the server deletes it too.
 
 ### 3. Network communication and usage statistics
 
@@ -114,7 +114,7 @@ The app only requests the minimum device permissions that the service actually n
 
 ### 5. Third-party services
 
-The app uses Google Firebase Analytics for the usage statistics in section 3 and, if you connect an account, Firebase Authentication, Cloud Firestore, Sign in with Apple and Google Sign-In for the backup in section 2. When the app opens, it checks whether an update notice is needed, and when you open Terms of Service or the Privacy Policy in Settings it shows those pages — for both, it loads a small settings file and the pages from **GitHub Pages** (GitHub, Inc.). As with opening any web page, connection details such as your IP address may reach GitHub; the operator does not receive or keep this information. The latest version number is checked with the App Store's public lookup (Apple), which may also pass connection details such as your IP address to Apple. Chagok uses the same Firebase services as DrinkChecker, plus Open Library and the National Library of Korea for the book lookup in section 3. CheerSeat uses Google Firebase Analytics (section 3), Cloudflare for the operator's server, and the Apple Push Notification service (APNs) to deliver scores to your Lock Screen. The app does not include advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records.
+DrinkChecker and Chagok use Google Firebase Analytics for the usage statistics in section 3 and, if you connect an account, Firebase Authentication, Cloud Firestore, Sign in with Apple and Google Sign-In for the backup in section 2. In all three apps, opening Terms of Service or the Privacy Policy in Settings loads the page from **GitHub Pages** (GitHub, Inc.). When DrinkChecker or Chagok opens, it checks whether an update notice is needed by loading a small settings file from the same place and checking the latest version number with the App Store's public lookup (Apple). As with opening any web page, connection details such as your IP address may reach GitHub and Apple; the operator does not receive or keep this information. Chagok also uses Open Library and the National Library of Korea for the book lookup in section 3. CheerSeat uses Google Firebase Analytics (section 3), Cloudflare for the operator's server, and the Apple Push Notification service (APNs) to deliver scores to your Lock Screen and widgets. The apps do not include advertising SDKs or crash-reporting tools. Firebase Analytics receives only the information described in section 3 — never the contents of your records.
 
 ### 6. Children's privacy
 
