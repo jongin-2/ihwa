@@ -125,7 +125,7 @@ def build(md, base, stem, archived=None):
 # 방침에는 개인정보만 쓴다(2026-10-15 종인님 "개인정보 아닌 건 제거하고 이런 일 없게 해") — 개인정보가 아닌 내용의 낱말이
 # 현재 방침에 들어 있으면 빌드를 멈춘다. 보관 판(archive)은 당시 문서 그대로라 보지 않는다. 낱말을 빼려면 이유와 함께 여기서.
 # 위젯 낱말 자체는 막지 않는다 — 응원석 위젯 토큰은 서버에 보관하는 정보라 방침에 들어간다(10-15). 기기 안 공유 공간 설명만 막는다
-NOT_PERSONAL = ['위젯 공유', '공유 공간', 'App Group', 'shared container', 'iCloud', 'App Check', '오픈소스', 'open-source', '닉네임', 'nickname']
+NOT_PERSONAL = ['위젯 공유', '공유 공간', 'App Group', 'shared container', 'iCloud', 'App Check', '오픈소스', 'open-source']  # 닉네임은 계정 이름 칸에 저장돼 개인정보다 — 10-15 조사 후 다시 넣음
 _pv = (ROOT/'src'/'privacy.md').read_text(encoding='utf-8')
 _hit = [w for w in NOT_PERSONAL if w.lower() in _pv.lower()]
 if _hit:
