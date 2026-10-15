@@ -21,7 +21,7 @@
 
 앱에서 입력하는 정보는 사용자의 기기 안에 저장되며, 앱을 삭제하면 함께 삭제됩니다.
 
-계정을 연결하면 기록(술 종류·양·날짜·시각·한도)과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
+계정을 연결하면 기록(술 종류·양(잔·병)·날짜·시각(시각 없이 기록했는지 포함)·한도)과 지금 연결된 기기를 구별하는 무작위 번호, 그 기기를 연결한 시각이 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
 
 - **국외 이전 고지**: 계정 정보(계정 식별자·이메일·이름)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
 - **삭제**: 설정 맨 위 계정 카드의 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 폰의 기록은 그대로 남습니다. 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제되고(서버 기록은 유지), 그 기기의 기록도 그대로 남습니다.
@@ -87,7 +87,7 @@ If you connect an account in Settings, the app receives the account identifier, 
 
 What you enter in the app is stored on your device and is deleted when you delete the app.
 
-If you connect an account, your records (drink type, amount, date and time, and limit) and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new phone. Only your own account can read or write that space.
+If you connect an account, your records (drink type, amount in glasses or bottles, date and time — including whether no time was set — and limit), a random number that identifies the currently connected device, and when that device was connected are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new phone. Only your own account can read or write that space.
 
 - **International transfer**: your account details (account identifier, email, name) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
 - **Deletion**: tapping Disconnect on the account card at the top of Settings deletes your records and account from the server immediately. The records on your phone stay. If you connect the same account on another device, the earlier device is disconnected (the server copy stays) and keeps its records too.
