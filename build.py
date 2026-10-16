@@ -25,7 +25,7 @@ CSS = """:root{--bg:#fff;--fg:#1c1c1e;--sub:#6e6e73;--line:#e5e5ea;--link:#0a7c3
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
 main{max-width:720px;margin:0 auto;padding:32px 16px 64px}h1{font-size:1.6rem;line-height:1.3;margin:0 0 8px}h2{font-size:1.3rem;margin:40px 0 8px}h3{font-size:1.05rem;margin:28px 0 4px}
 p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);margin:40px 0}.lang{color:var(--sub)}
-.ver{margin:4px 0 20px}.ver select{font:inherit;font-size:min(1em,26px);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 28px 6px 10px;max-width:100%;box-sizing:border-box;min-height:44px}.old{background:var(--line);border-radius:10px;padding:12px 14px;margin:0 0 20px}
+.ver{margin:4px 0 20px}.ver select{font:inherit;font-size:min(1em,26px);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 28px 6px 10px;max-width:100%;box-sizing:border-box;height:max(44px,calc(1.25em + 14px))}.old{background:var(--line);border-radius:10px;padding:12px 14px;margin:0 0 20px}
 .tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{color:var(--sub);font-weight:600}"""
 def inline(t):
     t = html.escape(t, quote=False).replace('&lt;a id=', '<a id=').replace('&gt;&lt;/a&gt;', '></a>')
