@@ -10,9 +10,9 @@ import base64, html, json, os, subprocess, sys
 
 
 def repo_root(p=os.path.dirname(os.path.abspath(__file__))):
-    while not os.path.exists(os.path.join(p, 'FEEDBACK.md')):
+    while not os.path.exists(os.path.join(p, '.git')):  # 작업 기록(FEEDBACK 등)은 10-16 깃 밖 iCloud로 — 맨 위 표지는 .git
         if os.path.dirname(p) == p:
-            sys.exit('✋ 저장소 맨 위(FEEDBACK.md)를 찾지 못했습니다')
+            sys.exit('✋ 저장소 맨 위(.git)를 찾지 못했습니다')
         p = os.path.dirname(p)
     return p
 
