@@ -18,7 +18,7 @@ APP = os.path.basename(ROOT)
 files = subprocess.run(['git', 'ls-files'], cwd=ROOT, capture_output=True, text=True, check=True).stdout.split('\n')
 files = [f for f in files if f and os.path.exists(os.path.join(ROOT, f))]
 
-MEDIA = re.compile(r'\.(png|jpe?g|gif|webp|heic|mp4|mov|m4v|pdf|zip)$', re.I)
+MEDIA = re.compile(r'\.(png|jpe?g|gif|webp|heic|mp4|mov|m4v|pdf|zip|m4a|mp3|wav|caf|aac|aiff?)$', re.I)   # 소리도(10-16 알롱 제안)
 APP_CODE = ('impl/app/', 'impl/ios/', 'impl/android/', 'impl/server/')   # 앱 코드 폴더 — 빌드에 쓰는 아이콘·그림·글꼴은 늘 보관
 APP_RES = re.compile(r'\.(ttf|otf|m4a|mp3|wav|caf|aac)$', re.I)   # 앱 코드 폴더 안 글꼴·소리는 커도 둔다
 HTML_OK = re.compile(r'^prd/[^/]+/mockup\.html$|^prd/prototype/(review-)?template\.html$')
@@ -31,7 +31,7 @@ BIG_OK = re.compile(r'(^|/)(package-lock|licenses)\.json$')   # 의존성 잠금
 bad = []
 for f in files:
     if MEDIA.search(f) and not f.startswith(APP_CODE):
-        bad.append(f'{f} — 스크린샷·영상·PDF는 iCloud ihwa/{APP}/에')
+        bad.append(f'{f} — 스크린샷·영상·소리·PDF는 iCloud ihwa/{APP}/에')
     elif WORK_LOG.search(f):
         bad.append(f'{f} — 작업 기록은 iCloud ihwa/{APP}/work/에')
     elif f.endswith('.html') and not HTML_OK.match(f):
