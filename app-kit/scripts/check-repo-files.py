@@ -20,7 +20,7 @@ files = [f for f in files if f and os.path.exists(os.path.join(ROOT, f))]
 
 MEDIA = re.compile(r'\.(png|jpe?g|gif|webp|heic|mp4|mov|m4v|pdf|zip)$', re.I)
 APP_CODE = ('impl/app/', 'impl/ios/', 'impl/android/', 'impl/server/')   # 앱 코드 폴더 — 빌드에 쓰는 아이콘·그림·글꼴은 늘 보관
-FONT = re.compile(r'\.(ttf|otf)$', re.I)
+APP_RES = re.compile(r'\.(ttf|otf|m4a|mp3|wav|caf|aac)$', re.I)   # 앱 코드 폴더 안 글꼴·소리는 커도 둔다
 HTML_OK = re.compile(r'^prd/[^/]+/mockup\.html$|^prd/prototype/(review-)?template\.html$')
 TOOL = re.compile(r'\.(py|sh)$')
 TOOL_OK = ('impl/scripts/', '.githooks/')
@@ -38,7 +38,7 @@ for f in files:
         bad.append(f'{f} — 목업·템플릿 밖 html은 생성물(impl/out/, 깃 무시)')
     elif TOOL.search(f) and not f.startswith(TOOL_OK):
         bad.append(f'{f} — 도구는 impl/scripts/에만')
-    elif os.path.getsize(os.path.join(ROOT, f)) > BIG and not BIG_OK.search(f) and not (FONT.search(f) and f.startswith(APP_CODE)):
+    elif os.path.getsize(os.path.join(ROOT, f)) > BIG and not BIG_OK.search(f) and not (APP_RES.search(f) and f.startswith(APP_CODE)):
         bad.append(f'{f} — 1MB가 넘음(생성물이면 깃에서 빼고, 꼭 필요하면 원본 BIG_OK에 이유와 함께)')
 
 # 공용 원본과 글자 그대로 같아야 하는 사본 — 고칠 땐 원본만 고치고 다시 복사
