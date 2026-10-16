@@ -108,7 +108,7 @@ export default function LegalDocView({ doc, lang, tint, onClose }: { doc: LegalD
           // 모든 링크를 아래 판단으로 — 기본값(http·https만)이면 메일 링크를 라이브러리가 먼저 가로채 실패해도 조용하다(주량체커 09-28 확인)
           originWhitelist={['*']}
           onShouldStartLoadWithRequest={(req) => {
-            if (req.url.startsWith(LEGAL_SITE) || req.url === 'about:blank') return true;
+            if (req.url === LEGAL_SITE || req.url.startsWith(LEGAL_SITE + '/') || req.url === 'about:blank') return true; // '/'까지 봐야 ihwa-다른저장소가 안 열림(10-16 차곡 보안 점검)
             Linking.openURL(req.url).catch(() => {
               if (req.url.startsWith('mailto:')) {
                 const email = decodeURIComponent(req.url.slice('mailto:'.length).split('?')[0]);
