@@ -38,12 +38,18 @@
 
 ## 프로토타입·시안 검토판 — 네 앱 공용 틀(2026-10-15)
 종인님 "프로토타입이나 검토판이 앱마다 달라 이유 찾아서 깃허브나 노션처럼 통일하게 해", "모바일에서 주로 보는 것도 고려", "반응형으로 하면 되는거 아니야?", "정책 잡아주고 각 섹션이 하라고".
-- 원본: `app-kit/prototype/template.html`(프로토타입 틀), `review-template.html`(시안 검토판 틀), `build-prototype.py`(둘을 만드는 생성기). 기준은 주량체커 세션이 잡는다.
+- 원본: `app-kit/prototype/template.html`(프로토타입 틀), `review-template.html`(시안 검토판 틀), `build-prototype.py`(둘을 만드는 생성기). 원본은 코어 세션이 고친다(10-16부터).
 - 각 앱은 **글자 그대로** 복사: 틀 둘 → `prd/prototype/`, 생성기 → `impl/scripts/build-prototype.py`. 앱마다 다른 값은 `prd/prototype/screens.json` 하나(`{"title", "accent", "screens": [{"key", "label", "path"(선택, 기본 prd/<key>/mockup.html)}]}`). 빌드 점검(check-docs-sync)이 원본과 다르면 막는다. 고칠 땐 원본만 고치고 네 앱에 다시 복사.
 - 생성물(깃 무시): `impl/out/prototype/index.html`(프로토타입 Artifact), `impl/out/review/index.html`(시안 검토판 Artifact — 내용은 `impl/out/review/body.html`에만, 없으면 "진행 중인 시안 없음"). 생성물을 `prd/`에 두지 않는다.
 - 폰에서 보기(반응형): 폭 520pt 이하면 틀이 목업 안에 규칙을 넣어 폰 그림을 떼고 화면을 폭 100%로, 검토용 설명·조작을 '검토 조작' 하나로 접는다. 그러려면 목업에 공용 이름표를 붙인다 — 바깥 틀 `proto-page`, 폰 그림 `proto-device`, 노치·다이내믹 아일랜드 그림 `proto-notch`, 검토용 설명·조작(여러 개 가능) `proto-controls`. 이름표가 없으면 그 목업은 예전처럼 보이고, 넓으면 틀이 통째로 줄여 맞춘다(마지막 수단).
 - 확인 방법: 폰 폭은 폭 390pt iframe으로 감싼 페이지를 **로컬 http 서버**로 띄워 찍는다. 헤드리스 크롬은 창이 최소 500pt라 390 캡처가 실제와 다르고, file://는 iframe 안쪽 접근이 막혀 반응형 규칙이 안 걸린다. 틀이 조각 형식(문서 머리 없음)이라 `python -m http.server`처럼 charset을 안 보내는 서버에선 한글이 깨져 보이니 text/*에 `charset=utf-8`을 붙이는 서버를 쓴다(게시본은 Artifact가 머리를 붙여 정상 — 10-15 차곡 세션 제보).
 - 검토판 내용 모양: `<h1>질문</h1>` · `<p class="cmp">비교: 사례와 같은 점·다른 점</p>` · `<div class="grid">` 안에 `<figure class="card rec">`(추천은 rec + `<span class="badge">추천</span>`). 폰에서는 한 줄에 카드 하나.
+
+## 공용 검사 도구 — 네 앱 공용(2026-10-16)
+
+- 원본: `app-kit/scripts/check-repo-files.py`(저장소에 넣지 않는 파일·작업 기록·공용 사본 대조), `app-kit/scripts/check-security.py`(출시 전 보안 점검 — 1.0은 인자 없이 전체, 업데이트는 `--since v<직전 출시>`). 앱 값이 없어 각 앱 `impl/scripts/`에 글자 그대로 복사한다. 앱의 `check-repo-files.py`가 사본이 원본과 다르면 막는다.
+- 원본은 코어 세션(`~/Projects`)이 고치고 앱 세션이 다시 복사한다. 원본을 바꾸면 네 앱에 알린다.
+- `check-security.py`의 `NOT_IN_APP`(앱 실행 파일에 안 들어가는 빌드·서버용 패키지)에 새로 넣을 땐 확인한 근거를 옆에 적는다.
 
 ## 앱 업데이트 안내 — 모든 앱 공용(2026-10-14)
 종인님 "업데이트 유도 방식은 모든 앱 동일하게 하고, 앱에 따라 업데이트 미룰 수 있는 것과 무조건일 수는 있어".
