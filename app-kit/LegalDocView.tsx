@@ -10,8 +10,7 @@
 //    페이지 맨 위 버전 고르기(현재·이전 판 날짜 드롭다운)는 사이트가 그린다.
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도.
-// 앱마다 다른 값은 tint(강조색: ‹·다시 시도)와, 바탕을 시스템색이 아닌 앱 톤으로 칠한 앱만 colors(바탕·글자·보조 글자·원 채움 — 10-16 알롱 미색 바탕
-// "앱 내 모든 부분을 같은 톤으로"). colors를 안 넘기면 iOS 시스템색 그대로라 다른 앱은 바뀌지 않는다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
+// 앱마다 다른 값은 tint(강조색: ‹·다시 시도) 하나뿐. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
 import { useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
@@ -49,12 +48,7 @@ const WORDS: Record<string, Words> = {
   'uk': {"offline": "Доступно за наявності інтернету", "retry": "Спробувати ще раз", "back": "Попередня сторінка", "emailCopied": "Адресу електронної пошти скопійовано", "terms": "Умови використання", "privacy": "Політика конфіденційності", "close": "Закрити"},
 };
 
-export type LegalColors = { bg: ColorValue; label: ColorValue; sub: ColorValue; fill: ColorValue };
-const SYSTEM_COLORS: LegalColors = {
-  bg: PlatformColor('systemBackground'), label: PlatformColor('label'), sub: PlatformColor('secondaryLabel'), fill: PlatformColor('tertiarySystemFill'),
-};
-
-export default function LegalDocView({ doc, lang, tint, onClose, colors = SYSTEM_COLORS }: { doc: LegalDoc; lang: string; tint: ColorValue; onClose: () => void; colors?: LegalColors }) {
+export default function LegalDocView({ doc, lang, tint, onClose }: { doc: LegalDoc; lang: string; tint: ColorValue; onClose: () => void }) {
   const w = WORDS[lang] ?? WORDS.en;
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -63,26 +57,26 @@ export default function LegalDocView({ doc, lang, tint, onClose, colors = SYSTEM
   const [canGoBack, setCanGoBack] = useState(false);
   const web = useRef<WebView>(null);
   return (
-    <View style={[styles.container, { backgroundColor: colors.bg }]}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.side}>
           {canGoBack && (
             <Pressable onPress={() => web.current?.goBack()} hitSlop={8} style={styles.btn} accessibilityRole="button" accessibilityLabel={w.back}>
               {({ pressed }) => (
-                <View style={[styles.circle, { backgroundColor: colors.fill }, pressed && styles.pressed]}>
+                <View style={[styles.circle, pressed && styles.pressed]}>
                   <View style={[styles.chev, { borderColor: tint }]} />
                 </View>
               )}
             </Pressable>
           )}
         </View>
-        <Text style={[styles.title, { color: colors.label }]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} accessibilityRole="header">{w[shown]}</Text>
+        <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} accessibilityRole="header">{w[shown]}</Text>
         <View style={[styles.side, { alignItems: 'flex-end' }]}>
           <Pressable onPress={onClose} hitSlop={8} style={styles.btn} accessibilityRole="button" accessibilityLabel={w.close}>
             {({ pressed }) => (
-              <View style={[styles.circle, { backgroundColor: colors.fill }, pressed && styles.pressed]}>
-                <View style={[styles.bar, { backgroundColor: colors.sub, transform: [{ rotate: '45deg' }] }]} />
-                <View style={[styles.bar, { backgroundColor: colors.sub, transform: [{ rotate: '-45deg' }] }]} />
+              <View style={[styles.circle, pressed && styles.pressed]}>
+                <View style={[styles.bar, { transform: [{ rotate: '45deg' }] }]} />
+                <View style={[styles.bar, { transform: [{ rotate: '-45deg' }] }]} />
               </View>
             )}
           </Pressable>
@@ -90,7 +84,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, colors = SYSTEM
       </View>
       {failed ? (
         <View style={styles.center}>
-          <Text style={[styles.msg, { color: colors.sub }]}>{w.offline}</Text>
+          <Text style={styles.msg}>{w.offline}</Text>
           <Pressable onPress={() => { setFailed(false); setAttempt((a) => a + 1); }} style={styles.btn} accessibilityRole="button">
             {({ pressed }) => <Text style={[styles.retry, { color: tint }, pressed && styles.pressed]}>{w.retry}</Text>}
           </Pressable>
@@ -103,7 +97,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, colors = SYSTEM
           style={styles.web}
           injectedJavaScriptBeforeContentLoaded={PAGE_STYLE}
           startInLoadingState
-          renderLoading={() => <ActivityIndicator style={StyleSheet.absoluteFill} color={colors.sub} />}
+          renderLoading={() => <ActivityIndicator style={StyleSheet.absoluteFill} color={PlatformColor('secondaryLabel')} />}
           onNavigationStateChange={(s) => {
             const m = s.url.match(/\/ihwa\/(terms|privacy)\//);
             if (m) setShown(m[1] as LegalDoc);
@@ -132,17 +126,17 @@ export default function LegalDocView({ doc, lang, tint, onClose, colors = SYSTEM
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: PlatformColor('systemBackground') },
   header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, paddingTop: 8, minHeight: 52 },
   side: { width: 52 },
-  title: { flex: 1, textAlign: 'center', fontSize: 17, fontWeight: '600' },
+  title: { flex: 1, textAlign: 'center', fontSize: 17, fontWeight: '600', color: PlatformColor('label') },
   btn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  circle: { width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center' },
+  circle: { width: 30, height: 30, borderRadius: 15, backgroundColor: PlatformColor('tertiarySystemFill'), alignItems: 'center', justifyContent: 'center' },
   pressed: { opacity: 0.6 }, // 앱들의 Tap(PRESSED_OPACITY 0.6)과 같게 — 2026-10-14 차곡 빌드 11 회귀 DSN-02
-  bar: { position: 'absolute', width: 12, height: 2, borderRadius: 1 },
+  bar: { position: 'absolute', width: 12, height: 2, borderRadius: 1, backgroundColor: PlatformColor('secondaryLabel') },
   chev: { width: 9, height: 9, borderLeftWidth: 2, borderBottomWidth: 2, borderRadius: 1, transform: [{ rotate: '45deg' }], marginLeft: 3 },
   web: { flex: 1, backgroundColor: 'transparent' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 24 },
-  msg: { fontSize: 17, textAlign: 'center' },
+  msg: { fontSize: 17, color: PlatformColor('secondaryLabel'), textAlign: 'center' },
   retry: { fontSize: 17, fontWeight: '600' },
 });
