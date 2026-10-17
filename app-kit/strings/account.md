@@ -20,6 +20,12 @@
 | tr | Hesap bağla | Telefon değiştirsen de kayıtların kalır |
 | id | Hubungkan akun | Catatan tetap ada saat ganti ponsel |
 | vi | Kết nối tài khoản | Đổi điện thoại vẫn giữ được ghi chép |
+| nl | Account koppelen | Je logs blijven bewaard als je van telefoon wisselt |
+| pl | Połącz konto | Zachowaj wpisy po zmianie telefonu |
+| sv | Anslut konto | Dina poster följer med när du byter telefon |
+| th | เชื่อมต่อบัญชี | เปลี่ยนโทรศัพท์ก็ยังมีบันทึกเหมือนเดิม |
+| cs | Připojit účet | Záznamy zůstanou i po výměně telefonu |
+| uk | Підключити обліковий запис | Записи збережуться після зміни телефону |
 
 시트 제목은 위 '제목'과 같다. 시트 안 설명 줄은 두지 않는다.
 
@@ -30,4 +36,4 @@
 | ko | 연결을 해제할까요? | 기록은 이 폰에만 남고 계정은 지워요. 다시 로그인이 필요해요. |
 | en | Disconnect your account? | Your records stay only on this phone and your account is deleted. You'll need to sign in again. |
 
-다른 언어는 주량체커 저장소 번역을 원본으로 한다(차곡·알롱은 그 낱말을 따름).
+다른 언어는 주량체커 저장소 strings.ts·i18n/*.ts의 disconnectBody가 원본이다(차곡·알롱은 그 낱말을 따름). 연결 전 줄의 nl·pl·sv·th·cs·uk 6개 언어는 주량체커 번역(10-17 추가).
