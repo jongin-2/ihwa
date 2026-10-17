@@ -13,16 +13,17 @@
 //  · 본문: 페이지 큰 제목(h1)은 머리글과 겹쳐 숨기고, 바탕은 시트와 한 판(투명), 글자는 iOS 본문 글꼴(다이내믹 타입).
 //    페이지 맨 위 버전 고르기(현재·이전 판 날짜 드롭다운)는 사이트가 그린다.
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
-//  · 오프라인·오류: 안내 한 줄 + 다시 시도.
+//  · 오프라인·오류: 안내 한 줄 + 다시 시도. 첫 화면이 10초 안에 안 뜨면(응답 없이 늘어짐) 같은 안내.
 // 앱마다 다른 값은 tint(강조색: 다시 시도) 하나뿐. 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as Clipboard from 'expo-clipboard';
 
 export const LEGAL_SITE = 'https://jongin-2.github.io/ihwa';
 export type LegalDoc = 'terms' | 'privacy';
+const LOAD_TIMEOUT_MS = 10000;
 export const legalUrl = (doc: LegalDoc, lang: string) => `${LEGAL_SITE}/${doc}/${lang === 'ko' ? 'ko' : 'en'}/`;
 
 const PAGE_STYLE = `(function(){var s=document.createElement('style');s.textContent='html{font:-apple-system-body}body{font-size:1rem!important;line-height:1.7}html,body{background:transparent!important}h1{display:none}main{padding-top:8px}';document.documentElement.appendChild(s);})();true;`;
@@ -62,6 +63,14 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   // 본문 링크로 다른 문서로 넘어가면 머리글도 그 문서 이름 — 페이지 <title>은 탐색 이벤트에 빈 값·이전 제목이 섞여 와 주소 경로로 판단
   const [shown, setShown] = useState<LegalDoc>(doc);
   const [canGoBack, setCanGoBack] = useState(false);
+  // 서버가 응답 없이 늘어지면 웹뷰는 오류를 내지 않고 흰 화면으로 남는다(10-17 차곡 실측 6초+) — 첫 화면이 10초 안에 안 뜨면 오프라인 안내로
+  const loaded = useRef(false);
+  useEffect(() => {
+    if (failed) return;
+    loaded.current = false;
+    const t = setTimeout(() => { if (!loaded.current) setFailed(true); }, LOAD_TIMEOUT_MS);
+    return () => clearTimeout(t);
+  }, [attempt, failed]);
   const web = useRef<WebView>(null);
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -97,6 +106,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
             if (m) setShown(m[1] as LegalDoc);
             setCanGoBack(s.canGoBack);
           }}
+          onLoadEnd={() => { loaded.current = true; }}
           onError={() => setFailed(true)}
           onHttpError={() => setFailed(true)}
           // 모든 링크를 아래 판단으로 — 기본값(http·https만)이면 메일 링크를 라이브러리가 먼저 가로채 실패해도 조용하다(주량체커 09-28 확인)
