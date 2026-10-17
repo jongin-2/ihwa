@@ -3,11 +3,16 @@
 // 업데이트는 나중에와 지금 업데이트 버튼 2개", "업데이트 유도 방식은 모든 앱 동일하게 하고 앱에 따라 업데이트 미룰 수 있는 것과 무조건일 수는 있어".
 //
 //  · 최신 버전: App Store 공개 조회(itunes.apple.com/lookup?id=…) — 서버·키 없음. 기기 지역 스토어로 먼저, 없으면 미국 스토어.
-//  · 무조건 업데이트: 공용 사이트 설정 파일 `https://jongin-2.github.io/ihwa/app-config/<앱>.json`의 `minVersion`보다 낮으면 —
-//    앱 출시 없이 그 숫자만 바꿔 켠다(종인님 결정 10-14 "공용 사이트 설정 파일"). 파일이 없거나 못 읽으면 미룰 수 있는 안내만.
+//  · 버전 자리마다 다르게, 앱 종류마다 다르게(10-17 종인님 "일반 앱은 C 미안내·B 권장, 게임 앱은 C 권장·B도 강제", A는 둘 다 강제):
+//      일반 앱(policy "app", 기본): 셋째 자리(1.4.0→1.4.1) 안내 창 없음(설정 버전 줄 `업데이트` 단추만) · 둘째 자리(1.4→1.5) 권장 · 첫째 자리 강제
+//      게임(policy "game" — 서버·순위가 같은 판이어야 함): 셋째 자리 권장 · 둘째·첫째 자리 강제
+//    권장은 `나중에`·`지금 업데이트`를 출시 하루 뒤부터 하루 한 번까지(Siren 기본 규칙과 같은 빈도). 앱마다 설정 파일의 `policy`로 고른다.
+//  · 긴급 강제: 공용 사이트 설정 파일 `https://jongin-2.github.io/ihwa/app-config/<앱>.json`의 `minVersion`보다 낮으면 자리와 상관없이 강제 —
+//    앱 출시 없이 그 숫자만 바꿔 켠다(종인님 결정 10-14 "공용 사이트 설정 파일"). 파일이 없거나 못 읽으면 일반 앱으로 본다.
 //  · 안내 창(iOS 기본 경고 창): 제목 `새 버전이 있어요` + `버전 {v}`, 단추 `나중에`·`지금 업데이트`. 무조건이면 둘째 줄 `계속 쓰려면 업데이트가 필요해요`와
 //    `지금 업데이트` 하나뿐이고, 스토어에 다녀와도 다시 뜬다.
-//  · 언제: 앱을 열 때마다(처음 실행·백그라운드에서 돌아올 때) — '나중에'를 눌러도 다음에 열면 다시(종인님 결정 10-14 "앱 열 때마다").
+//  · 언제: 앱을 열 때마다(처음 실행·백그라운드에서 돌아올 때) 조회한다. 강제는 열 때마다 뜨고, 권장은 하루 한 번까지 —
+//    마지막으로 띄운 날은 앱이 넘긴 저장소(UpdateConfig.store)에 둔다(없으면 앱을 새로 켤 때 한 번).
 //    조회 결과는 1시간 동안 기억해 돌아올 때마다 네트워크를 쓰지 않는다.
 //  · 설정 버전 줄: 앱이 `useUpdateState()`의 `available`을 보고 `업데이트` 단추를 그린다(누르면 `openStore`).
 // 앱마다 다른 값은 UpdateConfig(스토어 앱 ID·설정 파일 이름·지금 버전·언어)뿐. 문구는 아래 20개 언어를 이 파일이 들고 있다.
@@ -26,15 +31,26 @@ export type UpdateConfig = {
   currentVersion: string;
   /** 앱 언어 코드(없는 언어는 영어) */
   lang: string;
+  /** 권장 안내를 하루 한 번으로 줄이려고 마지막으로 띄운 날을 적는 곳(앱의 AsyncStorage 등). 없으면 앱을 새로 켤 때 한 번 */
+  store?: { get: (key: string) => Promise<string | null>; set: (key: string, value: string) => Promise<void> };
 };
+
+/** 새 버전이 몇째 자리에서 올랐나 — major 1.x→2.0, minor 1.4→1.5, patch 1.4.0→1.4.1 */
+export type UpdateLevel = 'major' | 'minor' | 'patch';
+/** 앱 종류 — 공용 사이트 설정 파일의 policy */
+export type UpdatePolicy = 'app' | 'game';
 
 export type UpdateState = {
   /** 스토어 최신 버전(못 읽었으면 null) */
   latest: string | null;
   /** 지금 버전보다 새 버전이 있다(또는 무조건 업데이트) */
   available: boolean;
-  /** 지금 버전이 최소 버전보다 낮다 — 나중에 없이 업데이트만 */
+  /** 나중에 없이 업데이트만 — 최소 버전보다 낮거나, 앱 종류에서 강제인 자리가 올랐다 */
   forced: boolean;
+  /** 창을 띄울지 — 강제는 늘, 권장은 출시 하루 뒤부터 하루 한 번, 안내 없음 자리는 띄우지 않음(설정 단추만) */
+  prompt: boolean;
+  /** 오른 자리(새 버전이 없으면 null) */
+  level: UpdateLevel | null;
 };
 
 type Words = { title: string; version: string; forced: string; later: string; updateNow: string; update: string };
@@ -74,11 +90,30 @@ export function compareVersions(a: string, b: string): number {
   return 0;
 }
 
-/** 조회 결과 → 상태. 순수 함수(단위 테스트 대상). */
-export function decideUpdate(current: string, latest: string | null, minVersion: string | null): UpdateState {
-  const forced = !!minVersion && compareVersions(current, minVersion) < 0;
+/** 몇째 자리가 올랐나(latest가 더 새것일 때만 의미가 있다) */
+export function updateLevel(current: string, latest: string): UpdateLevel {
+  const c = current.split('.').map((n) => parseInt(n, 10) || 0);
+  const l = latest.split('.').map((n) => parseInt(n, 10) || 0);
+  if ((l[0] ?? 0) !== (c[0] ?? 0)) return 'major';
+  if ((l[1] ?? 0) !== (c[1] ?? 0)) return 'minor';
+  return 'patch';
+}
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** 조회 결과 → 상태. 순수 함수(단위 테스트 대상). releasedAt은 스토어의 그 버전 공개 시각(모르면 null — 권장을 바로 띄움). */
+export function decideUpdate(
+  current: string, latest: string | null, minVersion: string | null,
+  policy: UpdatePolicy = 'app', releasedAt: number | null = null, now: number = Date.now(),
+): UpdateState {
   const newer = !!latest && compareVersions(latest, current) > 0;
-  return { latest, available: forced || newer, forced };
+  const level = newer ? updateLevel(current, latest!) : null;
+  const belowMin = !!minVersion && compareVersions(current, minVersion) < 0;
+  const forceLevels: UpdateLevel[] = policy === 'game' ? ['major', 'minor'] : ['major'];
+  const recommendLevel: UpdateLevel = policy === 'game' ? 'patch' : 'minor';
+  const forced = belowMin || (!!level && forceLevels.includes(level));
+  const recommend = !forced && level === recommendLevel && (releasedAt === null || now - releasedAt >= DAY_MS);
+  return { latest, available: forced || newer, forced, prompt: forced || recommend, level };
 }
 
 async function getJson(url: string): Promise<any | null> {
@@ -99,12 +134,15 @@ function deviceRegion(): string | null {
   }
 }
 
-async function fetchLatest(appStoreId: string): Promise<string | null> {
+async function fetchLatest(appStoreId: string): Promise<{ version: string; releasedAt: number | null } | null> {
   const region = deviceRegion();
   for (const country of region ? [region, 'us'] : ['us']) {
     const j = await getJson(`https://itunes.apple.com/lookup?id=${appStoreId}&country=${country}`);
-    const v = j?.results?.[0]?.version;
-    if (typeof v === 'string') return v;
+    const r = j?.results?.[0];
+    if (typeof r?.version === 'string') {
+      const t = Date.parse(r.currentVersionReleaseDate ?? '');
+      return { version: r.version, releasedAt: Number.isNaN(t) ? null : t };
+    }
   }
   return null;
 }
@@ -120,7 +158,8 @@ export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
     getJson(`${CONFIG_SITE}/${cfg.configName}.json`),
   ]);
   const min = typeof config?.minVersion === 'string' ? config.minVersion : null;
-  const state = decideUpdate(cfg.currentVersion, latest, min);
+  const policy: UpdatePolicy = config?.policy === 'game' ? 'game' : 'app';
+  const state = decideUpdate(cfg.currentVersion, latest?.version ?? null, min, policy, latest?.releasedAt ?? null);
   // 둘 다 못 읽었으면(오프라인) 기억하지 않는다 — 다음에 열 때 다시 조회
   if (latest || config) cache = { at: Date.now(), key, state };
   return state;
@@ -132,6 +171,26 @@ export function openStore(appStoreId: string) {
 }
 
 let alertShowing = false;
+let shownThisLaunch = false;
+const LAST_KEY = 'updatePrompt.lastShownDay';
+
+/** 권장 안내를 오늘 아직 안 띄웠나 — 띄우기로 하면 오늘 날짜를 적는다 */
+async function dueToday(cfg: UpdateConfig, s: UpdateState): Promise<boolean> {
+  const today = new Date().toISOString().slice(0, 10) + ':' + (s.latest ?? '');
+  if (!cfg.store) {
+    if (shownThisLaunch) return false;
+    shownThisLaunch = true;
+    return true;
+  }
+  try {
+    if ((await cfg.store.get(LAST_KEY)) === today) return false;
+    await cfg.store.set(LAST_KEY, today);
+  } catch {
+    if (shownThisLaunch) return false;
+    shownThisLaunch = true;
+  }
+  return true;
+}
 
 function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   if (alertShowing) return;
@@ -156,7 +215,7 @@ function showPrompt(cfg: UpdateConfig, s: UpdateState) {
  * 지금 상태를 돌려준다 — 설정 버전 줄의 `업데이트` 단추는 이 값의 `available`을 쓴다(같은 값을 쓰려면 useUpdateState).
  */
 export function useUpdatePrompt(cfg: UpdateConfig, enabled = true): UpdateState {
-  const [state, setState] = useState<UpdateState>(cache?.state ?? { latest: null, available: false, forced: false });
+  const [state, setState] = useState<UpdateState>(cache?.state ?? { latest: null, available: false, forced: false, prompt: false, level: null });
   const cfgRef = useRef(cfg);
   cfgRef.current = cfg;
   useEffect(() => {
@@ -167,7 +226,7 @@ export function useUpdatePrompt(cfg: UpdateConfig, enabled = true): UpdateState 
       if (!alive) return;
       setState(s);
       listeners.forEach((l) => l(s));
-      if (s.available) showPrompt(cfgRef.current, s);
+      if (s.prompt && (s.forced || (await dueToday(cfgRef.current, s)))) showPrompt(cfgRef.current, s);
     };
     run();
     let prev = AppState.currentState;
@@ -184,7 +243,7 @@ const listeners = new Set<(s: UpdateState) => void>();
 
 /** 안내 창 없이 지금 상태만 — 설정 화면처럼 다른 곳에서 `업데이트` 단추를 그릴 때. useUpdatePrompt가 조회할 때마다 같이 바뀐다. */
 export function useUpdateState(): UpdateState {
-  const [state, setState] = useState<UpdateState>(cache?.state ?? { latest: null, available: false, forced: false });
+  const [state, setState] = useState<UpdateState>(cache?.state ?? { latest: null, available: false, forced: false, prompt: false, level: null });
   useEffect(() => {
     listeners.add(setState);
     return () => { listeners.delete(setState); };
