@@ -4,18 +4,15 @@
 //
 // 이용약관·개인정보처리방침을 공용 사이트(jongin-2/ihwa) 페이지 그대로, 주소가 보이지 않는 앱 안 웹뷰로 보여 주는 화면 전체(머리글 포함).
 // 이동 방식(react-navigation·expo-router)과 무관하게 같은 모양이 되도록 머리글을 직접 그린다 — 앱은 이 화면을 모달 시트로 띄우고 네이티브 머리글은 숨긴다.
-//  · 머리글: iOS 기본 머리글(native-stack — 앱이 react-navigation이든 expo-router든 같은 options를 받는다)에 가운데 문서 이름,
-//    왼쪽 끝 ✕(닫기). 본문 링크로 다른 문서로 넘어가면 그 자리가 ‹(이전 문서)로 바뀌고, 닫기는 시트를 아래로 쓸어 내린다.
-//    애플 HIG Sheets "한 화면짜리 시트의 Cancel(Close)은 위쪽 툴바 왼쪽 끝, 다음 단계에서는 Back이 Cancel을 대신".
-//    버튼은 네이티브 바 버튼(unstable_headerLeftItems, SF Symbol)이라 iOS 26 Liquid Glass가 저절로 붙는다.
-//    10-17 종인님 코어 시안 검토판 A안 선택(예전엔 직접 그린 회색 원 ✕를 오른쪽에 두었다 — 10-12 판).
+//  · 머리글: 가운데 문서 이름(17pt 굵게), 오른쪽 원형 ✕(닫기), 본문 링크로 넘어간 문서에서만 왼쪽 원형 ‹(이전 문서). 원은 30pt 회색(iOS 시트 표준 닫기 단추 —
+//    애플 지도·설정 시트), 누르는 칸 44pt. 아이콘은 라이브러리 없이 선 두 개로 그린다(앱마다 그림 라이브러리가 달라서). 10-12 종인님 "좋은 걸로 너가 기준 잡고"
 //  · 본문: 페이지 큰 제목(h1)은 머리글과 겹쳐 숨기고, 바탕은 시트와 한 판(투명), 글자는 iOS 본문 글꼴(다이내믹 타입).
 //    페이지 맨 위 버전 고르기(현재·이전 판 날짜 드롭다운)는 사이트가 그린다.
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도.
-// 앱마다 다른 값은 tint(강조색: 다시 시도) 하나뿐. 앱은 이 화면을 모달 시트로 띄우고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
+// 앱마다 다른 값은 tint(강조색: ‹·다시 시도) 하나뿐. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as Clipboard from 'expo-clipboard';
@@ -51,10 +48,7 @@ const WORDS: Record<string, Words> = {
   'uk': {"offline": "Доступно за наявності інтернету", "retry": "Спробувати ще раз", "back": "Попередня сторінка", "emailCopied": "Адресу електронної пошти скопійовано", "terms": "Умови використання", "privacy": "Політика конфіденційності", "close": "Закрити"},
 };
 
-// react-navigation·expo-router 어느 쪽 navigation이든 setOptions만 쓴다
-type HeaderNav = { setOptions: (options: object) => void };
-
-export default function LegalDocView({ doc, lang, tint, onClose, navigation }: { doc: LegalDoc; lang: string; tint: ColorValue; onClose: () => void; navigation: HeaderNav }) {
+export default function LegalDocView({ doc, lang, tint, onClose }: { doc: LegalDoc; lang: string; tint: ColorValue; onClose: () => void }) {
   const w = WORDS[lang] ?? WORDS.en;
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -62,20 +56,32 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   const [shown, setShown] = useState<LegalDoc>(doc);
   const [canGoBack, setCanGoBack] = useState(false);
   const web = useRef<WebView>(null);
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-      title: w[shown],
-      headerBackVisible: false,
-      unstable_headerLeftItems: () => [
-        canGoBack
-          ? { type: 'button', label: w.back, icon: { type: 'sfSymbol', name: 'chevron.backward' }, onPress: () => web.current?.goBack() }
-          : { type: 'button', label: w.close, icon: { type: 'sfSymbol', name: 'xmark' }, onPress: onClose },
-      ],
-    });
-  }, [navigation, shown, canGoBack, w, onClose]);
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.side}>
+          {canGoBack && (
+            <Pressable onPress={() => web.current?.goBack()} hitSlop={8} style={styles.btn} accessibilityRole="button" accessibilityLabel={w.back}>
+              {({ pressed }) => (
+                <View style={[styles.circle, pressed && styles.pressed]}>
+                  <View style={[styles.chev, { borderColor: tint }]} />
+                </View>
+              )}
+            </Pressable>
+          )}
+        </View>
+        <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} accessibilityRole="header">{w[shown]}</Text>
+        <View style={[styles.side, { alignItems: 'flex-end' }]}>
+          <Pressable onPress={onClose} hitSlop={8} style={styles.btn} accessibilityRole="button" accessibilityLabel={w.close}>
+            {({ pressed }) => (
+              <View style={[styles.circle, pressed && styles.pressed]}>
+                <View style={[styles.bar, { transform: [{ rotate: '45deg' }] }]} />
+                <View style={[styles.bar, { transform: [{ rotate: '-45deg' }] }]} />
+              </View>
+            )}
+          </Pressable>
+        </View>
+      </View>
       {failed ? (
         <View style={styles.center}>
           <Text style={styles.msg}>{w.offline}</Text>
@@ -121,8 +127,14 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: PlatformColor('systemBackground') },
+  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, paddingTop: 8, minHeight: 52 },
+  side: { width: 52 },
+  title: { flex: 1, textAlign: 'center', fontSize: 17, fontWeight: '600', color: PlatformColor('label') },
   btn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
+  circle: { width: 30, height: 30, borderRadius: 15, backgroundColor: PlatformColor('tertiarySystemFill'), alignItems: 'center', justifyContent: 'center' },
   pressed: { opacity: 0.6 }, // 앱들의 Tap(PRESSED_OPACITY 0.6)과 같게 — 2026-10-14 차곡 빌드 11 회귀 DSN-02
+  bar: { position: 'absolute', width: 12, height: 2, borderRadius: 1, backgroundColor: PlatformColor('secondaryLabel') },
+  chev: { width: 9, height: 9, borderLeftWidth: 2, borderBottomWidth: 2, borderRadius: 1, transform: [{ rotate: '45deg' }], marginLeft: 3 },
   web: { flex: 1, backgroundColor: 'transparent' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 24 },
   msg: { fontSize: 17, color: PlatformColor('secondaryLabel'), textAlign: 'center' },
