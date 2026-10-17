@@ -3,7 +3,8 @@
 // 주량체커 같은 거랑 왜 자꾸 달라지지" — 앱마다 따로 짠 사본(주량체커·응원석 가운데 제목, 차곡 큰 제목 + 원 ✕)이 고칠 때마다 벌어졌다.
 //
 // 이용약관·개인정보처리방침을 공용 사이트(jongin-2/ihwa) 페이지 그대로, 주소가 보이지 않는 앱 안 웹뷰로 보여 주는 화면 전체(머리글 포함).
-// 앱은 이 화면을 모달 시트로 띄우고 navigation을 넘긴다 — 머리글은 이 부품이 setOptions로 iOS 기본 머리글을 켜서 채운다(직접 그리지 않음, 아래 머리글 항목).
+// 앱은 이 화면을 모달 시트로 띄우되 화면 옵션에 headerShown: true를 처음부터 두고(모달에서 머리글을 나중에 켜면 화면이 다시 만들어져
+// 머리글이 안 나온다 — 10-17 응원석 시험), navigation을 넘긴다. 이 부품은 setOptions로 제목과 왼쪽 단추만 채운다(직접 그리지 않음).
 //  · 머리글: iOS 기본 머리글(native-stack — 앱이 react-navigation이든 expo-router든 같은 options를 받는다)에 가운데 문서 이름,
 //    왼쪽 끝 ✕(닫기). 본문 링크로 다른 문서로 넘어가면 그 자리가 ‹(이전 문서)로 바뀌고, 닫기는 시트를 아래로 쓸어 내린다.
 //    애플 HIG Sheets "한 화면짜리 시트의 Cancel(Close)은 위쪽 툴바 왼쪽 끝, 다음 단계에서는 Back이 Cancel을 대신".
@@ -13,7 +14,7 @@
 //    페이지 맨 위 버전 고르기(현재·이전 판 날짜 드롭다운)는 사이트가 그린다.
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도.
-// 앱마다 다른 값은 tint(강조색: 다시 시도) 하나뿐. 앱은 이 화면을 모달 시트로 띄우고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
+// 앱마다 다른 값은 tint(강조색: 다시 시도) 하나뿐. 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
 import { useLayoutEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
@@ -64,7 +65,6 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   const web = useRef<WebView>(null);
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: true,
       title: w[shown],
       headerBackVisible: false,
       unstable_headerLeftItems: () => [
