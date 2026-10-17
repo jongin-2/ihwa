@@ -1,0 +1,3 @@
+{
+  "frames_hint": "화면 녹화 → impl/scripts/qa/frames.swift로 프레임 추출 → impl/scripts/qa/rgba.swift"
+}
