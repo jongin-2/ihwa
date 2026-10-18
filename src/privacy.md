@@ -53,7 +53,7 @@
 
 - **주량체커**: 음주량이 한도를 넘을 때 알려주기 위해 **알림** 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끕니다.
 - **차곡**: 기록을 사진으로 자동 인식하기 위해 **카메라**(앨범에서 고르는 경우 **사진 보관함**) 권한을, 기록하지 않은 날 저녁에 한 번 알려 주기 위해 **알림** 권한을 요청합니다(카메라 권한을 꺼도 직접 입력은 그대로 됩니다).
-- **알롱**: 주변을 탐험하고 함께 걸은 걸음을 세려고 **위치**(앱을 사용하는 동안, '항상 허용'을 고르면 앱을 닫은 동안에도)를, 알림을 보내려고 **알림** 권한을 요청합니다. 위치와 걸음 기록은 운영자 서버로 보내지 않으며(위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다), 주간 순위에는 그 주 걸음 합계만 보입니다. 위치를 끄면 탐험과 걸음 세기를 쓸 수 없습니다.
+- **알롱**: 주변을 탐험하고 함께 걸은 걸음을 세려고 **위치**(앱을 사용하는 동안, '항상 허용'을 고르면 앱을 닫은 동안에도)를, 알림을 보내려고 **알림** 권한을, 방 사진을 공유 창의 '이미지 저장'으로 저장할 때만 **사진 보관함에 추가** 권한을 요청합니다(앱은 사진을 읽지 않습니다). 위치와 걸음 기록은 운영자 서버로 보내지 않으며(위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다), 주간 순위에는 그 주 걸음 합계만 보입니다. 위치를 끄면 탐험과 걸음 세기를 쓸 수 없습니다.
 - **응원석**: 기기 권한을 요청하지 않습니다 — '실시간 현황'은 알림 권한과 별개로 동작하며, 앱의 내 자리나 기기 설정에서 끌 수 있습니다.
 
 ### 5. 제3자 서비스
@@ -136,7 +136,7 @@ The apps only request the minimum device permissions that the service actually n
 
 - **DrinkChecker**: requests **notifications** to let you know when you've gone over your limit. Notifications are created on your device and never pass through a server. The app explains this during first-run setup, and you can turn notifications on or off under Notifications in Settings.
 - **Chagok**: requests the **camera** (or **photo library** when you pick from your albums) to recognize records from photos, and **notifications** to remind you once in the evening on days you haven't logged (with the camera off you can still enter records by hand).
-- **Allong**: requests **location** (while using the app, or also while it's closed if you choose Always Allow) to explore around you and count the steps you walk together, and **notifications** to send you alerts. Location and step records are never sent to the operator's server (location leaves your device only for the Apple Maps and Apple Weather lookups in section 3); the weekly rankings show only that week's step total. Without location you can't use Explore or step counting.
+- **Allong**: requests **location** (while using the app, or also while it's closed if you choose Always Allow) to explore around you and count the steps you walk together, **notifications** to send you alerts, and **add to Photos** only when you save a room photo with "Save Image" in the share sheet (the app never reads your photos). Location and step records are never sent to the operator's server (location leaves your device only for the Apple Maps and Apple Weather lookups in section 3); the weekly rankings show only that week's step total. Without location you can't use Explore or step counting.
 - **CheerSeat**: requests no device permissions — Live Activities work separately from notification permission and can be turned off in My Seat or in your device settings.
 
 ### 5. Third-party services
