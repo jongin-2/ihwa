@@ -16,15 +16,21 @@
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도. 첫 화면이 10초 안에 안 뜨면(응답 없이 늘어짐) 같은 안내.
 // 앱마다 다른 값은 tint(강조색: 다시 시도) 하나뿐. 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentType, type RefAttributes } from 'react';
 import { ActivityIndicator, Alert, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { WebView as RawWebView } from 'react-native-webview';
+import type { IOSWebViewProps, ShouldStartLoadRequest, WebViewNavigation } from 'react-native-webview/lib/WebViewTypes';
 import * as Clipboard from 'expo-clipboard';
 
 export const LEGAL_SITE = 'https://jongin-2.github.io/ihwa';
 export type LegalDoc = 'terms' | 'privacy';
 const LOAD_TIMEOUT_MS = 10000;
 export const legalUrl = (doc: LegalDoc, lang: string) => `${LEGAL_SITE}/${doc}/${lang === 'ko' ? 'ko' : 'en'}/`;
+
+// Expo SDK 58(RN 0.88)이 고르는 react-native-webview 14.0.1은 타입 파일이 막힌 경로(react-native/Libraries/Types/CodegenTypes)를
+// 불러와 WebView 속성이 모두 never로 풀린다(10-18 주량체커 발견, tsc 오류 3건). 실행과는 무관해 타입만 한 번 고정해 쓴다 — 웹뷰가 고쳐지면 걷어낸다.
+type WebViewHandle = { goBack(): void };
+const WebView = RawWebView as unknown as ComponentType<IOSWebViewProps & RefAttributes<WebViewHandle>>;
 
 const PAGE_STYLE = `(function(){var s=document.createElement('style');s.textContent='html{font:-apple-system-body}body{font-size:1rem!important;line-height:1.7}html,body{background:transparent!important}h1{display:none}main{padding-top:8px}';document.documentElement.appendChild(s);})();true;`;
 
@@ -71,7 +77,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
     const t = setTimeout(() => { if (!loaded.current) setFailed(true); }, LOAD_TIMEOUT_MS);
     return () => clearTimeout(t);
   }, [attempt, failed]);
-  const web = useRef<WebView>(null);
+  const web = useRef<WebViewHandle>(null);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: w[shown],
@@ -101,7 +107,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
           injectedJavaScriptBeforeContentLoaded={PAGE_STYLE}
           startInLoadingState
           renderLoading={() => <ActivityIndicator style={StyleSheet.absoluteFill} color={PlatformColor('secondaryLabel')} />}
-          onNavigationStateChange={(s) => {
+          onNavigationStateChange={(s: WebViewNavigation) => {
             const m = s.url.match(/\/ihwa\/(terms|privacy)\//);
             if (m) setShown(m[1] as LegalDoc);
             setCanGoBack(s.canGoBack);
@@ -111,7 +117,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
           onHttpError={() => setFailed(true)}
           // 모든 링크를 아래 판단으로 — 기본값(http·https만)이면 메일 링크를 라이브러리가 먼저 가로채 실패해도 조용하다(주량체커 09-28 확인)
           originWhitelist={['*']}
-          onShouldStartLoadWithRequest={(req) => {
+          onShouldStartLoadWithRequest={(req: ShouldStartLoadRequest) => {
             if (req.url === LEGAL_SITE || req.url.startsWith(LEGAL_SITE + '/') || req.url === 'about:blank') return true; // '/'까지 봐야 ihwa-다른저장소가 안 열림(10-16 차곡 보안 점검)
             Linking.openURL(req.url).catch(() => {
               if (req.url.startsWith('mailto:')) {
