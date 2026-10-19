@@ -7,14 +7,14 @@
 
 **적용 앱: 주량체커 · 응원석 · 차곡 · 알롱**
 
-주량체커·응원석·차곡은 기본으로는 개인정보를 수집하지 않습니다. 계정 연결(Apple·Google)을 제공하는 주량체커·차곡·알롱은 설정에서 '계정 연결'을 한 경우에만 계정 정보와 기록을 백업 서버에 저장합니다(2절). 알롱은 앱을 처음 켜면 이름·연락처 없이 무작위 계정 식별자와 알롱 번호를 만들어 서버에 두고, 계정 연결을 한 경우에만 이메일과 게임 데이터를 서버에 저장합니다(1·2절). 응원석은 '실시간 현황'을 켜거나 위젯을 놓은 경우에만 점수를 바로 띄우기 위한 기기 토큰을 운영자 서버에 보관합니다(2절). 모든 앱은 앱을 개선하기 위해 익명 사용 통계를 보냅니다(3절). 앱마다 다른 내용은 각 절 끝에 앱 이름을 붙여 적었습니다.
+주량체커·응원석·차곡은 기본으로는 개인정보를 수집하지 않습니다. 계정 연결(Apple·Google)을 제공하는 주량체커·차곡·알롱은 설정에서 '계정 연결'을 한 경우에만 계정 정보와 기록을 백업 서버에 저장합니다(2절). 알롱은 앱을 처음 켜면 이름·연락처 없이 무작위 계정 식별자와 알롱 번호를 만들어 서버에 두고, 계정 연결을 한 경우에만 이메일과 게임 데이터를 서버에 저장하고, 주간 순위 기록은 연결하지 않아도 서버에 올라갑니다(1·2절). 응원석은 '실시간 현황'을 켜거나 위젯을 놓은 경우에만 점수를 바로 띄우기 위한 기기 토큰을 운영자 서버에 보관합니다(2절). 모든 앱은 앱을 개선하기 위해 익명 사용 통계를 보냅니다(3절). 앱마다 다른 내용은 각 절 끝에 앱 이름을 붙여 적었습니다.
 
 ### 1. 수집하는 정보
 
 받는 정보는 앱마다 다릅니다. 통계 도구가 설치마다 붙이는 무작위 식별자는 이름·연락처와 연결되지 않습니다(3절).
 
 - **주량체커·차곡**: 계정 연결 없이 모든 기능을 쓸 수 있고, 계정을 연결하지 않으면 이름·이메일·전화번호 등 어떤 개인 식별 정보도 수집하지 않습니다. 설정에서 계정을 연결하면 로그인 서비스(Apple 또는 Google)가 주는 계정 식별자·이메일(Apple '이메일 가리기'를 쓰면 대체 주소)·이름(Google 프로필에 있을 때)을 받습니다.
-- **알롱**: 앱을 처음 켤 때 자동으로 게스트 계정을 만들어, 무작위 **계정 식별자**와 사람에게 보이는 10자리 **알롱 번호**를 서버에 저장합니다. 이름·이메일·전화번호는 이때 받지 않습니다. 설정에서 Apple 또는 Google 계정을 연결하면 로그인 서비스가 주는 **이메일**(Apple '이메일 가리기'를 쓰면 대체 주소)을 받습니다. 이름은 받지 않습니다. 첫 실행 때 입력하는 **생일**은 만 14세 이상 확인과 나이대 통계에 쓰고 기기에만 저장하며, 서버로 보내지 않습니다. 통계에는 나이대(6구간)만 보냅니다(3절).
+- **알롱**: 앱을 처음 켤 때 자동으로 게스트 계정을 만들어, 무작위 **계정 식별자**와 사람에게 보이는 10자리 **알롱 번호**를 서버에 저장합니다. 이름·이메일·전화번호는 이때 받지 않습니다. 설정에서 Apple 또는 Google 계정을 연결하면 로그인 서비스가 주는 **이메일**(Apple '이메일 가리기'를 쓰면 대체 주소)을 받습니다. 이름은 받지 않습니다. 첫 실행 때 입력하는 **생일**은 만 14세 이상 확인과 나이대 통계에 쓰고 기기에만 저장하며, 서버로 보내지 않습니다. iOS 26 이상에서는 Apple이 제공하는 연령대 확인을 먼저 요청할 수 있으며, 응답 결과는 기기에만 저장하고 서버로 보내지 않습니다. 통계에는 나이대(6구간)만 보냅니다(3절).
 - **응원석**: 계정·로그인 없이 쓰는 앱으로, 이름·이메일·전화번호·위치를 수집하지 않습니다.
 
 ### 2. 데이터 저장 방식
@@ -28,7 +28,7 @@
 
 - **주량체커**: 서버에 저장되는 기록은 술 종류·양·날짜·시각·한도입니다. 계정 카드는 설정 맨 위에 있습니다.
 - **차곡**: 서버에 저장되는 기록은 어느 취미에 무엇을 언제 기록했는지(앨범 사진으로 기록했으면 사진을 찍은 날짜 포함)와 사진으로 확인된 기록인지입니다. 앱에서 닉네임을 정하면 계정 정보의 이름 칸에 저장됩니다. **기록에 쓴 사진은 서버에 올리지 않습니다** — 사진은 기기에만 남아, 기기를 바꾸면 사진 자리에 안내만 보입니다. '연결 해제'로 지운 서버의 기록과 계정은 되돌릴 수 없습니다.
-- **알롱**: 게스트 계정의 **계정 식별자**와 **알롱 번호**가 Google Firebase(Authentication·Cloud Firestore)에 저장됩니다. 계정을 연결하면 **이메일**과 알롱의 **게임 데이터**(알롱·꾸미기·재료·걸음 합계 등, 생일은 제외)가 위 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 알롱이 돌아옵니다. 주간 **순위**에는 알롱 **이름**(닉네임)과 그 주의 기록이 다른 이용자에게 보입니다.
+- **알롱**: 게스트 계정의 **계정 식별자**와 **알롱 번호**가 Google Firebase(Authentication·Cloud Firestore)에 저장됩니다. 계정을 연결하면 **이메일**과 알롱의 **게임 데이터**(알롱·꾸미기·재료·걸음 합계, 도감, 처음 가 본 장소 종류·나라 같은 진행 기록 등 — 생일·좌표·지나간 칸은 제외)가 위 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 알롱이 돌아옵니다. 주간 **순위**를 위해 계정 연결과 상관없이 알롱 **이름**(닉네임)·모습과 이번 주 걸음·이긴 달롱·친밀도 합계가 서버에 올라가며, 다른 이용자가 볼 수 있습니다. 2주 동안 새로 쓰이지 않으면 자동으로 지워지고, '연결 해제'나 '데이터 초기화'로 바로 지울 수 있습니다.
   - **국외 이전 고지**: 계정 식별자·이메일은 미국에서, 게임 데이터·순위와 알롱 번호는 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 앱을 처음 켤 때, 계정을 연결할 때, 게임 데이터가 바뀔 때 인터넷으로 전송되며, 연결을 해제하거나 아래 방법으로 삭제할 때까지 보관합니다.
   - **삭제**: 설정의 계정 카드에서 '연결 해제'를 누르면 서버의 게임 데이터와 계정(이메일·계정 식별자)을 바로 지우고(되돌릴 수 없음), 이 폰의 알롱은 그대로 남으며 새 게스트 계정이 만들어집니다. 연결하지 않은 게스트 계정의 식별자·알롱 번호와 이 폰의 알롱은 앱 설정의 '데이터 초기화'로 언제든 지울 수 있습니다(되돌릴 수 없음).
 - **응원석**: 고른 응원팀과 '실시간 현황' 켜기·끄기는 기기 안에만 저장합니다. '실시간 현황'을 켠 경우에만, 경기가 시작될 때 잠금 화면에 점수를 띄우기 위해 Apple이 발급하는 **기기 토큰**(무작위 값)과 **응원팀 코드**, **앱 언어**를 운영자 서버에 보관합니다. iOS 26 이상에서 홈 화면·잠금 화면에 위젯을 놓으면 Apple이 발급하는 **위젯 토큰**(무작위 값)과 **응원팀 코드**를 운영자 서버에 보관하며, 점수가 바뀔 때 위젯을 바로 새로 그리는 데 씁니다.
@@ -69,7 +69,7 @@
 
 앱은 아동을 대상으로 하지 않으며, 아동을 겨냥한 기능이나 별도 수집은 없습니다. 3절의 사용 통계는 익명입니다.
 
-- **알롱**: 첫 실행 때 입력한 생일로 만 14세 미만임을 확인하면 이용을 막습니다(생일은 기기에만 저장되며 서버로 보내지 않습니다).
+- **알롱**: 첫 실행 때 입력한 생일로 만 14세 미만임을 확인하면 이용을 막습니다(생일은 기기에만 저장되며 서버로 보내지 않습니다). iOS 26 이상에서는 Apple이 제공하는 연령대 확인을 먼저 요청할 수 있으며, 응답 결과는 기기에만 저장하고 서버로 보내지 않습니다.
 
 ### 7. 변경 사항
 
@@ -90,14 +90,14 @@
 
 **Applies to: DrinkChecker · CheerSeat · Chagok · Allong**
 
-By default DrinkChecker, CheerSeat and Chagok collect no personal information. DrinkChecker, Chagok and Allong, which offer account connection (Apple or Google), store your account details and records on a backup server only if you connect an account in Settings (section 2). Allong creates a random account identifier and an Allong number on the server, without your name or contact details, when you first open the app, and stores your email and game data on the server only if you connect an account (sections 1 and 2). CheerSeat keeps a device token on the operator's server only if you turn on Live Activities or add a widget, so it can show the score right away (section 2). All apps send anonymous usage statistics to help improve them (section 3). What differs by app is listed at the end of each section under the app's name.
+By default DrinkChecker, CheerSeat and Chagok collect no personal information. DrinkChecker, Chagok and Allong, which offer account connection (Apple or Google), store your account details and records on a backup server only if you connect an account in Settings (section 2). Allong creates a random account identifier and an Allong number on the server, without your name or contact details, when you first open the app, and stores your email and game data on the server only if you connect an account; weekly ranking records are uploaded even without connecting (sections 1 and 2). CheerSeat keeps a device token on the operator's server only if you turn on Live Activities or add a widget, so it can show the score right away (section 2). All apps send anonymous usage statistics to help improve them (section 3). What differs by app is listed at the end of each section under the app's name.
 
 ### 1. Information we collect
 
 What we receive differs by app. The analytics tool assigns a random per-installation identifier that is not linked to your name or contact details (section 3).
 
 - **DrinkChecker and Chagok**: every feature works without connecting an account, and if you don't connect one, the app collects no personally identifying information — no name, email, or phone number. If you connect an account in Settings, the app receives the account identifier, email address (a relay address if you use Apple's Hide My Email) and name (if your Google profile has one) provided by the sign-in service (Apple or Google).
-- **Allong**: automatically creates a guest account when you first open the app and stores a random **account identifier** and a 10-digit **Allong number** shown to you on the server. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. Only an age group (one of six) is sent to statistics (section 3).
+- **Allong**: automatically creates a guest account when you first open the app and stores a random **account identifier** and a 10-digit **Allong number** shown to you on the server. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. On iOS 26 or later, the app may first ask for the age range provided by Apple; the result is stored on your device only and never sent to the server. Only an age group (one of six) is sent to statistics (section 3).
 - **CheerSeat**: has no account or login and does not collect your name, email, phone number, or location.
 
 ### 2. How your data is stored
@@ -111,7 +111,7 @@ What you enter in the app is stored on your device and is deleted when you delet
 
 - **DrinkChecker**: the records stored on the server are drink type, amount, date and time, and limit. The account card is at the top of Settings.
 - **Chagok**: the records stored on the server are which hobby, what and when — including the date a photo was taken if you logged from your photo library — and whether a record was confirmed by a photo. If you set a nickname in the app, it is stored in the name field of your account details. **Photos you use for records are never uploaded** — they stay on your device, so on a new device a note appears in their place. Server records and the account deleted with Disconnect cannot be recovered.
-- **Allong**: the guest account's **account identifier** and **Allong number** are stored in Google Firebase (Authentication and Cloud Firestore). If you connect an account, your **email** and your Allong's **game data** (your Allong, outfits, materials, step totals and so on — never your date of birth) are stored in the per-account space above, so your Allong comes back when you connect the same account on a new phone. Your Allong's **name** (nickname) and your record for the week are shown to other users in the weekly **rankings**.
+- **Allong**: the guest account's **account identifier** and **Allong number** are stored in Google Firebase (Authentication and Cloud Firestore). If you connect an account, your **email** and your Allong's **game data** (your Allong, outfits, materials, step totals, the collection book, and progress such as the kinds of places and countries you have visited for the first time — never your date of birth, coordinates, or the map cells you passed through) are stored in the per-account space above, so your Allong comes back when you connect the same account on a new phone. For the weekly **rankings**, your Allong's **name** (nickname) and appearance and this week's steps, Dallongs defeated and friendship totals are uploaded to the server whether or not you connect an account, and other users can see them. They are deleted automatically if not updated for two weeks, and you can delete them right away with Disconnect or Reset All Data.
   - **International transfer**: the account identifier and email are processed and stored by Google LLC in the United States, and game data, rankings and the Allong number in South Korea (Seoul region). They are sent over the internet when you first open the app, when you connect an account, and when your game data changes, and kept until you disconnect or delete them as below.
   - **Deletion**: tapping Disconnect on the account card in Settings deletes your server game data and account (email and account identifier) immediately (this cannot be undone); the Allong on your phone stays and a new guest account is created. The guest account's identifier and Allong number, and the Allong on your phone, can be deleted anytime with Reset All Data in Settings (this cannot be undone).
 - **CheerSeat**: your team and the Live Activities setting are stored on your device only. Only if Live Activities are on, the app keeps a **device token** issued by Apple (a random value), your **team code** and the **app language** on the operator's server, so it can start the Live Activity on your Lock Screen when a game begins. On iOS 26 or later, if you add a widget to your Home Screen or Lock Screen, the app keeps a **widget token** issued by Apple (a random value) and your **team code** on the operator's server and uses them to redraw the widget right away when the score changes.
@@ -152,7 +152,7 @@ All apps use Google Firebase Analytics for the usage statistics in section 3. Op
 
 The app is not directed at children, and has no child-directed features or separate collection from children. The usage statistics in section 3 are anonymous.
 
-- **Allong**: blocks use if the date of birth entered on first launch shows the user is under 14 (the date of birth is stored on the device only and never sent to the server).
+- **Allong**: blocks use if the date of birth entered on first launch shows the user is under 14 (the date of birth is stored on the device only and never sent to the server). On iOS 26 or later, the app may first ask for the age range provided by Apple; the result is stored on your device only and never sent to the server.
 
 ### 7. Changes
 
