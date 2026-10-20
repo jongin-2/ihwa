@@ -13,6 +13,7 @@
  6. --release <버전>: 첫 출시(1.0·1.0.0)는 "## <버전> 전체 회귀" 절에 모든 케이스,
     그 뒤는 "## <버전> 출시 회귀" 절에 돌린 케이스 1건 이상 + `> 승계: 나머지는 <직전 버전> 결과` 줄
     (옛 "## <버전> 전체 회귀" 절이 있으면 그것도 받는다). 설정 release_mode가 "full"이면 늘 전체 회귀 절("## 빌드 7 전체 회귀").
+    첫 출시도 "## 전체 회귀(기준 <커밋>)" 절(모든 케이스) + 출시 회귀 절(그 커밋 뒤 바뀐 케이스 + `> 승계: 나머지는 <커밋> 결과`)이면 통과(10-20).
 작업 기록 위치: 환경변수 QA_WORK_DIR > iCloud ihwa/<저장소 폴더 이름>/work/ > 저장소 impl/qa/ (옛 위치).
 사용: python3 impl/scripts/check-qa-coverage.py [--root <저장소>] [--release <버전>]   (표준 라이브러리만, 저장소 파일은 쓰지 않음)
 설정(impl/scripts/qa-config.json, 모두 선택): {"app": "폴더와 iCloud 이름이 다를 때", "release_mode": "incremental"|"full",
@@ -188,19 +189,28 @@ if args.release:
         nxt = sec.find('\n## ', 1)
         return sec if nxt < 0 else sec[:nxt]
 
-    if full in QR:
+    def check_full(h, label):
         done = {}
-        for nums, second, _ in table_rows(section(full)):
+        for nums, second, _ in table_rows(section(h)):
             for i in nums:
                 if i not in done or VERDICT.search(second):
                     done[i] = second  # 뒤의 "비고 해결" 같은 행이 판정을 덮지 않게
-        miss = [i for i in ids if i not in done and not re.search(r'\b' + re.escape(i) + r'\b', section(full))]
+        miss = [i for i in ids if i not in done and not re.search(r'\b' + re.escape(i) + r'\b', section(h))]
         if miss:
-            problems.append(f'{ver} 전체 회귀에 없는 케이스 {len(miss)}건: {", ".join(miss[:30])}{" …" if len(miss) > 30 else ""}')
+            problems.append(f'{label}에 없는 케이스 {len(miss)}건: {", ".join(miss[:30])}{" …" if len(miss) > 30 else ""}')
         nov = [i for i in ids if i in done and not VERDICT.search(done[i])]
         if nov:
-            problems.append(f'{ver} 전체 회귀 판정 없음: {", ".join(nov[:30])}')
-    elif part in QR and not full_only and not first:
+            problems.append(f'{label} 판정 없음: {", ".join(nov[:30])}')
+
+    # 첫 출시의 기준 전체 회귀(10-20 종인님 "지금 기능 굳으면 나눠서 돌려"): 기능이 굳은 뒤 아무 때나 한 번,
+    # 제목 "## 전체 회귀(기준 <커밋>)" — 출시 때는 그 뒤 바뀐 코드가 닿는 케이스만 출시 회귀 절에 다시 돌린다.
+    base = re.search(r'^## [^\n]*전체 회귀[^\n]*기준 ([0-9a-f]{7,40})', QR, re.M)
+
+    if full in QR:
+        check_full(full, f'{ver} 전체 회귀')
+    elif part in QR and not full_only and (not first or base):
+        if first:
+            check_full(base.group(0), f'기준 전체 회귀({base.group(1)})')
         sec = section(part)
         ran = [i for i in ids if re.search(r'^\| ' + re.escape(i) + r'\b', sec, re.M)]
         if not ran:
@@ -208,7 +218,7 @@ if args.release:
         if not re.search(r'^> 승계: 나머지는 \S+ 결과', sec, re.M):
             problems.append(f'"{part}" 절에 승계 선언 줄(`> 승계: 나머지는 <직전 버전> 결과`)이 없다')
     elif full_only or first:
-        problems.append(f'QA_RESULT에 "{full}" 절이 없다 — {ver} 코드로 모든 케이스를 다시 돌려 그 절에 적을 것')
+        problems.append(f'QA_RESULT에 "{full}" 절이 없다 — {ver} 코드로 모든 케이스를 돌려 그 절에 적거나, 첫 출시는 "## 전체 회귀(기준 <커밋>)" 절 + "{part}" 절(그 커밋 뒤 바뀐 케이스 + `> 승계: 나머지는 <커밋> 결과`)로')
     else:
         problems.append(f'QA_RESULT에 "{part}"(첫 출시는 "{full}") 절이 없다 — 바꾼 부분의 케이스를 {ver} 코드로 돌려 그 절에 적을 것')
 
