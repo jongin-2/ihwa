@@ -215,7 +215,7 @@ if args.release:
         ran = [i for i in ids if re.search(r'^\| ' + re.escape(i) + r'\b', sec, re.M)]
         if not ran:
             problems.append(f'"{part}" 절에 돌린 케이스가 없다 — 바꾼 부분의 케이스를 {ver} 코드로 돌려 적을 것')
-        if not re.search(r'^> 승계: 나머지는 \S+ 결과', sec, re.M):
+        if not re.search(r'^> 승계: 나머지는 \S.*? 결과', sec, re.M):  # "빌드 19"처럼 띄어 쓴 이름도(10-20 차곡)
             problems.append(f'"{part}" 절에 승계 선언 줄(`> 승계: 나머지는 <직전 버전> 결과`)이 없다')
     elif full_only or first:
         problems.append(f'QA_RESULT에 "{full}" 절이 없다 — {ver} 코드로 모든 케이스를 돌려 그 절에 적거나, 첫 출시는 "## 전체 회귀(기준 <커밋>)" 절 + "{part}" 절(그 커밋 뒤 바뀐 케이스 + `> 승계: 나머지는 <커밋> 결과`)로')
