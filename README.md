@@ -31,8 +31,8 @@
 
 ## 앱 안 약관 화면 — 세 앱 공용 원본(2026-10-12)
 종인님 "약관 같은 건 모든 앱 화면도 동일하게 구성하고 잘 관리하면 될 것 같은데 왜 자꾸 달라지지" — 앱마다 따로 짠 사본이 고칠 때마다 벌어졌다(주량체커·응원석 가운데 제목, 차곡 큰 제목 + 원 ✕).
-- 원본: `app-kit/LegalDocView.tsx` 하나. 머리글(가운데 제목 · 오른쪽 30pt 회색 원 ✕ · 넘어간 문서에서만 왼쪽 원 ‹ — iOS 시트 표준 닫기 단추)까지 이 부품이 그린다 — 이동 방식(react-navigation·expo-router)과 무관. 기준은 응원석 세션이 잡고 다른 앱이 따른다(종인님 "주량체커 따를 필요 없고 좋은 걸로 너가 기준 잡고 주량체커가 따르게 해").
-- 각 앱은 이 파일을 **글자 그대로** `src/components/LegalDocView.tsx`(차곡은 앱 구조에 맞는 자리)에 복사하고, 모달 시트로 띄우되 네이티브 머리글은 숨긴다. 앱마다 다른 값은 강조색(tint) 하나.
+- 원본: `app-kit/LegalDocView.tsx` 하나. 머리글은 iOS 기본 머리글(native-stack — react-navigation·expo-router 모두)로, 이 부품이 `navigation.setOptions`로 가운데 제목과 왼쪽 유리 ✕(본문 링크로 넘어가면 ‹)를 채운다 — 10-17 종인님 코어 시안 A안, 애플 HIG Sheets '한 화면짜리 시트의 닫기는 왼쪽'. 첫 화면이 10초 안에 안 뜨면 오프라인 안내(브랜치 legal-timeout, 다음 원본 변경 때 합침).
+- 각 앱은 이 파일을 **글자 그대로** `src/components/LegalDocView.tsx`(차곡은 앱 구조에 맞는 자리)에 복사하고, 모달 시트로 띄우되 그 화면 옵션에 `headerShown: true`를 처음부터 두고 `navigation`을 넘긴다(모달에서 머리글을 나중에 켜면 안 나옴). 앱마다 다른 값은 강조색(tint) 하나.
 - 고칠 땐 원본만 고치고 세 앱에 다시 복사. 각 앱 빌드 점검(check-docs-sync)이 원본과 다르면 막는다.
 - 필요한 라이브러리: react-native-webview, expo-clipboard.
 

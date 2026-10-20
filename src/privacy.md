@@ -13,7 +13,7 @@
 
 받는 정보는 앱마다 다릅니다. 통계 도구가 설치마다 붙이는 무작위 식별자는 이름·연락처와 연결되지 않습니다(3절).
 
-- **주량체커·차곡**: 계정 연결 없이 모든 기능을 쓸 수 있고, 계정을 연결하지 않으면 이름·이메일·전화번호 등 어떤 개인 식별 정보도 수집하지 않습니다. 설정에서 계정을 연결하면 로그인 서비스(Apple 또는 Google)가 주는 계정 식별자·이메일(Apple '이메일 가리기'를 쓰면 대체 주소)·이름(Google 프로필에 있을 때)을 받습니다.
+- **주량체커·차곡**: 계정 연결 없이 모든 기능을 쓸 수 있고, 계정을 연결하지 않으면 이름·이메일·전화번호 등 어떤 개인 식별 정보도 수집하지 않습니다. 설정에서 계정을 연결하면 로그인 서비스(Apple 또는 Google)가 주는 계정 식별자·이메일(Apple '이메일 가리기'를 쓰면 대체 주소)만 받습니다.
 - **응원석**: 계정·로그인 없이 쓰는 앱으로, 이름·이메일·전화번호·위치를 수집하지 않습니다.
 
 ### 2. 데이터 저장 방식
@@ -22,7 +22,7 @@
 
 **주량체커·차곡**: 계정을 연결하면 기록과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제됩니다(서버 기록과 그 기기의 기록은 그대로 남습니다).
 
-- **국외 이전 고지**: 계정 정보(계정 식별자·이메일·이름)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
+- **국외 이전 고지**: 계정 정보(계정 식별자·이메일, 차곡은 닉네임)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
 - **삭제**: 설정의 계정 카드에서 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 폰의 기록은 그대로 남습니다.
 
 - **주량체커**: 서버에 저장되는 기록은 술 종류·양·날짜·시각·한도입니다. 계정 카드는 설정 맨 위에 있습니다.
@@ -72,7 +72,7 @@
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-10-15
+최종 수정일: 2026-10-17
 
 ---
 
@@ -87,7 +87,7 @@ By default none of the apps collects your personal information. DrinkChecker and
 
 What we receive differs by app. The analytics tool assigns a random per-installation identifier that is not linked to your name or contact details (section 3).
 
-- **DrinkChecker and Chagok**: every feature works without connecting an account, and if you don't connect one, the app collects no personally identifying information — no name, email, or phone number. If you connect an account in Settings, the app receives the account identifier, email address (a relay address if you use Apple's Hide My Email) and name (if your Google profile has one) provided by the sign-in service (Apple or Google).
+- **DrinkChecker and Chagok**: every feature works without connecting an account, and if you don't connect one, the app collects no personally identifying information — no name, email, or phone number. If you connect an account in Settings, the app receives only the account identifier and email address (a relay address if you use Apple's Hide My Email) provided by the sign-in service (Apple or Google).
 - **CheerSeat**: has no account or login and does not collect your name, email, phone number, or location.
 
 ### 2. How your data is stored
@@ -96,7 +96,7 @@ What you enter in the app is stored on your device and is deleted when you delet
 
 **DrinkChecker and Chagok**: if you connect an account, your records and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new phone. Only your own account can read or write that space. An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).
 
-- **International transfer**: your account details (account identifier, email, name) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
+- **International transfer**: your account details (account identifier, email, and in Chagok your nickname) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
 - **Deletion**: tapping Disconnect on the account card in Settings deletes your records and account from the server immediately. The records on your phone stay.
 
 - **DrinkChecker**: the records stored on the server are drink type, amount, date and time, and limit. The account card is at the top of Settings.
@@ -146,4 +146,4 @@ Any change to this policy is published on this page right away. The app shows th
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-10-15
+Last updated: 2026-10-17
