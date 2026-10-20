@@ -33,7 +33,7 @@
 
 | 언어 | 제목 | 본문 |
 |---|---|---|
-| ko | 연결을 해제할까요? | 기록은 이 폰에만 남고 계정은 지워요. 다시 로그인이 필요해요. |
-| en | Disconnect your account? | Your records stay only on this phone and your account is deleted. You'll need to sign in again. |
+| ko | 연결을 해제할까요? | 기록은 이 기기에만 남고 계정은 지워요. 다시 로그인이 필요해요. |
+| en | Disconnect your account? | Your records stay only on this device and your account is deleted. You'll need to sign in again. |
 
-다른 언어는 주량체커 저장소 strings.ts·i18n/*.ts의 disconnectBody가 원본이다(차곡·알롱은 그 낱말을 따름). 연결 전 줄의 nl·pl·sv·th·cs·uk 6개 언어는 주량체커 번역(10-17 추가).
+다른 언어는 주량체커 저장소 strings.ts·i18n/*.ts의 disconnectBody가 원본이다(차곡·알롱은 그 낱말을 따름). '폰'이 아니라 '기기'로 쓴다(10-20 종인님 — 알롱 계정 불러오기를 '이 기기'로 통일한 뒤 세 앱 모두, 같은 앱의 다른 안내(계정 충돌 등)도 같이): de Gerät, es·it·pt dispositivo, fr appareil, ja デバイス, zh-Hans 设备, zh-Hant 裝置, ru устройство, tr cihaz, id perangkat, vi thiết bị(알롱 cc5d84f 기준). 연결 전 줄의 '폰을 바꿔도'는 기기 변경을 뜻하는 일상 표현이라 그대로 둔다. 연결 전 줄의 nl·pl·sv·th·cs·uk 6개 언어는 주량체커 번역(10-17 추가).
