@@ -78,9 +78,9 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
     <View style={styles.container}>
       {failed ? (
         <View style={styles.center}>
-          <Text style={styles.msg}>{w.offline}</Text>
+          <Text style={styles.msg} maxFontSizeMultiplier={1.5}>{w.offline}</Text>
           <Pressable onPress={() => { setFailed(false); setAttempt((a) => a + 1); }} style={styles.btn} accessibilityRole="button">
-            {({ pressed }) => <Text style={[styles.retry, { color: tint }, pressed && styles.pressed]}>{w.retry}</Text>}
+            {({ pressed }) => <Text style={[styles.retry, { color: tint }, pressed && styles.pressed]} maxFontSizeMultiplier={1.3}>{w.retry}</Text>}
           </Pressable>
         </View>
       ) : (
