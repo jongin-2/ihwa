@@ -14,7 +14,7 @@
 받는 정보는 앱마다 다릅니다. 통계 도구가 설치마다 붙이는 무작위 식별자는 이름·연락처와 연결되지 않습니다(3절).
 
 - **주량체커·차곡**: 계정 연결 없이 모든 기능을 쓸 수 있고, 계정을 연결하지 않으면 이름·이메일·전화번호 등 어떤 개인 식별 정보도 수집하지 않습니다. 설정에서 계정을 연결하면 로그인 서비스(Apple 또는 Google)가 주는 계정 식별자·이메일(Apple '이메일 가리기'를 쓰면 대체 주소)·이름(Google 프로필에 있을 때)을 받습니다.
-- **알롱**: 첫 실행 때 만 14세 이상 확인을 통과하면 게스트 계정을 만들어, 무작위 **계정 식별자**와 사람에게 보이는 10자리 **알롱 번호**를 서버에 저장합니다. 이름·이메일·전화번호는 이때 받지 않습니다. 설정에서 Apple 또는 Google 계정을 연결하면 로그인 서비스가 주는 **이메일**(Apple '이메일 가리기'를 쓰면 대체 주소)을 받습니다. 이름은 받지 않습니다. 첫 실행 때 입력하는 **생일**은 만 14세 이상 확인과 나이대 통계에 쓰고 기기에만 저장하며, 서버로 보내지 않습니다. iOS 26 이상에서는 Apple이 제공하는 연령대 확인을 먼저 요청할 수 있으며, 응답 결과는 기기에 저장하고, 계정을 연결하면 만 14세 이상인지 여부와 확인 방식(직접 입력·Apple)만 서버에 저장합니다. 통계에는 나이대(6구간)만 보냅니다(3절).
+- **알롱**: 첫 실행 때 만 14세 이상 확인을 통과하면 게스트 계정을 만들어, 무작위 **계정 식별자**와 사람에게 보이는 10자리 **알롱 번호**를 서버에 저장합니다. 이름·이메일·전화번호는 이때 받지 않습니다. 설정에서 Apple 또는 Google 계정을 연결하면 로그인 서비스가 주는 **이메일**(Apple '이메일 가리기'를 쓰면 대체 주소)을 받습니다. 이름은 받지 않습니다. 첫 실행 때 입력하는 **생일**은 만 14세 이상 확인과 나이대 통계에 쓰고 기기에만 저장하며, 서버로 보내지 않습니다. 계정을 연결하면 만 14세 이상인지 여부만 서버에 저장합니다. 통계에는 나이대(6구간)만 보냅니다(3절).
 - **응원석**: 계정·로그인 없이 쓰는 앱으로, 이름·이메일·전화번호·위치를 수집하지 않습니다.
 
 ### 2. 데이터 저장 방식
@@ -69,7 +69,7 @@
 
 앱은 아동을 대상으로 하지 않으며, 아동을 겨냥한 기능이나 별도 수집은 없습니다. 3절의 사용 통계는 익명입니다.
 
-- **알롱**: 첫 실행 때 입력한 생일로 만 14세 미만임을 확인하면 이용을 막습니다(생일은 기기에만 저장되며 서버로 보내지 않습니다). iOS 26 이상에서는 Apple이 제공하는 연령대 확인을 먼저 요청할 수 있습니다. 만 14세 이상 확인을 통과하기 전에는 서버에 아무것도 만들지 않으며, 응답 결과는 기기에 저장하고 계정을 연결하면 만 14세 이상인지 여부만 서버에 저장합니다.
+- **알롱**: 첫 실행 때 입력한 생일로 만 14세 미만임을 확인하면 이용을 막습니다(생일은 기기에만 저장되며 서버로 보내지 않습니다). 만 14세 이상 확인을 통과하기 전에는 서버에 아무것도 만들지 않으며, 확인 결과는 기기에 저장하고 계정을 연결하면 만 14세 이상인지 여부만 서버에 저장합니다.
 
 ### 7. 변경 사항
 
@@ -97,7 +97,7 @@ By default DrinkChecker, CheerSeat and Chagok collect no personal information. D
 What we receive differs by app. The analytics tool assigns a random per-installation identifier that is not linked to your name or contact details (section 3).
 
 - **DrinkChecker and Chagok**: every feature works without connecting an account, and if you don't connect one, the app collects no personally identifying information — no name, email, or phone number. If you connect an account in Settings, the app receives the account identifier, email address (a relay address if you use Apple's Hide My Email) and name (if your Google profile has one) provided by the sign-in service (Apple or Google).
-- **Allong**: creates a guest account once you pass the age check (14 or older) on first launch and stores a random **account identifier** and a 10-digit **Allong number** shown to you on the server. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. On iOS 26 or later, the app may first ask for the age range provided by Apple; the result is stored on your device, and if you connect an account only whether you are 14 or older and how it was checked (entered or Apple) is stored on the server. Only an age group (one of six) is sent to statistics (section 3).
+- **Allong**: creates a guest account once you pass the age check (14 or older) on first launch and stores a random **account identifier** and a 10-digit **Allong number** shown to you on the server. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. If you connect an account, only whether you are 14 or older is stored on the server. Only an age group (one of six) is sent to statistics (section 3).
 - **CheerSeat**: has no account or login and does not collect your name, email, phone number, or location.
 
 ### 2. How your data is stored
@@ -152,7 +152,7 @@ All apps use Google Firebase Analytics for the usage statistics in section 3. Op
 
 The app is not directed at children, and has no child-directed features or separate collection from children. The usage statistics in section 3 are anonymous.
 
-- **Allong**: blocks use if the date of birth entered on first launch shows the user is under 14 (the date of birth is stored on the device only and never sent to the server). On iOS 26 or later, the app may first ask for the age range provided by Apple; nothing is created on the server until you pass the age check, the result is stored on your device, and if you connect an account only whether you are 14 or older is stored on the server.
+- **Allong**: blocks use if the date of birth entered on first launch shows the user is under 14 (the date of birth is stored on the device only and never sent to the server). Nothing is created on the server until you pass the age check, the result is stored on your device, and if you connect an account only whether you are 14 or older is stored on the server.
 
 ### 7. Changes
 
