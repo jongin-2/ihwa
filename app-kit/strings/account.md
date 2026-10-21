@@ -14,9 +14,9 @@
 | es | Conectar cuenta | Conserva tus registros al cambiar de dispositivo |
 | pt | Conectar conta | Mantenha seus registros ao trocar de dispositivo |
 | de | Konto verbinden | Deine Einträge bleiben beim Geräte­wechsel erhalten |
-| fr | Connecter un compte | Gardez vos enregistrements en changeant d’appareil |
+| fr | Connecter un compte | Gardez vos enregis­trements en changeant d’appareil |
 | it | Collega account | Mantieni i registri quando cambi dispositivo |
-| ru | Подключить аккаунт | Записи сохранятся при смене устройства |
+| ru | Подклю­чить аккаунт | Записи сохранятся при смене устройства |
 | tr | Hesap bağla | Cihaz değiştirsen de kayıtların kalır |
 | id | Hubungkan akun | Catatan tetap ada saat ganti perangkat |
 | vi | Kết nối tài khoản | Đổi thiết bị vẫn giữ được ghi chép |
@@ -25,11 +25,11 @@
 | sv | Anslut konto | Dina poster följer med när du byter enhet |
 | th | เชื่อมต่อบัญชี | เปลี่ยนอุปกรณ์ก็ยังมีบันทึกเหมือนเดิม |
 | cs | Připojit účet | Záznamy zůstanou i po výměně zařízení |
-| uk | Підключити обліковий запис | Записи збережуться після зміни пристрою |
+| uk | Підклю­чити обліковий запис | Записи збережуться після зміни пристрою |
 
 시트 제목은 위 '제목'과 같다. 시트 안 설명 줄은 두지 않는다.
 
-독일어 보조 줄의 'Geräte­wechsel'에는 소프트 하이픈(U+00AD, 꺾일 때만 '-'가 보임)이 들어 있다 — 가장 큰 글씨에서 'Gerätewechse/l'처럼 단어 중간이 꺾이던 것(10-21 주량체커 49c08ee 등). 눈에 안 보이니 손으로 옮겨 적지 말고 이 파일에서 복사하고, `grep -c $'\u00ad'`로 들어갔는지 확인한다.
+독일어 보조 줄 'Geräte­wechsel', 러시아어 제목 'Подклю­чить', 우크라이나어 제목 'Підклю­чити', 프랑스어 보조 줄 'enregis­trements'(10-21 주량체커 fd17c8e, AX5에서 'Подключи/ть' 등으로 꺾이던 것)에는 소프트 하이픈(U+00AD, 꺾일 때만 '-'가 보임)이 들어 있다 — 가장 큰 글씨에서 'Gerätewechse/l'처럼 단어 중간이 꺾이던 것(10-21 주량체커 49c08ee 등). 눈에 안 보이니 손으로 옮겨 적지 말고 이 파일에서 복사하고, `grep -c $'\u00ad'`로 들어갔는지 확인한다.
 
 중국어 낱말(10-20 코어 — 공용 표·주량체커·차곡이 이미 쓰는 쪽): 로그인 계정은 zh-Hans '账号'·zh-Hant '帳號', 연결은 '连接'·'連接'. '账户/帳戶'는 차곡에서 적금 '계좌' 뜻이라 계정에 쓰지 않고, '連結'도 쓰지 않는다. 같은 화면의 계정 충돌·연결 해제·밀려남 문구도 이 낱말로.
 
