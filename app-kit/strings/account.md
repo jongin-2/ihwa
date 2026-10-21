@@ -10,12 +10,12 @@
 | en | Connect Account | Keep your records when you change devices |
 | ja | アカウント連携 | デバイスを替えても記録が引き継がれます |
 | zh-Hans | 连接账号 | 换设备也能保留记录 |
-| zh-Hant | 連接帳號 | 換裝置也能保留記錄 |
+| zh-Hant | 連接帳號 | 換裝置也能保留紀錄 |
 | es | Conectar cuenta | Conserva tus registros al cambiar de dispositivo |
 | pt | Conectar conta | Mantenha seus registros ao trocar de dispositivo |
 | de | Konto verbinden | Deine Einträge bleiben beim Geräte­wechsel erhalten |
 | fr | Connecter un compte | Gardez vos enregis­trements en changeant d’appareil |
-| it | Collega account | Mantieni i registri quando cambi dispositivo |
+| it | Collega account | Mantieni i dati quando cambi dispositivo |
 | ru | Подклю­чить аккаунт | Записи сохранятся при смене устройства |
 | tr | Hesap bağla | Cihaz değiştirsen de kayıtların kalır |
 | id | Hubungkan akun | Catatan tetap ada saat ganti perangkat |
@@ -41,3 +41,5 @@
 | en | Disconnect your account? | Your records stay only on this device and your account is deleted. You'll need to sign in again. |
 
 다른 언어는 주량체커 저장소 strings.ts·i18n/*.ts의 disconnectBody가 원본이다(차곡·알롱은 그 낱말을 따름). '폰'이 아니라 '기기'로 쓴다(10-20 종인님 — 알롱 계정 불러오기를 '이 기기'로 통일한 뒤 세 앱 모두, 같은 앱의 다른 안내(계정 충돌 등)도 같이): de Gerät, es·it·pt dispositivo, fr appareil, ja デバイス, zh-Hans 设备, zh-Hant 裝置, ru устройство, tr cihaz, id perangkat, vi thiết bị(알롱 cc5d84f 기준). 연결 전 줄도 '기기를 바꿔도'로 맞췄다(같은 날 종인님 "폰이 아닌 태블릿 등에서도 동작할 수 있으니 기기로 맞추는거야" — 앱 화면 문구는 '폰' 대신 '기기'). 스토어 설명의 '폰을 바꿔도'는 마케팅 문구라 이 표 밖(각 앱 출시 정보 확인 때 따로). 연결 전 줄의 nl·pl·sv·th·cs·uk 6개 언어는 주량체커 번역(10-17 추가).
+
+낱말 기준(10-21 종인님 "언어는 보편적인거로, 너가 조사해"): 번체 '기록'(명사)은 紀錄 — 대만 법률 통일 용자(명사 紀錄·동사 記錄). 이탈리아어 보조 줄은 'dati' — 기기 바꿀 때 '데이터 옮기기'(trasferire i dati)가 일반 표현, 'registri'는 장부 느낌. 독일어 '계정'은 Konto 유지 — 표준어이고 구글·주량체커·차곡이 Konto(애플만 Account).
