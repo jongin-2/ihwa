@@ -136,8 +136,11 @@ function deviceRegion(): string | null {
 
 async function fetchLatest(appStoreId: string): Promise<{ version: string; releasedAt: number | null } | null> {
   const region = deviceRegion();
+  // 애플 조회 응답은 중간 서버(Akamai)에 최대 하루 저장돼 요청 머리글 no-cache로는 못 피한다 — 출시 뒤 몇 시간 옛 버전이 와서
+  // 설정 `업데이트` 단추가 안 떴다(10-22 응원석 1.0.1). 주소에 10분 단위 값을 붙여 늦어도 10분 안에 새 버전을 받는다.
+  const bucket = Math.floor(Date.now() / 600000);
   for (const country of region ? [region, 'us'] : ['us']) {
-    const j = await getJson(`https://itunes.apple.com/lookup?id=${appStoreId}&country=${country}`);
+    const j = await getJson(`https://itunes.apple.com/lookup?id=${appStoreId}&country=${country}&t=${bucket}`);
     const r = j?.results?.[0];
     if (typeof r?.version === 'string') {
       const t = Date.parse(r.currentVersionReleaseDate ?? '');
