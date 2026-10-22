@@ -47,7 +47,13 @@
     // 크기가 고정된 폰 목업(.proto-device[data-fixed] — 393×852처럼 절대 배치라 늘리거나 풀 수 없는 것)은 폭·높이 중 작은 쪽에 맞춰 통째로 보이게(10-22 한배 "PC나 모바일 다 보기 어려워")
     try {  // 프레임은 화면 크기 그대로 두고 목업 안의 폰에만 zoom(한배 5ce9db4와 같은 방식 — 프레임째 줄이면 좁은 화면에서 한쪽으로 치우침)
       var fx = frame.contentDocument.querySelector('.proto-device[data-fixed]');
-      if (fx) { fx.style.zoom = 1; fx.style.zoom = Math.min(1, (w - 24) / fx.offsetWidth, (h - 24) / fx.offsetHeight); frame.style.width = w + 'px'; frame.style.height = h + 'px'; frame.style.transform = 'translateX(-50%)'; return; }
+      if (fx) {
+        frame.style.width = w + 'px'; frame.style.height = h + 'px'; frame.style.transform = 'translateX(-50%)';
+        fx.style.zoom = 1;  // 폰 위의 검토 조작 높이를 빼려고 원래 크기에서 폰 윗변을 잰다(10-22 한배 — 아래가 잘림)
+        var top = fx.getBoundingClientRect().top + frame.contentWindow.scrollY;
+        fx.style.zoom = Math.max(0.3, Math.min(1, (w - 24) / fx.offsetWidth, (h - top - 12) / fx.offsetHeight));
+        return;
+      }
     } catch (e) {}
     frame.style.width = cw + 'px'; frame.style.height = (h / k) + 'px';
     frame.style.transform = 'translateX(-50%) scale(' + k + ')';
@@ -63,6 +69,7 @@
       st.textContent = '.proto-fold{width:min(440px,calc(100% - 24px));margin:0 auto}.proto-fold>summary{list-style:none;cursor:pointer;font:600 14px -apple-system,sans-serif;padding:12px 16px;border-radius:14px;background:rgba(127,127,127,.14);text-align:center}.proto-fold>summary::-webkit-details-marker{display:none}.proto-fold>summary::after{content:" ▾"}.proto-fold[open]>summary::after{content:" ▴"}.proto-fold[open]>summary{margin-bottom:8px}';
       d.head.appendChild(st); ps[0].parentNode.insertBefore(det, ps[0]); det.appendChild(sum);
       ps.forEach(function (p) { det.appendChild(p); });   // 여러 조각이어도 '검토 조작' 하나로 모은다
+      det.addEventListener('toggle', fit);  // 펼치고 접으면 폰 윗변이 바뀌어 고정 목업 크기를 다시 맞춘다
     } catch (e) {}
   }
   // 반응형: 좁은 화면(폰)에서는 목업의 폰 그림(.proto-device)·노치(.proto-notch)를 떼고 바깥 여백(.proto-page)을 줄여 화면을 폭 100%로 — 줄이지 않고 실제 글자 크기
