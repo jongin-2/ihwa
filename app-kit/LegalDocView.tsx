@@ -16,7 +16,7 @@
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도.
 // 앱마다 다른 값은 tint(강조색: 다시 시도) 하나뿐. 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as Clipboard from 'expo-clipboard';
@@ -59,6 +59,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   const w = WORDS[lang] ?? WORDS.en;
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [loading, setLoading] = useState(true);
   // 본문 링크로 다른 문서로 넘어가면 머리글도 그 문서 이름 — 페이지 <title>은 탐색 이벤트에 빈 값·이전 제목이 섞여 와 주소 경로로 판단
   const [shown, setShown] = useState<LegalDoc>(doc);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -79,7 +80,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
       {failed ? (
         <View style={styles.center}>
           <Text style={styles.msg} maxFontSizeMultiplier={1.5}>{w.offline}</Text>
-          <Pressable onPress={() => { setFailed(false); setAttempt((a) => a + 1); }} style={styles.btn} accessibilityRole="button">
+          <Pressable onPress={() => { setFailed(false); setLoading(true); setAttempt((a) => a + 1); }} style={styles.btn} accessibilityRole="button">
             {({ pressed }) => <Text style={[styles.retry, { color: tint }, pressed && styles.pressed]} maxFontSizeMultiplier={1.3}>{w.retry}</Text>}
           </Pressable>
         </View>
@@ -90,8 +91,8 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
           source={{ uri: legalUrl(doc, lang) }}
           style={styles.web}
           injectedJavaScriptBeforeContentLoaded={PAGE_STYLE}
-          startInLoadingState
-          renderLoading={() => <ActivityIndicator style={StyleSheet.absoluteFill} color={PlatformColor('secondaryLabel')} />}
+          onLoadStart={() => setLoading(true)}
+          onLoadEnd={() => setLoading(false)}
           onNavigationStateChange={(s) => {
             const m = s.url.match(/\/ihwa\/(terms|privacy)\//);
             if (m) setShown(m[1] as LegalDoc);
@@ -115,8 +116,30 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
           dataDetectorTypes="none"
         />
       )}
+      {!failed && <DelayedSpinner visible={loading} />}
     </View>
   );
+}
+
+// 대기 표시(10-22 종인님 "버퍼링이 걸리는 진입 화면은 로딩 스피너를 넣든가 해서 자연스럽게", 알롱 lib/loadingGate.ts와 같은 값):
+// 0.3초 안에 끝나는 짧은 대기엔 아무것도 띄우지 않고(깜빡임 방지), 넘으면 띄우며, 한 번 뜨면 0.4초는 유지한다.
+// 숫자는 애플이 정한 값이 아니라 관례(HIG는 '조금 넘게 걸리면 진행 표시'까지만 말함).
+const SHOW_AFTER_MS = 300;
+const MIN_SHOW_MS = 400;
+function DelayedSpinner({ visible }: { visible: boolean }) {
+  const [on, setOn] = useState(false);
+  const shownAt = useRef(0);
+  useEffect(() => {
+    if (visible) {
+      if (on) return;
+      const t = setTimeout(() => { shownAt.current = Date.now(); setOn(true); }, SHOW_AFTER_MS);
+      return () => clearTimeout(t);
+    }
+    if (!on) return;
+    const t = setTimeout(() => setOn(false), Math.max(0, shownAt.current + MIN_SHOW_MS - Date.now()));
+    return () => clearTimeout(t);
+  }, [visible, on]);
+  return on ? <ActivityIndicator style={StyleSheet.absoluteFill} pointerEvents="none" color={PlatformColor('secondaryLabel')} /> : null;
 }
 
 const styles = StyleSheet.create({
