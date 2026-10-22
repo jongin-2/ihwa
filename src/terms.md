@@ -67,7 +67,7 @@
 
 The app is a free, personal-use app that helps you manage information you set and record yourself. {{OPERATED_SENTENCE}}
 
-- **DrinkChecker**: logs your drinks against a limit you set and lets you log quickly from a home-screen widget.
+- **DrinkChecker**: logs your drinks against a limit you set and lets you log quickly from a Home Screen widget.
 - **Chagok**: a hobby log — record reading, music, drinks, exercise, films and more, and your CGK adds up.
 - **CheerSeat**: shows the KBO (Korean professional baseball) scores, schedule and standings for the team you choose, in the app, in a Home Screen widget and as a Live Activity on your Lock Screen.
 

@@ -17,7 +17,7 @@ p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);
 - <strong>응원석</strong>: 계정·로그인 없이 쓰는 앱으로, 이름·이메일·전화번호·위치를 수집하지 않습니다.</p>
 <h3>2. 데이터 저장 방식</h3>
 <p>앱에서 입력하는 정보는 사용자의 기기 안에 저장되며, 앱을 삭제하면 함께 삭제됩니다.</p>
-<p><strong>주량체커·차곡</strong>: 계정을 연결하면 기록과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제됩니다(서버 기록과 그 기기의 기록은 그대로 남습니다).</p>
+<p><strong>주량체커·차곡</strong>: 계정을 연결하면 기록과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 기기를 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제됩니다(서버 기록과 그 기기의 기록은 그대로 남습니다).</p>
 <p>- <strong>국외 이전 고지</strong>: 계정 정보(계정 식별자·이메일, 차곡은 닉네임)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
 - <strong>삭제</strong>: 설정의 계정 카드에서 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 폰의 기록은 그대로 남습니다.</p>
 <p>- <strong>주량체커</strong>: 서버에 저장되는 기록은 술 종류·양·날짜·시각·한도입니다. 계정 카드는 설정 맨 위에 있습니다.
@@ -25,7 +25,7 @@ p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);
 - <strong>응원석</strong>: 고른 응원팀과 '실시간 현황' 켜기·끄기는 기기 안에만 저장합니다. '실시간 현황'을 켠 경우에만, 경기가 시작될 때 잠금 화면에 점수를 띄우기 위해 Apple이 발급하는 <strong>기기 토큰</strong>(무작위 값)과 <strong>응원팀 코드</strong>, <strong>앱 언어</strong>를 운영자 서버에 보관합니다. iOS 26 이상에서 홈 화면·잠금 화면에 위젯을 놓으면 Apple이 발급하는 <strong>위젯 토큰</strong>(무작위 값)과 <strong>응원팀 코드</strong>를 운영자 서버에 보관하며, 점수가 바뀔 때 위젯을 바로 새로 그리는 데 씁니다.
   - <strong>국외 이전 고지</strong>: 운영자 서버는 Cloudflare, Inc.(미국)의 서비스이며 데이터베이스는 아시아·태평양 지역에서 운영됩니다. '실시간 현황'을 켤 때, 위젯을 놓을 때, 응원팀을 바꿀 때 인터넷으로 전송되며, '실시간 현황'을 끄면 그 토큰을 서버에서 바로 지웁니다. 앱을 지우는 등으로 Apple이 토큰을 무효로 하면 서버도 그 토큰을 지웁니다.</p>
 <h3>3. 네트워크 통신과 사용 통계</h3>
-<p>모든 앱은 서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 <strong>서비스 이용 기록</strong>과 <strong>기기정보</strong>(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값)를 자동으로 수집합니다. IP 주소로 추정한 <strong>대략적인 지역</strong>(국가·도시 수준)도 수집하며, Google이 IP 주소 일부를 가린 뒤 추정합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다. Firebase Analytics에는 이 절에 적은 정보만 전달됩니다.</p>
+<p>모든 앱은 서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 <strong>서비스 이용 기록</strong>과 <strong>기기 정보</strong>(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값)를 자동으로 수집합니다. IP 주소로 추정한 <strong>대략적인 지역</strong>(국가·도시 수준)도 수집하며, Google이 IP 주소 일부를 가린 뒤 추정합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다. Firebase Analytics에는 이 절에 적은 정보만 전달됩니다.</p>
 <p><strong>통계로 보내지 않는 것</strong>: 사용자가 기록한 내용 자체는 통계에 어떤 형태로도 담기지 않습니다. 광고 식별자(IDFA)도 수집하지 않으며, 광고나 사용자 추적에 이 정보를 쓰지 않습니다. 크래시 리포트도 보내지 않습니다.</p>
 <p><strong>외부 요청과 IP 주소</strong>: 앱이 5절의 외부 서비스에 요청을 보낼 때 일반적인 웹 요청처럼 IP 주소 같은 접속 정보가 그 서비스에 전달될 수 있으며, 운영자는 이를 받거나 보관하지 않습니다.</p>
 <p>- <strong>주량체커</strong>: 통계에 담기지 않는 기록 내용은 마신 양·술 종류·마신 시각·설정한 한도 값·한도를 넘었는지 여부입니다. 계정을 연결했을 때 이 기록은 2절의 백업 공간에만 저장됩니다.
@@ -33,7 +33,7 @@ p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);
 - <strong>응원석</strong>: 경기 점수·일정·순위를 운영자 서버(Cloudflare)에서 받습니다. 이 요청의 접속 정보는 Cloudflare를 거치며, 운영자는 이를 따로 보관하지 않습니다.</p>
 <h3>4. 기기 권한</h3>
 <p>앱이 요청하는 기기 권한은 그 서비스가 실제로 필요로 하는 최소한으로 제한됩니다. 어떤 권한을 왜 쓰는지는 이 방침과 앱 화면에서 안내됩니다. 모든 권한은 언제든 기기 설정에서 끌 수 있고, 꺼도 앱의 핵심 기능에는 영향이 없습니다.</p>
-<p>- <strong>주량체커</strong>: 음주량이 한도를 넘을 때 알려주기 위해 <strong>알림</strong> 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끕니다.
+<p>- <strong>주량체커</strong>: 음주량이 한도를 넘을 때 알려 주기 위해 <strong>알림</strong> 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끕니다.
 - <strong>차곡</strong>: 기록을 사진으로 자동 인식하기 위해 <strong>카메라</strong>(앨범에서 고르는 경우 <strong>사진 보관함</strong>) 권한을, 기록하지 않은 날 저녁에 한 번 알려 주기 위해 <strong>알림</strong> 권한을 요청합니다(카메라 권한을 꺼도 직접 입력은 그대로 됩니다).
 - <strong>응원석</strong>: 기기 권한을 요청하지 않습니다 — '실시간 현황'은 알림 권한과 별개로 동작하며, 앱의 내 자리나 기기 설정에서 끌 수 있습니다.</p>
 <h3>5. 제3자 서비스</h3>
@@ -60,7 +60,7 @@ p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);
 - <strong>CheerSeat</strong>: has no account or login and does not collect your name, email, phone number, or location.</p>
 <h3>2. How your data is stored</h3>
 <p>What you enter in the app is stored on your device and is deleted when you delete the app.</p>
-<p><strong>DrinkChecker and Chagok</strong>: if you connect an account, your records and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new phone. Only your own account can read or write that space. An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).</p>
+<p><strong>DrinkChecker and Chagok</strong>: if you connect an account, your records and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new device. Only your own account can read or write that space. An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).</p>
 <p>- <strong>International transfer</strong>: your account details (account identifier, email, and in Chagok your nickname) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
 - <strong>Deletion</strong>: tapping Disconnect on the account card in Settings deletes your records and account from the server immediately. The records on your phone stay.</p>
 <p>- <strong>DrinkChecker</strong>: the records stored on the server are drink type, amount, date and time, and limit. The account card is at the top of Settings.
