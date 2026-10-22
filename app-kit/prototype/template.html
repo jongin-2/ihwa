@@ -44,6 +44,11 @@
       cw = Math.min(MAX_W, Math.ceil(r - l) + (l < 0 ? 32 : 0));
     } catch (e) {}
     var k = w / cw;
+    // 크기가 고정된 폰 목업(.proto-device[data-fixed] — 393×852처럼 절대 배치라 늘리거나 풀 수 없는 것)은 폭·높이 중 작은 쪽에 맞춰 통째로 보이게(10-22 한배 "PC나 모바일 다 보기 어려워")
+    try {  // 프레임은 화면 크기 그대로 두고 목업 안의 폰에만 zoom(한배 5ce9db4와 같은 방식 — 프레임째 줄이면 좁은 화면에서 한쪽으로 치우침)
+      var fx = frame.contentDocument.querySelector('.proto-device[data-fixed]');
+      if (fx) { fx.style.zoom = 1; fx.style.zoom = Math.min(1, (w - 24) / fx.offsetWidth, (h - 24) / fx.offsetHeight); frame.style.width = w + 'px'; frame.style.height = h + 'px'; frame.style.transform = 'translateX(-50%)'; return; }
+    } catch (e) {}
     frame.style.width = cw + 'px'; frame.style.height = (h / k) + 'px';
     frame.style.transform = 'translateX(-50%) scale(' + k + ')';
   }
@@ -64,6 +69,7 @@
   function responsive() {
     try {
       var d = frame.contentDocument, st = d.createElement('style');
+      if (d.querySelector('.proto-device[data-fixed]')) return;  // 고정 목업은 풀지 않고 fit()이 통째로 줄인다
       st.textContent = '@media (max-width:520px){.proto-page{padding:12px 0 0!important;gap:12px!important}.proto-device{width:100%!important;max-width:none!important;height:auto!important;min-height:100vh;padding:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important}.proto-device>*{border-radius:0!important}.proto-notch{display:none!important}}';
       d.head.appendChild(st);
     } catch (e) {}
