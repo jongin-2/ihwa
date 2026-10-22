@@ -7,19 +7,21 @@
 
 ### 1. 서비스 소개
 
-**적용 앱: 주량체커 · 응원석 · 차곡**
+**적용 앱: 주량체커 · 응원석 · 차곡 · 알롱**
 
 앱은 사용자가 스스로 설정·기록한 정보를 관리할 수 있도록 돕는 무료 개인용 앱입니다. {{운영_문장}}
 
 - **주량체커**: 개인 음주량을 기록해 사용자가 정한 한도와 비교해 보여 주고 홈 화면 위젯으로 빠르게 기록할 수 있게 돕습니다.
 - **차곡**: 독서·음악·술·운동·영화 등 취미를 기록하면 차곡(CGK)이 쌓이는 취미 기록 앱입니다.
 - **응원석**: 사용자가 고른 응원팀의 KBO(한국 프로야구) 경기 점수·일정·순위를 앱, 홈 화면 위젯, 잠금 화면 실시간 현황으로 보여 줍니다.
+- **알롱**: 걸음과 위치로 지도를 탐험하며 단짝 알롱을 키우고, 꾸미기와 도감 기록을 모으는 게임 앱입니다.
 
 ### 2. 데이터 손실에 대한 책임
 
 사용자가 기록한 내용은 기기에 저장됩니다(자세한 수집 범위는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/) 참고). 기기 분실·초기화·앱 삭제 또는 앱 안에서 기록을 삭제하면 기기에 저장된 데이터가 복구 불가능하게 손실될 수 있습니다. 데이터 손실에 대해 운영자는 책임지지 않습니다.
 
 - **주량체커·차곡**: 계정을 연결하지 않으면 기기를 잃거나 앱을 지웠을 때 기록을 되살릴 수 없고, 운영자는 그 손실에 책임지지 않습니다. 계정 연결 시 데이터 처리는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다.
+- **알롱**: 계정을 연결하지 않은 게스트는 앱을 지우거나 기기를 바꾸면 그 알롱을 다시 불러올 수 없고, 운영자는 그 손실에 책임지지 않습니다.
 - **주량체커**: 앱 안에서 기록을 삭제하는 예로 설정의 "모든 기록 삭제"가 있습니다.
 
 ### 3. 보증의 부인
@@ -50,6 +52,18 @@
 
 **차곡(CGK)**: 차곡은 기록을 셀 때 쓰는 앱 안의 점수로, 돈의 가치가 없고 현금·상품·다른 서비스로 바꾸거나 다른 사람에게 넘길 수 없습니다. 점수를 매기는 규칙은 앱을 고치면서 바뀔 수 있습니다.
 
+### 알롱 추가 조항
+
+**이용 연령**: 알롱은 만 14세 이상만 이용할 수 있습니다.
+
+**안전**: 알롱은 걸으며 쓰는 앱입니다. 주변을 살피고, 운전하거나 자전거를 타는 중에는 쓰지 마시며, 허락 없이 남의 땅이나 출입이 금지된 곳에 들어가지 마세요.
+
+**게임 안 물건**: 도토와 꾸미기·재료 등 게임 안 물건은 돈의 가치가 없고, 현금·상품으로 바꾸거나 다른 사람에게 넘길 수 없습니다. 얻는 규칙은 앱을 고치면서 바뀔 수 있습니다.
+
+**이름과 부정행위**: 알롱 이름은 순위에서 다른 이용자에게 보입니다. 욕설·차별·남을 사칭하는 이름은 운영자가 바꾸거나 순위에서 뺄 수 있습니다. 위치 조작·걸음 조작·앱 변조로 얻은 기록·보상은 지울 수 있고, 그 계정의 이용을 제한할 수 있습니다.
+
+**계정 삭제**: 설정의 '계정 삭제'로 언제든 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다.
+
 ### 문의
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
@@ -63,19 +77,21 @@
 
 ### 1. About the service
 
-**Applies to: DrinkChecker · CheerSeat · Chagok**
+**Applies to: DrinkChecker · CheerSeat · Chagok · Allong**
 
 The app is a free, personal-use app that helps you manage information you set and record yourself. {{OPERATED_SENTENCE}}
 
-- **DrinkChecker**: logs your drinks against a limit you set and lets you log quickly from a home-screen widget.
+- **DrinkChecker**: logs your drinks against a limit you set and lets you log quickly from a Home Screen widget.
 - **Chagok**: a hobby log — record reading, music, drinks, exercise, films and more, and your CGK adds up.
 - **CheerSeat**: shows the KBO (Korean professional baseball) scores, schedule and standings for the team you choose, in the app, in a Home Screen widget and as a Live Activity on your Lock Screen.
+- **Allong**: a game where you explore the map with your steps and location, raise your buddy Allong, and collect outfits and collection-book records.
 
 ### 2. Data loss
 
 The records you create are stored on your device (see the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/) for what is collected). Losing or resetting your device, deleting the app, or deleting records in the app can permanently delete the data stored on your device. The operator is not responsible for data loss.
 
 - **DrinkChecker and Chagok**: if you don't connect an account, your records cannot be recovered after you lose your device or delete the app, and the operator is not responsible for that loss. If you connect an account, data is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/).
+- **Allong**: if you play as a guest without connecting an account, you can't bring that Allong back after deleting the app or changing devices, and the operator is not responsible for that loss.
 - **DrinkChecker**: "Delete All Records" in Settings is an example of deleting records in the app.
 
 ### 3. Disclaimer of warranties
@@ -105,6 +121,18 @@ These terms may change on this page; continuing to use the app after a change me
 ### Chagok addendum
 
 **CGK**: CGK is an in-app score for counting your records. It has no monetary value and cannot be exchanged for cash, goods or other services, or transferred to anyone else. The rules for awarding it may change as the app is updated.
+
+### Allong addendum
+
+**Age requirement**: Allong is only for users aged 14 or older.
+
+**Safety**: Allong is played while walking. Stay aware of your surroundings, don't use it while driving or cycling, and don't enter private property or restricted areas without permission.
+
+**In-game items**: Doto, outfits, materials and other in-game items have no monetary value and cannot be exchanged for cash or goods or transferred to anyone else. The rules for earning them may change as the app is updated.
+
+**Names and cheating**: Your Allong's name is shown to other users in the rankings. The operator may change names that are abusive, discriminatory or impersonate others, or remove them from the rankings. Records and rewards obtained by spoofing location, faking steps or modifying the app may be removed, and that account's use may be restricted.
+
+**Account deletion**: You can delete your account anytime with Delete Account in Settings; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/).
 
 ### Contact
 

@@ -21,7 +21,7 @@
 
 앱에서 입력하는 정보는 사용자의 기기 안에 저장되며, 앱을 삭제하면 함께 삭제됩니다.
 
-**주량체커·차곡·알롱**: 계정을 연결하면 기록(알롱은 게임 데이터)과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 폰을 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제됩니다(서버 기록과 그 기기의 기록은 그대로 남습니다).
+**주량체커·차곡·알롱**: 계정을 연결하면 기록(알롱은 게임 데이터)과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 기기를 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제됩니다(서버 기록과 그 기기의 기록은 그대로 남습니다).
 
 - **국외 이전 고지(주량체커·차곡)**: 계정 정보(계정 식별자·이메일·이름)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
 - **삭제(주량체커·차곡)**: 설정의 계정 카드에서 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 기기의 기록은 그대로 남습니다.
@@ -37,7 +37,7 @@
 
 ### 3. 네트워크 통신과 사용 통계
 
-모든 앱은 서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값)를 자동으로 수집합니다. IP 주소로 추정한 **대략적인 지역**(국가·도시 수준)도 수집하며, Google이 IP 주소 일부를 가린 뒤 추정합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다. Firebase Analytics에는 이 절에 적은 정보만 전달됩니다.
+모든 앱은 서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값)를 자동으로 수집합니다. IP 주소로 추정한 **대략적인 지역**(국가·도시 수준)도 수집하며, Google이 IP 주소 일부를 가린 뒤 추정합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다. Firebase Analytics에는 이 절에 적은 정보만 전달됩니다.
 
 **통계로 보내지 않는 것**: 사용자가 기록한 내용 자체는 통계에 어떤 형태로도 담기지 않습니다. 광고 식별자(IDFA)도 수집하지 않으며, 광고나 사용자 추적에 이 정보를 쓰지 않습니다. 크래시 리포트도 보내지 않습니다.
 
@@ -45,14 +45,14 @@
 
 - **주량체커**: 통계에 담기지 않는 기록 내용은 마신 양·술 종류·마신 시각·설정한 한도 값·한도를 넘었는지 여부입니다. 계정을 연결했을 때 이 기록은 2절의 백업 공간에만 저장됩니다.
 - **차곡**: 통계에 담기지 않는 기록 내용은 기록한 제목·메모·사진입니다. 계정을 연결했을 때 기록은 2절의 백업 공간에만 저장되며, 사진은 그곳에도 올리지 않습니다. 사진 인식은 전부 기기 안에서 처리되며 사진은 기기 밖으로 나가지 않습니다. 다만 사진이 책(표지나 뒷면)으로 판단되면 저자 등 도서 정보를 찾기 위해 사진에서 읽어 낸 **책 제목 글자 또는 ISBN 번호만**(사진도 개인 식별 정보도 아님) 도서 정보 제공처 **Open Library**(Internet Archive, 미국)와 **국립중앙도서관**(대한민국)에 조회합니다. 사진 인식을 쓰지 않고 직접 입력하면 이 조회는 일어나지 않습니다.
-- **알롱**: 알롱의 생일 날짜·위치·알롱 번호·계정 식별자·이메일도 통계에 담기지 않습니다(통계에는 생일에서 계산한 나이대 6구간만 보냅니다). 탐험 화면에서 지도를 보여 주고 내 주변 장소를 찾기 위해 **Apple 지도**(Apple Inc.)에 현재 위치 좌표를 보냅니다. '항상 허용'을 고르면 앱을 닫은 동안에도 근처 장소 확인을 위해 이 조회가 일어날 수 있습니다. 또 그 자리의 날씨를 알롱의 탐험·홈·전투 화면에 쓰려고 **Apple 날씨**(WeatherKit, Apple Inc.)에 대략적인 위치(약 1km 단위로 반올림한 좌표)를 보냅니다. 위치는 운영자 서버로 보내지 않고 기기 안에서만 쓰며, 위치 권한을 허용하지 않으면 이 조회는 일어나지 않습니다.
+- **알롱**: 생일·위치·알롱 번호·계정 식별자·이메일도 통계에 담기지 않습니다(통계에는 생일에서 계산한 나이대 6구간만 보냅니다). 탐험 화면에서 지도를 보여 주고 내 주변 장소를 찾기 위해 **Apple 지도**(Apple Inc.)에 현재 위치 좌표를 보냅니다. '항상 허용'을 고르면 앱을 닫은 동안에도 근처 장소 확인을 위해 이 조회가 일어날 수 있습니다. 또 그 자리의 날씨를 알롱의 탐험·홈·전투 화면에 쓰려고 **Apple 날씨**(WeatherKit, Apple Inc.)에 대략적인 위치(약 1km 단위로 반올림한 좌표)를 보냅니다. 위치는 운영자 서버로 보내지 않고 기기 안에서만 쓰며, 위치 권한을 허용하지 않으면 이 조회는 일어나지 않습니다.
 - **응원석**: 경기 점수·일정·순위를 운영자 서버(Cloudflare)에서 받습니다. 이 요청의 접속 정보는 Cloudflare를 거치며, 운영자는 이를 따로 보관하지 않습니다.
 
 ### 4. 기기 권한
 
 앱이 요청하는 기기 권한은 그 서비스가 실제로 필요로 하는 최소한으로 제한됩니다. 어떤 권한을 왜 쓰는지는 이 방침과 앱 화면에서 안내됩니다. 모든 권한은 언제든 기기 설정에서 끌 수 있고, 알롱의 위치를 빼면 꺼도 앱의 핵심 기능에는 영향이 없습니다.
 
-- **주량체커**: 음주량이 한도를 넘을 때 알려주기 위해 **알림** 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끕니다.
+- **주량체커**: 음주량이 한도를 넘을 때 알려 주기 위해 **알림** 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끕니다.
 - **차곡**: 기록을 사진으로 자동 인식하기 위해 **카메라**(앨범에서 고르는 경우 **사진 보관함**) 권한을, 기록하지 않은 날 저녁에 한 번 알려 주기 위해 **알림** 권한을 요청합니다(카메라 권한을 꺼도 직접 입력은 그대로 됩니다).
 - **알롱**: 주변을 탐험하고 함께 걸은 걸음을 세려고 **위치**(앱을 사용하는 동안, '항상 허용'을 고르면 앱을 닫은 동안에도)를, 알림을 보내려고 **알림** 권한을, 방 사진을 공유 창의 '이미지 저장'으로 저장할 때만 **사진 보관함에 추가** 권한을 요청합니다(앱은 사진을 읽지 않습니다). 위치는 운영자 서버로 보내지 않으며(위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다), 걸음은 하루·주간 합계만 게임 데이터와 주간 순위에 저장되고 순위에는 그 주 합계만 보입니다. 위치를 끄면 탐험과 걸음 세기를 쓸 수 없습니다.
 - **응원석**: 기기 권한을 요청하지 않습니다 — '실시간 현황'은 알림 권한과 별개로 동작하며, 앱의 내 자리나 기기 설정에서 끌 수 있습니다.
@@ -98,14 +98,14 @@ By default DrinkChecker, CheerSeat and Chagok collect no personal information. D
 What we receive differs by app. The analytics tool assigns a random per-installation identifier that is not linked to your name or contact details (section 3).
 
 - **DrinkChecker and Chagok**: every feature works without connecting an account, and if you don't connect one, the app collects no personally identifying information — no name, email, or phone number. If you connect an account in Settings, the app receives the account identifier, email address (a relay address if you use Apple's Hide My Email) and name (if your Google profile has one) provided by the sign-in service (Apple or Google).
-- **Allong**: creates a guest account once you pass the age check (14 or older) on first launch and stores a random **account identifier** and an **Allong number** shown to you on the server. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. If you connect an account, only whether you are 14 or older is stored on the server. Only an age group (one of six) is sent to statistics (section 3).
+- **Allong**: creates a guest account once you pass the age check (14 or older) on first launch and stores on the server a random **account identifier** and an **Allong number** that is shown to you. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. If you connect an account, only whether you are 14 or older is stored on the server. Only an age group (one of six) is sent to statistics (section 3).
 - **CheerSeat**: has no account or login and does not collect your name, email, phone number, or location.
 
 ### 2. How your data is stored
 
 What you enter in the app is stored on your device and is deleted when you delete the app.
 
-**DrinkChecker, Chagok and Allong**: if you connect an account, your records (for Allong, game data) and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new phone. Only your own account can read or write that space. An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).
+**DrinkChecker, Chagok and Allong**: if you connect an account, your records (for Allong, game data) and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new device. Only your own account can read or write that space. An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).
 
 - **International transfer (DrinkChecker and Chagok)**: your account details (account identifier, email, name) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
 - **Deletion (DrinkChecker and Chagok)**: tapping Disconnect on the account card in Settings deletes your records and account from the server immediately. The records on this device stay.
@@ -129,7 +129,7 @@ To analyze statistics for improving the service, all apps automatically collect 
 
 - **DrinkChecker**: the record contents kept out of the statistics are how much you drank, what you drank, when, the limit you set, and whether you went over it. If you connect an account, these records are stored only in the backup space in section 2.
 - **Chagok**: the record contents kept out of the statistics are the titles, notes and photos you record. If you connect an account, records are stored only in the backup space in section 2, and photos are never uploaded there either. Chagok recognizes photos entirely on your device, and photos never leave it. If a photo is judged to be a book (cover or back), only the **book title text or ISBN read from it** (neither the photo nor personal information) is looked up with the book-information providers **Open Library** (Internet Archive, United States) and the **National Library of Korea**, to find details such as the author. If you enter a record by hand instead, no lookup happens.
-- **Allong**: Allong's date of birth, location, Allong number, account identifier and email are not included in the statistics either (only the age group calculated from the date of birth, one of six, is sent). It sends your current location coordinates to **Apple Maps** (Apple Inc.) to show the map on the Explore screen and to find places around you. If you choose Always Allow, this lookup may also happen while the app is closed, to check for places nearby. It also sends an approximate location (coordinates rounded to about 1 km) to **Apple Weather** (WeatherKit, Apple Inc.) to use the local weather in your Allong's Explore, Home and battle screens. Your location is used only on your device and is never sent to the operator's server; if you don't allow location access, this lookup doesn't happen.
+- **Allong**: your date of birth, location, Allong number, account identifier and email are not included in the statistics either (only the age group calculated from the date of birth, one of six, is sent). It sends your current location coordinates to **Apple Maps** (Apple Inc.) to show the map on the Explore screen and to find places around you. If you choose Always Allow, this lookup may also happen while the app is closed, to check for places nearby. It also sends an approximate location (coordinates rounded to about 1 km) to **Apple Weather** (WeatherKit, Apple Inc.) to use the local weather in your Allong's Explore, Home and battle screens. Your location is used only on your device and is never sent to the operator's server; if you don't allow location access, this lookup doesn't happen.
 - **CheerSeat**: gets scores, schedules and standings from the operator's server (Cloudflare). Connection details of this request pass through Cloudflare; the operator does not keep them.
 
 ### 4. Device permissions
