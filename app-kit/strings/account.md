@@ -56,6 +56,7 @@
 - 요청 뒤 `delDoneTitle` / `delDoneBody`, 실패 `failDel` / `tryLater`, 예정일 로컬 알림(알림 허용 때만) `acctDeleted`
 - 유예 중 같은 계정으로 다시 연결: `restoreTitle` / `restoreBody` / [`restoreYes`] [`restoreNow`(빨강)] [닫기]
 - 다른 기기에 남은 로그인이 밀려날 때: `kickedTitle` / `kickedDeletedBody`
+- 로그아웃(10-22 종인님 "계정 삭제 외에 계정 로그인 시 로그아웃도 필요해" — 연결 계정만, 게스트엔 없음): 계정 삭제 위 한 줄 `logoutRow` → 확인 창 `logoutTitle` / `logoutBody` / [취소] [`logoutRow`]. 로그아웃하면 이 기기를 비우고 첫 화면, 서버 기록은 그대로
 
 #### delRow
 
@@ -341,3 +342,60 @@
 | vi | Tài khoản của bạn đã bị xóa |
 | zhHans | 你的账号已删除 |
 | zhHant | 你的帳號已刪除 |
+
+#### logoutRow
+
+| 언어 | 문구 |
+|---|---|
+| ko | 로그아웃 |
+| en | Sign Out |
+| de | Abmelden |
+| es | Cerrar sesión |
+| fr | Se déconnecter |
+| id | Keluar |
+| it | Esci |
+| ja | ログアウト |
+| pt | Sair |
+| ru | Выйти |
+| tr | Çıkış yap |
+| vi | Đăng xuất |
+| zhHans | 退出登录 |
+| zhHant | 登出 |
+
+#### logoutTitle
+
+| 언어 | 문구 |
+|---|---|
+| ko | 로그아웃할까요? |
+| en | Sign Out? |
+| de | Abmelden? |
+| es | ¿Cerrar sesión? |
+| fr | Se déconnecter ? |
+| id | Keluar? |
+| it | Uscire? |
+| ja | ログアウトしますか？ |
+| pt | Sair da conta? |
+| ru | Выйти из аккаунта? |
+| tr | Çıkış yapılsın mı? |
+| vi | Đăng xuất? |
+| zhHans | 要退出登录吗？ |
+| zhHant | 要登出嗎？ |
+
+#### logoutBody
+
+| 언어 | 문구 |
+|---|---|
+| ko | 다시 로그인하면 이 알롱을 불러와요. |
+| en | Sign in again to bring this Allong back. |
+| de | Melde dich wieder an, um diesen Allong zurückzuholen. |
+| es | Inicia sesión de nuevo para recuperar este Allong. |
+| fr | Reconnecte-toi pour retrouver cet Allong. |
+| id | Masuk lagi untuk memulihkan Allong ini. |
+| it | Accedi di nuovo per recuperare questo Allong. |
+| ja | もう一度サインインすると、このAllongを呼び戻せます。 |
+| pt | Entre de novo para recuperar este Allong. |
+| ru | Войдите снова, чтобы вернуть этого Allong. |
+| tr | Bu Allong'u geri getirmek için yeniden giriş yap. |
+| vi | Đăng nhập lại để lấy lại Allong này. |
+| zhHans | 重新登录即可找回这个 Allong。 |
+| zhHant | 重新登入即可找回這個 Allong。 |
