@@ -76,6 +76,8 @@
 
 이 방침이 변경되면 이 페이지에 바로 반영됩니다. 앱 안에서도 이 페이지를 그대로 보여 주므로 늘 최신 내용을 확인할 수 있습니다.
 
+<a id="website"></a>
+
 ### 웹사이트(allong.my)
 
 알롱 소개 사이트 allong.my는 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지·누른 버튼·들어온 경로·기기와 브라우저 종류·IP 주소로 추정한 대략적인 지역(국가·도시 수준, IP 주소 자체는 저장하지 않음)과 브라우저에 저장되는 무작위 식별자(쿠키 _ga·_ga_로 시작하는 쿠키, 최대 2년)를 모으며, 이름·연락처는 받지 않습니다. Google 계정에 로그인해 광고 개인화를 허용한 방문자는 Google이 모은 연령대·성별·관심사가 개인을 알아볼 수 없는 집계 통계로 더해질 수 있습니다. 이 기록은 Google 애널리틱스에 14개월 동안 보관하고 앱의 통계와 섞지 않습니다. 유럽(브라우저 시간대로 판단)에서는 '허용'을 누른 경우에만 쿠키를 쓰고 통계를 보냅니다. 브라우저 설정에서 쿠키를 막거나 [Google 애널리틱스 차단 부가 기능](https://tools.google.com/dlpage/gaoptout)으로 거부할 수 있습니다.
@@ -163,6 +165,8 @@ The app is not directed at children, and has no child-directed features or separ
 ### 7. Changes
 
 Any change to this policy is published on this page right away. The app shows this same page, so you always see the current version.
+
+<a id="website-en"></a>
 
 ### Website (allong.my)
 
