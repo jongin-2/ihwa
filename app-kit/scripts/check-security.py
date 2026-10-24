@@ -84,6 +84,7 @@ for f in scope:
 NOT_IN_APP = {
     'braces': '빌드 도구 metro', 'brace-expansion': '빌드 도구', 'micromatch': '빌드 도구 metro',
     'shell-quote': 'Expo·RN 명령줄 도구', 'node-forge': 'Expo 코드 서명 도구',
+    'zod': 'Expo CLI(@expo/cli) 설정 검증 — 10-24 응원석 확인: expo→@expo/cli→zod 3 한 경로, 앱 코드 안 씀, Release 번들에 ZodError 0건',
     '@grpc/grpc-js': 'Node용 firestore만 씀 — 10-16 확인: 앱 코드가 firebase JS를 안 불러오고 RN 진입점 index.rn.js에 grpc 없음',
 }
 for f in tracked:
