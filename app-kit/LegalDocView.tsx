@@ -18,7 +18,8 @@
 // 머리글 색은 내비게이션 테마를 따른다 — NavigationContainer(expo-router는 ThemeProvider)에 다크·라이트 테마를 꼭 넘긴다(10-26 한배: 안 넘겨 다크 모드에서 머리글이 흰색).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
+import { ActivityIndicator, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
+import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 import { WebView } from 'react-native-webview';
 import * as Clipboard from 'expo-clipboard';
 
@@ -108,7 +109,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
             Linking.openURL(req.url).catch(() => {
               if (req.url.startsWith('mailto:')) {
                 const email = decodeURIComponent(req.url.slice('mailto:'.length).split('?')[0]);
-                Clipboard.setStringAsync(email).then(() => Alert.alert(email, w.emailCopied)).catch(() => undefined);
+                Clipboard.setStringAsync(email).then(() => appDialog({ title: email, msg: w.emailCopied, buttons: [{ text: w.close, kind: 'cancel' }] })).catch(() => undefined);
               }
             });
             return false;

@@ -9,7 +9,7 @@
 //    권장은 `나중에`·`지금 업데이트`를 출시 하루 뒤부터 하루 한 번까지(Siren 기본 규칙과 같은 빈도). 앱마다 설정 파일의 `policy`로 고른다.
 //  · 긴급 강제: 공용 사이트 설정 파일 `https://jongin-2.github.io/ihwa/app-config/<앱>.json`의 `minVersion`보다 낮으면 자리와 상관없이 강제 —
 //    앱 출시 없이 그 숫자만 바꿔 켠다(종인님 결정 10-14 "공용 사이트 설정 파일"). 파일이 없거나 못 읽으면 일반 앱으로 본다.
-//  · 안내 창(iOS 기본 경고 창): 제목 `새 버전이 있어요` + `버전 {v}`, 단추 `나중에`·`지금 업데이트`. 무조건이면 둘째 줄 `계속 쓰려면 업데이트가 필요해요`와
+//  · 안내 창(공용 AppDialog — 앱 카드 모양 가운데 창, 10-27 종인님 "모든 앱에 넓혀"): 제목 `새 버전이 있어요` + `버전 {v}`, 단추 `나중에`·`지금 업데이트`. 무조건이면 둘째 줄 `계속 쓰려면 업데이트가 필요해요`와
 //    `지금 업데이트` 하나뿐이고, 스토어에 다녀와도 다시 뜬다.
 //  · 언제: 앱을 열 때마다(처음 실행·백그라운드에서 돌아올 때) 조회한다. 강제는 열 때마다 뜨고, 권장은 하루 한 번까지 —
 //    마지막으로 띄운 날은 앱이 넘긴 저장소(UpdateConfig.store)에 둔다(없으면 앱을 새로 켤 때 한 번).
@@ -18,7 +18,8 @@
 // 앱마다 다른 값은 UpdateConfig(스토어 앱 ID·설정 파일 이름·지금 버전·언어)뿐. 문구는 아래 20개 언어를 이 파일이 들고 있다.
 // 필요한 라이브러리: 없음(react-native만).
 import { useEffect, useRef, useState } from 'react';
-import { Alert, AppState, Linking } from 'react-native';
+import { AppState, Linking } from 'react-native';
+import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 
 export const CONFIG_SITE = 'https://jongin-2.github.io/ihwa/app-config';
 
@@ -202,14 +203,12 @@ function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   const v = s.latest && compareVersions(s.latest, cfg.currentVersion) > 0 ? s.latest : '';
   alertShowing = true;
   const done = () => { alertShowing = false; };
-  const update = { text: w.updateNow, style: 'default' as const, isPreferred: true, onPress: () => { done(); openStore(cfg.appStoreId); } };
   if (s.forced) {
-    Alert.alert(w.title, (v ? w.version.replace('{v}', v) + '\n' : '') + w.forced, [update], { cancelable: false });
+    appDialog({ title: w.title, msg: (v ? w.version.replace('{v}', v) + '\n' : '') + w.forced, buttons: [{ text: w.updateNow }], dismissable: false })
+      .then(() => { done(); openStore(cfg.appStoreId); });
   } else {
-    Alert.alert(w.title, v ? w.version.replace('{v}', v) : undefined, [
-      { text: w.later, style: 'cancel', onPress: done },
-      update,
-    ], { cancelable: true, onDismiss: done });
+    appDialog({ title: w.title, msg: v ? w.version.replace('{v}', v) : undefined, buttons: [{ text: w.later, kind: 'cancel' }, { text: w.updateNow }] })
+      .then((i) => { done(); if (i === 1) openStore(cfg.appStoreId); });
   }
 }
 
