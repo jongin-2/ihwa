@@ -4,12 +4,13 @@
 //   → 같은 날 "모든 앱에 넓혀"(코어 질문 창). 원래 모양은 한배 impl/app/src/components/AppDialog.tsx.
 //  · 모양: 가운데 카드(좌우 24·모서리 28·최대 폭 400), 제목 19 굵게, 설명 15 보조색, 단추 높이 50 알약.
 //    단추 둘은 가로로(회색 취소 + 강조색 실행, 지우기·그만두기는 빨강), 셋 이상은 세로로. 다크에선 카드에 가는 테두리.
+//    앱에 세로 쌓기 확인 카드가 이미 있으면 Host에 stack을 켠다 — 늘 세로, 위가 실행·아래가 취소(10-27 알롱 ConfirmCard B1과 같은 배치).
 //  · 바깥을 누르거나 뒤로 가기면 취소 단추(kind 'cancel')를 누른 것과 같다 — 취소 단추가 없거나 dismissable: false면 닫히지 않는다.
 //  · 창이 떠 있는 동안 새 요청은 줄을 서서 차례로 뜬다.
 // 쓰는 법: 앱 뿌리(내비게이션 바깥, 맨 마지막 자식)에 <AppDialogHost accent={브랜드색} /> 하나.
 //   const i = await appDialog({ title, msg, buttons: [{ text: '취소', kind: 'cancel' }, { text: '삭제', kind: 'destructive' }] })
 //   → 누른 단추 순번(바깥을 눌러 닫으면 취소 단추 순번). Host가 아직 없으면 iOS 경고창으로 대신 띄운다(멈추지 않게).
-// 앱마다 다른 값: accent(실행 단추 색)·onAccent(그 위 글자색, 기본 흰색)·colors(카드·글자 색을 앱 장면 값으로 바꿀 때만).
+// 앱마다 다른 값: accent(실행 단추 색)·onAccent(그 위 글자색, 기본 흰색)·colors(카드·글자 색을 앱 장면 값으로 바꿀 때만)·stack(늘 세로 쌓기).
 // 공용 원본 LegalDocView(메일 주소 복사 알림)·UpdatePrompt(업데이트 안내)가 이 파일을 쓴다 — 셋을 함께 복사한다.
 // 필요한 라이브러리: 없음(react-native만).
 import { useEffect, useState } from 'react';
@@ -37,7 +38,7 @@ export function appDialog(o: DialogOptions): Promise<number> {
 const LIGHT: Palette = { card: '#FFFFFF', text: '#1C1C1E', sub: '#6C6C70', fill: 'rgba(120,120,128,0.16)', red: '#D70015' };
 const DARK: Palette = { card: '#2C2C2E', text: '#FFFFFF', sub: '#AEAEB2', fill: 'rgba(120,120,128,0.32)', red: '#FF453A' };
 
-export function AppDialogHost({ accent, onAccent = '#FFFFFF', colors }: { accent: ColorValue; onAccent?: ColorValue; colors?: { light?: Partial<Palette>; dark?: Partial<Palette> } }) {
+export function AppDialogHost({ accent, onAccent = '#FFFFFF', colors, stack: alwaysStack = false }: { accent: ColorValue; onAccent?: ColorValue; colors?: { light?: Partial<Palette>; dark?: Partial<Palette> }; stack?: boolean }) {
   const [cur, setCur] = useState<Req | null>(null);
   const dark = useColorScheme() === 'dark';
   useEffect(() => {
@@ -54,7 +55,10 @@ export function AppDialogHost({ accent, onAccent = '#FFFFFF', colors }: { accent
   const cancel = cur.buttons.findIndex((b) => b.kind === 'cancel');
   const closable = cur.dismissable !== false && cancel >= 0;
   const c = dark ? { ...DARK, ...colors?.dark } : { ...LIGHT, ...colors?.light };
-  const stack = cur.buttons.length > 2;
+  const stack = alwaysStack || cur.buttons.length > 2;
+  // 세로일 때 취소는 맨 아래로(누른 순번은 원래 순번 그대로 돌려준다)
+  const order = cur.buttons.map((b, i) => ({ b, i }));
+  if (stack) order.sort((x, y) => Number(x.b.kind === 'cancel') - Number(y.b.kind === 'cancel'));
   return (
     <Modal transparent animationType="fade" visible onRequestClose={() => closable && pick(cancel)}>
       <Pressable style={st.scrim} onPress={() => closable && pick(cancel)} accessible={false}>
@@ -62,7 +66,7 @@ export function AppDialogHost({ accent, onAccent = '#FFFFFF', colors }: { accent
           <Text style={[st.title, { color: c.text }]} accessibilityRole="header">{cur.title}</Text>
           {!!cur.msg && <Text style={[st.msg, { color: c.sub }]}>{cur.msg}</Text>}
           <View style={[st.row, stack && st.stack]}>
-            {cur.buttons.map((b, i) => {
+            {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
               const bg = k === 'cancel' ? c.fill : k === 'destructive' ? c.red : accent;
               const fg = k === 'cancel' ? c.text : k === 'destructive' ? '#FFFFFF' : onAccent;
