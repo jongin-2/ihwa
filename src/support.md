@@ -7,7 +7,7 @@
 
 ### 문의
 
-**적용 앱: 주량체커 · 응원석 · 차곡**
+**적용 앱: 주량체커 · 응원석 · 차곡 · 한배**
 
 앱을 쓰다가 궁금한 점이나 문제가 있으면 메일로 문의해 주세요. 앱 이름, 기기·iOS 버전, 겪은 문제를 함께 적어 주시면 더 빨리 확인할 수 있습니다.
 
@@ -26,7 +26,7 @@
 
 ### Contact
 
-**Applies to: DrinkChecker · CheerSeat · Chagok**
+**Applies to: DrinkChecker · CheerSeat · Chagok · SameBoat**
 
 If you have a question or run into a problem while using the apps, please email us. Including the app name, your device and iOS version, and what happened helps us look into it faster.
 
