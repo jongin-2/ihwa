@@ -83,13 +83,17 @@ with tempfile.TemporaryDirectory() as d:
             f = f'{d}/{sc}.html'
             pre = 'const SKIP=' + json.dumps(SKIP) + ';const CLS=' + json.dumps(CLS) + ';const PFX=' + json.dumps(PFX) + ';'
             open(f, 'w').write(s + TAIL % (pre + body))
-            o = subprocess.run([CH, '--headless=new', '--disable-gpu', '--window-size=440,900', '--virtual-time-budget=90000', '--dump-dom', 'file://' + f],
-                               capture_output=True, text=True, timeout=300).stdout
-            m = re.search(r'<pre id="__out">(.*?)</pre>', o, re.S)
-            if not m:
-                bad.append(f'{sc} {name}: 결과를 못 읽음(장면 스크립트가 멈춤)')
+            # 말풍선이 뜨는 때(가상 시간)에 따라 창이 열리고 닫히는 순서가 달라 가끔 헛걸림(10-27 한배 5번 중 1번) — 걸리면 한 번 더 돌려 두 번 다 걸린 것만 막는다
+            for attempt in range(2):
+                o = subprocess.run([CH, '--headless=new', '--disable-gpu', '--window-size=440,900', '--virtual-time-budget=90000', '--dump-dom', 'file://' + f],
+                                   capture_output=True, text=True, timeout=300).stdout
+                m = re.search(r'<pre id="__out">(.*?)</pre>', o, re.S)
+                r = json.loads(html.unescape(m.group(1))) if m else None
+                if r is not None and not r['err'] and not r['miss']:
+                    break
+            if r is None:
+                bad.append(f'{sc} {name}: 결과를 못 읽음(장면 스크립트가 멈춤, 두 번)')
                 continue
-            r = json.loads(html.unescape(m.group(1)))
             bad += [f'{sc} {name}: 오류 {e}' for e in dict.fromkeys(r['err'])] + [f'{sc} {name}: {x}' for x in r['miss']]
 if bad:
     print('❌ 목업 흐름 점검:\n  ' + '\n  '.join(bad))
