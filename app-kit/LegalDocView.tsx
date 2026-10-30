@@ -57,6 +57,14 @@ const WORDS: Record<string, Words> = {
 // react-navigation·expo-router 어느 쪽 navigation이든 setOptions만 쓴다
 type HeaderNav = { setOptions: (options: object) => void };
 
+// ✕의 화면 낭독 이름은 문서 이름을 붙인다 — 메일 복사 알림 단추 '닫기'와 겹쳐 자동 시험이 엉뚱한 쪽을 누름(10-30 종인님 "문서 이름 붙여", 주량체커 SET-44).
+// 한국어·영어는 자연스러운 어순, 나머지 언어는 새 번역 없이 "문서 이름, 닫기".
+function closeLabel(lang: string, w: Words, doc: LegalDoc): string {
+  if (lang === 'ko') return `${w[doc]} ${w.close}`;
+  if (lang === 'en' || !WORDS[lang]) return `Close ${WORDS.en[doc]}`;
+  return `${w[doc]}, ${w.close}`;
+}
+
 export default function LegalDocView({ doc, lang, tint, onClose, navigation }: { doc: LegalDoc; lang: string; tint: ColorValue; onClose: () => void; navigation: HeaderNav }) {
   const w = WORDS[lang] ?? WORDS.en;
   const [failed, setFailed] = useState(false);
@@ -73,7 +81,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
       unstable_headerLeftItems: () => [
         canGoBack
           ? { type: 'button', label: w.back, icon: { type: 'sfSymbol', name: 'chevron.backward' }, onPress: () => web.current?.goBack() }
-          : { type: 'button', label: w.close, icon: { type: 'sfSymbol', name: 'xmark' }, onPress: onClose },
+          : { type: 'button', label: closeLabel(lang, w, shown), icon: { type: 'sfSymbol', name: 'xmark' }, onPress: onClose },
       ],
     });
   }, [navigation, shown, canGoBack, w, onClose]);
