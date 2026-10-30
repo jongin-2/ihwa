@@ -88,7 +88,7 @@ export function AppDialogHost(props: Look) {
   const order = cur.buttons.map((b, i) => ({ b, i }));
   if (stack) order.sort((x, y) => Number(x.b.kind === 'cancel') - Number(y.b.kind === 'cancel'));
   return (
-    <Modal transparent animationType="fade" visible onRequestClose={() => closable && pick(cancel)}>
+    <Modal transparent animationType="fade" visible onRequestClose={() => { if (closable) pick(cancel); }}>
       <Pressable style={st.scrim} onPress={() => closable && pick(cancel)} accessible={false}>
         <Pressable style={[st.card, { backgroundColor: c.card }, dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
           <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={1.5}>{cur.title}</Text>
