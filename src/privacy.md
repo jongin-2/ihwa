@@ -7,7 +7,7 @@
 
 **적용 앱: 주량체커 · 응원석 · 차곡 · 알롱 · 한배**
 
-주량체커·응원석·차곡은 기본으로는 개인정보를 수집하지 않습니다. 계정 연결(Apple·Google)을 제공하는 주량체커·차곡·알롱은 설정에서 '계정 연결'을 한 경우에만 계정 정보와 기록을 백업 서버에 저장합니다(2절). 알롱은 만 14세 이상 확인을 통과하면 이름·연락처 없이 무작위 계정 식별자와 알롱 번호를 만들고, 계정 연결과 상관없이 게임 데이터와 주간 순위 기록을 서버에 저장하며, 계정을 연결한 경우에만 이메일을 받습니다(1·2절). 응원석은 '실시간 현황'을 켜거나 위젯을 놓은 경우에만 점수를 바로 띄우기 위한 기기 토큰을 운영자 서버에 보관합니다(2절). 한배는 로그인 없이 보기만 할 때는 서버에 아무것도 저장하지 않고, 말풍선·대항전을 쓰려고 Apple 또는 Google로 로그인하면 계정 식별자와 닉네임·포인트 등을 서버에 저장합니다(이메일은 받지 않음, 1·2절). 한배를 뺀 모든 앱은 앱을 개선하기 위해 익명 사용 통계를 보냅니다(3절). 앱마다 다른 내용은 각 절 끝에 앱 이름을 붙여 적었습니다.
+주량체커·응원석·차곡은 기본으로는 개인정보를 수집하지 않습니다. 계정 연결(Apple·Google)을 제공하는 주량체커·차곡·알롱은 설정에서 '계정 연결'을 한 경우에만 계정 정보와 기록을 백업 서버에 저장합니다(2절). 알롱은 만 14세 이상 확인을 통과하면 이름·연락처 없이 무작위 계정 식별자와 알롱 번호를 만들고, 계정 연결과 상관없이 게임 데이터와 주간 순위 기록을 서버에 저장하며, 계정을 연결한 경우에만 이메일을 받습니다(1·2절). 응원석은 '실시간 현황'을 켜거나 위젯을 놓은 경우에만 점수를 바로 띄우기 위한 기기 토큰을 운영자 서버에 보관합니다(2절). 한배는 로그인 없이 보기만 할 때는 서버에 아무것도 저장하지 않고, 말풍선·대항전을 쓰려고 Apple 또는 Google로 로그인하면 계정 식별자와 닉네임·포인트 등을 서버에 저장합니다(이메일은 받지 않음, 1·2절). 모든 앱은 앱을 개선하기 위해 익명 사용 통계를 보냅니다(3절). 앱마다 다른 내용은 각 절 끝에 앱 이름을 붙여 적었습니다.
 
 ### 1. 수집하는 정보
 
@@ -40,7 +40,7 @@
 
 ### 3. 네트워크 통신과 사용 통계
 
-한배를 뺀 모든 앱은 서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값)를 자동으로 수집합니다. IP 주소로 추정한 **대략적인 지역**(국가·도시 수준)도 수집하며, Google이 IP 주소 일부를 가린 뒤 추정합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다. Firebase Analytics에는 이 절에 적은 정보만 전달됩니다.
+모든 앱은 서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값)를 자동으로 수집합니다. IP 주소로 추정한 **대략적인 지역**(국가·도시 수준)도 수집하며, Google이 IP 주소 일부를 가린 뒤 추정합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다. Firebase Analytics에는 이 절에 적은 정보만 전달됩니다. 이 통계 정보는 앱을 쓸 때 인터넷으로 Google LLC(미국)에 전송되어 처리되며, 최대 14개월 뒤 지워집니다.
 
 **통계로 보내지 않는 것**: 사용자가 기록한 내용 자체는 통계에 어떤 형태로도 담기지 않습니다. 광고 식별자(IDFA)도 수집하지 않으며, 광고나 사용자 추적에 이 정보를 쓰지 않습니다. 크래시 리포트도 보내지 않습니다.
 
@@ -50,7 +50,7 @@
 - **차곡**: 통계에 담기지 않는 기록 내용은 기록한 제목·메모·사진입니다. 계정을 연결했을 때 기록은 2절의 백업 공간에만 저장되며, 사진은 그곳에도 올리지 않습니다. 사진 인식은 전부 기기 안에서 처리되며 사진은 기기 밖으로 나가지 않습니다. 다만 사진이 책(표지나 뒷면)으로 판단되면 저자 등 도서 정보를 찾기 위해 사진에서 읽어 낸 **책 제목 글자 또는 ISBN 번호만**(사진도 개인 식별 정보도 아님) 도서 정보 제공처 **Open Library**(Internet Archive, 미국)와 **국립중앙도서관**(대한민국)에 조회합니다. 사진 인식을 쓰지 않고 직접 입력하면 이 조회는 일어나지 않습니다.
 - **알롱**: 생일·위치·알롱 번호·계정 식별자·이메일도 통계에 담기지 않습니다(통계에는 생일에서 계산한 나이대 6구간만 보냅니다). 탐험 화면에서 지도를 보여 주고 내 주변 장소를 찾기 위해 **Apple 지도**(Apple Inc.)에 현재 위치 좌표를 보냅니다. '항상 허용'을 고르면 앱을 닫은 동안에도 근처 장소 확인을 위해 이 조회가 일어날 수 있습니다. 또 그 자리의 날씨를 알롱의 탐험·홈·전투 화면에 쓰려고 **Apple 날씨**(WeatherKit, Apple Inc.)에 대략적인 위치(약 1km 단위로 반올림한 좌표)를 보냅니다. 위치는 운영자 서버로 보내지 않고 기기 안에서만 쓰며, 위치 권한을 허용하지 않으면 이 조회는 일어나지 않습니다.
 - **응원석**: 경기 점수·일정·순위를 운영자 서버(Cloudflare)에서 받습니다. 이 요청의 접속 정보는 Cloudflare를 거치며, 운영자는 이를 따로 보관하지 않습니다.
-- **한배**: 노선 인원·열차 위치·말풍선·순위를 운영자 서버(Cloudflare)와 주고받습니다. 접속 기록은 Cloudflare를 거치며 운영자는 따로 보관하지 않습니다. 사용 통계(Firebase Analytics)는 보내지 않습니다.
+- **한배**: 노선 인원·열차 위치·말풍선·순위를 운영자 서버(Cloudflare)와 주고받습니다. 접속 기록은 Cloudflare를 거치며 운영자는 따로 보관하지 않습니다. 통계에는 노선·말풍선·계정 번호를 담지 않습니다.
 
 ### 4. 기기 권한
 
@@ -64,13 +64,13 @@
 
 ### 5. 제3자 서비스
 
-한배를 뺀 모든 앱은 3절의 사용 통계를 위해 Google Firebase Analytics를 씁니다. 설정에서 이용약관·개인정보처리방침을 열 때 **GitHub Pages**(GitHub, Inc.)에서 문서 페이지를 불러옵니다. 앱을 켤 때는 업데이트 안내가 필요한지 확인하려고 같은 곳의 작은 설정 파일을 불러오고, App Store(Apple)의 공개 조회로 최신 버전 번호를 확인합니다(IP 주소 전달은 3절 참고). 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다.
+모든 앱은 3절의 사용 통계를 위해 Google Firebase Analytics를 씁니다. 설정에서 이용약관·개인정보처리방침을 열 때 **GitHub Pages**(GitHub, Inc.)에서 문서 페이지를 불러옵니다. 앱을 켤 때는 업데이트 안내가 필요한지 확인하려고 같은 곳의 작은 설정 파일을 불러오고, App Store(Apple)의 공개 조회로 최신 버전 번호를 확인합니다(IP 주소 전달은 3절 참고). 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다.
 
 - **주량체커·차곡**: 계정을 연결했을 때 2절의 백업을 위해 Firebase Authentication·Cloud Firestore와 Sign in with Apple·Google 로그인을 씁니다.
 - **차곡**: 3절의 도서 정보 조회를 위해 Open Library와 국립중앙도서관을 씁니다.
 - **알롱**: 3절의 사용 통계를 위해 Google Firebase Analytics를, 게스트 계정과 2절의 저장을 위해 Firebase Authentication·Cloud Firestore를, 계정 연결을 위해 Sign in with Apple·Google 로그인을, 지도와 주변 장소 조회를 위해 Apple 지도를, 날씨를 위해 Apple 날씨(WeatherKit)를 씁니다.
 - **응원석**: 운영자 서버를 위한 Cloudflare, 잠금 화면·위젯 점수 전달을 위한 Apple 푸시 알림 서비스(APNs)를 씁니다.
-- **한배**: Cloudflare(서버), Sign in with Apple·Google(로그인), Apple App Attest(앱 변조 확인)를 씁니다.
+- **한배**: 3절의 사용 통계를 위해 Google Firebase Analytics를, Cloudflare(서버), Sign in with Apple·Google(로그인), Apple App Attest(앱 변조 확인)를 씁니다.
 
 ### 6. 아동의 개인정보
 
@@ -95,7 +95,7 @@
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-10-28
+최종 수정일: 2026-10-30
 
 ---
 
@@ -104,7 +104,7 @@
 
 **Applies to: DrinkChecker · CheerSeat · Chagok · Allong · SameBoat**
 
-By default DrinkChecker, CheerSeat and Chagok collect no personal information. DrinkChecker, Chagok and Allong, which offer account connection (Apple or Google), store your account details and records on a backup server only if you connect an account in Settings (section 2). Allong creates a random account identifier and an Allong number, without your name or contact details, once you pass the age check (14 or older), stores your game data and weekly ranking records on the server whether or not you connect an account, and receives your email only if you connect an account (sections 1 and 2). CheerSeat keeps a device token on the operator's server only if you turn on Live Activities or add a widget, so it can show the score right away (section 2). SameBoat stores nothing on the server while you only browse without signing in; if you sign in with Apple or Google to send bubbles or join battles, it stores your account identifier and your nickname, points and the like on the server (no email; sections 1 and 2). All apps except SameBoat send anonymous usage statistics to help improve them (section 3). What differs by app is listed at the end of each section under the app's name.
+By default DrinkChecker, CheerSeat and Chagok collect no personal information. DrinkChecker, Chagok and Allong, which offer account connection (Apple or Google), store your account details and records on a backup server only if you connect an account in Settings (section 2). Allong creates a random account identifier and an Allong number, without your name or contact details, once you pass the age check (14 or older), stores your game data and weekly ranking records on the server whether or not you connect an account, and receives your email only if you connect an account (sections 1 and 2). CheerSeat keeps a device token on the operator's server only if you turn on Live Activities or add a widget, so it can show the score right away (section 2). SameBoat stores nothing on the server while you only browse without signing in; if you sign in with Apple or Google to send bubbles or join battles, it stores your account identifier and your nickname, points and the like on the server (no email; sections 1 and 2). All apps send anonymous usage statistics to help improve them (section 3). What differs by app is listed at the end of each section under the app's name.
 
 ### 1. Information we collect
 
@@ -137,7 +137,7 @@ What you enter in the app is stored on your device and is deleted when you delet
 
 ### 3. Network communication and usage statistics
 
-To analyze statistics for improving the service, all apps except SameBoat automatically collect **service usage records** and **device information** (device model, OS version, app version, and a random identifier created for each installation of the app) through Google Firebase Analytics. They also collect an **approximate region** derived from your IP address (country or city level); Google masks part of the IP address before estimating it. This information is not used to identify you and is not linked to your name, contact details, or advertising identifier. Firebase Analytics receives only the information described in this section.
+To analyze statistics for improving the service, all apps automatically collect **service usage records** and **device information** (device model, OS version, app version, and a random identifier created for each installation of the app) through Google Firebase Analytics. They also collect an **approximate region** derived from your IP address (country or city level); Google masks part of the IP address before estimating it. This information is not used to identify you and is not linked to your name, contact details, or advertising identifier. Firebase Analytics receives only the information described in this section. This statistics data is sent over the internet to Google LLC (United States) for processing when you use an app and is deleted after at most 14 months.
 
 **What the statistics never include**: the contents of what you record. No app collects an advertising identifier (IDFA), and none of this is used for advertising or to track you. The apps send no crash reports.
 
@@ -147,7 +147,7 @@ To analyze statistics for improving the service, all apps except SameBoat automa
 - **Chagok**: the record contents kept out of the statistics are the titles, notes and photos you record. If you connect an account, records are stored only in the backup space in section 2, and photos are never uploaded there either. Chagok recognizes photos entirely on your device, and photos never leave it. If a photo is judged to be a book (cover or back), only the **book title text or ISBN read from it** (neither the photo nor personal information) is looked up with the book-information providers **Open Library** (Internet Archive, United States) and the **National Library of Korea**, to find details such as the author. If you enter a record by hand instead, no lookup happens.
 - **Allong**: your date of birth, location, Allong number, account identifier and email are not included in the statistics either (only the age group calculated from the date of birth, one of six, is sent). It sends your current location coordinates to **Apple Maps** (Apple Inc.) to show the map on the Explore screen and to find places around you. If you choose Always Allow, this lookup may also happen while the app is closed, to check for places nearby. It also sends an approximate location (coordinates rounded to about 1 km) to **Apple Weather** (WeatherKit, Apple Inc.) to use the local weather in your Allong's Explore, Home and battle screens. Your location is used only on your device and is never sent to the operator's server; if you don't allow location access, this lookup doesn't happen.
 - **CheerSeat**: gets scores, schedules and standings from the operator's server (Cloudflare). Connection details of this request pass through Cloudflare; the operator does not keep them.
-- **SameBoat**: exchanges line counts, train positions, bubbles and rankings with the operator's server (Cloudflare). Connection data passes through Cloudflare; the operator does not keep it. It sends no usage statistics (Firebase Analytics).
+- **SameBoat**: exchanges line counts, train positions, bubbles and rankings with the operator's server (Cloudflare). Connection data passes through Cloudflare; the operator does not keep it. The statistics never include your line, bubbles or account number.
 
 ### 4. Device permissions
 
@@ -161,13 +161,13 @@ The apps only request the minimum device permissions that the service actually n
 
 ### 5. Third-party services
 
-All apps except SameBoat use Google Firebase Analytics for the usage statistics in section 3. Opening Terms of Service or the Privacy Policy in Settings loads the page from **GitHub Pages** (GitHub, Inc.). When an app opens, it loads a small settings file from the same place and checks the latest version number with the App Store's public lookup (Apple) to see whether an update notice is needed (see section 3 for the IP address). The apps do not include advertising SDKs or crash-reporting tools.
+All apps use Google Firebase Analytics for the usage statistics in section 3. Opening Terms of Service or the Privacy Policy in Settings loads the page from **GitHub Pages** (GitHub, Inc.). When an app opens, it loads a small settings file from the same place and checks the latest version number with the App Store's public lookup (Apple) to see whether an update notice is needed (see section 3 for the IP address). The apps do not include advertising SDKs or crash-reporting tools.
 
 - **DrinkChecker and Chagok**: if you connect an account, they use Firebase Authentication, Cloud Firestore, Sign in with Apple and Google Sign-In for the backup in section 2.
 - **Chagok**: uses Open Library and the National Library of Korea for the book lookup in section 3.
 - **Allong**: uses Google Firebase Analytics for the statistics in section 3, Firebase Authentication and Cloud Firestore for the guest account and the storage in section 2, Sign in with Apple and Google Sign-In for connecting an account, Apple Maps for the map and nearby-place lookup, and Apple Weather (WeatherKit) for the weather.
 - **CheerSeat**: uses Cloudflare for the operator's server, and the Apple Push Notification service (APNs) to deliver scores to your Lock Screen and widgets.
-- **SameBoat**: uses Cloudflare (server), Sign in with Apple and Google Sign-In (sign-in), and Apple App Attest (app integrity check).
+- **SameBoat**: uses Google Firebase Analytics for the statistics in section 3, Cloudflare (server), Sign in with Apple and Google Sign-In (sign-in), and Apple App Attest (app integrity check).
 
 ### 6. Children's privacy
 
@@ -192,4 +192,4 @@ The Allong website allong.my uses Google Analytics (Google LLC, United States) f
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-10-28
+Last updated: 2026-10-30
