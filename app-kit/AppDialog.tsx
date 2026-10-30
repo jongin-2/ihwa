@@ -7,6 +7,7 @@
 //    앱에 세로 쌓기 확인 카드가 이미 있으면 Host에 stack을 켠다 — 늘 세로, 위가 실행·아래가 취소(10-27 알롱 ConfirmCard B1과 같은 배치).
 //    빨강은 흰 글자 대비 4.5 이상(라이트 #D70015 5.4 · 다크 #D63A2F 4.7 — iOS 다크 빨강 #FF453A는 3.4라 쓰지 않음, 10-27 알롱).
 //    한국어는 단어 중간에서 꺾이지 않게 lineBreakStrategyIOS hangul-word(10-27 알롱 "완전/히").
+//    아주 큰 글씨(AX5)에서 제목 끝 '?'가 혼자 떨어지고 단추 글자가 꽉 차 글자 배율 상한 — 제목·설명 1.5·단추 1.3(LegalDocView와 같은 값), 단추 높이는 최소 50(10-30 주량체커 SET-43).
 //  · 바깥을 누르거나 뒤로 가기면 취소 단추(kind 'cancel')를 누른 것과 같다 — 취소 단추가 없거나 dismissable: false면 닫히지 않는다.
 //  · 창이 떠 있는 동안 새 요청은 줄을 서서 차례로 뜬다.
 //  · 층(10-27 알롱): 네이티브 시트(pageSheet·modal 화면)가 떠 있으면 앱 뿌리의 RN Modal은 "already presenting"으로 뜨지 않는다.
@@ -90,8 +91,8 @@ export function AppDialogHost(props: Look) {
     <Modal transparent animationType="fade" visible onRequestClose={() => closable && pick(cancel)}>
       <Pressable style={st.scrim} onPress={() => closable && pick(cancel)} accessible={false}>
         <Pressable style={[st.card, { backgroundColor: c.card }, dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
-          <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{cur.title}</Text>
-          {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{cur.msg}</Text>}
+          <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={1.5}>{cur.title}</Text>
+          {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={1.5}>{cur.msg}</Text>}
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
@@ -99,7 +100,7 @@ export function AppDialogHost(props: Look) {
               const fg = k === 'cancel' ? c.text : k === 'destructive' ? '#FFFFFF' : look.onAccent ?? '#FFFFFF';
               return (
                 <Pressable key={i} onPress={() => pick(i)} accessibilityRole="button" style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: pressed ? 0.7 : 1 }]}>
-                  <Text style={[st.btnText, { color: fg, fontWeight: k === 'cancel' ? '600' : '700' }]} numberOfLines={1} adjustsFontSizeToFit>{b.text}</Text>
+                  <Text style={[st.btnText, { color: fg, fontWeight: k === 'cancel' ? '600' : '700' }]} numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.3}>{b.text}</Text>
                 </Pressable>
               );
             })}
@@ -118,7 +119,7 @@ const st = StyleSheet.create({
   msg: { fontSize: 15, lineHeight: 22, textAlign: 'center', marginTop: 8, paddingHorizontal: 8 },
   row: { flexDirection: 'row', gap: 10, marginTop: 20 },
   stack: { flexDirection: 'column' },
-  btn: { height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
+  btn: { minHeight: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
   btnFlex: { flex: 1 },
   btnText: { fontSize: 17 },
 });
