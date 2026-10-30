@@ -184,18 +184,21 @@ if args.release:
     first = re.fullmatch(r'1\.0(\.0)?', ver) is not None
     full_only = CFG.get('release_mode') == 'full'
 
+    def has(h):  # 절 제목은 줄 머리에서만 — 본문에 따옴표로 든 같은 글자를 절로 읽지 않게(10-30 한배)
+        return re.search(r'^' + re.escape(h), QR, re.M) is not None
+
     def section(h):
-        sec = QR[QR.index(h):]
+        sec = QR[re.search(r'^' + re.escape(h), QR, re.M).start():]
         nxt = sec.find('\n## ', 1)
         return sec if nxt < 0 else sec[:nxt]
 
-    def check_full(h, label):
+    def check_full(h, label, skip=()):
         done = {}
         for nums, second, _ in table_rows(section(h)):
             for i in nums:
                 if i not in done or VERDICT.search(second):
                     done[i] = second  # 뒤의 "비고 해결" 같은 행이 판정을 덮지 않게
-        miss = [i for i in ids if i not in done and not re.search(r'\b' + re.escape(i) + r'\b', section(h))]
+        miss = [i for i in ids if i not in skip and i not in done and not re.search(r'\b' + re.escape(i) + r'\b', section(h))]
         if miss:
             problems.append(f'{label}에 없는 케이스 {len(miss)}건: {", ".join(miss[:30])}{" …" if len(miss) > 30 else ""}')
         nov = [i for i in ids if i in done and not VERDICT.search(done[i])]
@@ -206,13 +209,13 @@ if args.release:
     # 제목 "## 전체 회귀(기준 <커밋>)" — 출시 때는 그 뒤 바뀐 코드가 닿는 케이스만 출시 회귀 절에 다시 돌린다.
     base = re.search(r'^## [^\n]*전체 회귀[^\n]*기준 ([0-9a-f]{7,40})', QR, re.M)
 
-    if full in QR:
+    if has(full):
         check_full(full, f'{ver} 전체 회귀')
-    elif part in QR and not full_only and (not first or base):
-        if first:
-            check_full(base.group(0), f'기준 전체 회귀({base.group(1)})')
+    elif has(part) and not full_only and (not first or base):
         sec = section(part)
         ran = [i for i in ids if re.search(r'^\| ' + re.escape(i) + r'\b', sec, re.M)]
+        if first:  # 기준 뒤 새로 생긴 케이스는 출시 회귀 절에서 돌렸으면 기준 절에 없어도 된다(10-30 한배 ANA-01~04)
+            check_full(base.group(0), f'기준 전체 회귀({base.group(1)})', skip=set(ran))
         if not ran:
             problems.append(f'"{part}" 절에 돌린 케이스가 없다 — 바꾼 부분의 케이스를 {ver} 코드로 돌려 적을 것')
         if not re.search(r'^> 승계: 나머지는 \S.*? 결과', sec, re.M):  # "빌드 19"처럼 띄어 쓴 이름도(10-20 차곡)
