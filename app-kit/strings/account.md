@@ -48,6 +48,33 @@
 
 낱말 기준(10-21 종인님 "언어는 보편적인거로, 너가 조사해"): 번체 '기록'(명사)은 紀錄 — 대만 법률 통일 용자(명사 紀錄·동사 記錄) — 연결 해제 본문 '紀錄只會留在此裝置…'도 같음(주량체커 원본 zhHant.ts 함께 고침). 이탈리아어 보조 줄은 'dati' — 기기 바꿀 때 '데이터 옮기기'(trasferire i dati)가 일반 표현, 'registri'는 장부 느낌. 독일어 '계정'은 Konto 유지 — 표준어이고 구글·주량체커·차곡이 Konto(애플만 Account).
 
+### ① 연결 해제 실패 — disconnectFailed
+
+원인(인터넷 끊김·서버 장애·한도 429·5xx)을 단정하지 않는 문구 하나로 쓴다(11-01 종인님 "주량체커 문구로 통일해" — 차곡의 '인터넷 연결을 확인하세요'가 서버 장애 때도 인터넷 탓으로 읽힘, 한배 fe2e459 장애 전파에서 발견). 원본은 주량체커 strings.ts·i18n/*.ts.
+
+| 언어 | 문구 |
+|---|---|
+| ko | 연결을 해제하지 못했어요. 다시 시도해 주세요. |
+| en | Couldn't disconnect. Please try again. |
+| de | Verbindung konnte nicht getrennt werden. Bitte versuch es noch mal. |
+| es | No se pudo desconectar. Inténtalo de nuevo. |
+| fr | Impossible de déconnecter. Veuillez réessayer. |
+| id | Gagal memutuskan koneksi. Coba lagi. |
+| it | Impossibile scollegare. Riprova. |
+| ja | 連携を解除できませんでした。もう一度お試しください。 |
+| pt | Não foi possível desconectar. Tente novamente. |
+| ru | Не удалось отключить. Попробуйте ещё раз. |
+| tr | Bağlantı kesilemedi. Lütfen tekrar dene. |
+| vi | Không hủy kết nối được. Vui lòng thử lại. |
+| zhHans | 无法解除连接，请再试一次。 |
+| zhHant | 無法解除連接，請再試一次。 |
+| nl | Ontkoppelen is mislukt. Probeer het opnieuw. |
+| pl | Nie udało się rozłączyć. Spróbuj ponownie. |
+| sv | Det gick inte att koppla från. Försök igen. |
+| th | ยกเลิกการเชื่อมต่อไม่สำเร็จ ลองอีกครั้ง |
+| cs | Odpojení se nepodařilo. Zkus to znovu. |
+| uk | Не вдалося відключити. Спробуйте ще раз. |
+
 ## ② 계정 생성 — 계정 삭제(알롱)
 
 원본은 알롱 저장소 `impl/app/src/lib/strings/settings.ts`·`notify.ts`·`i18n/*.ts`(14개 언어, 10-21 계정 삭제 구현), 결정·흐름은 `prd/settings/account-deletion.md`. 아래 표는 그 원본에서 뽑은 것 — 고칠 땐 알롱 원본과 이 파일을 함께 고친다. `${d}`는 삭제 예정일(언어별 날짜 꼴), `${p}`는 Apple·Google.
