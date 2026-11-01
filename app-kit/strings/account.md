@@ -48,6 +48,33 @@
 
 낱말 기준(10-21 종인님 "언어는 보편적인거로, 너가 조사해"): 번체 '기록'(명사)은 紀錄 — 대만 법률 통일 용자(명사 紀錄·동사 記錄) — 연결 해제 본문 '紀錄只會留在此裝置…'도 같음(주량체커 원본 zhHant.ts 함께 고침). 이탈리아어 보조 줄은 'dati' — 기기 바꿀 때 '데이터 옮기기'(trasferire i dati)가 일반 표현, 'registri'는 장부 느낌. 독일어 '계정'은 Konto 유지 — 표준어이고 구글·주량체커·차곡이 Konto(애플만 Account).
 
+### ① 연결 실패 — offline / serverFailed
+
+로그인·연결이 실패하면 원인으로 두 갈래만 나눈다(11-01 종인님 "새 문구로 나눠"·"주량체커처럼 맞춰" — 한배 fe2e459 장애 전파). 인터넷이 없을 때(Firestore unavailable·network-request-failed 등 연결 오류)만 `offline`, 그 밖(인증은 됐는데 서버가 429·5xx 등으로 거절)은 `serverFailed`. 원본은 주량체커 strings.ts·i18n/*.ts(2908a4c), nl·sv `offline`은 앱에서 긴 낱말 줄바꿈용 보이지 않는 하이픈(U+00AD)을 넣어 둠.
+
+| 언어 | offline | serverFailed |
+|---|---|---|
+| ko | 인터넷 연결이 필요해요 | 연결하지 못했어요. 잠시 뒤 다시 시도해 주세요. |
+| en | Internet connection required | Couldn't connect. Please try again later. |
+| de | Internetverbindung erforderlich | Verbindung nicht möglich. Bitte versuch es später noch mal. |
+| es | Se necesita conexión a internet | No se pudo conectar. Inténtalo de nuevo más tarde. |
+| fr | Une connexion internet est nécessaire | Impossible de connecter. Veuillez réessayer plus tard. |
+| id | Perlu koneksi internet | Gagal menghubungkan. Coba lagi nanti. |
+| it | È necessaria una connessione internet | Impossibile collegare. Riprova più tardi. |
+| ja | インターネット接続が必要です | 連携できませんでした。しばらくしてからもう一度お試しください。 |
+| pt | É necessária uma conexão com a internet | Não foi possível conectar. Tente novamente mais tarde. |
+| ru | Нужно подключение к интернету | Не удалось подключить. Попробуйте позже. |
+| tr | İnternet bağlantısı gerekiyor | Bağlanamadı. Lütfen daha sonra tekrar dene. |
+| vi | Cần có kết nối mạng | Không kết nối được. Vui lòng thử lại sau. |
+| zhHans | 需要网络连接 | 无法连接，请稍后再试。 |
+| zhHant | 需要網路連線 | 無法連接，請稍後再試。 |
+| nl | Internetverbinding vereist | Koppelen is mislukt. Probeer het later opnieuw. |
+| pl | Wymagane połączenie z internetem | Nie udało się połączyć. Spróbuj ponownie później. |
+| sv | Internetanslutning krävs | Det gick inte att ansluta. Försök igen senare. |
+| th | ต้องเชื่อมต่ออินเทอร์เน็ต | เชื่อมต่อไม่สำเร็จ ลองอีกครั้งในภายหลัง |
+| cs | Je potřeba připojení k internetu | Připojení se nepodařilo. Zkus to později znovu. |
+| uk | Потрібне підключення до інтернету | Не вдалося підключити. Спробуйте пізніше. |
+
 ### ① 연결 해제 실패 — disconnectFailed
 
 원인(인터넷 끊김·서버 장애·한도 429·5xx)을 단정하지 않는 문구 하나로 쓴다(11-01 종인님 "주량체커 문구로 통일해" — 차곡의 '인터넷 연결을 확인하세요'가 서버 장애 때도 인터넷 탓으로 읽힘, 한배 fe2e459 장애 전파에서 발견). 원본은 주량체커 strings.ts·i18n/*.ts.
