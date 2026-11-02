@@ -16,7 +16,7 @@
 //    조회 결과는 1시간 동안 기억해 돌아올 때마다 네트워크를 쓰지 않는다.
 //  · 설정 버전 줄: 앱이 `useUpdateState()`의 `available`을 보고 `업데이트` 단추를 그린다(누르면 `openStore`).
 // 앱마다 다른 값은 UpdateConfig(스토어 앱 ID·설정 파일 이름·지금 버전·언어)뿐. 문구는 아래 20개 언어를 이 파일이 들고 있다.
-// 필요한 라이브러리: 없음(react-native만). 판정 시험: `node --experimental-strip-types app-kit/scripts/test-update-prompt.mjs` — 원본을 고치면 함께 돌린다.
+// 필요한 라이브러리: 없음(react-native만).
 import { useEffect, useRef, useState } from 'react';
 import { AppState, Linking } from 'react-native';
 import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
