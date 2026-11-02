@@ -29,7 +29,7 @@ try {
     ['min보다 낮고 스토어에 min 판이 있음: 강제', '1.0.0', '1.0.1', '1.0.1', 'app', true, true],
     ['min보다 낮지만 스토어 최신이 min보다 낮음(심사 중): 강제 안 함', '1.0.0', '1.0.0', '1.0.1', 'app', false, false],
     ['min 1.0.4·스토어 1.0.3·지금 1.0.2: 강제 안 함(셋째 자리라 창 없음)', '1.0.2', '1.0.3', '1.0.4', 'app', false, false],
-    ['스토어 조회 실패면 긴급 강제 유지', '1.0.0', null, '1.0.1', 'app', true, true],
+    ['스토어 조회 실패(그 지역에서 안 팖)면 강제 안 함', '1.0.0', null, '1.0.1', 'app', false, false],
     ['이미 min 이상이면 강제 안 함', '1.0.1', '1.0.1', '1.0.1', 'app', false, false],
     ['테스트플라이트(지금이 더 새것): 안내 없음', '1.1.0', '1.0.0', null, 'app', false, false],
   ];
@@ -39,6 +39,12 @@ try {
     if (!ok) failed++;
     console.log(`${ok ? '통과' : '실패'} ${name}${ok ? '' : ` — forced ${s.forced}, prompt ${s.prompt}`}`);
   }
+  const urgent = decideUpdate('1.0.0', null, '1.0.1', 'app', null, now, true);
+  if (urgent.forced !== true) failed++;
+  console.log(`${urgent.forced === true ? '통과' : '실패'} 조회 실패라도 forceEvenIfUnknown이면 긴급 강제`);
+  const urgentKnown = decideUpdate('1.0.0', '1.0.0', '1.0.1', 'app', null, now, true);
+  if (urgentKnown.forced !== false) failed++;
+  console.log(`${urgentKnown.forced === false ? '통과' : '실패'} forceEvenIfUnknown이어도 스토어 최신이 min보다 낮으면 강제 안 함`);
   const fresh = decideUpdate('1.0.0', '1.1.0', null, 'app', now - DAY / 2, now);
   if (fresh.prompt !== false) failed++;
   console.log(`${fresh.prompt === false ? '통과' : '실패'} 둘째 자리라도 출시 하루 안이면 권장 안 띄움`);

@@ -9,6 +9,9 @@
 //    권장은 `나중에`·`지금 업데이트`를 출시 하루 뒤부터 하루 한 번까지(Siren 기본 규칙과 같은 빈도). 앱마다 설정 파일의 `policy`로 고른다.
 //  · 긴급 강제: 공용 사이트 설정 파일 `https://jongin-2.github.io/ihwa/app-config/<앱>.json`의 `minVersion`보다 낮으면 자리와 상관없이 강제 —
 //    앱 출시 없이 그 숫자만 바꿔 켠다(종인님 결정 10-14 "공용 사이트 설정 파일"). 파일이 없거나 못 읽으면 일반 앱으로 본다.
+//    단 스토어 최신판이 minVersion 이상일 때만 강제한다 — 받을 판이 없으면(심사 중·그 나라 스토어에 아직 없음) 막지 않는다(11-03).
+//    스토어 조회가 실패하면(기기 지역에서 안 팔아 지역·미국 둘 다 빈 결과 등) 강제하지 않고, 꼭 막아야 할 때만 설정 파일에
+//    `"forceEvenIfUnknown": true`를 함께 둔다(11-03 한배 짚음).
 //  · 안내 창(공용 AppDialog — 앱 카드 모양 가운데 창, 10-27 종인님 "모든 앱에 넓혀"): 제목 `새 버전이 있어요` + `버전 {v}`, 단추 `나중에`·`지금 업데이트`. 무조건이면 둘째 줄 `계속 쓰려면 업데이트가 필요해요`와
 //    `지금 업데이트` 하나뿐이고, 스토어에 다녀와도 다시 뜬다.
 //  · 언제: 앱을 열 때마다(처음 실행·백그라운드에서 돌아올 때) 조회한다. 강제는 열 때마다 뜨고, 권장은 하루 한 번까지 —
@@ -106,13 +109,14 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 export function decideUpdate(
   current: string, latest: string | null, minVersion: string | null,
   policy: UpdatePolicy = 'app', releasedAt: number | null = null, now: number = Date.now(),
+  forceEvenIfUnknown = false,
 ): UpdateState {
   const newer = !!latest && compareVersions(latest, current) > 0;
   const level = newer ? updateLevel(current, latest!) : null;
   // 스토어 최신판이 minVersion보다 낮으면(아직 심사 중이거나 그 나라 스토어에 늦게 뜸) 받을 판이 없으니 강제하지 않는다(11-03 한배 짚음).
-  // 스토어 조회가 실패하면(latest null) 긴급 강제는 그대로 둔다.
+  // 스토어 조회가 실패하면(latest null) 강제하지 않는다 — 설정 파일 forceEvenIfUnknown이 참일 때만 강제.
   const belowMin = !!minVersion && compareVersions(current, minVersion) < 0
-    && (!latest || compareVersions(latest, minVersion) >= 0);
+    && (latest ? compareVersions(latest, minVersion) >= 0 : forceEvenIfUnknown);
   const forceLevels: UpdateLevel[] = policy === 'game' ? ['major', 'minor'] : ['major'];
   const recommendLevel: UpdateLevel = policy === 'game' ? 'patch' : 'minor';
   const forced = belowMin || (!!level && forceLevels.includes(level));
@@ -166,7 +170,8 @@ export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
   ]);
   const min = typeof config?.minVersion === 'string' ? config.minVersion : null;
   const policy: UpdatePolicy = config?.policy === 'game' ? 'game' : 'app';
-  const state = decideUpdate(cfg.currentVersion, latest?.version ?? null, min, policy, latest?.releasedAt ?? null);
+  const state = decideUpdate(cfg.currentVersion, latest?.version ?? null, min, policy, latest?.releasedAt ?? null,
+    Date.now(), config?.forceEvenIfUnknown === true);
   // 둘 다 못 읽었으면(오프라인) 기억하지 않는다 — 다음에 열 때 다시 조회
   if (latest || config) cache = { at: Date.now(), key, state };
   return state;
