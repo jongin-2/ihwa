@@ -109,7 +109,10 @@ export function decideUpdate(
 ): UpdateState {
   const newer = !!latest && compareVersions(latest, current) > 0;
   const level = newer ? updateLevel(current, latest!) : null;
-  const belowMin = !!minVersion && compareVersions(current, minVersion) < 0;
+  // 스토어 최신판이 minVersion보다 낮으면(아직 심사 중이거나 그 나라 스토어에 늦게 뜸) 받을 판이 없으니 강제하지 않는다(11-03 한배 짚음).
+  // 스토어 조회가 실패하면(latest null) 긴급 강제는 그대로 둔다.
+  const belowMin = !!minVersion && compareVersions(current, minVersion) < 0
+    && (!latest || compareVersions(latest, minVersion) >= 0);
   const forceLevels: UpdateLevel[] = policy === 'game' ? ['major', 'minor'] : ['major'];
   const recommendLevel: UpdateLevel = policy === 'game' ? 'patch' : 'minor';
   const forced = belowMin || (!!level && forceLevels.includes(level));
