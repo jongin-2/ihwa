@@ -111,6 +111,16 @@ for f in tracked:
     if v.get('moderate', 0):
         warn.append(f'{where} — 의존성 취약점 보통 {v["moderate"]}건(부모 표시 포함)')
 
+# 6. 광고 식별자 모듈 — 늘 전체(11-02 한배 08a8476: RNFB 기본값이 Firebase 통계에 IdentitySupport를 붙여 방침·App Privacy '광고 식별자 안 받음'과 어긋남)
+# ios/는 prebuild 생성물이라 깃에 없으므로, 있으면 Podfile.lock(CocoaPods)과 Pods 프로젝트(Swift 패키지)를 직접 본다
+AD_MOD = re.compile(r'IdentitySupport|GoogleAdsOnDeviceConversion')
+for base, dirs, files in os.walk(os.path.join(ROOT, 'impl')):
+    dirs[:] = [d for d in dirs if d not in ('node_modules', '.git', 'build', 'DerivedData') and base.count(os.sep) - ROOT.count(os.sep) < 5]
+    for f in ('Podfile.lock', 'project.pbxproj'):
+        path = os.path.join(base, f)
+        if f in files and (f == 'Podfile.lock' or base.endswith('Pods.xcodeproj')) and AD_MOD.search(open(path, errors='ignore').read()):
+            bad.append(f'{os.path.relpath(path, ROOT)} — Firebase 통계에 광고 식별자 모듈이 들어감(Podfile 맨 위 $RNFirebaseAnalyticsWithoutAdIdSupport = true를 withPodfile 플러그인으로 넣고 prebuild --clean)')
+
 label = f'{since} 뒤 바뀐 파일 {len(scope)}개' if since else f'저장소 전체 {len(scope)}개'
 for b in bad:
     print('✗ ' + b)
