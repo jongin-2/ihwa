@@ -29,9 +29,10 @@ args = ap.parse_args()
 R = os.path.abspath(args.root or os.path.join(os.path.dirname(__file__), '../../..'))
 cfg_path = args.config or f'{R}/impl/scripts/qa-config.json'
 cfg = (json.load(open(cfg_path)) if os.path.exists(cfg_path) else {}).get('mockup_flows', {})
-# 화면 없는 점검 전용 크롬(11-02 — 일반 크롬을 헤드리스로 띄우면 크롬 창·Claude 확장이 안 열림). 없으면 일반 크롬
-_SHELL = os.path.expanduser('~/.cache/ihwa/chrome-headless-shell/chrome-headless-shell-mac-arm64/chrome-headless-shell')
-CH = _SHELL if os.path.exists(_SHELL) else '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+# 화면 없는 점검 전용 크롬(11-02 — 일반 크롬을 헤드리스로 띄우면 크롬 창·Claude 확장이 안 열림). 일반 크롬으로 대신하지 않는다
+CH = os.path.expanduser('~/.cache/ihwa/chrome-headless-shell/chrome-headless-shell-mac-arm64/chrome-headless-shell')
+if not os.path.exists(CH):
+    sys.exit('✗ 점검 전용 크롬이 없음 — `bash ~/Projects/core/chrome-shell.sh`로 받은 뒤 다시 실행(일반 크롬은 쓰지 않음)')
 
 scenes = cfg.get('scenes') or sorted(os.path.basename(os.path.dirname(p)) for p in glob.glob(f'{R}/prd/*/mockup.html'))
 if not scenes:
