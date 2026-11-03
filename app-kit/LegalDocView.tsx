@@ -84,7 +84,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
           : { type: 'button', label: closeLabel(lang, w, shown), icon: { type: 'sfSymbol', name: 'xmark' }, onPress: onClose },
       ],
     });
-  }, [navigation, shown, canGoBack, w, onClose]);
+  }, [navigation, shown, canGoBack, w, lang, onClose]);
   return (
     <View style={styles.container}>
       {failed ? (

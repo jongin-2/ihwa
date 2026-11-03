@@ -188,7 +188,8 @@ const LAST_KEY = 'updatePrompt.lastShownDay';
 
 /** 권장 안내를 오늘 아직 안 띄웠나 — 띄우기로 하면 오늘 날짜를 적는다 */
 async function dueToday(cfg: UpdateConfig, s: UpdateState): Promise<boolean> {
-  const today = new Date().toISOString().slice(0, 10) + ':' + (s.latest ?? '');
+  const d = new Date(); // 기기 현지 날짜로 센다(UTC면 한국 0~9시에 같은 날 두 번 뜸)
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}:${s.latest ?? ''}`;
   if (!cfg.store) {
     if (shownThisLaunch) return false;
     shownThisLaunch = true;
