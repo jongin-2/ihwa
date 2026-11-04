@@ -16,7 +16,7 @@
 - **주량체커·차곡**: 계정 연결 없이 모든 기능을 쓸 수 있고, 계정을 연결하지 않으면 이름·이메일·전화번호 등 어떤 개인 식별 정보도 수집하지 않습니다. 설정에서 계정을 연결하면 로그인 서비스(Apple 또는 Google)가 주는 계정 식별자·이메일(Apple '이메일 가리기'를 쓰면 대체 주소)만 받습니다.
 - **알롱**: 첫 실행 때 만 14세 이상 확인을 통과하면 게스트 계정을 만들어, 무작위 **계정 식별자**와 사람에게 보이는 **알롱 번호**를 서버에 저장합니다. 이름·이메일·전화번호는 이때 받지 않습니다. 설정에서 Apple 또는 Google 계정을 연결하면 로그인 서비스가 주는 **이메일**(Apple '이메일 가리기'를 쓰면 대체 주소)을 받습니다. 이름은 받지 않습니다. 첫 실행 때 입력하는 **생일**은 만 14세 이상 확인과 나이대 통계에 쓰고 기기에만 저장하며, 서버로 보내지 않습니다. 계정을 연결하면 만 14세 이상인지 여부만 서버에 저장합니다. 통계에는 나이대(6구간)만 보냅니다(3절).
 - **응원석**: 계정·로그인 없이 쓰는 앱으로, 이름·이메일·전화번호·위치를 수집하지 않습니다.
-- **한배**: 보기(노선·말풍선·순위)는 로그인 없이 되며 서버에 아무것도 저장하지 않습니다. 말풍선을 보내거나 대항전에 참가하려면 Apple 또는 Google로 로그인해 계정을 만들고, 로그인 서비스의 계정 식별자만 받습니다(이메일은 받지 않음). 닉네임(닉네임 번호 포함)·프로필 꾸밈·포인트·이용 제한 기록(제한 단계·끝 시각)과, 앱 변조를 막는 Apple App Attest 확인 키(키 번호·공개키)를 보관합니다. 위치는 기기 안에서만 씁니다(4절).
+- **한배**: 보기(노선·말풍선·순위)는 로그인 없이 되며 서버에 아무것도 저장하지 않습니다. 말풍선을 보내거나 대항전에 참가하려면 Apple 또는 Google로 로그인해 계정을 만들고, 로그인 서비스의 계정 식별자만 받습니다(이메일은 받지 않음). 닉네임(닉네임 번호 포함)·프로필 꾸밈·포인트·이용 제한 기록(제한 단계·끝 시각)과, 앱 변조를 막는 Apple App Attest 확인 키를 보관합니다. 위치는 기기 안에서만 씁니다(4절).
 
 ### 2. 데이터 저장 방식
 
@@ -33,7 +33,7 @@
   - **국외 이전 고지**: 계정 식별자·이메일은 미국에서, 게임 데이터·순위와 알롱 번호는 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 앱을 처음 켤 때, 계정을 연결할 때, 게임 데이터가 바뀔 때 인터넷으로 전송되며, 계정을 삭제할 때까지(삭제 요청 뒤 14일까지) 보관합니다.
   - **삭제**: 설정 맨 아래 '계정 삭제'를 누르면 이 기기의 알롱과 기록, 서버의 주간 순위 기록은 바로 내용이 지워집니다(내용 없는 삭제 표시만 영구 삭제 때까지 남습니다). 서버의 게임 데이터·알롱 번호·계정 식별자(연결한 경우 이메일 포함)는 삭제 요청 뒤 14일 동안 다른 이용자에게 보이지 않게 보관하며, 이 기간에는 삭제 취소에만 쓰고, 그 뒤 복원할 수 없는 방법으로 영구 삭제합니다. 다만 같은 알롱 번호가 다른 사람에게 다시 발급되지 않도록 그 번호가 쓰였다는 표시만 남기고, 게임 기록 일부(알롱의 모습·레벨·함께한 날·이긴 수·도감 횟수·배지 종류·삭제한 달)는 알롱 번호·계정과 이어지지 않는 임의 값으로 바꿔 누구의 것인지 알 수 없는 통계로만 보관합니다. Apple·Google 계정을 연결한 경우 14일 안에 같은 계정으로 다시 연결하면 삭제를 취소할 수 있고, 그때 나오는 화면의 '지금 바로 삭제'로 기다리지 않고 지울 수도 있습니다. 게스트 계정은 취소할 수 없으며, 삭제 처리를 한 번에 하기 위해 14일 뒤 함께 지웁니다. 삭제를 요청하면 Apple·Google 로그인 연결은 바로 끊깁니다.
   - **오래 쓰지 않은 게스트**: 계정을 연결하지 않은 게스트의 계정과 기록은 마지막으로 앱을 쓴 날부터 1년이 지나면 서버에서 지웁니다. 게스트는 연락처가 없어 따로 알리지 않으니, 기록을 지키려면 계정을 연결해 주세요.
-- **응원석**: 고른 응원팀과 '실시간 현황' 켜기·끄기는 기기 안에만 저장합니다. '실시간 현황'을 켠 경우에만, 경기가 시작될 때 잠금 화면에 점수를 띄우기 위해 Apple이 발급하는 **기기 토큰**(무작위 값)과 **응원팀 코드**, **앱 언어**를 운영자 서버에 보관합니다. iOS 26 이상에서 홈 화면·잠금 화면에 위젯을 놓으면 Apple이 발급하는 **위젯 토큰**(무작위 값)과 **응원팀 코드**를 운영자 서버에 보관하며, 점수가 바뀔 때 위젯을 바로 새로 그리는 데 씁니다.
+- **응원석**: 고른 응원팀과 '실시간 현황' 켜기·끄기는 기기 안에만 저장합니다. '실시간 현황'을 켠 경우에만, 경기가 시작될 때 잠금 화면에 점수를 띄우기 위해 Apple이 발급하는 **기기 토큰**(무작위 값)과 **응원팀 코드**, **앱 언어**를 운영자 서버에 보관합니다. iOS 26 이상에서 홈 화면·잠금 화면에 위젯을 놓으면 Apple이 발급하는 **위젯 토큰**(무작위 값)과 **응원팀 코드**를 운영자 서버에 보관하며, 점수가 바뀔 때 위젯을 바로 새로 그리는 데 씁니다. 이 토큰을 등록할 때 변조되지 않은 앱에서 온 요청인지 확인하려고 Apple App Attest 확인 키를 운영자 서버에 보관하며, 마지막으로 쓴 날부터 90일이 지나면 지웁니다.
   - **국외 이전 고지**: 운영자 서버는 Cloudflare, Inc.(미국)의 서비스이며 데이터베이스는 아시아·태평양 지역에서 운영됩니다. '실시간 현황'을 켤 때, 위젯을 놓을 때, 응원팀을 바꿀 때 인터넷으로 전송되며, '실시간 현황'을 끄면 그 토큰을 서버에서 바로 지웁니다. 앱을 지우는 등으로 Apple이 토큰을 무효로 하면 서버도 그 토큰을 지웁니다.
 - **한배**: 말풍선은 서버에 남기지 않습니다. 신고된 말풍선만 글·신고 사유·시각·양쪽 닉네임(닉네임 번호 포함)을 보관하고 검토가 끝나고 90일 뒤 지웁니다. 대항전 포인트를 계정에 주려고 고른 노선을 계정과 함께 두고, 지급하면 바로 지웁니다(주·월 우승은 기간이 끝날 때까지, 최대 31일). 1절의 계정 정보는 계정을 삭제할 때까지 보관하고, 삭제를 요청하면 14일 뒤 지웁니다(그 안에 다시 로그인하면 취소). 영구 이용 제한을 받은 계정은 다시 가입하지 못하게 계정 식별자를 되돌릴 수 없는 값(해시)으로 바꿔 제한이 풀릴 때까지 보관합니다.
   - **국외 이전 고지**: 위 정보는 앱을 쓸 때 인터넷으로 Cloudflare, Inc.(미국)의 서버에 전송되어 위 기간 동안 보관되며, 데이터베이스는 아시아·태평양 지역에 있습니다.
@@ -69,7 +69,7 @@
 - **주량체커·차곡**: 계정을 연결했을 때 2절의 백업을 위해 Firebase Authentication·Cloud Firestore와 Sign in with Apple·Google 로그인을 씁니다.
 - **차곡**: 3절의 도서 정보 조회를 위해 Open Library와 국립중앙도서관을 씁니다.
 - **알롱**: 3절의 사용 통계를 위해 Google Firebase Analytics를, 게스트 계정과 2절의 저장을 위해 Firebase Authentication·Cloud Firestore를, 계정 연결을 위해 Sign in with Apple·Google 로그인을, 지도와 주변 장소 조회를 위해 Apple 지도를, 날씨를 위해 Apple 날씨(WeatherKit)를 씁니다.
-- **응원석**: 운영자 서버를 위한 Cloudflare, 잠금 화면·위젯 점수 전달을 위한 Apple 푸시 알림 서비스(APNs)를 씁니다.
+- **응원석**: 운영자 서버를 위한 Cloudflare, 잠금 화면·위젯 점수 전달을 위한 Apple 푸시 알림 서비스(APNs), 앱 변조 확인을 위한 Apple App Attest를 씁니다.
 - **한배**: 3절의 사용 통계를 위해 Google Firebase Analytics를, Cloudflare(서버), Sign in with Apple·Google(로그인), Apple App Attest(앱 변조 확인)를 씁니다.
 
 ### 6. 아동의 개인정보
@@ -95,7 +95,7 @@
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-11-03
+최종 수정일: 2026-11-04
 
 ---
 
@@ -113,7 +113,7 @@ What we receive differs by app. The analytics tool assigns a random per-installa
 - **DrinkChecker and Chagok**: every feature works without connecting an account, and if you don't connect one, the app collects no personally identifying information — no name, email, or phone number. If you connect an account in Settings, the app receives only the account identifier and email address (a relay address if you use Apple's Hide My Email) provided by the sign-in service (Apple or Google).
 - **Allong**: creates a guest account once you pass the age check (14 or older) on first launch and stores on the server a random **account identifier** and an **Allong number** that is shown to you. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. If you connect an account, only whether you are 14 or older is stored on the server. Only an age group (one of six) is sent to statistics (section 3).
 - **CheerSeat**: has no account or login and does not collect your name, email, phone number, or location.
-- **SameBoat**: browsing lines, bubbles and rankings works without signing in, and nothing is stored on the server. To send bubbles or join battles, you sign in with Apple or Google to create an account; we receive only the account identifier from the sign-in service (no email). We keep your nickname (with its nickname number), profile outfits, points, restriction record (level and end time), and an Apple App Attest key (key ID and public key) used to block modified apps. Location is used on the device only (section 4).
+- **SameBoat**: browsing lines, bubbles and rankings works without signing in, and nothing is stored on the server. To send bubbles or join battles, you sign in with Apple or Google to create an account; we receive only the account identifier from the sign-in service (no email). We keep your nickname (with its nickname number), profile outfits, points, restriction record (level and end time), and an Apple App Attest key used to block modified apps. Location is used on the device only (section 4).
 
 ### 2. How your data is stored
 
@@ -130,7 +130,7 @@ What you enter in the app is stored on your device and is deleted when you delet
   - **International transfer**: the account identifier and email are processed and stored by Google LLC in the United States, and game data, rankings and the Allong number in South Korea (Seoul region). They are sent over the internet when you first open the app, when you connect an account, and when your game data changes, and kept until you delete your account (up to 14 days after the deletion request).
   - **Deletion**: tapping Delete Account at the bottom of Settings immediately deletes the Allong and records on this device and the contents of your weekly ranking records on the server (only an empty deletion marker remains until permanent deletion). Your game data, Allong number and account identifier on the server (and your email, if you connected an account) are kept hidden from other users for 14 days after the deletion request, used during that time only to let you cancel the deletion, and then permanently deleted in a way that cannot be restored. However, so the same Allong number is never issued to someone else, we keep only a marker that the number has been used, and part of the game record (your Allong's appearance, level, days together, wins, Dallong defeat counts, badge types and the month of deletion) is moved under a random value unconnected to the Allong number or your account and kept only as statistics that cannot be traced to anyone. If you connected an Apple or Google account, you can cancel the deletion by connecting the same account again within 14 days, or delete everything right away with Delete Now on the screen that appears. Guest accounts can't be restored and are deleted together after 14 days so deletions can be processed in one batch. When you request deletion, your Apple or Google sign-in connection is removed right away.
   - **Inactive guests**: the accounts and records of guests who haven't connected an account are deleted from the server one year after the app was last used. Guests have no contact details, so we can't notify you beforehand — connect an account to keep your records.
-- **CheerSeat**: your team and the Live Activities setting are stored on your device only. Only if Live Activities are on, the app keeps a **device token** issued by Apple (a random value), your **team code** and the **app language** on the operator's server, so it can start the Live Activity on your Lock Screen when a game begins. On iOS 26 or later, if you add a widget to your Home Screen or Lock Screen, the app keeps a **widget token** issued by Apple (a random value) and your **team code** on the operator's server and uses them to redraw the widget right away when the score changes.
+- **CheerSeat**: your team and the Live Activities setting are stored on your device only. Only if Live Activities are on, the app keeps a **device token** issued by Apple (a random value), your **team code** and the **app language** on the operator's server, so it can start the Live Activity on your Lock Screen when a game begins. On iOS 26 or later, if you add a widget to your Home Screen or Lock Screen, the app keeps a **widget token** issued by Apple (a random value) and your **team code** on the operator's server and uses them to redraw the widget right away when the score changes. To check that these tokens are registered from the genuine app, the operator's server keeps an Apple App Attest key and deletes it 90 days after it was last used.
   - **International transfer**: the operator's server runs on Cloudflare, Inc. (United States), with the database in the Asia-Pacific region. This data is sent over the internet when you turn Live Activities on, add a widget or change your team. The Live Activities token is deleted from the server as soon as you turn Live Activities off. When Apple invalidates a token, for example because you deleted the app, the server deletes it too.
 - **SameBoat**: bubbles are not kept on the server. For reported bubbles only, we keep the text, reason, time and both nicknames (with nickname numbers), and delete them 90 days after review. To pay battle points to your account, we keep the line you picked with your account and delete it once paid (for weekly and monthly winners, until the period ends, up to 31 days). The account details in section 1 are kept until you delete your account and are deleted 14 days after you request it (signing in again within that time cancels it). For accounts permanently banned, we keep the account identifier as an irreversible value (hash) until the ban ends, to prevent re-registration.
   - **International transfer**: this information is sent over the internet to servers of Cloudflare, Inc. (United States) when you use the app and kept for the periods above; the database is in the Asia-Pacific region.
@@ -166,7 +166,7 @@ All apps use Google Firebase Analytics for the usage statistics in section 3. Op
 - **DrinkChecker and Chagok**: if you connect an account, they use Firebase Authentication, Cloud Firestore, Sign in with Apple and Google Sign-In for the backup in section 2.
 - **Chagok**: uses Open Library and the National Library of Korea for the book lookup in section 3.
 - **Allong**: uses Google Firebase Analytics for the statistics in section 3, Firebase Authentication and Cloud Firestore for the guest account and the storage in section 2, Sign in with Apple and Google Sign-In for connecting an account, Apple Maps for the map and nearby-place lookup, and Apple Weather (WeatherKit) for the weather.
-- **CheerSeat**: uses Cloudflare for the operator's server, and the Apple Push Notification service (APNs) to deliver scores to your Lock Screen and widgets.
+- **CheerSeat**: uses Cloudflare for the operator's server, the Apple Push Notification service (APNs) to deliver scores to your Lock Screen and widgets, and Apple App Attest (app integrity check).
 - **SameBoat**: uses Google Firebase Analytics for the statistics in section 3, Cloudflare (server), Sign in with Apple and Google Sign-In (sign-in), and Apple App Attest (app integrity check).
 
 ### 6. Children's privacy
@@ -192,4 +192,4 @@ The Allong website allong.my uses Google Analytics (Google LLC, United States) f
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-11-03
+Last updated: 2026-11-04
