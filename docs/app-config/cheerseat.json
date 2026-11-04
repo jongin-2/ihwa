@@ -1,5 +1,4 @@
 {
-  "minVersion": "1.0.2",
-  "policy": "app",
-  "serverFallback": false
+  "minVersion": "1.0.5",
+  "policy": "app"
 }
