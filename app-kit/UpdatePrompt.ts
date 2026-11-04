@@ -57,28 +57,28 @@ export type UpdateState = {
   level: UpdateLevel | null;
 };
 
-type Words = { title: string; version: string; forced: string; later: string; updateNow: string; update: string };
+type Words = { title: string; forced: string; later: string; updateNow: string; update: string };
 const WORDS: Record<string, Words> = {
-  'ko': { title: '새 버전이 있어요', version: '버전 {v}', forced: '계속 쓰려면 업데이트가 필요해요', later: '나중에', updateNow: '지금 업데이트', update: '업데이트' },
-  'en': { title: 'Update Available', version: 'Version {v}', forced: 'Update to keep using the app', later: 'Later', updateNow: 'Update Now', update: 'Update' },
-  'ja': { title: '新しいバージョンがあります', version: 'バージョン {v}', forced: '引き続き使うにはアップデートが必要です', later: 'あとで', updateNow: '今すぐアップデート', update: 'アップデート' },
-  'zh-Hant': { title: '有新版本', version: '版本 {v}', forced: '需要更新才能繼續使用', later: '稍後', updateNow: '立即更新', update: '更新' },
-  'zh-Hans': { title: '有新版本', version: '版本 {v}', forced: '需要更新才能继续使用', later: '稍后', updateNow: '立即更新', update: '更新' },
-  'es': { title: 'Actualización disponible', version: 'Versión {v}', forced: 'Actualiza para seguir usando la app', later: 'Más tarde', updateNow: 'Actualizar ahora', update: 'Actualizar' },
-  'pt': { title: 'Atualização disponível', version: 'Versão {v}', forced: 'Atualize para continuar usando o app', later: 'Mais tarde', updateNow: 'Atualizar agora', update: 'Atualizar' },
-  'de': { title: 'Update verfügbar', version: 'Version {v}', forced: 'Aktualisiere, um die App weiter zu nutzen', later: 'Später', updateNow: 'Jetzt aktualisieren', update: 'Aktualisieren' },
-  'fr': { title: 'Mise à jour disponible', version: 'Version {v}', forced: 'Mettez à jour pour continuer à utiliser l’app', later: 'Plus tard', updateNow: 'Mettre à jour', update: 'Mettre à jour' },
-  'it': { title: 'Aggiornamento disponibile', version: 'Versione {v}', forced: 'Aggiorna per continuare a usare l’app', later: 'Più tardi', updateNow: 'Aggiorna ora', update: 'Aggiorna' },
-  'ru': { title: 'Доступно обновление', version: 'Версия {v}', forced: 'Обновите, чтобы продолжить пользоваться приложением', later: 'Позже', updateNow: 'Обновить сейчас', update: 'Обновить' },
-  'tr': { title: 'Güncelleme mevcut', version: 'Sürüm {v}', forced: 'Kullanmaya devam etmek için güncelleyin', later: 'Daha sonra', updateNow: 'Şimdi güncelle', update: 'Güncelle' },
-  'id': { title: 'Pembaruan tersedia', version: 'Versi {v}', forced: 'Perbarui untuk terus memakai aplikasi', later: 'Nanti', updateNow: 'Perbarui sekarang', update: 'Perbarui' },
-  'vi': { title: 'Đã có bản cập nhật', version: 'Phiên bản {v}', forced: 'Cần cập nhật để tiếp tục sử dụng', later: 'Để sau', updateNow: 'Cập nhật ngay', update: 'Cập nhật' },
-  'nl': { title: 'Update beschikbaar', version: 'Versie {v}', forced: 'Werk bij om de app te blijven gebruiken', later: 'Later', updateNow: 'Nu bijwerken', update: 'Bijwerken' },
-  'pl': { title: 'Dostępna aktualizacja', version: 'Wersja {v}', forced: 'Zaktualizuj, aby dalej korzystać z aplikacji', later: 'Później', updateNow: 'Aktualizuj teraz', update: 'Aktualizuj' },
-  'sv': { title: 'Uppdatering finns', version: 'Version {v}', forced: 'Uppdatera för att fortsätta använda appen', later: 'Senare', updateNow: 'Uppdatera nu', update: 'Uppdatera' },
-  'th': { title: 'มีเวอร์ชันใหม่', version: 'เวอร์ชัน {v}', forced: 'ต้องอัปเดตเพื่อใช้งานต่อ', later: 'ภายหลัง', updateNow: 'อัปเดตเลย', update: 'อัปเดต' },
-  'cs': { title: 'Je k dispozici aktualizace', version: 'Verze {v}', forced: 'Aktualizujte, abyste mohli aplikaci dál používat', later: 'Později', updateNow: 'Aktualizovat teď', update: 'Aktualizovat' },
-  'uk': { title: 'Доступне оновлення', version: 'Версія {v}', forced: 'Оновіть, щоб і далі користуватися застосунком', later: 'Пізніше', updateNow: 'Оновити зараз', update: 'Оновити' },
+  'ko': { title: '새 버전이 있어요', forced: '계속 쓰려면 업데이트가 필요해요', later: '나중에', updateNow: '지금 업데이트', update: '업데이트' },
+  'en': { title: 'Update Available', forced: 'Update to keep using the app', later: 'Later', updateNow: 'Update Now', update: 'Update' },
+  'ja': { title: '新しいバージョンがあります', forced: '引き続き使うにはアップデートが必要です', later: 'あとで', updateNow: '今すぐアップデート', update: 'アップデート' },
+  'zh-Hant': { title: '有新版本', forced: '需要更新才能繼續使用', later: '稍後', updateNow: '立即更新', update: '更新' },
+  'zh-Hans': { title: '有新版本', forced: '需要更新才能继续使用', later: '稍后', updateNow: '立即更新', update: '更新' },
+  'es': { title: 'Actualización disponible', forced: 'Actualiza para seguir usando la app', later: 'Más tarde', updateNow: 'Actualizar ahora', update: 'Actualizar' },
+  'pt': { title: 'Atualização disponível', forced: 'Atualize para continuar usando o app', later: 'Mais tarde', updateNow: 'Atualizar agora', update: 'Atualizar' },
+  'de': { title: 'Update verfügbar', forced: 'Aktualisiere, um die App weiter zu nutzen', later: 'Später', updateNow: 'Jetzt aktualisieren', update: 'Aktualisieren' },
+  'fr': { title: 'Mise à jour disponible', forced: 'Mettez à jour pour continuer à utiliser l’app', later: 'Plus tard', updateNow: 'Mettre à jour', update: 'Mettre à jour' },
+  'it': { title: 'Aggiornamento disponibile', forced: 'Aggiorna per continuare a usare l’app', later: 'Più tardi', updateNow: 'Aggiorna ora', update: 'Aggiorna' },
+  'ru': { title: 'Доступно обновление', forced: 'Обновите, чтобы продолжить пользоваться приложением', later: 'Позже', updateNow: 'Обновить сейчас', update: 'Обновить' },
+  'tr': { title: 'Güncelleme mevcut', forced: 'Kullanmaya devam etmek için güncelleyin', later: 'Daha sonra', updateNow: 'Şimdi güncelle', update: 'Güncelle' },
+  'id': { title: 'Pembaruan tersedia', forced: 'Perbarui untuk terus memakai aplikasi', later: 'Nanti', updateNow: 'Perbarui sekarang', update: 'Perbarui' },
+  'vi': { title: 'Đã có bản cập nhật', forced: 'Cần cập nhật để tiếp tục sử dụng', later: 'Để sau', updateNow: 'Cập nhật ngay', update: 'Cập nhật' },
+  'nl': { title: 'Update beschikbaar', forced: 'Werk bij om de app te blijven gebruiken', later: 'Later', updateNow: 'Nu bijwerken', update: 'Bijwerken' },
+  'pl': { title: 'Dostępna aktualizacja', forced: 'Zaktualizuj, aby dalej korzystać z aplikacji', later: 'Później', updateNow: 'Aktualizuj teraz', update: 'Aktualizuj' },
+  'sv': { title: 'Uppdatering finns', forced: 'Uppdatera för att fortsätta använda appen', later: 'Senare', updateNow: 'Uppdatera nu', update: 'Uppdatera' },
+  'th': { title: 'มีเวอร์ชันใหม่', forced: 'ต้องอัปเดตเพื่อใช้งานต่อ', later: 'ภายหลัง', updateNow: 'อัปเดตเลย', update: 'อัปเดต' },
+  'cs': { title: 'Je k dispozici aktualizace', forced: 'Aktualizujte, abyste mohli aplikaci dál používat', later: 'Později', updateNow: 'Aktualizovat teď', update: 'Aktualizovat' },
+  'uk': { title: 'Доступне оновлення', forced: 'Оновіть, щоб і далі користуватися застосунком', later: 'Пізніше', updateNow: 'Оновити зараз', update: 'Оновити' },
 };
 
 export const updateWords = (lang: string): Words => WORDS[lang] ?? WORDS.en;
@@ -208,15 +208,14 @@ async function dueToday(cfg: UpdateConfig, s: UpdateState): Promise<boolean> {
 function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   if (alertShowing) return;
   const w = updateWords(cfg.lang);
-  // 새 번호는 지금보다 높을 때만 — 무조건 업데이트를 스토어 반영보다 먼저 켰을 때 낮은 번호가 보이지 않게
-  const v = s.latest && compareVersions(s.latest, cfg.currentVersion) > 0 ? s.latest : '';
+  // 버전 번호는 보이지 않는다(11-04 종인님 "새버전이 있어요에 버전정보는 안보여줘도 돼") — 제목과 단추만
   alertShowing = true;
   const done = () => { alertShowing = false; };
   if (s.forced) {
-    appDialog({ title: w.title, msg: (v ? w.version.replace('{v}', v) + '\n' : '') + w.forced, buttons: [{ text: w.updateNow }], dismissable: false })
+    appDialog({ title: w.title, msg: w.forced, buttons: [{ text: w.updateNow }], dismissable: false })
       .then(() => { done(); openStore(cfg.appStoreId); });
   } else {
-    appDialog({ title: w.title, msg: v ? w.version.replace('{v}', v) : undefined, buttons: [{ text: w.later, kind: 'cancel' }, { text: w.updateNow }] })
+    appDialog({ title: w.title, buttons: [{ text: w.later, kind: 'cancel' }, { text: w.updateNow }] })
       .then((i) => { done(); if (i === 1) openStore(cfg.appStoreId); });
   }
 }
