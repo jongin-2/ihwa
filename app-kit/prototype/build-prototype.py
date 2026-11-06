@@ -82,6 +82,9 @@ GROUPS = [('--c-', '색', '라이트·다크 두 값. 화면·컴포넌트는 �
           ('--s-', '간격', ''), ('--r-', '모서리', ''), ('--sh-', '그림자·재질', ''), ('--m-', '움직임', '시간·곡선.')]
 
 
+MOCK_ONLY = cfg.get('mockOnlyColors') or {}
+
+
 def design_system_page():
     css = read(TOKENS)
     t = blocks(css)
@@ -110,6 +113,8 @@ def design_system_page():
                 demo = f'<span class="rd" style="box-shadow:{E(lv)};background:var(--ds-card)"></span>'; val = E(lv)
             else:
                 demo = ''; val = E(lv) + ('' if dv == lv else f' · <i>다크</i> {E(dv)}')
+            if k in MOCK_ONLY:  # 코드에 값이 없는 목업 전용 토큰(screens.json mockOnlyColors)
+                val += f' · <b>목업 전용</b> {E(MOCK_ONLY[k])}'
             rows.append(f'<div class="row"><div class="demo">{demo}</div><code>{E(k)}</code><span class="v">{val}</span></div>')
         sec.append(f'<section><h2>{name} <small>{len(keys)}</small></h2>' + (f'<p>{note}</p>' if note else '') + ''.join(rows) + '</section>')
     extra = P('prd', 'design-system', 'notes.html')  # 선택: 아이콘·재질·움직임처럼 값으로 못 보이는 것(본문 조각)

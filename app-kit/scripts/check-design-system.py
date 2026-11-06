@@ -48,7 +48,17 @@ if not os.path.exists(P(*tokens_rel.split('/'))):
 tokens = strip_comments(read(tokens_rel))
 token_colors = {norm(c) for c in COLOR.findall(tokens)}
 # 반대 방향(토큰 → 코드)은 색 토큰(--c-)만 — 그림자·재질 값은 코드의 다른 파일에 있을 수 있다
-c_token_colors = {norm(c) for v in re.findall(r'--c-[\w-]+\s*:\s*([^;]+);', tokens) for c in COLOR.findall(v)}
+# 목업 전용 토큰(코드에 값이 없는 것 — iOS가 그리는 경고창·메뉴의 사본, 목업 틀 등)은 screens.json "mockOnlyColors": {"--c-이름": "이유"}에 밝히고 이 대조에서 뺀다(11-06 차곡 회신)
+mock_only = cfg.get('mockOnlyColors') or {}
+for k in mock_only:
+    if not re.search(re.escape(k) + r'\s*:', tokens):
+        fails.append(f'mockOnlyColors {k}: tokens.css에 없음')
+# systemColors에 연결한 토큰도 값이 코드에 없으니(iOS가 정함) 같은 대조에서 뺀다 — 코드가 이름조차 안 쓰는 기본 컨트롤 색(Switch의 systemGreen 등)도 systemColors에 적어도 된다(11-06 응원석 회신)
+skip_tokens = set(mock_only) | set((cfg.get('systemColors') or {}).values())
+c_token_colors = {norm(c) for k, v in re.findall(r'(--c-[\w-]+)\s*:\s*([^;]+);', tokens) if k not in skip_tokens for c in COLOR.findall(v)}
+bad_prefix = sorted(set(re.findall(r'(--(?!c-|t-|s-|r-|sh-|m-)[\w-]+)\s*:', tokens)))
+if bad_prefix:
+    fails.append('tokens.css 머리말은 --c-·--t-·--s-·--r-·--sh-·--m-만: ' + ', '.join(bad_prefix[:6]) + (' …' if len(bad_prefix) > 6 else ''))
 
 # ① 코드 테마 = 토큰
 theme_files = cfg.get('theme') or []

@@ -28,12 +28,14 @@ Figma 파일의 '스타일 → 컴포넌트 → 화면' 페이지 구성, Storyb
 
 - 값은 코드 테마 파일(screens.json `theme`)에서 옮긴다. 위젯 Swift(`0xRRGGBB` 여섯 자리 포함)도 `theme`에 넣으면 대조한다. 검사가 양쪽 색 집합을 대조하므로 코드만 바꾸고 토큰을 안 바꾸면 막힌다(= 늘 최신).
 - 이름은 쓰임새로(`--c-accent`, `--c-separator`) — 색 이름(`--c-green`) 금지.
+- 머리말은 여섯 가지(`--c-`·`--t-`·`--s-`·`--r-`·`--sh-`·`--m-`)뿐 — 검사가 다른 머리말을 막는다.
+- 코드에 값이 없는 목업 전용 색(iOS가 그리는 경고창·메뉴·유리의 사본, 목업의 기기 틀·바깥 바탕)도 `--c-`로 두고 screens.json `"mockOnlyColors": {"--c-sysalert-bg": "iOS 경고창 사본"}`에 이유를 적는다. 코드 대조에서 빠지고 디자인 시스템 탭에 '목업 전용'으로 보인다. 코드에 값이 있는 색(위젯 Swift 장식 등)은 여기에 넣지 말고 그 파일을 `theme`에 더한다(11-06 차곡 회신).
 - 아이콘·Liquid Glass 재질·움직임처럼 값으로 못 보이는 것은 `notes.html`(본문 조각)에 그림으로.
 
 - 글꼴 묶음 끝에는 늘 `system-ui, sans-serif`를 둔다. `ui-rounded, "SF Pro Rounded", -apple-system`으로 끝나면 화면 없는 크롬(캡처 대조)에서 숫자가 명조로 떨어진다(11-06 차곡 56820a2).
 
 - 모드와 상관없이 늘 한쪽 색인 판(밤 방 위 HUD·전투 화면·위젯 장면처럼 기기 모드가 라이트여도 어두운 것)은 같은 토큰 이름을 `.lock-light {…}`·`.lock-dark {…}` 범위에서 다시 정의하고 그 판에 클래스를 단다 — 새 이름(`--c-hud-dark-text`)을 만들지 않는다(11-06 알롱 제안). 화면 목업은 `class="lock-dark"`만 달면 된다.
-- 코드가 값 없이 이름만 쓰는 시스템 색(`PlatformColor('label')`·`UIColor.systemBlue`)은 screens.json `"systemColors": {"label": "--c-label"}`로 어느 토큰인지 밝히고(검사가 빠짐을 막음), 토큰 값은 QA 앱 시뮬레이터 캡처에서 라이트·다크 각각 픽셀을 재 넣는다(기억한 값 금지 — iOS 판마다 다름). 토큰 이름은 늘 `--c-`(디자인 시스템 탭이 색 견본으로 그림), `--sys-` 같은 다른 머리말 금지.
+- 코드가 값 없이 이름만 쓰는 시스템 색(`PlatformColor('label')`·`UIColor.systemBlue`)은 screens.json `"systemColors": {"label": "--c-label"}`로 어느 토큰인지 밝히고(검사가 빠짐을 막음, 연결한 토큰은 코드 값 대조에서 빠짐). 코드가 이름조차 안 쓰는 iOS 기본 컨트롤 색(Switch의 `systemGreen`, 액션 시트 `systemBlue`)도 여기에 적는다, 토큰 값은 QA 앱 시뮬레이터 캡처에서 라이트·다크 각각 픽셀을 재 넣는다(기억한 값 금지 — iOS 판마다 다름). 토큰 이름은 늘 `--c-`(디자인 시스템 탭이 색 견본으로 그림), `--sys-` 같은 다른 머리말 금지.
 - iOS 시스템 색(`#007AFF` 파랑, `#F2F2F7` 그룹 바탕, `rgba(60,60,67,.6)` 보조 글자 등)도 화면 UI에 쓰면 토큰이다(`--c-tint`·`--c-grouped-bg`·`--c-label-2` 꼴). `contentColors`에 넣지 않는다.
 
 ## ② 컴포넌트
