@@ -1,0 +1,16 @@
+// 공용 진동 모듈 Android 빌드 — Expo 58 기본 모양(expo-clipboard와 같음), 외부 의존성 없음
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'com.ihwa'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.ihwahaptic"
+  defaultConfig {
+    versionCode 1
+    versionName '1.0.0'
+  }
+}
