@@ -54,7 +54,7 @@
 
 | 정보 | 목적 | 보관 기간 |
 |---|---|---|
-| 기기 토큰(Apple이 발급하는 무작위 값)·응원팀·앱 언어 | '실시간 현황'으로 잠금 화면에 점수 띄우기 | '실시간 현황'을 끌 때까지 |
+| 기기 토큰(Apple이 발급하는 무작위 값)·응원팀·앱 언어 | '실시간 현황'으로 잠금 화면에 점수 띄우기 | '실시간 현황'을 끌 때까지(끄지 않고 앱을 지우면 Apple이 토큰을 무효로 할 때까지) |
 | 위젯 토큰(Apple이 발급하는 무작위 값)·응원팀 | iOS 26 이상 위젯을 점수가 바뀔 때 바로 새로 그리기 | Apple이 토큰을 무효로 할 때까지(앱 삭제 등) |
 | Apple App Attest 확인 키 | 토큰 등록이 변조되지 않은 앱에서 왔는지 확인 | 마지막으로 쓴 날부터 90일 |
 
@@ -82,7 +82,7 @@
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
 - **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
-- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 됩니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다.
+- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다.
 
 ### 3. 사용 통계와 외부 요청
 
@@ -124,7 +124,7 @@
 
 이용자는 언제든 자기 개인정보의 열람·정정·삭제·처리 정지를 요구할 수 있습니다.
 
-- 앱 안에서 바로: 주량체커·차곡은 '연결 해제', 알롱·한배는 '계정 삭제', 응원석은 '실시간 현황' 끄기.
+- 앱 안에서 바로: 주량체커·차곡은 '연결 해제', 알롱·한배는 '계정 삭제', 응원석은 '실시간 현황' 끄기(위젯 토큰은 앱 삭제).
 - 그 밖의 요구는 아래 메일로 보내 주시면 10일 안에 처리 결과를 알려 드립니다.
 
 ### 6. 파기 절차와 방법
@@ -135,7 +135,7 @@
 
 - 앱이 주고받는 모든 전송은 암호화(HTTPS)합니다.
 - 주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
-- 응원석의 토큰 등록과 한배의 대항전 참가는 Apple App Attest로 변조된 앱이 아닌지 확인합니다.
+- 응원석의 토큰 등록과 한배의 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다.
 - 서버 관리 권한은 운영자 한 명만 가집니다.
 
 ### 8. 아동의 개인정보
@@ -217,7 +217,7 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 | Information | Purpose | Kept until |
 |---|---|---|
-| Device token (a random value issued by Apple), team and app language | Showing the score on your Lock Screen with Live Activities | You turn Live Activities off |
+| Device token (a random value issued by Apple), team and app language | Showing the score on your Lock Screen with Live Activities | You turn Live Activities off (or, if you delete the app, until Apple invalidates the token) |
 | Widget token (a random value issued by Apple) and team | Redrawing widgets right away when the score changes (iOS 26 or later) | Apple invalidates the token (for example, when you delete the app) |
 | Apple App Attest key | Checking that tokens are registered from the genuine app | 90 days after it was last used |
 
@@ -245,7 +245,7 @@ We do not provide your information to others. However, Allong's weekly rankings 
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
 - **Retention**: as in the tables in section 1; statistics for up to 14 months.
-- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account.
+- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account.
 
 ### 3. Usage statistics and external requests
 
@@ -287,7 +287,7 @@ Location is used on your device only and never sent to the operator's servers (f
 
 You can ask at any time to see, correct, delete or stop the processing of your personal information.
 
-- In the app: Disconnect in DrinkChecker and Chagok, Delete Account in Allong and SameBoat, and turning Live Activities off in CheerSeat.
+- In the app: Disconnect in DrinkChecker and Chagok, Delete Account in Allong and SameBoat, and turning Live Activities off in CheerSeat (widget tokens: delete the app).
 - For anything else, email us below and we will reply with the result within 10 days.
 
 ### 6. Deletion procedure and method
@@ -298,7 +298,7 @@ When the retention period in section 1 ends or you request deletion, we delete t
 
 - All traffic to and from the apps is encrypted (HTTPS).
 - In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account.
-- CheerSeat token registration and SameBoat battle entry are checked with Apple App Attest to block modified apps.
+- CheerSeat token registrations and SameBoat battle entries are checked with Apple App Attest to confirm they come from the genuine app.
 - Only the operator has administrative access to the servers.
 
 ### 8. Children's privacy
