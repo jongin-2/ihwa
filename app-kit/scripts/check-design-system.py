@@ -59,7 +59,10 @@ for rel in theme_files:
     if not os.path.exists(P(*rel.split('/'))):
         fails.append(f'테마 파일이 없습니다: {rel}')
         continue
-    code_colors |= {norm(c) for c in COLOR.findall(strip_comments(read(rel)))}
+    src = strip_comments(read(rel))
+    if rel.endswith('.swift'):  # 위젯 Swift의 Color(hex: 0xRRGGBB) 꼴도 대조(11-06 차곡 회신) — 여섯 자리만(여덟 자리는 알파 순서가 코드마다 달라 안 봄)
+        src = re.sub(r'\b0x([0-9A-Fa-f]{6})\b', r'#\1', src)
+    code_colors |= {norm(c) for c in COLOR.findall(src)}
 for c in sorted(code_colors - token_colors):
     fails.append(f'코드 테마에 있는 색이 tokens.css에 없음: {c}')
 for c in sorted(c_token_colors - code_colors):

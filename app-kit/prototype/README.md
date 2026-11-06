@@ -26,9 +26,11 @@ Figma 파일의 '스타일 → 컴포넌트 → 화면' 페이지 구성, Storyb
 :root[data-theme="dark"] { --c-bg: #000000; --c-text: #FFFFFF; color-scheme: dark; }   /* 위와 같은 값 — 프로토타입 '다크' 단추가 쓴다 */
 ```
 
-- 값은 코드 테마 파일(screens.json `theme`)에서 옮긴다. 검사가 양쪽 색 집합을 대조하므로 코드만 바꾸고 토큰을 안 바꾸면 막힌다(= 늘 최신).
+- 값은 코드 테마 파일(screens.json `theme`)에서 옮긴다. 위젯 Swift(`0xRRGGBB` 여섯 자리 포함)도 `theme`에 넣으면 대조한다. 검사가 양쪽 색 집합을 대조하므로 코드만 바꾸고 토큰을 안 바꾸면 막힌다(= 늘 최신).
 - 이름은 쓰임새로(`--c-accent`, `--c-separator`) — 색 이름(`--c-green`) 금지.
 - 아이콘·Liquid Glass 재질·움직임처럼 값으로 못 보이는 것은 `notes.html`(본문 조각)에 그림으로.
+
+- 글꼴 묶음 끝에는 늘 `system-ui, sans-serif`를 둔다. `ui-rounded, "SF Pro Rounded", -apple-system`으로 끝나면 화면 없는 크롬(캡처 대조)에서 숫자가 명조로 떨어진다(11-06 차곡 56820a2).
 
 ## ② 컴포넌트
 
