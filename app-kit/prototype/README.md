@@ -62,6 +62,7 @@ Figma 파일의 '스타일 → 컴포넌트 → 화면' 페이지 구성, Storyb
 
 1. **디자인 시스템**: 공통 토큰 이름 — 색 `--c-bg`·`card`·`label`·`label-sub`·`separator`·`fill`·`accent`·`on-accent`·`destructive`, 글자 iOS 글자 스타일 11개 `--t-large-title`·`title1`·`title2`·`title3`·`headline`·`body`·`callout`·`subhead`·`footnote`·`caption1`·`caption2`(앱이 안 쓰는 크기도 iOS 기본값으로 채움). 간격 `--s-` 3개·모서리 `--r-` 2개 이상. `notes.html`에 아이콘·재질(Liquid Glass)·움직임.
 2. **컴포넌트**: 코드 컴포넌트 파일마다 한 칸(기존) + 공통 UI 패턴 14가지를 `data-pattern`으로 — `nav-title`(큰 제목) · `tab-bar` · `list-row` · `button-primary` · `button-secondary` · `button-destructive` · `dialog` · `sheet` · `toast` · `empty` · `error`(오류·오프라인) · `loading` · `switch` · `segmented`. 앱에 없는 패턴은 screens.json `"patternsNA": {"segmented": "이유"}`.
+4. **그림은 지금 앱 것**: 목업의 캐릭터·아이콘·로고·그림은 앱이 실제로 쓰는 자산·렌더러에서 뽑는다(옛 캡처·손 그림 금지). 그림을 만드는 스크립트는 생성물 대조(`check-generated`)에 넣어 앱 그림이 바뀌면 목업도 다시 만들게 한다(11-06 종인님 "알롱은 심지어 알롱이 옛날 디자인이잖아").
 3. **화면 탭**: 목업마다 폰 하나(`.proto-device` 정확히 1개, 여러 폰을 늘어놓는 갤러리 금지) + `.proto-controls` 안 상태 단추 2개 이상(기본 + 앱에서 뜨는 경우 전부). 다크는 프로토타입 머리의 시스템/라이트/다크 단추로 — 목업 안 다크 단추 금지. 상태 막대 시각 9:41(애플 제품 화면 관례). 위젯·잠금화면 탭도 폰 하나 위에 그린다.
 
 ## screens.json
