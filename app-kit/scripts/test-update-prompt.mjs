@@ -10,13 +10,13 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const src = process.argv[2] || join(dirname(fileURLToPath(import.meta.url)), '..', 'UpdatePrompt.ts');
 let code = readFileSync(src, 'utf8').replace(/^import [^\n]*\n/gm, '');
-code = 'const useEffect: any = 0, useRef: any = 0, useState: any = 0, AppState: any = {}, Linking: any = {}, Platform: any = { OS: "ios" }, appDialog: any = () => {};\n' + code;
+code = 'const useEffect: any = 0, useRef: any = 0, useState: any = 0, AppState: any = {}, Linking: any = {}, Platform: any = { OS: "ios" }, requireOptionalNativeModule: any = () => null, appDialog: any = () => {};\n' + code;
 const dir = mkdtempSync(join(tmpdir(), 'update-prompt-'));
 const file = join(dir, 'UpdatePrompt.ts');
 writeFileSync(file, code);
 let failed = 0;
 try {
-  const { decideUpdate } = await import(pathToFileURL(file).href);
+  const { decideUpdate, decideAndroid } = await import(pathToFileURL(file).href);
   const DAY = 86400000, now = Date.UTC(2026, 10, 3);
   const cases = [
     // [설명, 지금, 스토어 최신, minVersion, policy, 기대 forced, 기대 prompt]
@@ -48,6 +48,26 @@ try {
   const fresh = decideUpdate('1.0.0', '1.1.0', null, 'app', now - DAY / 2, now);
   if (fresh.prompt !== false) failed++;
   console.log(`${fresh.prompt === false ? '통과' : '실패'} 둘째 자리라도 출시 하루 안이면 권장 안 띄움`);
+  // Android(Play 우선순위: 셋째 1 · 둘째 3 · 첫째 5) — [설명, 지금, Play 정보, minVersionAndroid, policy, forced, prompt]
+  const play = (available, priority, stalenessDays = 3) => ({ available, priority, stalenessDays, immediate: true, flexible: true });
+  const acases = [
+    ['Android 새 판 없음', '1.0.0', play(false, 0), null, 'app', false, false],
+    ['Android 조회 실패(null)', '1.0.0', null, '9.0.0', 'app', false, false],
+    ['Android 일반 앱 셋째(1): 창 없음', '1.0.0', play(true, 1), null, 'app', false, false],
+    ['Android 일반 앱 둘째(3): 권장', '1.0.0', play(true, 3), null, 'app', false, true],
+    ['Android 일반 앱 둘째(3)·하루 안 됨: 권장 안 함', '1.0.0', play(true, 3, 0), null, 'app', false, false],
+    ['Android 일반 앱 첫째(5): 강제', '1.0.0', play(true, 5), null, 'app', true, true],
+    ['Android 게임 셋째(1): 권장', '1.0.0', play(true, 1), null, 'game', false, true],
+    ['Android 게임 둘째(3): 강제', '1.0.0', play(true, 3), null, 'game', true, true],
+    ['Android minVersionAndroid보다 낮고 새 판 있음: 강제', '1.0.0', play(true, 1), '1.0.1', 'app', true, true],
+    ['Android minVersionAndroid 이상: 우선순위대로', '1.0.1', play(true, 1), '1.0.1', 'app', false, false],
+  ];
+  for (const [name, cur, info, min, policy, f, p] of acases) {
+    const s = decideAndroid(cur, info, min, policy);
+    const ok = s.forced === f && s.prompt === p;
+    if (!ok) failed++;
+    console.log(`${ok ? '통과' : '실패'} ${name}${ok ? '' : ` — forced ${s.forced}, prompt ${s.prompt}`}`);
+  }
 } finally {
   rmSync(dir, { recursive: true, force: true });
 }

@@ -1,0 +1,21 @@
+// 공용 업데이트 확인 모듈 Android 빌드 — Expo 58 기본 모양(ihwa-haptic과 같음)
+// Play In-App Updates(구글 공식, Play Core SDK 약관 — Firebase·Apple 프레임워크처럼 플랫폼 SDK)
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'com.ihwa'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.ihwaappupdate"
+  defaultConfig {
+    versionCode 1
+    versionName '1.0.0'
+  }
+}
+
+dependencies {
+  implementation 'com.google.android.play:app-update:2.1.0'
+}

@@ -76,7 +76,9 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   const [canGoBack, setCanGoBack] = useState(false);
   const web = useRef<ComponentRef<typeof WebView>>(null); // RN 0.88·webview 14 타입은 클래스 인스턴스로 못 씀(10-30 차곡 SDK 58)
   // 실패하면 웹뷰가 내려가고 다시 시도는 처음 문서부터 연다 — 머리글도 처음 상태(✕·처음 문서 이름)로(11-06 알롱 전수 검토: ‹가 남아 눌러도 반응 없음)
-  const fail = () => { setFailed(true); setCanGoBack(false); setShown(doc); };
+  // Android 웹뷰(react-native-webview 14)는 문서를 옮겨도 canGoBack을 늘 false로 보낸다(11-06 한배 실측) — 다녀간 주소를 직접 쌓는다
+  const trail = useRef<string[]>([]);
+  const fail = () => { setFailed(true); setCanGoBack(false); setShown(doc); trail.current = []; };
   useLayoutEffect(() => {
     // Android(11-06 한배): SF Symbol 바 버튼이 없어 머리줄에 아무 단추도 안 뜸 → Material 기본 ←(위로 = 시트 닫기)를 켜고,
     // 하드웨어 뒤로 가기는 아래 BackHandler가 이전 문서부터 되돌린다(Material: 위로는 화면 계층, 뒤로는 방문 순서).
@@ -93,7 +95,8 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   }, [navigation, shown, canGoBack, w, lang, onClose]);
   useEffect(() => {
     if (Platform.OS !== 'android' || !canGoBack) return;
-    const sub = BackHandler.addEventListener('hardwareBackPress', () => { web.current?.goBack(); return true; });
+    // 네이티브 goBack은 기록을 모를 수 있어 페이지 안 history.back()으로(11-06 한배)
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => { web.current?.injectJavaScript('history.back();true;'); return true; });
     return () => sub.remove();
   }, [canGoBack]);
   return (
@@ -117,7 +120,12 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
           onNavigationStateChange={(s) => {
             const m = s.url.match(/\/ihwa\/(terms|privacy)\//);
             if (m) setShown(m[1] as LegalDoc);
-            setCanGoBack(s.canGoBack);
+            if (Platform.OS !== 'android') { setCanGoBack(s.canGoBack); return; }
+            if (s.loading) return;
+            const t = trail.current;
+            if (t[t.length - 1] === s.url) return;
+            if (t[t.length - 2] === s.url) t.pop(); else t.push(s.url);
+            setCanGoBack(t.length > 1);
           }}
           onError={fail}
           onHttpError={fail}

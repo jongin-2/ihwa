@@ -17,11 +17,18 @@
 //  · 언제: 앱을 열 때마다(처음 실행·백그라운드에서 돌아올 때) 조회한다. 강제는 열 때마다 뜨고, 권장은 하루 한 번까지 —
 //    마지막으로 띄운 날은 앱이 넘긴 저장소(UpdateConfig.store)에 둔다(없으면 앱을 새로 켤 때 한 번).
 //    조회 결과는 1시간 동안 기억해 돌아올 때마다 네트워크를 쓰지 않는다.
-//  · 설정 버전 줄: 앱이 `useUpdateState()`의 `available`을 보고 `업데이트` 단추를 그린다(누르면 `openStore`).
+//  · 설정 버전 줄: 앱이 `useUpdateState()`의 `available`을 보고 `업데이트` 단추를 그린다(누르면 `startUpdate`).
+//  · Android(11-06 종인님 "업데이트는 첫번째판부터 준비를 해놔야지"): Play엔 공개 최신판 조회가 없어 공용 네이티브 모듈 ihwa-app-update
+//    (Play In-App Updates, 구글 공식)로 묻는다. Play는 새 판의 버전 이름을 주지 않으므로 중요도는 판을 올릴 때 붙이는
+//    업데이트 우선순위(inAppUpdatePriority 0~5, 공식 방법)로 받는다 — 올릴 때 규칙: 셋째 자리 판 1 · 둘째 자리 3 · 첫째 자리 5.
+//    그러면 위 iOS 규칙과 같게 판정한다(일반 앱 1 안내 없음·3 권장·5 강제 / 게임 1 권장·3 이상 강제). 긴급 강제는 설정 파일 `minVersionAndroid`
+//    (두 플랫폼 판 번호가 따로 갈 수 있음). 판 번호(versionCode)는 공식 권고대로 1부터 올릴 때마다 +1(버전 이름과 무관).
+//    `지금 업데이트`는 구글 전체 화면 업데이트(즉시형)를 띄우고, 못 띄우면 Play 스토어 앱(androidPackage)으로 보낸다.
 // 앱마다 다른 값은 UpdateConfig(스토어 앱 ID·설정 파일 이름·지금 버전·언어)뿐. 문구는 아래 20개 언어를 이 파일이 들고 있다.
-// 필요한 라이브러리: 없음(react-native만).
+// 필요한 라이브러리: expo(requireOptionalNativeModule). Android 판이 있는 앱은 공용 모듈 app-kit/modules/ihwa-app-update를 modules/에 함께 복사.
 import { useEffect, useRef, useState } from 'react';
 import { AppState, Linking, Platform } from 'react-native';
+import { requireOptionalNativeModule } from 'expo';
 import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 
 export const CONFIG_SITE = 'https://jongin-2.github.io/ihwa/app-config';
@@ -168,10 +175,43 @@ async function fetchLatest(appStoreId: string): Promise<{ version: string; relea
 const CACHE_MS = 60 * 60 * 1000;
 let cache: { at: number; key: string; state: UpdateState } | null = null;
 
+export type PlayInfo = { available: boolean; priority: number; stalenessDays: number; immediate: boolean; flexible: boolean };
+type AppUpdateNative = { getInfo(): Promise<PlayInfo>; startImmediate(): Promise<boolean> };
+const AU = Platform.OS === 'android' ? requireOptionalNativeModule<AppUpdateNative>('IhwaAppUpdate') : null;
+const NO_UPDATE: UpdateState = { latest: null, available: false, forced: false, prompt: false, level: null };
+
+/** Android 판정(머리말 'Android') — Play가 준 새 판 유무·우선순위와 설정 파일 minVersionAndroid로. 순수 함수(시험용) */
+export function decideAndroid(current: string, info: PlayInfo | null, minVersion: string | null, policy: UpdatePolicy): UpdateState {
+  if (!info?.available) return NO_UPDATE;
+  const p = info.priority;
+  const level: UpdateLevel = p >= 5 ? 'major' : p >= 3 ? 'minor' : 'patch';
+  const belowMin = !!minVersion && compareVersions(current, minVersion) < 0;
+  const forced = belowMin || (policy === 'game' ? p >= 3 : p >= 5);
+  // 권장은 Play가 새 판을 안 지 하루 뒤부터(iOS '출시 하루 뒤'와 같게, 모르면 -1 → 바로)
+  const recommend = !forced && (policy === 'game' ? p >= 1 : p >= 3) && (info.stalenessDays < 0 || info.stalenessDays >= 1);
+  return { latest: null, available: true, forced, prompt: forced || recommend, level };
+}
+
+async function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  let t: ReturnType<typeof setTimeout> | undefined;
+  const timer = new Promise<T>((r) => { t = setTimeout(() => r(fallback), ms); });
+  try { return await Promise.race([p.catch(() => fallback), timer]); } finally { clearTimeout(t); }
+}
+
 export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
-  // Android는 아직 안내 없음(11-06 한배): Play엔 iTunes 같은 공개 최신판 조회가 없고 공식은 In-App Updates API(네이티브).
-  // Android 첫 판은 옛 판 기기가 없어 강제할 대상도 없다 — 두 번째 판부터 In-App Updates 모듈과 app-config minVersionAndroid로 채운다.
-  if (Platform.OS !== 'ios') return { latest: null, available: false, forced: false, prompt: false, level: null };
+  if (Platform.OS === 'android') {
+    const key = `android:${cfg.currentVersion}`;
+    if (cache && cache.key === key && Date.now() - cache.at < CACHE_MS) return cache.state;
+    const [info, config] = await Promise.all([
+      AU ? withTimeout<PlayInfo | null>(AU.getInfo(), 8000, null) : Promise.resolve(null),
+      getJson(`${CONFIG_SITE}/${cfg.configName}.json`),
+    ]);
+    const min = typeof config?.minVersionAndroid === 'string' ? config.minVersionAndroid : null;
+    const state = decideAndroid(cfg.currentVersion, info, min, config?.policy === 'game' ? 'game' : 'app');
+    if (info) cache = { at: Date.now(), key, state };
+    return state;
+  }
+  if (Platform.OS !== 'ios') return NO_UPDATE;
   const key = `${cfg.appStoreId}:${cfg.currentVersion}`;
   if (cache && cache.key === key && Date.now() - cache.at < CACHE_MS) return cache.state;
   const [latest, config] = await Promise.all([
@@ -188,6 +228,12 @@ export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
 }
 
 /** App Store 앱 페이지 — 애플 표준 링크(https). 기기에서는 App Store 앱이 바로 열린다(유니버설 링크), App Store가 없는 곳(시뮬레이터)은 웹 페이지. */
+/** `지금 업데이트`·설정 `업데이트` 단추 — Android는 구글 전체 화면 업데이트를 먼저, 못 띄우면 스토어 */
+export async function startUpdate(cfg: UpdateConfig): Promise<void> {
+  if (AU && (await AU.startImmediate().catch(() => false))) return;
+  openStore(cfg.appStoreId, cfg.androidPackage);
+}
+
 export function openStore(appStoreId: string, androidPackage?: string) {
   if (Platform.OS === 'android' && androidPackage) {
     // Play 스토어 앱 → 없으면 웹 페이지(11-06 한배)
@@ -233,10 +279,10 @@ function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   const done = () => { alertShowing = false; };
   if (s.forced) {
     appDialog({ title: w.title, msg: w.forced, buttons: [{ text: w.updateNow }], dismissable: false })
-      .then(() => { done(); openStore(cfg.appStoreId, cfg.androidPackage); });
+      .then(() => { done(); startUpdate(cfg); });
   } else {
     appDialog({ title: w.title, buttons: [{ text: w.later, kind: 'cancel' }, { text: w.updateNow }] })
-      .then((i) => { done(); if (i === 1) openStore(cfg.appStoreId, cfg.androidPackage); });
+      .then((i) => { done(); if (i === 1) startUpdate(cfg); });
   }
 }
 
