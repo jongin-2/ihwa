@@ -22,7 +22,7 @@
 
 ### 1. 처리하는 정보와 보관 기간
 
-앱에서 입력한 정보는 기본으로 기기 안에만 저장되고, 앱을 지우면 함께 지워집니다. 아래는 기기 밖(운영자 서버)에 두는 정보입니다.
+아래 표에 적은 것 말고는 앱에서 입력한 정보를 기기 안에만 저장하며, 앱을 지우면 함께 지워집니다.
 
 **주량체커·차곡** — 계정 연결 없이도 모든 기능을 쓸 수 있고, 설정에서 계정을 연결한 경우에만 아래 정보를 저장해 기기를 바꿔도 기록이 돌아오게 합니다.
 
@@ -76,13 +76,13 @@
 
 | 받는 곳(연락처) | 맡기는 일 | 앱 | 정보가 있는 곳 |
 |---|---|---|---|
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관 | 주량체커·차곡·알롱 | 계정 정보는 미국, 기록·게임 데이터·순위는 대한민국(서울 리전) |
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관 | 주량체커·차곡·알롱 | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) |
 | Google LLC — Firebase Analytics(같음) | 사용 통계 | 모든 앱 | 미국 |
 | Cloudflare, Inc.(privacyquestions@cloudflare.com) | 운영자 서버 | 응원석·한배 | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
 - **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
-- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 됩니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다. 사용 통계는 앱을 쓰는 동안 함께 처리되며, 원하지 않으면 앱을 지우면 됩니다.
+- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 됩니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다.
 
 ### 3. 사용 통계와 외부 요청
 
@@ -133,9 +133,9 @@
 
 ### 7. 안전성 확보 조치
 
-- 앱과 서버 사이의 모든 전송은 암호화합니다.
+- 앱이 주고받는 모든 전송은 암호화(HTTPS)합니다.
 - 주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
-- 응원석·한배 서버는 Apple App Attest로 변조된 앱의 요청을 막습니다.
+- 응원석의 토큰 등록과 한배의 대항전 참가는 Apple App Attest로 변조된 앱이 아닌지 확인합니다.
 - 서버 관리 권한은 운영자 한 명만 가집니다.
 
 ### 8. 아동의 개인정보
@@ -185,7 +185,7 @@ All apps send anonymous usage statistics (section 3). No app receives your name 
 
 ### 1. Information we process and how long we keep it
 
-What you enter in an app is stored on your device by default and is deleted when you delete the app. The tables below list what is kept off your device, on the operator's servers.
+Apart from what the tables below list, what you enter in an app is stored on your device only and is deleted when you delete the app.
 
 **DrinkChecker and Chagok** — every feature works without an account. Only if you connect an account in Settings do we store the following, so your records come back on a new device.
 
@@ -239,13 +239,13 @@ We do not provide your information to others. However, Allong's weekly rankings 
 
 | Recipient (contact) | Task | Apps | Where the data is |
 |---|---|---|---|
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records | DrinkChecker, Chagok, Allong | Account details in the United States; records, game data and rankings in South Korea (Seoul region) |
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records | DrinkChecker, Chagok, Allong | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) |
 | Google LLC — Firebase Analytics (same) | Usage statistics | All apps | United States |
 | Cloudflare, Inc. (privacyquestions@cloudflare.com) | Operator's server | CheerSeat, SameBoat | US company; database in the Asia-Pacific region |
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
 - **Retention**: as in the tables in section 1; statistics for up to 14 months.
-- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account. Usage statistics are processed while you use an app; if you don't want this, delete the app.
+- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account.
 
 ### 3. Usage statistics and external requests
 
@@ -296,9 +296,9 @@ When the retention period in section 1 ends or you request deletion, we delete t
 
 ### 7. Security measures
 
-- All traffic between the apps and servers is encrypted.
+- All traffic to and from the apps is encrypted (HTTPS).
 - In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account.
-- The CheerSeat and SameBoat servers block requests from modified apps with Apple App Attest.
+- CheerSeat token registration and SameBoat battle entry are checked with Apple App Attest to block modified apps.
 - Only the operator has administrative access to the servers.
 
 ### 8. Children's privacy

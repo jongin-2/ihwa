@@ -15,7 +15,7 @@ ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}</style></
 <div class="tbl"><table><thead><tr><th>앱</th><th>운영자 서버에 두는 정보</th><th>언제</th></tr></thead><tbody><tr><td>주량체커</td><td>계정 식별자·이메일, 음주 기록</td><td>계정을 연결한 경우만</td></tr><tr><td>차곡</td><td>계정 식별자·이메일·닉네임, 취미 기록(사진은 올리지 않음)</td><td>계정을 연결한 경우만</td></tr><tr><td>알롱</td><td>계정 식별자·알롱 번호, 게임 데이터·주간 순위</td><td>만 14세 이상 확인을 통과한 뒤부터</td></tr><tr><td>알롱</td><td>이메일·만 14세 이상 여부</td><td>계정을 연결한 경우만</td></tr><tr><td>응원석</td><td>기기 토큰·응원팀</td><td>'실시간 현황'을 켜거나 위젯을 놓은 경우만</td></tr><tr><td>한배</td><td>계정 식별자·닉네임·포인트</td><td>말풍선·대항전을 쓰려고 로그인한 경우만</td></tr></tbody></table></div>
 <p>모든 앱은 익명 사용 통계를 보냅니다(3절). 어느 앱도 이름·전화번호를 받지 않고, 위치를 운영자 서버로 보내지 않습니다. 정보는 다른 사람에게 제공하지 않습니다(2절).</p>
 <h3>1. 처리하는 정보와 보관 기간</h3>
-<p>앱에서 입력한 정보는 기본으로 기기 안에만 저장되고, 앱을 지우면 함께 지워집니다. 아래는 기기 밖(운영자 서버)에 두는 정보입니다.</p>
+<p>아래 표에 적은 것 말고는 앱에서 입력한 정보를 기기 안에만 저장하며, 앱을 지우면 함께 지워집니다.</p>
 <p><strong>주량체커·차곡</strong> — 계정 연결 없이도 모든 기능을 쓸 수 있고, 설정에서 계정을 연결한 경우에만 아래 정보를 저장해 기기를 바꿔도 기록이 돌아오게 합니다.</p>
 <div class="tbl"><table><thead><tr><th>정보</th><th>목적</th><th>보관 기간</th></tr></thead><tbody><tr><td>계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소)</td><td>계정 연결</td><td>연결 해제할 때까지</td></tr><tr><td>주량체커 기록(술 종류·양·날짜·시각·한도)</td><td>기록 백업</td><td>연결 해제할 때까지</td></tr><tr><td>차곡 기록(어느 취미에 무엇을 언제 기록했는지·사진으로 확인된 기록인지)과 닉네임</td><td>기록 백업</td><td>연결 해제할 때까지</td></tr></tbody></table></div>
 <ul>
@@ -40,11 +40,11 @@ ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}</style></
 </ul>
 <h3>2. 맡기는 곳과 국외 이전</h3>
 <p>운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임은 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다.</p>
-<div class="tbl"><table><thead><tr><th>받는 곳(연락처)</th><th>맡기는 일</th><th>앱</th><th>정보가 있는 곳</th></tr></thead><tbody><tr><td>Google LLC — Firebase(<a href="https://support.google.com/policies/contact/general_privacy_form">문의</a>)</td><td>계정과 기록 보관</td><td>주량체커·차곡·알롱</td><td>계정 정보는 미국, 기록·게임 데이터·순위는 대한민국(서울 리전)</td></tr><tr><td>Google LLC — Firebase Analytics(같음)</td><td>사용 통계</td><td>모든 앱</td><td>미국</td></tr><tr><td>Cloudflare, Inc.(privacyquestions@cloudflare.com)</td><td>운영자 서버</td><td>응원석·한배</td><td>미국 회사, 데이터베이스는 아시아·태평양 지역</td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th>받는 곳(연락처)</th><th>맡기는 일</th><th>앱</th><th>정보가 있는 곳</th></tr></thead><tbody><tr><td>Google LLC — Firebase(<a href="https://support.google.com/policies/contact/general_privacy_form">문의</a>)</td><td>계정과 기록 보관</td><td>주량체커·차곡·알롱</td><td>계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전)</td></tr><tr><td>Google LLC — Firebase Analytics(같음)</td><td>사용 통계</td><td>모든 앱</td><td>미국</td></tr><tr><td>Cloudflare, Inc.(privacyquestions@cloudflare.com)</td><td>운영자 서버</td><td>응원석·한배</td><td>미국 회사, 데이터베이스는 아시아·태평양 지역</td></tr></tbody></table></div>
 <ul>
 <li><strong>옮기는 정보·시기·방법</strong>: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.</li>
 <li><strong>보관 기간</strong>: 1절 표의 기간, 통계는 최대 14개월.</li>
-<li><strong>거부하는 방법과 그 결과</strong>: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 됩니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다. 사용 통계는 앱을 쓰는 동안 함께 처리되며, 원하지 않으면 앱을 지우면 됩니다.</li>
+<li><strong>거부하는 방법과 그 결과</strong>: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 됩니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다.</li>
 </ul>
 <h3>3. 사용 통계와 외부 요청</h3>
 <p>모든 앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 <strong>서비스 이용 기록</strong>과 <strong>기기 정보</strong>(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 <strong>대략적인 지역</strong>(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(음주·취미 기록, 사진, 말풍선, 노선, 위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다.</p>
@@ -64,9 +64,9 @@ ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}</style></
 <p>1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 법령에 따라 따로 보관하는 정보는 없습니다.</p>
 <h3>7. 안전성 확보 조치</h3>
 <ul>
-<li>앱과 서버 사이의 모든 전송은 암호화합니다.</li>
+<li>앱이 주고받는 모든 전송은 암호화(HTTPS)합니다.</li>
 <li>주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다.</li>
-<li>응원석·한배 서버는 Apple App Attest로 변조된 앱의 요청을 막습니다.</li>
+<li>응원석의 토큰 등록과 한배의 대항전 참가는 Apple App Attest로 변조된 앱이 아닌지 확인합니다.</li>
 <li>서버 관리 권한은 운영자 한 명만 가집니다.</li>
 </ul>
 <h3>8. 아동의 개인정보</h3>
@@ -92,7 +92,7 @@ ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}</style></
 <div class="tbl"><table><thead><tr><th>App</th><th>What we keep on the operator's servers</th><th>When</th></tr></thead><tbody><tr><td>DrinkChecker</td><td>Account identifier and email, drinking records</td><td>Only if you connect an account</td></tr><tr><td>Chagok</td><td>Account identifier, email and nickname, hobby records (photos are never uploaded)</td><td>Only if you connect an account</td></tr><tr><td>Allong</td><td>Account identifier and Allong number, game data and weekly rankings</td><td>From when you pass the age check (14 or older)</td></tr><tr><td>Allong</td><td>Email and whether you are 14 or older</td><td>Only if you connect an account</td></tr><tr><td>CheerSeat</td><td>Device token and team</td><td>Only if you turn on Live Activities or add a widget</td></tr><tr><td>SameBoat</td><td>Account identifier, nickname and points</td><td>Only if you sign in to send bubbles or join battles</td></tr></tbody></table></div>
 <p>All apps send anonymous usage statistics (section 3). No app receives your name or phone number, and none sends your location to the operator's servers. We do not provide your information to others (section 2).</p>
 <h3>1. Information we process and how long we keep it</h3>
-<p>What you enter in an app is stored on your device by default and is deleted when you delete the app. The tables below list what is kept off your device, on the operator's servers.</p>
+<p>Apart from what the tables below list, what you enter in an app is stored on your device only and is deleted when you delete the app.</p>
 <p><strong>DrinkChecker and Chagok</strong> — every feature works without an account. Only if you connect an account in Settings do we store the following, so your records come back on a new device.</p>
 <div class="tbl"><table><thead><tr><th>Information</th><th>Purpose</th><th>Kept until</th></tr></thead><tbody><tr><td>Account identifier and email (a relay address if you use Apple's Hide My Email)</td><td>Account connection</td><td>You disconnect</td></tr><tr><td>DrinkChecker records (drink type, amount, date and time, limit)</td><td>Record backup</td><td>You disconnect</td></tr><tr><td>Chagok records (which hobby, what and when, whether a record was confirmed by a photo) and nickname</td><td>Record backup</td><td>You disconnect</td></tr></tbody></table></div>
 <ul>
@@ -117,11 +117,11 @@ ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}</style></
 </ul>
 <h3>2. Service providers and international transfer</h3>
 <p>We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles and nicknames are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea.</p>
-<div class="tbl"><table><thead><tr><th>Recipient (contact)</th><th>Task</th><th>Apps</th><th>Where the data is</th></tr></thead><tbody><tr><td>Google LLC — Firebase (<a href="https://support.google.com/policies/contact/general_privacy_form">contact</a>)</td><td>Storing accounts and records</td><td>DrinkChecker, Chagok, Allong</td><td>Account details in the United States; records, game data and rankings in South Korea (Seoul region)</td></tr><tr><td>Google LLC — Firebase Analytics (same)</td><td>Usage statistics</td><td>All apps</td><td>United States</td></tr><tr><td>Cloudflare, Inc. (privacyquestions@cloudflare.com)</td><td>Operator's server</td><td>CheerSeat, SameBoat</td><td>US company; database in the Asia-Pacific region</td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th>Recipient (contact)</th><th>Task</th><th>Apps</th><th>Where the data is</th></tr></thead><tbody><tr><td>Google LLC — Firebase (<a href="https://support.google.com/policies/contact/general_privacy_form">contact</a>)</td><td>Storing accounts and records</td><td>DrinkChecker, Chagok, Allong</td><td>Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region)</td></tr><tr><td>Google LLC — Firebase Analytics (same)</td><td>Usage statistics</td><td>All apps</td><td>United States</td></tr><tr><td>Cloudflare, Inc. (privacyquestions@cloudflare.com)</td><td>Operator's server</td><td>CheerSeat, SameBoat</td><td>US company; database in the Asia-Pacific region</td></tr></tbody></table></div>
 <ul>
 <li><strong>What, when and how</strong>: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).</li>
 <li><strong>Retention</strong>: as in the tables in section 1; statistics for up to 14 months.</li>
-<li><strong>How to refuse and what happens</strong>: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account. Usage statistics are processed while you use an app; if you don't want this, delete the app.</li>
+<li><strong>How to refuse and what happens</strong>: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account.</li>
 </ul>
 <h3>3. Usage statistics and external requests</h3>
 <p>To analyze statistics for improving the service, all apps automatically collect <strong>service usage records</strong>, <strong>device information</strong> (device model, OS version, app version, and a random identifier created for each installation) and an <strong>approximate region</strong> estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (drinking and hobby records, photos, bubbles, lines, location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking.</p>
@@ -141,9 +141,9 @@ ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}</style></
 <p>When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. We keep no information under other legal retention requirements.</p>
 <h3>7. Security measures</h3>
 <ul>
-<li>All traffic between the apps and servers is encrypted.</li>
+<li>All traffic to and from the apps is encrypted (HTTPS).</li>
 <li>In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account.</li>
-<li>The CheerSeat and SameBoat servers block requests from modified apps with Apple App Attest.</li>
+<li>CheerSeat token registration and SameBoat battle entry are checked with Apple App Attest to block modified apps.</li>
 <li>Only the operator has administrative access to the servers.</li>
 </ul>
 <h3>8. Children's privacy</h3>
