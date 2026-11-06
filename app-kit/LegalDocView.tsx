@@ -74,6 +74,8 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   const [shown, setShown] = useState<LegalDoc>(doc);
   const [canGoBack, setCanGoBack] = useState(false);
   const web = useRef<ComponentRef<typeof WebView>>(null); // RN 0.88·webview 14 타입은 클래스 인스턴스로 못 씀(10-30 차곡 SDK 58)
+  // 실패하면 웹뷰가 내려가고 다시 시도는 처음 문서부터 연다 — 머리글도 처음 상태(✕·처음 문서 이름)로(11-06 알롱 전수 검토: ‹가 남아 눌러도 반응 없음)
+  const fail = () => { setFailed(true); setCanGoBack(false); setShown(doc); };
   useLayoutEffect(() => {
     navigation.setOptions({
       title: w[shown],
@@ -108,15 +110,17 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
             if (m) setShown(m[1] as LegalDoc);
             setCanGoBack(s.canGoBack);
           }}
-          onError={() => setFailed(true)}
-          onHttpError={() => setFailed(true)}
+          onError={fail}
+          onHttpError={fail}
           // 모든 링크를 아래 판단으로 — 기본값(http·https만)이면 메일 링크를 라이브러리가 먼저 가로채 실패해도 조용하다(주량체커 09-28 확인)
           originWhitelist={['*']}
           onShouldStartLoadWithRequest={(req) => {
             if (req.url === LEGAL_SITE || req.url.startsWith(LEGAL_SITE + '/') || req.url === 'about:blank') return true; // '/'까지 봐야 ihwa-다른저장소가 안 열림(10-16 차곡 보안 점검)
             Linking.openURL(req.url).catch(() => {
               if (req.url.startsWith('mailto:')) {
-                const email = decodeURIComponent(req.url.slice('mailto:'.length).split('?')[0]);
+                const raw = req.url.slice('mailto:'.length).split('?')[0];
+                let email = raw;
+                try { email = decodeURIComponent(raw); } catch { /* 잘못된 퍼센트 열이면 그대로 */ }
                 Clipboard.setStringAsync(email).then(() => appDialog({ title: email, msg: w.emailCopied, buttons: [{ text: w.close, kind: 'cancel' }] })).catch(() => undefined);
               }
             });

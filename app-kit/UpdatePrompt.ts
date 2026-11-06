@@ -125,11 +125,16 @@ export function decideUpdate(
 }
 
 async function getJson(url: string): Promise<any | null> {
+  // 8초 제한 — 망이 걸린 채 멈추면 조회가 끝나지 않아 강제 안내도 못 뜬다(11-06 알롱 전수 검토)
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), 8000);
   try {
-    const res = await fetch(url, { headers: { 'Cache-Control': 'no-cache' } });
+    const res = await fetch(url, { headers: { 'Cache-Control': 'no-cache' }, signal: ctl.signal });
     return res.ok ? await res.json() : null;
   } catch {
     return null;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -186,27 +191,30 @@ let alertShowing = false;
 let shownThisLaunch = false;
 const LAST_KEY = 'updatePrompt.lastShownDay';
 
-/** 권장 안내를 오늘 아직 안 띄웠나 — 띄우기로 하면 오늘 날짜를 적는다 */
-async function dueToday(cfg: UpdateConfig, s: UpdateState): Promise<boolean> {
+function todayKey(s: UpdateState): string {
   const d = new Date(); // 기기 현지 날짜로 센다(UTC면 한국 0~9시에 같은 날 두 번 뜸)
-  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}:${s.latest ?? ''}`;
-  if (!cfg.store) {
-    if (shownThisLaunch) return false;
-    shownThisLaunch = true;
-    return true;
-  }
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}:${s.latest ?? ''}`;
+}
+
+/** 권장 안내를 오늘 아직 안 띄웠나 — 읽기만 한다(적는 것은 실제로 띄운 뒤 markShown) */
+async function dueToday(cfg: UpdateConfig, s: UpdateState): Promise<boolean> {
+  if (!cfg.store) return !shownThisLaunch; // 기억할 곳이 없으면 실행마다 한 번
   try {
-    if ((await cfg.store.get(LAST_KEY)) === today) return false;
-    await cfg.store.set(LAST_KEY, today);
+    return (await cfg.store.get(LAST_KEY)) !== todayKey(s);
   } catch {
-    if (shownThisLaunch) return false;
-    shownThisLaunch = true;
+    return !shownThisLaunch;
   }
-  return true;
+}
+
+/** 권장 안내를 띄운 뒤에만 오늘 날짜를 적는다 — 다른 창이 떠 있어 못 띄운 날을 '보여 줌'으로 세지 않게(11-06 알롱 전수 검토) */
+function markShown(cfg: UpdateConfig, s: UpdateState) {
+  shownThisLaunch = true;
+  cfg.store?.set(LAST_KEY, todayKey(s)).catch(() => {});
 }
 
 function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   if (alertShowing) return;
+  if (!s.forced) markShown(cfg, s);
   const w = updateWords(cfg.lang);
   // 버전 번호는 보이지 않는다(11-04 종인님 "새버전이 있어요에 버전정보는 안보여줘도 돼") — 제목과 단추만
   alertShowing = true;
@@ -239,10 +247,12 @@ export function useUpdatePrompt(cfg: UpdateConfig, enabled = true): UpdateState 
       if (s.prompt && (s.forced || (await dueToday(cfgRef.current, s)))) showPrompt(cfgRef.current, s);
     };
     run();
-    let prev = AppState.currentState;
+    // 뒤로 갔다 돌아오면 다시 조회 — background 뒤 inactive를 거쳐 active가 와도 잡도록 '뒤로 갔었음'을 따로 둔다(11-06 알롱 전수 검토).
+    // 알림 센터·Face ID처럼 inactive만 오가는 것은 세지 않는다.
+    let wentBackground = false;
     const sub = AppState.addEventListener('change', (next) => {
-      if (prev === 'background' && next === 'active') run();
-      prev = next;
+      if (next === 'background') wentBackground = true;
+      else if (next === 'active' && wentBackground) { wentBackground = false; run(); }
     });
     return () => { alive = false; sub.remove(); };
   }, [enabled]);
