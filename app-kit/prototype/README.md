@@ -32,6 +32,9 @@ Figma 파일의 '스타일 → 컴포넌트 → 화면' 페이지 구성, Storyb
 
 - 글꼴 묶음 끝에는 늘 `system-ui, sans-serif`를 둔다. `ui-rounded, "SF Pro Rounded", -apple-system`으로 끝나면 화면 없는 크롬(캡처 대조)에서 숫자가 명조로 떨어진다(11-06 차곡 56820a2).
 
+- 모드와 상관없이 늘 한쪽 색인 판(밤 방 위 HUD·전투 화면·위젯 장면처럼 기기 모드가 라이트여도 어두운 것)은 같은 토큰 이름을 `.lock-light {…}`·`.lock-dark {…}` 범위에서 다시 정의하고 그 판에 클래스를 단다 — 새 이름(`--c-hud-dark-text`)을 만들지 않는다(11-06 알롱 제안). 화면 목업은 `class="lock-dark"`만 달면 된다.
+- iOS 시스템 색(`#007AFF` 파랑, `#F2F2F7` 그룹 바탕, `rgba(60,60,67,.6)` 보조 글자 등)도 화면 UI에 쓰면 토큰이다(`--c-tint`·`--c-grouped-bg`·`--c-label-2` 꼴). `contentColors`에 넣지 않는다.
+
 ## ② 컴포넌트
 
 - `components.css`: 컴포넌트 모양. 색은 `var(--c-…)`만.
