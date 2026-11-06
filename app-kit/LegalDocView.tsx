@@ -14,11 +14,12 @@
 //    페이지 맨 위 버전 고르기(현재·이전 판 날짜 드롭다운)는 사이트가 그린다.
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도.
+//  · Android(11-06 한배): 머리줄은 Material 기본 ←(닫기), 하드웨어 뒤로 가기는 이전 문서부터, 색은 Android 테마 속성.
 // 앱마다 다른 값은 tint(강조색: 다시 시도) 하나뿐. 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 머리글 색은 내비게이션 테마를 따른다 — NavigationContainer(expo-router는 ThemeProvider)에 다크·라이트 테마를 꼭 넘긴다(10-26 한배: 안 넘겨 다크 모드에서 머리글이 흰색).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
 import { useEffect, useLayoutEffect, useRef, useState, type ComponentRef } from 'react';
-import { ActivityIndicator, Linking, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
+import { ActivityIndicator, BackHandler, Linking, Platform, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
 import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 import { WebView } from 'react-native-webview';
 import * as Clipboard from 'expo-clipboard';
@@ -77,6 +78,9 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
   // 실패하면 웹뷰가 내려가고 다시 시도는 처음 문서부터 연다 — 머리글도 처음 상태(✕·처음 문서 이름)로(11-06 알롱 전수 검토: ‹가 남아 눌러도 반응 없음)
   const fail = () => { setFailed(true); setCanGoBack(false); setShown(doc); };
   useLayoutEffect(() => {
+    // Android(11-06 한배): SF Symbol 바 버튼이 없어 머리줄에 아무 단추도 안 뜸 → Material 기본 ←(위로 = 시트 닫기)를 켜고,
+    // 하드웨어 뒤로 가기는 아래 BackHandler가 이전 문서부터 되돌린다(Material: 위로는 화면 계층, 뒤로는 방문 순서).
+    if (Platform.OS !== 'ios') { navigation.setOptions({ title: w[shown], headerBackVisible: true }); return; }
     navigation.setOptions({
       title: w[shown],
       headerBackVisible: false,
@@ -87,6 +91,11 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
       ],
     });
   }, [navigation, shown, canGoBack, w, lang, onClose]);
+  useEffect(() => {
+    if (Platform.OS !== 'android' || !canGoBack) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => { web.current?.goBack(); return true; });
+    return () => sub.remove();
+  }, [canGoBack]);
   return (
     <View style={styles.container}>
       {failed ? (
@@ -154,15 +163,19 @@ function DelayedSpinner({ visible }: { visible: boolean }) {
     const t = setTimeout(() => setOn(false), Math.max(0, shownAt.current + MIN_SHOW_MS - Date.now()));
     return () => clearTimeout(t);
   }, [visible, on]);
-  return on ? <ActivityIndicator style={StyleSheet.absoluteFill} pointerEvents="none" color={PlatformColor('secondaryLabel')} /> : null;
+  return on ? <ActivityIndicator style={StyleSheet.absoluteFill} pointerEvents="none" color={SUB} /> : null;
 }
 
+// 시스템 색 — iOS 이름은 Android에서 못 찾아 앱이 멈춘다(11-06 한배 Android "ColorValue: None of the paths…"), Android는 테마 속성으로
+const BG = Platform.select({ ios: PlatformColor('systemBackground'), default: PlatformColor('?android:attr/colorBackground') });
+const SUB = Platform.select({ ios: PlatformColor('secondaryLabel'), default: PlatformColor('?android:attr/textColorSecondary') });
+
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: PlatformColor('systemBackground') },
+  container: { flex: 1, backgroundColor: BG },
   btn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   pressed: { opacity: 0.6 }, // 앱들의 Tap(PRESSED_OPACITY 0.6)과 같게 — 2026-10-14 차곡 빌드 11 회귀 DSN-02
   web: { flex: 1, backgroundColor: 'transparent' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 24 },
-  msg: { fontSize: 17, color: PlatformColor('secondaryLabel'), textAlign: 'center' },
+  msg: { fontSize: 17, color: SUB, textAlign: 'center' },
   retry: { fontSize: 17, fontWeight: '600' },
 });

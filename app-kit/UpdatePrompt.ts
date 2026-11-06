@@ -21,7 +21,7 @@
 // 앱마다 다른 값은 UpdateConfig(스토어 앱 ID·설정 파일 이름·지금 버전·언어)뿐. 문구는 아래 20개 언어를 이 파일이 들고 있다.
 // 필요한 라이브러리: 없음(react-native만).
 import { useEffect, useRef, useState } from 'react';
-import { AppState, Linking } from 'react-native';
+import { AppState, Linking, Platform } from 'react-native';
 import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 
 export const CONFIG_SITE = 'https://jongin-2.github.io/ihwa/app-config';
@@ -29,6 +29,8 @@ export const CONFIG_SITE = 'https://jongin-2.github.io/ihwa/app-config';
 export type UpdateConfig = {
   /** App Store 앱 ID(숫자) — 예: 주량체커 6815909044 */
   appStoreId: string;
+  /** Android 패키지 이름(Play 링크용) — 예: com.ihwa.sameboat. Android 판이 있는 앱만 */
+  androidPackage?: string;
   /** 공용 사이트 설정 파일 이름 — app-config/<configName>.json */
   configName: string;
   /** 지금 앱 버전(app.json expo.version) */
@@ -167,6 +169,9 @@ const CACHE_MS = 60 * 60 * 1000;
 let cache: { at: number; key: string; state: UpdateState } | null = null;
 
 export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
+  // Android는 아직 안내 없음(11-06 한배): Play엔 iTunes 같은 공개 최신판 조회가 없고 공식은 In-App Updates API(네이티브).
+  // Android 첫 판은 옛 판 기기가 없어 강제할 대상도 없다 — 두 번째 판부터 In-App Updates 모듈과 app-config minVersionAndroid로 채운다.
+  if (Platform.OS !== 'ios') return { latest: null, available: false, forced: false, prompt: false, level: null };
   const key = `${cfg.appStoreId}:${cfg.currentVersion}`;
   if (cache && cache.key === key && Date.now() - cache.at < CACHE_MS) return cache.state;
   const [latest, config] = await Promise.all([
@@ -183,7 +188,14 @@ export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
 }
 
 /** App Store 앱 페이지 — 애플 표준 링크(https). 기기에서는 App Store 앱이 바로 열린다(유니버설 링크), App Store가 없는 곳(시뮬레이터)은 웹 페이지. */
-export function openStore(appStoreId: string) {
+export function openStore(appStoreId: string, androidPackage?: string) {
+  if (Platform.OS === 'android' && androidPackage) {
+    // Play 스토어 앱 → 없으면 웹 페이지(11-06 한배)
+    Linking.openURL(`market://details?id=${androidPackage}`)
+      .catch(() => Linking.openURL(`https://play.google.com/store/apps/details?id=${androidPackage}`))
+      .catch(() => {});
+    return;
+  }
   Linking.openURL(`https://apps.apple.com/app/id${appStoreId}`).catch(() => {});
 }
 
@@ -221,10 +233,10 @@ function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   const done = () => { alertShowing = false; };
   if (s.forced) {
     appDialog({ title: w.title, msg: w.forced, buttons: [{ text: w.updateNow }], dismissable: false })
-      .then(() => { done(); openStore(cfg.appStoreId); });
+      .then(() => { done(); openStore(cfg.appStoreId, cfg.androidPackage); });
   } else {
     appDialog({ title: w.title, buttons: [{ text: w.later, kind: 'cancel' }, { text: w.updateNow }] })
-      .then((i) => { done(); if (i === 1) openStore(cfg.appStoreId); });
+      .then((i) => { done(); if (i === 1) openStore(cfg.appStoreId, cfg.androidPackage); });
   }
 }
 

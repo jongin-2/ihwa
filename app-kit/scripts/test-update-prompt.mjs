@@ -10,7 +10,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const src = process.argv[2] || join(dirname(fileURLToPath(import.meta.url)), '..', 'UpdatePrompt.ts');
 let code = readFileSync(src, 'utf8').replace(/^import [^\n]*\n/gm, '');
-code = 'const useEffect: any = 0, useRef: any = 0, useState: any = 0, AppState: any = {}, Linking: any = {}, appDialog: any = () => {};\n' + code;
+code = 'const useEffect: any = 0, useRef: any = 0, useState: any = 0, AppState: any = {}, Linking: any = {}, Platform: any = { OS: "ios" }, appDialog: any = () => {};\n' + code;
 const dir = mkdtempSync(join(tmpdir(), 'update-prompt-'));
 const file = join(dir, 'UpdatePrompt.ts');
 writeFileSync(file, code);
