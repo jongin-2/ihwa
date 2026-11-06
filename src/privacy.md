@@ -28,9 +28,9 @@
 
 | 정보 | 목적 | 보관 기간 |
 |---|---|---|
-| 계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소) | 계정 연결 | 연결 해제할 때까지 |
+| 계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소), 차곡은 직접 정한 닉네임도 | 계정 연결 | 연결 해제할 때까지 |
 | 주량체커 기록(술 종류·양·날짜·시각·한도) | 기록 백업 | 연결 해제할 때까지 |
-| 차곡 기록(어느 취미에 무엇을 언제 기록했는지·사진으로 확인된 기록인지)과 닉네임 | 기록 백업 | 연결 해제할 때까지 |
+| 차곡 기록(어느 취미에 무엇을 언제 기록했는지·사진으로 확인된 기록인지) | 기록 백업 | 연결 해제할 때까지 |
 
 - 차곡의 사진은 서버에 올리지 않고 기기에만 남습니다.
 - 한 계정은 한 기기에만 연결되며, 다른 기기에서 연결하면 앞 기기는 연결이 해제됩니다(서버와 그 기기의 기록은 남음).
@@ -86,7 +86,7 @@
 
 ### 3. 사용 통계와 외부 요청
 
-모든 앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(음주·취미 기록, 사진, 말풍선, 노선, 위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다.
+모든 앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(음주 기록, 취미 기록의 제목·메모·사진, 말풍선, 노선, 위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다.
 
 앱이 아래 외부 서비스에 요청할 때는 일반적인 웹 요청처럼 IP 주소 같은 접속 정보가 그 서비스에 전달될 수 있으며, 운영자는 이를 받거나 보관하지 않습니다.
 
@@ -95,12 +95,12 @@
 | GitHub Pages(GitHub, Inc.) — 약관·방침 페이지, 업데이트 안내 설정 파일 | 모든 앱 | 접속 정보 |
 | App Store 공개 조회(Apple) — 최신 버전 확인 | 모든 앱 | 접속 정보 |
 | Sign in with Apple·Google 로그인 | 주량체커·차곡·알롱·한배 | 로그인할 때 그 서비스가 받는 정보 |
-| Open Library(Internet Archive, 미국)·국립중앙도서관 — 도서 정보 | 차곡 | 사진에서 읽은 책 제목 글자 또는 ISBN(사진이 책으로 판단될 때만, 사진 자체는 보내지 않음) |
+| Open Library(Internet Archive, 미국)·국립중앙도서관 — 도서 정보 | 차곡 | 사진에서 읽은 책 바코드 번호(ISBN) 또는 제목으로 보이는 글자(사진 자체는 보내지 않음) |
 | Apple 지도 — 지도와 주변 장소 | 알롱 | 현재 위치 좌표('항상 허용'이면 앱을 닫은 동안에도) |
 | Apple 날씨(WeatherKit) — 탐험·홈·전투 화면의 날씨 | 알롱 | 약 1km 단위로 반올림한 위치 |
 | 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 |
 | Apple 푸시 알림 서비스(APNs) — 잠금 화면·위젯 점수 | 응원석 | 1절의 토큰 |
-| Apple App Attest — 앱 변조 확인 | 응원석·한배 | 앱 확인 값 |
+| Apple App Attest — 앱 변조 확인 | 차곡·응원석·한배 | 앱 확인 값 |
 
 ### 4. 기기 권한
 
@@ -110,7 +110,8 @@
 |---|---|---|
 | 주량체커 | 알림 | 음주량이 한도를 넘을 때 알려 주기(기기 안에서 만듦) |
 | 차곡 | 카메라·사진 보관함 | 사진으로 기록 인식(꺼도 직접 입력 가능) |
-| 차곡 | 알림 | 기록하지 않은 날 저녁 한 번 |
+| 차곡 | 사진 보관함에 추가 | 통장 사본·리포트 이미지를 저장할 때만(사진을 읽지 않음) |
+| 차곡 | 알림 | 기록하지 않은 날 저녁 한 번(기기 안에서 예약) |
 | 알롱 | 위치(사용하는 동안, 고르면 항상) | 탐험과 걸음 세기(끄면 둘 다 못 씀) |
 | 알롱 | 알림 | 알림 보내기 |
 | 알롱 | 사진 보관함에 추가 | 방 사진을 '이미지 저장'할 때만(사진을 읽지 않음) |
@@ -191,9 +192,9 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 | Information | Purpose | Kept until |
 |---|---|---|
-| Account identifier and email (a relay address if you use Apple's Hide My Email) | Account connection | You disconnect |
+| Account identifier and email (a relay address if you use Apple's Hide My Email), plus in Chagok a nickname you set | Account connection | You disconnect |
 | DrinkChecker records (drink type, amount, date and time, limit) | Record backup | You disconnect |
-| Chagok records (which hobby, what and when, whether a record was confirmed by a photo) and nickname | Record backup | You disconnect |
+| Chagok records (which hobby, what and when, whether a record was confirmed by a photo) | Record backup | You disconnect |
 
 - Chagok photos are never uploaded; they stay on your device.
 - An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).
@@ -249,7 +250,7 @@ We do not provide your information to others. However, Allong's weekly rankings 
 
 ### 3. Usage statistics and external requests
 
-To analyze statistics for improving the service, all apps automatically collect **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (drinking and hobby records, photos, bubbles, lines, location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking.
+To analyze statistics for improving the service, all apps automatically collect **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (drinking records, the titles, notes and photos of hobby records, bubbles, lines, location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking.
 
 When an app makes a request to the external services below, connection details such as your IP address may reach that service, as with any web request; the operator does not receive or keep them.
 
@@ -258,12 +259,12 @@ When an app makes a request to the external services below, connection details s
 | GitHub Pages (GitHub, Inc.) — Terms and Privacy pages, update-notice settings file | All apps | Connection details |
 | App Store public lookup (Apple) — latest version check | All apps | Connection details |
 | Sign in with Apple and Google Sign-In | DrinkChecker, Chagok, Allong, SameBoat | What that service receives when you sign in |
-| Open Library (Internet Archive, United States) and the National Library of Korea — book details | Chagok | Book title text or ISBN read from a photo (only when the photo is judged to be a book; the photo itself is never sent) |
+| Open Library (Internet Archive, United States) and the National Library of Korea — book details | Chagok | A book barcode number (ISBN) or text that looks like a title, read from a photo (the photo itself is never sent) |
 | Apple Maps — map and nearby places | Allong | Current location coordinates (also while the app is closed if you choose Always Allow) |
 | Apple Weather (WeatherKit) — weather on the Explore, Home and battle screens | Allong | Location rounded to about 1 km |
 | Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details |
 | Apple Push Notification service (APNs) — Lock Screen and widget scores | CheerSeat | The tokens in section 1 |
-| Apple App Attest — app integrity check | CheerSeat, SameBoat | Integrity check data |
+| Apple App Attest — app integrity check | Chagok, CheerSeat, SameBoat | Integrity check data |
 
 ### 4. Device permissions
 
@@ -273,7 +274,8 @@ You can turn any permission off anytime in your device settings. Except for Allo
 |---|---|---|
 | DrinkChecker | Notifications | Alerting you when you go over your limit (created on the device) |
 | Chagok | Camera and photo library | Recognizing records from photos (you can still enter them by hand) |
-| Chagok | Notifications | One reminder in the evening on days you haven't logged |
+| Chagok | Add to Photos | Only when you save a passbook copy or report image (the app never reads your photos) |
+| Chagok | Notifications | One reminder in the evening on days you haven't logged (scheduled on the device) |
 | Allong | Location (while using, or always if you choose) | Exploring and counting steps (neither works without it) |
 | Allong | Notifications | Sending alerts |
 | Allong | Add to Photos | Only when you save a room photo with Save Image (the app never reads your photos) |
