@@ -68,6 +68,24 @@ for c in sorted(code_colors - token_colors):
 for c in sorted(c_token_colors - code_colors):
     fails.append(f'tokens.css에 있는 색이 코드 테마에 없음(옛 값?): {c}')
 
+# ①-2 시스템 색: 코드가 값 없이 이름만 쓰는 색(PlatformColor('label')·UIColor.systemBlue·Color(.secondaryLabel))은
+#   screens.json "systemColors": {"이름": "--c-토큰"}으로 어느 토큰인지 밝힌다. 값은 앱이 QA 앱 시뮬레이터 캡처에서 재 넣는다(11-06 응원석 회신).
+sysmap = cfg.get('systemColors') or {}
+light_tokens = set(re.findall(r'(--c-[\w-]+)\s*:', tokens))
+sys_names = set()
+for rel in theme_files:
+    if os.path.exists(P(*rel.split('/'))):
+        src = strip_comments(read(rel))
+        sys_names |= set(re.findall(r'PlatformColor\(\s*[\'"](\w+)[\'"]', src))
+        sys_names |= set(re.findall(r'UIColor\.(system\w+|\w*[Ll]abel|separator|opaqueSeparator)\b', src))
+        sys_names |= set(re.findall(r'Color\(\s*\.(\w+)\s*\)', src))
+for n in sorted(sys_names - {'white', 'black', 'clear'}):  # 모드와 무관한 고정 색은 값이 분명해 뺌
+    t = sysmap.get(n)
+    if not t:
+        fails.append(f'코드의 시스템 색 {n}이 screens.json "systemColors"에 없음(어느 --c- 토큰인지)')
+    elif t not in light_tokens:
+        fails.append(f'systemColors {n} → {t}: tokens.css에 그 --c- 토큰이 없음')
+
 # ② 컴포넌트 전부
 comp_html_rel = 'prd/components/mockup.html'
 comp = cfg.get('components') or {}
