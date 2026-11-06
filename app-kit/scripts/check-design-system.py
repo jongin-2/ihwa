@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+# 디자인 시스템 → 컴포넌트 → 화면 목업이 한 줄로 이어졌는지 본다 — 원본 ihwa-site/app-kit/scripts/check-design-system.py,
+# 앱마다 impl/scripts/check-design-system.py로 글자 그대로 복사하고 check-docs-sync.sh에서 부른다. 규칙 전문은 app-kit/prototype/README.md.
+# 2026-11-06 종인님 "프로토타입이 앱마다 다 다르고 엉망 … 최신 디자인 시스템이랑 컴포넌트랑 각 화면이 있어야지".
+#
+# 막는 것(종료 코드 1):
+#  ① 최신: 코드 테마 파일(screens.json "theme")의 색 값 = prd/design-system/tokens.css의 색 값(양쪽 모두, 대소문자 무시)
+#  ② 컴포넌트 전부: 코드 컴포넌트 폴더(screens.json "components.dir")의 파일마다 prd/components/mockup.html에 data-component="파일 이름"
+#     (화면이 없는 파일은 "components.skip": {"파일": "이유"})
+#  ③ 화면은 공용 CSS만: prd/<화면>/mockup.html이 tokens.css·components.css를 링크하고, <style>·style=""에 색 값을 직접 적지 않는다
+#     (팀 색·아이템 그림처럼 내용인 색은 "contentColors"에, SVG 그림 안과 data: 주소는 보지 않음). components.css·컴포넌트 목업도 같다.
+import json, os, re, sys
+
+
+def repo_root(p=os.path.dirname(os.path.abspath(__file__))):
+    while not os.path.exists(os.path.join(p, '.git')):
+        if os.path.dirname(p) == p:
+            sys.exit('✋ 저장소 맨 위(.git)를 찾지 못했습니다')
+        p = os.path.dirname(p)
+    return p
+
+
+ROOT = repo_root()
+P = lambda *a: os.path.join(ROOT, *a)
+cfg = json.load(open(P('prd', 'prototype', 'screens.json'), encoding='utf-8'))
+fails = []
+COLOR = re.compile(r'#[0-9a-fA-F]{8}\b|#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|rgba?\([^)]*\)|hsla?\([^)]*\)')
+
+
+def norm(c):
+    c = c.lower().replace(' ', '')
+    if re.fullmatch(r'#[0-9a-f]{3}', c):
+        c = '#' + ''.join(x * 2 for x in c[1:])
+    return c
+
+
+def read(rel):
+    return open(P(*rel.split('/')), encoding='utf-8').read()
+
+
+def strip_comments(t):
+    return re.sub(r'/\*.*?\*/|//[^\n]*|<!--.*?-->', '', t, flags=re.S)
+
+
+tokens_rel = 'prd/design-system/tokens.css'
+if not os.path.exists(P(*tokens_rel.split('/'))):
+    sys.exit(f'✋ {tokens_rel}이 없습니다 — app-kit/prototype/README.md대로 디자인 시스템을 먼저 만드세요')
+tokens = strip_comments(read(tokens_rel))
+token_colors = {norm(c) for c in COLOR.findall(tokens)}
+# 반대 방향(토큰 → 코드)은 색 토큰(--c-)만 — 그림자·재질 값은 코드의 다른 파일에 있을 수 있다
+c_token_colors = {norm(c) for v in re.findall(r'--c-[\w-]+\s*:\s*([^;]+);', tokens) for c in COLOR.findall(v)}
+
+# ① 코드 테마 = 토큰
+theme_files = cfg.get('theme') or []
+if not theme_files:
+    fails.append('screens.json에 "theme": [코드 테마 파일 경로]가 없습니다')
+code_colors = set()
+for rel in theme_files:
+    if not os.path.exists(P(*rel.split('/'))):
+        fails.append(f'테마 파일이 없습니다: {rel}')
+        continue
+    code_colors |= {norm(c) for c in COLOR.findall(strip_comments(read(rel)))}
+for c in sorted(code_colors - token_colors):
+    fails.append(f'코드 테마에 있는 색이 tokens.css에 없음: {c}')
+for c in sorted(c_token_colors - code_colors):
+    fails.append(f'tokens.css에 있는 색이 코드 테마에 없음(옛 값?): {c}')
+
+# ② 컴포넌트 전부
+comp_html_rel = 'prd/components/mockup.html'
+comp = cfg.get('components') or {}
+if not os.path.exists(P(*comp_html_rel.split('/'))):
+    fails.append(f'{comp_html_rel}이 없습니다')
+    comp_html = ''
+else:
+    comp_html = read(comp_html_rel)
+drawn = set(re.findall(r'data-component="([^"]+)"', comp_html))
+cdir = comp.get('dir')
+if not cdir:
+    fails.append('screens.json에 "components": {"dir": 코드 컴포넌트 폴더}가 없습니다')
+elif os.path.isdir(P(*cdir.split('/'))):
+    skip = comp.get('skip') or {}
+    for f in sorted(os.listdir(P(*cdir.split('/')))):
+        stem, ext = os.path.splitext(f)
+        if ext not in ('.tsx', '.ts', '.swift', '.jsx', '.js') or f in skip or stem in skip:
+            continue
+        if stem not in drawn:
+            fails.append(f'컴포넌트 목업에 없음: {cdir}/{f} (data-component="{stem}")')
+    for name in sorted(drawn):
+        if not any(os.path.splitext(f)[0] == name for f in os.listdir(P(*cdir.split('/')))):
+            fails.append(f'컴포넌트 목업에 코드에 없는 컴포넌트: {name}(지운 것이면 목업에서도 빼기)')
+else:
+    fails.append(f'컴포넌트 폴더가 없습니다: {cdir}')
+
+# ③ 공용 CSS만
+allowed = {norm(c) for c in cfg.get('contentColors', [])}
+
+
+def literal_colors(text):
+    text = strip_comments(text)
+    text = re.sub(r'<svg\b.*?</svg>', '', text, flags=re.S | re.I)          # 그림 안의 색은 내용
+    text = re.sub(r'url\(\s*["\']?data:[^)]*\)', '', text)                     # 바탕 그림 data: 주소
+    text = re.sub(r'<style data-shared[^>]*>.*?</style>', '', text, flags=re.S)
+    parts = re.findall(r'<style[^>]*>(.*?)</style>', text, flags=re.S | re.I) + re.findall(r'\sstyle="([^"]*)"', text)
+    if not re.search(r'<[a-z]', text, re.I):                                   # .css 파일 그 자체
+        parts = [text]
+    return sorted({norm(c) for p in parts for c in COLOR.findall(p)} - allowed)
+
+
+targets = [('prd/components/components.css', False), (comp_html_rel, 'comp')]
+for s in cfg.get('screens', []):
+    if s.get('path'):  # 앱 캡처처럼 목업이 아닌 탭은 보지 않는다
+        continue
+    targets.append((f"prd/{s['key']}/mockup.html", 'screen'))
+for rel, kind in targets:
+    if not os.path.exists(P(*rel.split('/'))):
+        fails.append(f'파일이 없습니다: {rel}')
+        continue
+    text = read(rel)
+    if kind:
+        for href in ('../design-system/tokens.css', '../components/components.css'):  # 컴포넌트 목업도 같은 경로(prd/components/에서도 맞음)
+            if not re.search(r'<link[^>]+href="' + re.escape(href) + '"', text):
+                fails.append(f'{rel}: <link rel="stylesheet" href="{href}"> 없음')
+    lits = literal_colors(text)
+    if lits:
+        fails.append(f'{rel}: 색 값을 직접 적음 {len(lits)}개 — 토큰(var(--c-…))으로: ' + ', '.join(lits[:6]) + (' …' if len(lits) > 6 else ''))
+
+if fails:
+    print('✗ 디자인 시스템 점검 실패')
+    for f in fails:
+        print('  - ' + f)
+    sys.exit(1)
+print(f'✓ 디자인 시스템 점검 통과 — 토큰 색 {len(token_colors)}개 = 코드, 컴포넌트 {len(drawn)}개, 화면 {len(targets) - 2}개 공용 CSS만')

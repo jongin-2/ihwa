@@ -13,6 +13,8 @@
   .head { display:flex; align-items:baseline; gap:8px; padding:10px 16px 2px; }
   .head h1 { margin:0; font-size:15px; font-weight:700; }
   .head span { font-size:12px; color:var(--sub); }
+  /* 화면 모드: 시스템 → 라이트 → 다크 — 목업 <html>에 data-theme을 달아 tokens.css의 다크 값을 쓴다(11-06 디자인 시스템 탭과 함께) */
+  .mode { margin-left:auto; min-height:32px; padding:0 12px; border:1px solid var(--line); border-radius:16px; background:transparent; color:var(--text); font:600 13px inherit; font-family:inherit; cursor:pointer; }
   .tabs { display:flex; gap:4px; overflow-x:auto; scroll-snap-type:x proximity; padding:6px 12px 8px; scrollbar-width:none; }
   .tabs::-webkit-scrollbar { display:none; }
   .tab { flex:0 0 auto; scroll-snap-align:start; min-height:36px; padding:0 14px; border:0; border-radius:18px; background:transparent;
@@ -24,7 +26,7 @@
 </style>
 <div class="app">
   <div class="bar">
-    <div class="head"><h1>__TITLE__</h1><span>__UPDATED__ 기준</span></div>
+    <div class="head"><h1>__TITLE__</h1><span>__UPDATED__ 기준</span><button class="mode" id="mode" type="button" aria-label="화면 모드 바꾸기">시스템</button></div>
     <nav class="tabs" id="tabs"></nav>
   </div>
   <div class="stage" id="stage"><iframe id="frame" title="화면 미리보기"></iframe></div>
@@ -81,7 +83,17 @@
       d.head.appendChild(st);
     } catch (e) {}
   }
-  frame.addEventListener('load', function () { responsive(); foldControls(); fit(); setTimeout(fit, 300); });
+  var MODES = ['', 'light', 'dark'], MODE_LABEL = { '': '시스템', light: '라이트', dark: '다크' }, mode = '';
+  try { mode = localStorage.getItem('proto-mode') || ''; } catch (e) {}
+  var modeBtn = document.getElementById('mode');
+  function applyMode() {
+    modeBtn.textContent = MODE_LABEL[mode];
+    [document.documentElement].concat(frame.contentDocument ? [frame.contentDocument.documentElement] : []).forEach(function (r) {
+      if (mode) r.setAttribute('data-theme', mode); else r.removeAttribute('data-theme');
+    });
+  }
+  modeBtn.onclick = function () { mode = MODES[(MODES.indexOf(mode) + 1) % 3]; try { localStorage.setItem('proto-mode', mode); } catch (e) {} applyMode(); };
+  frame.addEventListener('load', function () { applyMode(); responsive(); foldControls(); fit(); setTimeout(fit, 300); });
   function show(key) {
     var s = SCREENS.find(function (x) { return x.key === key; }) || SCREENS[0];
     tabs.querySelectorAll('.tab').forEach(function (b) { b.classList.toggle('on', b.dataset.key === s.key); if (b.dataset.key === s.key) b.scrollIntoView({ inline: 'nearest', block: 'nearest' }); });
