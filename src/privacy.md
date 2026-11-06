@@ -162,7 +162,7 @@
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-11-11
+최종 수정일: 2026-11-06
 
 ---
 
@@ -326,4 +326,4 @@ Any change to this policy is published on this page right away. The apps show th
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-11-11
+Last updated: 2026-11-06
