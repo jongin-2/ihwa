@@ -7,87 +7,154 @@
 
 **적용 앱: 주량체커 · 응원석 · 차곡 · 알롱 · 한배**
 
-주량체커·응원석·차곡은 기본으로는 개인정보를 수집하지 않습니다. 계정 연결(Apple·Google)을 제공하는 주량체커·차곡·알롱은 설정에서 '계정 연결'을 한 경우에만 계정 정보와 기록을 백업 서버에 저장합니다(2절). 알롱은 만 14세 이상 확인을 통과하면 이름·연락처 없이 무작위 계정 식별자와 알롱 번호를 만들고, 계정 연결과 상관없이 게임 데이터와 주간 순위 기록을 서버에 저장하며, 계정을 연결한 경우에만 이메일을 받습니다(1·2절). 응원석은 '실시간 현황'을 켜거나 위젯을 놓은 경우에만 점수를 바로 띄우기 위한 기기 토큰을 운영자 서버에 보관합니다(2절). 한배는 로그인 없이 보기만 할 때는 서버에 아무것도 저장하지 않고, 말풍선·대항전을 쓰려고 Apple 또는 Google로 로그인하면 계정 식별자와 닉네임·포인트 등을 서버에 저장합니다(이메일은 받지 않음, 1·2절). 모든 앱은 앱을 개선하기 위해 익명 사용 통계를 보냅니다(3절). 앱마다 다른 내용은 각 절 끝에 앱 이름을 붙여 적었습니다.
+### 한눈에 보기
 
-### 1. 수집하는 정보
+| 앱 | 운영자 서버에 두는 정보 | 언제 |
+|---|---|---|
+| 주량체커 | 계정 식별자·이메일, 음주 기록 | 계정을 연결한 경우만 |
+| 차곡 | 계정 식별자·이메일·닉네임, 취미 기록(사진은 올리지 않음) | 계정을 연결한 경우만 |
+| 알롱 | 계정 식별자·알롱 번호, 게임 데이터·주간 순위 | 만 14세 이상 확인을 통과한 뒤부터 |
+| 알롱 | 이메일·만 14세 이상 여부 | 계정을 연결한 경우만 |
+| 응원석 | 기기 토큰·응원팀 | '실시간 현황'을 켜거나 위젯을 놓은 경우만 |
+| 한배 | 계정 식별자·닉네임·포인트 | 말풍선·대항전을 쓰려고 로그인한 경우만 |
 
-받는 정보는 앱마다 다릅니다. 통계 도구가 설치마다 붙이는 무작위 식별자는 이름·연락처와 연결되지 않습니다(3절).
+모든 앱은 익명 사용 통계를 보냅니다(3절). 어느 앱도 이름·전화번호를 받지 않고, 위치를 운영자 서버로 보내지 않습니다. 정보는 다른 사람에게 제공하지 않습니다(2절).
 
-- **주량체커·차곡**: 계정 연결 없이 모든 기능을 쓸 수 있고, 계정을 연결하지 않으면 이름·이메일·전화번호 등 어떤 개인 식별 정보도 수집하지 않습니다. 설정에서 계정을 연결하면 로그인 서비스(Apple 또는 Google)가 주는 계정 식별자·이메일(Apple '이메일 가리기'를 쓰면 대체 주소)만 받습니다.
-- **알롱**: 첫 실행 때 만 14세 이상 확인을 통과하면 게스트 계정을 만들어, 무작위 **계정 식별자**와 사람에게 보이는 **알롱 번호**를 서버에 저장합니다. 이름·이메일·전화번호는 이때 받지 않습니다. 설정에서 Apple 또는 Google 계정을 연결하면 로그인 서비스가 주는 **이메일**(Apple '이메일 가리기'를 쓰면 대체 주소)을 받습니다. 이름은 받지 않습니다. 첫 실행 때 입력하는 **생일**은 만 14세 이상 확인과 나이대 통계에 쓰고 기기에만 저장하며, 서버로 보내지 않습니다. 계정을 연결하면 만 14세 이상인지 여부만 서버에 저장합니다. 통계에는 나이대(6구간)만 보냅니다(3절).
-- **응원석**: 계정·로그인 없이 쓰는 앱으로, 이름·이메일·전화번호·위치를 수집하지 않습니다.
-- **한배**: 보기(노선·말풍선·순위)는 로그인 없이 되며 서버에 아무것도 저장하지 않습니다. 말풍선을 보내거나 대항전에 참가하려면 Apple 또는 Google로 로그인해 계정을 만들고, 로그인 서비스의 계정 식별자만 받습니다(이메일은 받지 않음). 닉네임(닉네임 번호 포함)·프로필 꾸밈·포인트·이용 제한 기록(제한 단계·끝 시각)과, 앱 변조를 막는 Apple App Attest 확인 키를 보관합니다. 위치는 기기 안에서만 씁니다(4절).
+### 1. 처리하는 정보와 보관 기간
 
-### 2. 데이터 저장 방식
+아래 표에 적은 것 말고는 앱에서 입력한 정보를 기기 안에만 저장하며, 앱을 지우면 함께 지워집니다.
 
-앱에서 입력하는 정보는 사용자의 기기 안에 저장되며, 앱을 삭제하면 함께 삭제됩니다.
+**주량체커·차곡** — 계정 연결 없이도 모든 기능을 쓸 수 있고, 설정에서 계정을 연결한 경우에만 아래 정보를 저장해 기기를 바꿔도 기록이 돌아오게 합니다.
 
-**주량체커·차곡·알롱**: 계정을 연결하면 기록(알롱은 게임 데이터)과 지금 연결된 기기를 구별하는 무작위 번호가 Google Firebase(Cloud Firestore)의 계정별 공간에 저장되어, 기기를 바꿔도 같은 계정으로 연결하면 기록이 돌아옵니다. 이 공간은 본인 계정으로만 읽고 쓸 수 있습니다. 한 계정은 한 기기에만 연결되며, 다른 기기에서 같은 계정을 연결하면 앞 기기는 연결이 해제됩니다(서버 기록과 그 기기의 기록은 그대로 남습니다).
+| 정보 | 목적 | 보관 기간 |
+|---|---|---|
+| 계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소), 차곡은 직접 정한 닉네임도 | 계정 연결 | 연결 해제할 때까지 |
+| 주량체커 기록(술 종류·양·날짜·시각·한도) | 기록 백업 | 연결 해제할 때까지 |
+| 차곡 기록(어느 취미에 무엇을 언제 기록했는지·사진으로 확인된 기록인지) | 기록 백업 | 연결 해제할 때까지 |
 
-- **국외 이전 고지(주량체커·차곡)**: 계정 정보(계정 식별자·이메일, 차곡은 닉네임)는 미국에서, 기록은 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 계정을 연결하거나 기록이 바뀔 때마다 인터넷으로 전송되며, 연결을 해제할 때까지 보관합니다.
-- **삭제(주량체커·차곡)**: 설정의 계정 카드에서 '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 기기의 기록은 그대로 남습니다.
+- 차곡의 사진은 서버에 올리지 않고 기기에만 남습니다.
+- 한 계정은 한 기기에만 연결되며, 다른 기기에서 연결하면 앞 기기는 연결이 해제됩니다(서버와 그 기기의 기록은 남음).
+- '연결 해제'를 누르면 서버의 기록과 계정을 바로 지웁니다. 이 기기의 기록은 남습니다.
 
-- **주량체커**: 서버에 저장되는 기록은 술 종류·양·날짜·시각·한도입니다. 계정 카드는 설정 맨 위에 있습니다.
-- **차곡**: 서버에 저장되는 기록은 어느 취미에 무엇을 언제 기록했는지(앨범 사진으로 기록했으면 사진을 찍은 날짜 포함)와 사진으로 확인된 기록인지입니다. 앱에서 닉네임을 정하면 계정 정보의 이름 칸에 저장됩니다. **기록에 쓴 사진은 서버에 올리지 않습니다** — 사진은 기기에만 남아, 기기를 바꾸면 사진 자리에 안내만 보입니다. '연결 해제'로 지운 서버의 기록과 계정은 되돌릴 수 없습니다.
-- **알롱**: 게스트 계정의 **계정 식별자**·**알롱 번호**와 알롱의 **게임 데이터**(알롱과 그 이름·꾸미기·재료·걸음 합계, 도감, 처음 가 본 장소 종류·나라 같은 진행 기록 등 — 생일·좌표·지나간 칸은 제외)가 계정을 연결하지 않아도 Google Firebase(Authentication·Cloud Firestore)에 저장됩니다. 계정을 연결하면 **이메일**·**만 14세 이상 확인 여부**가 더해져 위 계정별 공간에 저장되고, 기기를 바꿔도 같은 계정으로 연결하면 알롱이 돌아옵니다. 알롱은 다른 기기에서 같은 계정을 연결하면 원래 기기의 연결이 해제되고, 그 기기에 남은 알롱 기록도 지워집니다(서버의 기록은 그대로 남습니다). 주간 **순위**를 위해 계정 연결과 상관없이 알롱 **이름**과 **알롱 번호 뒤 4자리**·알롱의 모습(입은 꾸미기 포함)과 이번 주 걸음·이긴 달롱·친밀도 합계가 서버에 올라가며, 다른 이용자가 볼 수 있습니다. 2주 동안 새로 쓰이지 않으면 자동으로 지워지고, '계정 삭제'를 누르면 바로 지워집니다.
-  - **국외 이전 고지**: 계정 식별자·이메일은 미국에서, 게임 데이터·순위와 알롱 번호는 대한민국(서울 리전)에서 Google LLC가 처리·보관합니다. 앱을 처음 켤 때, 계정을 연결할 때, 게임 데이터가 바뀔 때 인터넷으로 전송되며, 계정을 삭제할 때까지(삭제 요청 뒤 14일까지) 보관합니다.
-  - **삭제**: 설정 맨 아래 '계정 삭제'를 누르면 이 기기의 알롱과 기록, 서버의 주간 순위 기록은 바로 내용이 지워집니다(내용 없는 삭제 표시만 영구 삭제 때까지 남습니다). 서버의 게임 데이터·알롱 번호·계정 식별자(연결한 경우 이메일 포함)는 삭제 요청 뒤 14일 동안 다른 이용자에게 보이지 않게 보관하며, 이 기간에는 삭제 취소에만 쓰고, 그 뒤 복원할 수 없는 방법으로 영구 삭제합니다. 다만 같은 알롱 번호가 다른 사람에게 다시 발급되지 않도록 그 번호가 쓰였다는 표시만 남기고, 게임 기록 일부(알롱의 모습·레벨·함께한 날·이긴 수·도감 횟수·배지 종류·삭제한 달)는 알롱 번호·계정과 이어지지 않는 임의 값으로 바꿔 누구의 것인지 알 수 없는 통계로만 보관합니다. Apple·Google 계정을 연결한 경우 14일 안에 같은 계정으로 다시 연결하면 삭제를 취소할 수 있고, 그때 나오는 화면의 '지금 바로 삭제'로 기다리지 않고 지울 수도 있습니다. 게스트 계정은 취소할 수 없으며, 삭제 처리를 한 번에 하기 위해 14일 뒤 함께 지웁니다. 삭제를 요청하면 Apple·Google 로그인 연결은 바로 끊깁니다.
-  - **오래 쓰지 않은 게스트**: 계정을 연결하지 않은 게스트의 계정과 기록은 마지막으로 앱을 쓴 날부터 1년이 지나면 서버에서 지웁니다. 게스트는 연락처가 없어 따로 알리지 않으니, 기록을 지키려면 계정을 연결해 주세요.
-- **응원석**: 고른 응원팀과 '실시간 현황' 켜기·끄기는 기기 안에만 저장합니다. '실시간 현황'을 켠 경우에만, 경기가 시작될 때 잠금 화면에 점수를 띄우기 위해 Apple이 발급하는 **기기 토큰**(무작위 값)과 **응원팀 코드**, **앱 언어**를 운영자 서버에 보관합니다. iOS 26 이상에서 홈 화면·잠금 화면에 위젯을 놓으면 Apple이 발급하는 **위젯 토큰**(무작위 값)과 **응원팀 코드**를 운영자 서버에 보관하며, 점수가 바뀔 때 위젯을 바로 새로 그리는 데 씁니다. 이 토큰을 등록할 때 변조되지 않은 앱에서 온 요청인지 확인하려고 Apple App Attest 확인 키를 운영자 서버에 보관하며, 마지막으로 쓴 날부터 90일이 지나면 지웁니다.
-  - **국외 이전 고지**: 운영자 서버는 Cloudflare, Inc.(미국)의 서비스이며 데이터베이스는 아시아·태평양 지역에서 운영됩니다. '실시간 현황'을 켤 때, 위젯을 놓을 때, 응원팀을 바꿀 때 인터넷으로 전송되며, '실시간 현황'을 끄면 그 토큰을 서버에서 바로 지웁니다. 앱을 지우는 등으로 Apple이 토큰을 무효로 하면 서버도 그 토큰을 지웁니다.
-- **한배**: 말풍선은 서버에 남기지 않습니다. 신고된 말풍선만 글·신고 사유·시각·양쪽 닉네임(닉네임 번호 포함)을 보관하고 검토가 끝나고 90일 뒤 지웁니다. 대항전 포인트를 계정에 주려고 고른 노선을 계정과 함께 두고, 지급하면 바로 지웁니다(주·월 우승은 기간이 끝날 때까지, 최대 31일). 1절의 계정 정보는 계정을 삭제할 때까지 보관하고, 삭제를 요청하면 14일 뒤 지웁니다(그 안에 다시 로그인하면 취소). 영구 이용 제한을 받은 계정은 다시 가입하지 못하게 계정 식별자를 되돌릴 수 없는 값(해시)으로 바꿔 제한이 풀릴 때까지 보관합니다.
-  - **국외 이전 고지**: 위 정보는 앱을 쓸 때 인터넷으로 Cloudflare, Inc.(미국)의 서버에 전송되어 위 기간 동안 보관되며, 데이터베이스는 아시아·태평양 지역에 있습니다.
+**알롱** — 첫 실행 때 만 14세 이상 확인을 통과하면 이름·연락처 없이 게스트 계정을 만들고, 계정 연결과 상관없이 게임 데이터를 서버에 저장합니다.
 
-### 3. 네트워크 통신과 사용 통계
+| 정보 | 목적 | 보관 기간 |
+|---|---|---|
+| 계정 식별자·알롱 번호 | 게스트 계정 | 계정 삭제 요청 뒤 14일 |
+| 게임 데이터(알롱과 이름·꾸미기·재료·걸음 합계, 도감, 처음 가 본 장소 종류·나라 등 — 생일·좌표·지나간 칸은 빼고) | 게임 진행 저장 | 계정 삭제 요청 뒤 14일 |
+| 주간 순위(알롱 이름·알롱 번호 뒤 4자리·알롱 모습·이번 주 걸음·이긴 달롱·친밀도 합계) | 다른 이용자에게 순위 공개 | 2주 동안 새로 쓰이지 않으면 자동 삭제, 계정 삭제 때 바로 |
+| 이메일(Apple '이메일 가리기'면 대체 주소)·만 14세 이상 여부 | 계정 연결 | 계정 삭제 요청 뒤 14일 |
 
-모든 앱은 서비스 개선을 위한 통계 분석에 쓰기 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값)를 자동으로 수집합니다. IP 주소로 추정한 **대략적인 지역**(국가·도시 수준)도 수집하며, Google이 IP 주소 일부를 가린 뒤 추정합니다. 이 정보로 이용자를 식별하지 않으며, 이름·연락처·광고 식별자와 연결하지 않습니다. Firebase Analytics에는 이 절에 적은 정보만 전달됩니다. 이 통계 정보는 앱을 쓸 때 인터넷으로 Google LLC(미국)에 전송되어 처리되며, 최대 14개월 뒤 지워집니다.
+- 생일은 만 14세 이상 확인과 나이대 통계에 쓰고 기기에만 저장합니다. 통계에는 나이대(6구간)만 보냅니다.
+- 다른 기기에서 같은 계정을 연결하면 원래 기기의 연결이 해제되고, 그 기기의 알롱 기록도 지워집니다(서버 기록은 남음).
+- '계정 삭제'를 누르면 이 기기의 알롱과 주간 순위는 바로 지웁니다. 서버의 나머지 정보는 14일 동안 다른 이용자에게 보이지 않게 두고 삭제 취소에만 쓴 뒤 영구 삭제합니다. 그 안에 연결했던 계정으로 다시 연결하면 취소할 수 있고, 게스트 계정은 취소할 수 없습니다. 같은 알롱 번호가 다시 발급되지 않게 그 번호가 쓰였다는 표시와, 누구의 것인지 알 수 없는 게임 통계만 남깁니다.
+- 계정을 연결하지 않은 게스트는 마지막으로 앱을 쓴 날부터 1년이 지나면 서버에서 지웁니다. 연락처가 없어 따로 알리지 않으니, 기록을 지키려면 계정을 연결해 주세요.
 
-**통계로 보내지 않는 것**: 사용자가 기록한 내용 자체는 통계에 어떤 형태로도 담기지 않습니다. 광고 식별자(IDFA)도 수집하지 않으며, 광고나 사용자 추적에 이 정보를 쓰지 않습니다. 크래시 리포트도 보내지 않습니다.
+**응원석** — 계정·로그인 없이 쓰는 앱입니다. 응원팀과 설정은 기기에만 저장하고, 아래 기능을 쓸 때만 서버에 둡니다.
 
-**외부 요청과 IP 주소**: 앱이 5절의 외부 서비스에 요청을 보낼 때 일반적인 웹 요청처럼 IP 주소 같은 접속 정보가 그 서비스에 전달될 수 있으며, 운영자는 이를 받거나 보관하지 않습니다.
+| 정보 | 목적 | 보관 기간 |
+|---|---|---|
+| 기기 토큰(Apple이 발급하는 무작위 값)·응원팀·앱 언어 | '실시간 현황'으로 잠금 화면에 점수 띄우기 | '실시간 현황'을 끌 때까지(끄지 않고 앱을 지우면 Apple이 토큰을 무효로 할 때까지) |
+| 위젯 토큰(Apple이 발급하는 무작위 값)·응원팀 | iOS 26 이상 위젯을 점수가 바뀔 때 바로 새로 그리기 | Apple이 토큰을 무효로 할 때까지(앱 삭제 등) |
+| Apple App Attest 확인 키 | 토큰 등록이 변조되지 않은 앱에서 왔는지 확인 | 마지막으로 쓴 날부터 90일 |
 
-- **주량체커**: 통계에 담기지 않는 기록 내용은 마신 양·술 종류·마신 시각·설정한 한도 값·한도를 넘었는지 여부입니다. 계정을 연결했을 때 이 기록은 2절의 백업 공간에만 저장됩니다.
-- **차곡**: 통계에 담기지 않는 기록 내용은 기록한 제목·메모·사진입니다. 계정을 연결했을 때 기록은 2절의 백업 공간에만 저장되며, 사진은 그곳에도 올리지 않습니다. 사진 인식은 전부 기기 안에서 처리되며 사진은 기기 밖으로 나가지 않습니다. 다만 사진이 책(표지나 뒷면)으로 판단되면 저자 등 도서 정보를 찾기 위해 사진에서 읽어 낸 **책 제목 글자 또는 ISBN 번호만**(사진도 개인 식별 정보도 아님) 도서 정보 제공처 **Open Library**(Internet Archive, 미국)와 **국립중앙도서관**(대한민국)에 조회합니다. 사진 인식을 쓰지 않고 직접 입력하면 이 조회는 일어나지 않습니다.
-- **알롱**: 생일·위치·알롱 번호·계정 식별자·이메일도 통계에 담기지 않습니다(통계에는 생일에서 계산한 나이대 6구간만 보냅니다). 탐험 화면에서 지도를 보여 주고 내 주변 장소를 찾기 위해 **Apple 지도**(Apple Inc.)에 현재 위치 좌표를 보냅니다. '항상 허용'을 고르면 앱을 닫은 동안에도 근처 장소 확인을 위해 이 조회가 일어날 수 있습니다. 또 그 자리의 날씨를 알롱의 탐험·홈·전투 화면에 쓰려고 **Apple 날씨**(WeatherKit, Apple Inc.)에 대략적인 위치(약 1km 단위로 반올림한 좌표)를 보냅니다. 위치는 운영자 서버로 보내지 않고 기기 안에서만 쓰며, 위치 권한을 허용하지 않으면 이 조회는 일어나지 않습니다.
-- **응원석**: 경기 점수·일정·순위를 운영자 서버(Cloudflare)에서 받습니다. 이 요청의 접속 정보는 Cloudflare를 거치며, 운영자는 이를 따로 보관하지 않습니다.
-- **한배**: 노선 인원·열차 위치·말풍선·순위를 운영자 서버(Cloudflare)와 주고받습니다. 접속 기록은 Cloudflare를 거치며 운영자는 따로 보관하지 않습니다. 통계에는 노선·말풍선·계정 번호를 담지 않습니다.
+**한배** — 노선·말풍선·순위 보기는 로그인 없이 되며 이때는 서버에 아무것도 저장하지 않습니다. 말풍선을 보내거나 대항전에 참가하려면 Apple 또는 Google로 로그인합니다.
+
+| 정보 | 목적 | 보관 기간 |
+|---|---|---|
+| 계정 식별자(Apple·Google, 이메일은 받지 않음) | 로그인 | 계정 삭제 요청 뒤 14일(그 안에 다시 로그인하면 취소) |
+| 닉네임·포인트·이용 제한 기록 | 말풍선·대항전·이용 제한 | 계정 삭제 요청 뒤 14일 |
+| 대항전에서 고른 노선(계정과 함께) | 대항전 포인트 지급 | 지급하면 바로(주·월 우승은 기간이 끝날 때까지, 최대 31일) |
+| 신고된 말풍선(글·신고 사유·시각·양쪽 닉네임) | 신고 검토 | 검토가 끝나고 90일 |
+| 영구 이용 제한 계정의 식별자(되돌릴 수 없는 값으로 바꿈) | 다시 가입 막기 | 제한이 풀릴 때까지 |
+
+- 말풍선은 신고된 것만 서버에 남습니다.
+
+### 2. 맡기는 곳과 국외 이전
+
+운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임은 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다.
+
+| 받는 곳(연락처) | 맡기는 일 | 앱 | 정보가 있는 곳 |
+|---|---|---|---|
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관 | 주량체커·차곡·알롱 | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) |
+| Google LLC — Firebase Analytics(같음) | 사용 통계 | 모든 앱 | 미국 |
+| Cloudflare, Inc.(privacyquestions@cloudflare.com) | 운영자 서버 | 응원석·한배 | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
+
+- **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
+- **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
+- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다.
+
+### 3. 사용 통계와 외부 요청
+
+모든 앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(음주 기록, 취미 기록의 제목·메모·사진, 말풍선, 노선, 위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다.
+
+앱이 아래 외부 서비스에 요청할 때는 일반적인 웹 요청처럼 IP 주소 같은 접속 정보가 그 서비스에 전달될 수 있으며, 운영자는 이를 받거나 보관하지 않습니다.
+
+| 외부 서비스 | 앱 | 보내는 것 |
+|---|---|---|
+| GitHub Pages(GitHub, Inc.) — 약관·방침 페이지, 업데이트 안내 설정 파일 | 모든 앱 | 접속 정보 |
+| App Store 공개 조회(Apple) — 최신 버전 확인 | 모든 앱 | 접속 정보 |
+| Sign in with Apple·Google 로그인 | 주량체커·차곡·알롱·한배 | 로그인할 때 그 서비스가 받는 정보 |
+| Open Library(Internet Archive, 미국)·국립중앙도서관 — 도서 정보 | 차곡 | 사진에서 읽은 책 바코드 번호(ISBN) 또는 제목으로 보이는 글자(사진 자체는 보내지 않음) |
+| Apple 지도 — 지도와 주변 장소 | 알롱 | 현재 위치 좌표('항상 허용'이면 앱을 닫은 동안에도) |
+| Apple 날씨(WeatherKit) — 탐험·홈·전투 화면의 날씨 | 알롱 | 약 1km 단위로 반올림한 위치 |
+| 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 |
+| Apple 푸시 알림 서비스(APNs) — 잠금 화면·위젯 점수 | 응원석 | 1절의 토큰 |
+| Apple App Attest — 앱 변조 확인 | 차곡·응원석·한배 | 앱 확인 값 |
 
 ### 4. 기기 권한
 
-앱이 요청하는 기기 권한은 그 서비스가 실제로 필요로 하는 최소한으로 제한됩니다. 어떤 권한을 왜 쓰는지는 이 방침과 앱 화면에서 안내됩니다. 모든 권한은 언제든 기기 설정에서 끌 수 있고, 알롱의 위치를 빼면 꺼도 앱의 핵심 기능에는 영향이 없습니다.
+권한은 기기 설정에서 언제든 끌 수 있습니다. 알롱의 위치를 빼면 꺼도 앱의 핵심 기능은 그대로입니다.
 
-- **주량체커**: 음주량이 한도를 넘을 때 알려 주기 위해 **알림** 권한을 요청합니다. 알림은 기기 안에서 만들어지며 외부 서버를 거치지 않습니다. 처음 실행할 때 안내하고, 설정의 '알림'에서 켜고 끕니다.
-- **차곡**: 기록을 사진으로 자동 인식하기 위해 **카메라**(앨범에서 고르는 경우 **사진 보관함**) 권한을, 기록하지 않은 날 저녁에 한 번 알려 주기 위해 **알림** 권한을 요청합니다(카메라 권한을 꺼도 직접 입력은 그대로 됩니다).
-- **알롱**: 주변을 탐험하고 함께 걸은 걸음을 세려고 **위치**(앱을 사용하는 동안, '항상 허용'을 고르면 앱을 닫은 동안에도)를, 알림을 보내려고 **알림** 권한을, 방 사진을 공유 창의 '이미지 저장'으로 저장할 때만 **사진 보관함에 추가** 권한을 요청합니다(앱은 사진을 읽지 않습니다). 위치는 운영자 서버로 보내지 않으며(위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다), 걸음은 하루·주간 합계만 게임 데이터와 주간 순위에 저장되고 순위에는 그 주 합계만 보입니다. 위치를 끄면 탐험과 걸음 세기를 쓸 수 없습니다.
-- **응원석**: 기기 권한을 요청하지 않습니다 — '실시간 현황'은 알림 권한과 별개로 동작하며, 앱의 내 자리나 기기 설정에서 끌 수 있습니다.
-- **한배**: 고른 노선에 탔는지 확인하고 근처 노선을 추천하려고, 앱을 쓰는 동안에만 **위치**를 요청합니다. 위치는 기기 안에서 역·열차 위치와 맞춰 보는 데만 쓰고 서버로 보내지 않습니다. 꺼도 노선에 들어갈 수 있습니다. 설정에서 '판 시작 알림'을 켤 때만 **알림** 권한을 요청합니다. 알림은 기기 안에서 예약해 보내며 서버로는 아무것도 보내지 않습니다.
+| 앱 | 권한 | 언제·왜 |
+|---|---|---|
+| 주량체커 | 알림 | 음주량이 한도를 넘을 때 알려 주기(기기 안에서 만듦) |
+| 차곡 | 카메라·사진 보관함 | 사진으로 기록 인식(꺼도 직접 입력 가능) |
+| 차곡 | 사진 보관함에 추가 | 통장 사본·리포트 이미지를 저장할 때만(사진을 읽지 않음) |
+| 차곡 | 알림 | 기록하지 않은 날 저녁 한 번(기기 안에서 예약) |
+| 알롱 | 위치(사용하는 동안, 고르면 항상) | 탐험과 걸음 세기(끄면 둘 다 못 씀) |
+| 알롱 | 알림 | 알림 보내기 |
+| 알롱 | 사진 보관함에 추가 | 방 사진을 '이미지 저장'할 때만(사진을 읽지 않음) |
+| 응원석 | 없음 | — |
+| 한배 | 위치(사용하는 동안, '대항전 알림'을 켜고 '항상 허용'하면 앱을 쓰지 않을 때도) | 고른 노선에 탔는지 확인·근처 노선 추천·판 시간에 역 근처에 오면 알림(꺼도 노선에 들어갈 수 있음) |
+| 한배 | 알림 | 설정에서 '대항전 알림'을 켤 때만(기기 안에서 만들어 보냄) |
 
-### 5. 제3자 서비스
+위치는 기기 안에서만 쓰고 운영자 서버로 보내지 않습니다(알롱 걸음은 하루·주간 합계만 게임 데이터와 순위에 저장). 위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다.
 
-모든 앱은 3절의 사용 통계를 위해 Google Firebase Analytics를 씁니다. 설정에서 이용약관·개인정보처리방침을 열 때 **GitHub Pages**(GitHub, Inc.)에서 문서 페이지를 불러옵니다. 앱을 켤 때는 업데이트 안내가 필요한지 확인하려고 같은 곳의 작은 설정 파일을 불러오고, App Store(Apple)의 공개 조회로 최신 버전 번호를 확인합니다(IP 주소 전달은 3절 참고). 광고 SDK와 크래시 리포트 도구는 포함하지 않습니다.
+### 5. 이용자의 권리와 행사 방법
 
-- **주량체커·차곡**: 계정을 연결했을 때 2절의 백업을 위해 Firebase Authentication·Cloud Firestore와 Sign in with Apple·Google 로그인을 씁니다.
-- **차곡**: 3절의 도서 정보 조회를 위해 Open Library와 국립중앙도서관을 씁니다.
-- **알롱**: 3절의 사용 통계를 위해 Google Firebase Analytics를, 게스트 계정과 2절의 저장을 위해 Firebase Authentication·Cloud Firestore를, 계정 연결을 위해 Sign in with Apple·Google 로그인을, 지도와 주변 장소 조회를 위해 Apple 지도를, 날씨를 위해 Apple 날씨(WeatherKit)를 씁니다.
-- **응원석**: 운영자 서버를 위한 Cloudflare, 잠금 화면·위젯 점수 전달을 위한 Apple 푸시 알림 서비스(APNs), 앱 변조 확인을 위한 Apple App Attest를 씁니다.
-- **한배**: 3절의 사용 통계를 위해 Google Firebase Analytics를, Cloudflare(서버), Sign in with Apple·Google(로그인), Apple App Attest(앱 변조 확인)를 씁니다.
+이용자는 언제든 자기 개인정보의 열람·정정·삭제·처리 정지를 요구할 수 있습니다.
 
-### 6. 아동의 개인정보
+- 앱 안에서 바로: 주량체커·차곡은 '연결 해제', 알롱·한배는 '계정 삭제', 응원석은 '실시간 현황' 끄기(위젯 토큰은 앱 삭제).
+- 그 밖의 요구는 아래 메일로 보내 주시면 10일 안에 처리 결과를 알려 드립니다.
 
-앱은 아동을 대상으로 하지 않으며, 아동을 겨냥한 기능이나 별도 수집은 없습니다. 3절의 사용 통계는 익명입니다.
+### 6. 파기 절차와 방법
 
-- **알롱**: 첫 실행 때 입력한 생일로 만 14세 미만임을 확인하면 이용을 막습니다(생일은 기기에만 저장되며 서버로 보내지 않습니다). 만 14세 이상 확인을 통과하기 전에는 서버에 아무것도 만들지 않으며, 확인 결과는 기기에 저장하고 계정을 연결하면 만 14세 이상인지 여부만 서버에 저장합니다.
-- **한배**: 첫 실행 때 입력한 생일로 만 14세 미만임을 확인하면 이용을 막습니다. 생일은 확인에만 쓰고 기기에도 서버에도 저장하지 않습니다.
+1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 법령에 따라 따로 보관하는 정보는 없습니다.
 
-### 7. 변경 사항
+### 7. 안전성 확보 조치
 
-이 방침이 변경되면 이 페이지에 바로 반영됩니다. 앱 안에서도 이 페이지를 그대로 보여 주므로 늘 최신 내용을 확인할 수 있습니다.
+- 앱이 주고받는 모든 전송은 암호화(HTTPS)합니다.
+- 주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
+- 응원석의 토큰 등록과 한배의 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다.
+- 서버 관리 권한은 운영자 한 명만 가집니다.
+
+### 8. 아동의 개인정보
+
+앱은 아동을 대상으로 하지 않습니다.
+
+- **알롱**: 첫 실행 때 입력한 생일로 만 14세 미만이면 이용을 막습니다. 확인을 통과하기 전에는 서버에 아무것도 만들지 않습니다.
+- **한배**: 첫 실행 때 입력한 생일로 만 14세 미만이면 이용을 막습니다. 생일은 확인에만 쓰고 기기에도 서버에도 저장하지 않습니다.
 
 <a id="website"></a>
 
-### 웹사이트(allong.my)
+### 9. 웹사이트(allong.my)
 
 알롱 소개 사이트 allong.my는 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지·누른 버튼·들어온 경로·기기와 브라우저 종류·IP 주소로 추정한 대략적인 지역(국가·도시 수준, IP 주소 자체는 저장하지 않음)과 브라우저에 저장되는 무작위 식별자(쿠키 _ga·_ga_로 시작하는 쿠키, 최대 2년)를 모으며, 이름·연락처는 받지 않습니다. Google 계정에 로그인해 광고 개인화를 허용한 방문자는 Google이 모은 연령대·성별·관심사가 개인을 알아볼 수 없는 집계 통계로 더해질 수 있습니다. 이 기록은 Google 애널리틱스에 14개월 동안 보관하고 앱의 통계와 섞지 않습니다. 유럽(브라우저 시간대로 판단)에서는 '허용'을 누른 경우에만 쿠키를 쓰고 통계를 보냅니다. 브라우저 설정에서 쿠키를 막거나 [Google 애널리틱스 차단 부가 기능](https://tools.google.com/dlpage/gaoptout)으로 거부할 수 있습니다.
+
+### 10. 변경 사항
+
+이 방침이 바뀌면 이 페이지에 바로 반영합니다. 앱 안에서도 이 페이지를 그대로 보여 주며, 맨 위에서 이전 판을 볼 수 있습니다.
 
 ### 운영자와 문의
 
@@ -95,7 +162,7 @@
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-11-04
+최종 수정일: 2026-11-06
 
 ---
 
@@ -104,87 +171,154 @@
 
 **Applies to: DrinkChecker · CheerSeat · Chagok · Allong · SameBoat**
 
-By default DrinkChecker, CheerSeat and Chagok collect no personal information. DrinkChecker, Chagok and Allong, which offer account connection (Apple or Google), store your account details and records on a backup server only if you connect an account in Settings (section 2). Allong creates a random account identifier and an Allong number, without your name or contact details, once you pass the age check (14 or older), stores your game data and weekly ranking records on the server whether or not you connect an account, and receives your email only if you connect an account (sections 1 and 2). CheerSeat keeps a device token on the operator's server only if you turn on Live Activities or add a widget, so it can show the score right away (section 2). SameBoat stores nothing on the server while you only browse without signing in; if you sign in with Apple or Google to send bubbles or join battles, it stores your account identifier and your nickname, points and the like on the server (no email; sections 1 and 2). All apps send anonymous usage statistics to help improve them (section 3). What differs by app is listed at the end of each section under the app's name.
+### At a glance
 
-### 1. Information we collect
+| App | What we keep on the operator's servers | When |
+|---|---|---|
+| DrinkChecker | Account identifier and email, drinking records | Only if you connect an account |
+| Chagok | Account identifier, email and nickname, hobby records (photos are never uploaded) | Only if you connect an account |
+| Allong | Account identifier and Allong number, game data and weekly rankings | From when you pass the age check (14 or older) |
+| Allong | Email and whether you are 14 or older | Only if you connect an account |
+| CheerSeat | Device token and team | Only if you turn on Live Activities or add a widget |
+| SameBoat | Account identifier, nickname and points | Only if you sign in to send bubbles or join battles |
 
-What we receive differs by app. The analytics tool assigns a random per-installation identifier that is not linked to your name or contact details (section 3).
+All apps send anonymous usage statistics (section 3). No app receives your name or phone number, and none sends your location to the operator's servers. We do not provide your information to others (section 2).
 
-- **DrinkChecker and Chagok**: every feature works without connecting an account, and if you don't connect one, the app collects no personally identifying information — no name, email, or phone number. If you connect an account in Settings, the app receives only the account identifier and email address (a relay address if you use Apple's Hide My Email) provided by the sign-in service (Apple or Google).
-- **Allong**: creates a guest account once you pass the age check (14 or older) on first launch and stores on the server a random **account identifier** and an **Allong number** that is shown to you. It does not ask for your name, email, or phone number at this point. If you connect an Apple or Google account in Settings, the app receives the **email address** provided by the sign-in service (a relay address if you use Apple's Hide My Email). It does not receive your name. The **date of birth** you enter on first launch is used to confirm you are 14 or older and for age-group statistics; it is stored on your device only and never sent to the server. If you connect an account, only whether you are 14 or older is stored on the server. Only an age group (one of six) is sent to statistics (section 3).
-- **CheerSeat**: has no account or login and does not collect your name, email, phone number, or location.
-- **SameBoat**: browsing lines, bubbles and rankings works without signing in, and nothing is stored on the server. To send bubbles or join battles, you sign in with Apple or Google to create an account; we receive only the account identifier from the sign-in service (no email). We keep your nickname (with its nickname number), profile outfits, points, restriction record (level and end time), and an Apple App Attest key used to block modified apps. Location is used on the device only (section 4).
+### 1. Information we process and how long we keep it
 
-### 2. How your data is stored
+Apart from what the tables below list, what you enter in an app is stored on your device only and is deleted when you delete the app.
 
-What you enter in the app is stored on your device and is deleted when you delete the app.
+**DrinkChecker and Chagok** — every feature works without an account. Only if you connect an account in Settings do we store the following, so your records come back on a new device.
 
-**DrinkChecker, Chagok and Allong**: if you connect an account, your records (for Allong, game data) and a random number that identifies the currently connected device are stored in a per-account space in Google Firebase (Cloud Firestore), so your records come back when you connect the same account on a new device. Only your own account can read or write that space. An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).
+| Information | Purpose | Kept until |
+|---|---|---|
+| Account identifier and email (a relay address if you use Apple's Hide My Email), plus in Chagok a nickname you set | Account connection | You disconnect |
+| DrinkChecker records (drink type, amount, date and time, limit) | Record backup | You disconnect |
+| Chagok records (which hobby, what and when, whether a record was confirmed by a photo) | Record backup | You disconnect |
 
-- **International transfer (DrinkChecker and Chagok)**: your account details (account identifier, email, and in Chagok your nickname) are processed and stored by Google LLC in the United States, and your records in South Korea (Seoul region). They are sent over the internet when you connect and whenever your records change, and kept until you disconnect.
-- **Deletion (DrinkChecker and Chagok)**: tapping Disconnect on the account card in Settings deletes your records and account from the server immediately. The records on this device stay.
+- Chagok photos are never uploaded; they stay on your device.
+- An account can be connected to one device at a time; connecting it on another device disconnects the earlier one (the server copy and that device's records stay).
+- Tapping Disconnect deletes your records and account from the server right away. The records on this device stay.
 
-- **DrinkChecker**: the records stored on the server are drink type, amount, date and time, and limit. The account card is at the top of Settings.
-- **Chagok**: the records stored on the server are which hobby, what and when — including the date a photo was taken if you logged from your photo library — and whether a record was confirmed by a photo. If you set a nickname in the app, it is stored in the name field of your account details. **Photos you use for records are never uploaded** — they stay on your device, so on a new device a note appears in their place. Server records and the account deleted with Disconnect cannot be recovered.
-- **Allong**: the guest account's **account identifier** and **Allong number** and your Allong's **game data** (your Allong and its name, outfits, materials, step totals, the collection book, and progress such as the kinds of places and countries you have visited for the first time — never your date of birth, coordinates, or the map cells you passed through) are stored in Google Firebase (Authentication and Cloud Firestore) even if you don't connect an account. If you connect an account, your **email** and **whether you passed the age check (14 or older)** are added and stored in the per-account space above, so your Allong comes back when you connect the same account on a new device. For Allong, connecting the same account on another device disconnects the original device and also deletes the Allong records left on it (the server records stay). For the weekly **rankings**, your Allong's **name** and the **last 4 characters of your Allong number**, your Allong's appearance (including the outfit it wears) and this week's steps, Dallongs defeated and friendship totals are uploaded to the server whether or not you connect an account, and other users can see them. They are deleted automatically if not updated for two weeks, and right away when you tap Delete Account.
-  - **International transfer**: the account identifier and email are processed and stored by Google LLC in the United States, and game data, rankings and the Allong number in South Korea (Seoul region). They are sent over the internet when you first open the app, when you connect an account, and when your game data changes, and kept until you delete your account (up to 14 days after the deletion request).
-  - **Deletion**: tapping Delete Account at the bottom of Settings immediately deletes the Allong and records on this device and the contents of your weekly ranking records on the server (only an empty deletion marker remains until permanent deletion). Your game data, Allong number and account identifier on the server (and your email, if you connected an account) are kept hidden from other users for 14 days after the deletion request, used during that time only to let you cancel the deletion, and then permanently deleted in a way that cannot be restored. However, so the same Allong number is never issued to someone else, we keep only a marker that the number has been used, and part of the game record (your Allong's appearance, level, days together, wins, Dallong defeat counts, badge types and the month of deletion) is moved under a random value unconnected to the Allong number or your account and kept only as statistics that cannot be traced to anyone. If you connected an Apple or Google account, you can cancel the deletion by connecting the same account again within 14 days, or delete everything right away with Delete Now on the screen that appears. Guest accounts can't be restored and are deleted together after 14 days so deletions can be processed in one batch. When you request deletion, your Apple or Google sign-in connection is removed right away.
-  - **Inactive guests**: the accounts and records of guests who haven't connected an account are deleted from the server one year after the app was last used. Guests have no contact details, so we can't notify you beforehand — connect an account to keep your records.
-- **CheerSeat**: your team and the Live Activities setting are stored on your device only. Only if Live Activities are on, the app keeps a **device token** issued by Apple (a random value), your **team code** and the **app language** on the operator's server, so it can start the Live Activity on your Lock Screen when a game begins. On iOS 26 or later, if you add a widget to your Home Screen or Lock Screen, the app keeps a **widget token** issued by Apple (a random value) and your **team code** on the operator's server and uses them to redraw the widget right away when the score changes. To check that these tokens are registered from the genuine app, the operator's server keeps an Apple App Attest key and deletes it 90 days after it was last used.
-  - **International transfer**: the operator's server runs on Cloudflare, Inc. (United States), with the database in the Asia-Pacific region. This data is sent over the internet when you turn Live Activities on, add a widget or change your team. The Live Activities token is deleted from the server as soon as you turn Live Activities off. When Apple invalidates a token, for example because you deleted the app, the server deletes it too.
-- **SameBoat**: bubbles are not kept on the server. For reported bubbles only, we keep the text, reason, time and both nicknames (with nickname numbers), and delete them 90 days after review. To pay battle points to your account, we keep the line you picked with your account and delete it once paid (for weekly and monthly winners, until the period ends, up to 31 days). The account details in section 1 are kept until you delete your account and are deleted 14 days after you request it (signing in again within that time cancels it). For accounts permanently banned, we keep the account identifier as an irreversible value (hash) until the ban ends, to prevent re-registration.
-  - **International transfer**: this information is sent over the internet to servers of Cloudflare, Inc. (United States) when you use the app and kept for the periods above; the database is in the Asia-Pacific region.
+**Allong** — once you pass the age check (14 or older) on first launch, Allong creates a guest account without your name or contact details and stores your game data on the server whether or not you connect an account.
 
-### 3. Network communication and usage statistics
+| Information | Purpose | Kept until |
+|---|---|---|
+| Account identifier and Allong number | Guest account | 14 days after you request account deletion |
+| Game data (your Allong and its name, outfits, materials, step totals, the collection book, and progress such as kinds of places and countries visited — never your date of birth, coordinates or the map cells you passed) | Saving game progress | 14 days after you request account deletion |
+| Weekly rankings (Allong name, last 4 characters of the Allong number, Allong appearance, this week's steps, Dallongs defeated and friendship totals) | Showing rankings to other users | Deleted automatically if not updated for two weeks, and right away when you delete your account |
+| Email (a relay address if you use Apple's Hide My Email) and whether you are 14 or older | Account connection | 14 days after you request account deletion |
 
-To analyze statistics for improving the service, all apps automatically collect **service usage records** and **device information** (device model, OS version, app version, and a random identifier created for each installation of the app) through Google Firebase Analytics. They also collect an **approximate region** derived from your IP address (country or city level); Google masks part of the IP address before estimating it. This information is not used to identify you and is not linked to your name, contact details, or advertising identifier. Firebase Analytics receives only the information described in this section. This statistics data is sent over the internet to Google LLC (United States) for processing when you use an app and is deleted after at most 14 months.
+- Your date of birth is used for the age check and age-group statistics and is stored on your device only. Statistics receive only an age group (one of six).
+- Connecting the same account on another device disconnects the original device and deletes the Allong records on it (the server records stay).
+- Delete Account removes the Allong on this device and your weekly rankings right away. The rest of your server data is hidden from other users for 14 days, used only to let you cancel, and then permanently deleted. You can cancel by connecting the same account again within that time; guest accounts can't be restored. So the same Allong number is never issued again, we keep only a marker that the number was used and game statistics that cannot be traced to anyone.
+- Guests who haven't connected an account are deleted from the server one year after they last used the app. Guests have no contact details, so we can't notify you beforehand — connect an account to keep your records.
 
-**What the statistics never include**: the contents of what you record. No app collects an advertising identifier (IDFA), and none of this is used for advertising or to track you. The apps send no crash reports.
+**CheerSeat** — has no account or login. Your team and settings are stored on your device only; the following is kept on the server only when you use these features.
 
-**External requests and your IP address**: when an app makes a request to an external service listed in section 5, then, as with any web request, connection details such as your IP address may reach that service; the operator does not receive or keep this information.
+| Information | Purpose | Kept until |
+|---|---|---|
+| Device token (a random value issued by Apple), team and app language | Showing the score on your Lock Screen with Live Activities | You turn Live Activities off (or, if you delete the app, until Apple invalidates the token) |
+| Widget token (a random value issued by Apple) and team | Redrawing widgets right away when the score changes (iOS 26 or later) | Apple invalidates the token (for example, when you delete the app) |
+| Apple App Attest key | Checking that tokens are registered from the genuine app | 90 days after it was last used |
 
-- **DrinkChecker**: the record contents kept out of the statistics are how much you drank, what you drank, when, the limit you set, and whether you went over it. If you connect an account, these records are stored only in the backup space in section 2.
-- **Chagok**: the record contents kept out of the statistics are the titles, notes and photos you record. If you connect an account, records are stored only in the backup space in section 2, and photos are never uploaded there either. Chagok recognizes photos entirely on your device, and photos never leave it. If a photo is judged to be a book (cover or back), only the **book title text or ISBN read from it** (neither the photo nor personal information) is looked up with the book-information providers **Open Library** (Internet Archive, United States) and the **National Library of Korea**, to find details such as the author. If you enter a record by hand instead, no lookup happens.
-- **Allong**: your date of birth, location, Allong number, account identifier and email are not included in the statistics either (only the age group calculated from the date of birth, one of six, is sent). It sends your current location coordinates to **Apple Maps** (Apple Inc.) to show the map on the Explore screen and to find places around you. If you choose Always Allow, this lookup may also happen while the app is closed, to check for places nearby. It also sends an approximate location (coordinates rounded to about 1 km) to **Apple Weather** (WeatherKit, Apple Inc.) to use the local weather in your Allong's Explore, Home and battle screens. Your location is used only on your device and is never sent to the operator's server; if you don't allow location access, this lookup doesn't happen.
-- **CheerSeat**: gets scores, schedules and standings from the operator's server (Cloudflare). Connection details of this request pass through Cloudflare; the operator does not keep them.
-- **SameBoat**: exchanges line counts, train positions, bubbles and rankings with the operator's server (Cloudflare). Connection data passes through Cloudflare; the operator does not keep it. The statistics never include your line, bubbles or account number.
+**SameBoat** — browsing lines, bubbles and rankings works without signing in, and nothing is stored on the server then. To send bubbles or join battles, you sign in with Apple or Google.
+
+| Information | Purpose | Kept until |
+|---|---|---|
+| Account identifier (Apple or Google; no email) | Sign-in | 14 days after you request account deletion (signing in again within that time cancels it) |
+| Nickname, points and restriction record | Bubbles, battles and restrictions | 14 days after you request account deletion |
+| The line you picked in a battle (with your account) | Paying battle points | Deleted once paid (for weekly and monthly winners, until the period ends, up to 31 days) |
+| Reported bubbles (text, reason, time and both nicknames) | Reviewing reports | 90 days after review |
+| Identifier of a permanently banned account (turned into an irreversible value) | Preventing re-registration | The ban ends |
+
+- Only reported bubbles are kept on the server.
+
+### 2. Service providers and international transfer
+
+We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles and nicknames are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea.
+
+| Recipient (contact) | Task | Apps | Where the data is |
+|---|---|---|---|
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records | DrinkChecker, Chagok, Allong | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) |
+| Google LLC — Firebase Analytics (same) | Usage statistics | All apps | United States |
+| Cloudflare, Inc. (privacyquestions@cloudflare.com) | Operator's server | CheerSeat, SameBoat | US company; database in the Asia-Pacific region |
+
+- **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
+- **Retention**: as in the tables in section 1; statistics for up to 14 months.
+- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account.
+
+### 3. Usage statistics and external requests
+
+To analyze statistics for improving the service, all apps automatically collect **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (drinking records, the titles, notes and photos of hobby records, bubbles, lines, location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking.
+
+When an app makes a request to the external services below, connection details such as your IP address may reach that service, as with any web request; the operator does not receive or keep them.
+
+| External service | Apps | What is sent |
+|---|---|---|
+| GitHub Pages (GitHub, Inc.) — Terms and Privacy pages, update-notice settings file | All apps | Connection details |
+| App Store public lookup (Apple) — latest version check | All apps | Connection details |
+| Sign in with Apple and Google Sign-In | DrinkChecker, Chagok, Allong, SameBoat | What that service receives when you sign in |
+| Open Library (Internet Archive, United States) and the National Library of Korea — book details | Chagok | A book barcode number (ISBN) or text that looks like a title, read from a photo (the photo itself is never sent) |
+| Apple Maps — map and nearby places | Allong | Current location coordinates (also while the app is closed if you choose Always Allow) |
+| Apple Weather (WeatherKit) — weather on the Explore, Home and battle screens | Allong | Location rounded to about 1 km |
+| Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details |
+| Apple Push Notification service (APNs) — Lock Screen and widget scores | CheerSeat | The tokens in section 1 |
+| Apple App Attest — app integrity check | Chagok, CheerSeat, SameBoat | Integrity check data |
 
 ### 4. Device permissions
 
-The apps only request the minimum device permissions that the service actually needs. What each app uses and why is explained in this policy and in the app itself. Every permission can be turned off anytime in your device settings, and except for Allong's location, the app's core functionality still works either way.
+You can turn any permission off anytime in your device settings. Except for Allong's location, the app's core features keep working.
 
-- **DrinkChecker**: requests **notifications** to let you know when you've gone over your limit. Notifications are created on your device and never pass through a server. The app explains this during first-run setup, and you can turn notifications on or off under Notifications in Settings.
-- **Chagok**: requests the **camera** (or **photo library** when you pick from your albums) to recognize records from photos, and **notifications** to remind you once in the evening on days you haven't logged (with the camera off you can still enter records by hand).
-- **Allong**: requests **location** (while using the app, or also while it's closed if you choose Always Allow) to explore around you and count the steps you walk together, **notifications** to send you alerts, and **add to Photos** only when you save a room photo with "Save Image" in the share sheet (the app never reads your photos). Location is never sent to the operator's server (location leaves your device only for the Apple Maps and Apple Weather lookups in section 3); only daily and weekly step totals are stored in your game data and the weekly rankings, and the rankings show only that week's total. Without location you can't use Explore or step counting.
-- **CheerSeat**: requests no device permissions — Live Activities work separately from notification permission and can be turned off in My Seat or in your device settings.
-- **SameBoat**: requests **location** only while you use the app, to check you're on the line you picked and suggest nearby lines. It is matched against station and train positions on the device only and never sent to a server. You can still enter a line with it off. It requests **notification** permission only when you turn on Round alerts in Settings; alerts are scheduled on the device and nothing is sent to a server.
+| App | Permission | When and why |
+|---|---|---|
+| DrinkChecker | Notifications | Alerting you when you go over your limit (created on the device) |
+| Chagok | Camera and photo library | Recognizing records from photos (you can still enter them by hand) |
+| Chagok | Add to Photos | Only when you save a passbook copy or report image (the app never reads your photos) |
+| Chagok | Notifications | One reminder in the evening on days you haven't logged (scheduled on the device) |
+| Allong | Location (while using, or always if you choose) | Exploring and counting steps (neither works without it) |
+| Allong | Notifications | Sending alerts |
+| Allong | Add to Photos | Only when you save a room photo with Save Image (the app never reads your photos) |
+| CheerSeat | None | — |
+| SameBoat | Location (while using; also in the background if you turn on Line Battle alerts and choose Always) | Checking you're on the line you picked, suggesting nearby lines, and alerting you near a station during a round (you can still enter a line without it) |
+| SameBoat | Notifications | Only when you turn on Line Battle alerts in Settings (created on the device) |
 
-### 5. Third-party services
+Location is used on your device only and never sent to the operator's servers (for Allong, only daily and weekly step totals are stored in game data and rankings). Location leaves your device only for the Apple Maps and Apple Weather lookups in section 3.
 
-All apps use Google Firebase Analytics for the usage statistics in section 3. Opening Terms of Service or the Privacy Policy in Settings loads the page from **GitHub Pages** (GitHub, Inc.). When an app opens, it loads a small settings file from the same place and checks the latest version number with the App Store's public lookup (Apple) to see whether an update notice is needed (see section 3 for the IP address). The apps do not include advertising SDKs or crash-reporting tools.
+### 5. Your rights and how to use them
 
-- **DrinkChecker and Chagok**: if you connect an account, they use Firebase Authentication, Cloud Firestore, Sign in with Apple and Google Sign-In for the backup in section 2.
-- **Chagok**: uses Open Library and the National Library of Korea for the book lookup in section 3.
-- **Allong**: uses Google Firebase Analytics for the statistics in section 3, Firebase Authentication and Cloud Firestore for the guest account and the storage in section 2, Sign in with Apple and Google Sign-In for connecting an account, Apple Maps for the map and nearby-place lookup, and Apple Weather (WeatherKit) for the weather.
-- **CheerSeat**: uses Cloudflare for the operator's server, the Apple Push Notification service (APNs) to deliver scores to your Lock Screen and widgets, and Apple App Attest (app integrity check).
-- **SameBoat**: uses Google Firebase Analytics for the statistics in section 3, Cloudflare (server), Sign in with Apple and Google Sign-In (sign-in), and Apple App Attest (app integrity check).
+You can ask at any time to see, correct, delete or stop the processing of your personal information.
 
-### 6. Children's privacy
+- In the app: Disconnect in DrinkChecker and Chagok, Delete Account in Allong and SameBoat, and turning Live Activities off in CheerSeat (widget tokens: delete the app).
+- For anything else, email us below and we will reply with the result within 10 days.
 
-The app is not directed at children, and has no child-directed features or separate collection from children. The usage statistics in section 3 are anonymous.
+### 6. Deletion procedure and method
 
-- **Allong**: blocks use if the date of birth entered on first launch shows the user is under 14 (the date of birth is stored on the device only and never sent to the server). Nothing is created on the server until you pass the age check, the result is stored on your device, and if you connect an account only whether you are 14 or older is stored on the server.
+When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. We keep no information under other legal retention requirements.
+
+### 7. Security measures
+
+- All traffic to and from the apps is encrypted (HTTPS).
+- In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account.
+- CheerSeat token registrations and SameBoat battle entries are checked with Apple App Attest to confirm they come from the genuine app.
+- Only the operator has administrative access to the servers.
+
+### 8. Children's privacy
+
+The apps are not directed at children.
+
+- **Allong**: blocks use if the date of birth entered on first launch shows the user is under 14. Nothing is created on the server until you pass the check.
 - **SameBoat**: blocks use if the date of birth entered on first launch shows the user is under 14. The date of birth is used only for this check and is stored neither on the device nor on a server.
-
-### 7. Changes
-
-Any change to this policy is published on this page right away. The app shows this same page, so you always see the current version.
 
 <a id="website-en"></a>
 
-### Website (allong.my)
+### 9. Website (allong.my)
 
 The Allong website allong.my uses Google Analytics (Google LLC, United States) for visit statistics. It collects the pages you visit, the buttons you tap, how you arrived, your device and browser type, an approximate region estimated from your IP address (country or city level; the IP address itself is not stored) and a random identifier stored in your browser (cookies _ga and those starting with _ga_, up to 2 years). It does not receive your name or contact details. For visitors signed in to a Google account with ad personalization turned on, Google may add age range, gender and interests as aggregated statistics that cannot identify anyone. These records are kept in Google Analytics for 14 months and are not mixed with the apps' statistics. In Europe (judged by your browser's time zone), cookies are used and statistics are sent only if you tap Allow. You can refuse by blocking cookies in your browser settings or with the [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout).
+
+### 10. Changes
+
+Any change to this policy is published on this page right away. The apps show this same page, and earlier versions can be selected at the top.
 
 ### Operator and contact
 
@@ -192,4 +326,4 @@ The Allong website allong.my uses Google Analytics (Google LLC, United States) f
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-11-04
+Last updated: 2026-11-06

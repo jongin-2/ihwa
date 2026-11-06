@@ -26,7 +26,8 @@ CSS = """:root{--bg:#fff;--fg:#1c1c1e;--sub:#6e6e73;--line:#e5e5ea;--link:#0a7c3
 main{max-width:720px;margin:0 auto;padding:32px 16px 64px}h1{font-size:1.6rem;line-height:1.3;margin:0 0 8px}h2{font-size:1.3rem;margin:40px 0 8px}h3{font-size:1.05rem;margin:28px 0 4px}
 p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);margin:40px 0}.lang{color:var(--sub)}
 .ver{margin:4px 0 20px}.ver select{font:inherit;font-size:min(1em,26px);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 28px 6px 10px;max-width:100%;box-sizing:border-box;height:max(44px,calc(1.25em + 14px))}.old{background:var(--line);border-radius:10px;padding:12px 14px;margin:0 0 20px}
-.tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{color:var(--sub);font-weight:600}"""
+.tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{color:var(--sub);font-weight:600}
+ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}"""
 def inline(t):
     t = html.escape(t, quote=False).replace('&lt;a id=', '<a id=').replace('&gt;&lt;/a&gt;', '></a>')
     t = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', t)
@@ -39,6 +40,16 @@ def table(b):
     th = ''.join(f'<th>{inline(c)}</th>' for c in head)
     tr = ''.join('<tr>' + ''.join(f'<td>{inline(c)}</td>' for c in r) + '</tr>' for r in body)
     return f'<div class="tbl"><table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
+def bullets(b):
+    """'- 항목' 줄과 두 칸 들여 쓴 '  - 하위 항목' 줄 → <ul>. 11-06까지는 목록을 그리지 않아 앱별 줄이 한 문단으로 뭉쳐 보였다(종인님 "가독성이 왜이리 안좋아")."""
+    html_, open_sub = ['<ul>'], False
+    for l in b.split('\n'):
+        sub = l.startswith('  ')
+        if sub and not open_sub: html_[-1] = html_[-1][:-5] + '<ul>'; open_sub = True  # 바로 앞 <li>를 닫지 않고 하위 목록을 연다
+        elif not sub and open_sub: html_.append('</ul></li>'); open_sub = False
+        html_.append(f'<li>{inline(l.strip()[2:])}</li>')
+    if open_sub: html_.append('</ul></li>')
+    return '\n'.join(html_ + ['</ul>'])
 def render(md):
     out, title = [], ''
     blocks = []
@@ -55,6 +66,7 @@ def render(md):
         elif b.startswith('<a id='): out.append(b)
         elif b.startswith('[한국어]'): out.append(f'<p class="lang">{inline(b)}</p>')
         elif all(l.startswith('|') for l in b.split('\n')): out.append(table(b))
+        elif all(re.match(r' {0,2}- ', l) for l in b.split('\n')): out.append(bullets(b))
         else: out.append(f'<p>{inline(b)}</p>')
     return title, '\n'.join(out)
 # ---- 이전 판 보관(2026-10-10 종인님 "개인정보처리방침은 수정하면 기존 본도 볼 수 있어야 해", "이용약관도") ----
