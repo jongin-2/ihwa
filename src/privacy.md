@@ -7,19 +7,6 @@
 
 **적용 앱: 주량체커 · 응원석 · 차곡 · 알롱 · 한배**
 
-### 한눈에 보기
-
-| 앱 | 운영자 서버에 두는 정보 | 언제 |
-|---|---|---|
-| 주량체커 | 계정 식별자·이메일, 음주 기록 | 계정을 연결한 경우만 |
-| 차곡 | 계정 식별자·이메일·닉네임, 취미 기록(사진은 올리지 않음) | 계정을 연결한 경우만 |
-| 알롱 | 계정 식별자·알롱 번호, 게임 데이터·주간 순위 | 만 14세 이상 확인을 통과한 뒤부터 |
-| 알롱 | 이메일·만 14세 이상 여부 | 계정을 연결한 경우만 |
-| 응원석 | 기기 토큰·응원팀 | '실시간 현황'을 켜거나 위젯을 놓은 경우만 |
-| 한배 | 계정 식별자·닉네임·포인트 | 말풍선·대항전을 쓰려고 로그인한 경우만 |
-
-모든 앱은 익명 사용 통계를 보냅니다(3절). 어느 앱도 이름·전화번호를 받지 않고, 위치를 운영자 서버로 보내지 않습니다. 정보는 다른 사람에게 제공하지 않습니다(2절).
-
 ### 1. 처리하는 정보와 보관 기간
 
 아래 표에 적은 것 말고는 앱에서 입력한 정보를 기기 안에만 저장하며, 앱을 지우면 함께 지워집니다.
@@ -170,19 +157,6 @@
 ## English
 
 **Applies to: DrinkChecker · CheerSeat · Chagok · Allong · SameBoat**
-
-### At a glance
-
-| App | What we keep on the operator's servers | When |
-|---|---|---|
-| DrinkChecker | Account identifier and email, drinking records | Only if you connect an account |
-| Chagok | Account identifier, email and nickname, hobby records (photos are never uploaded) | Only if you connect an account |
-| Allong | Account identifier and Allong number, game data and weekly rankings | From when you pass the age check (14 or older) |
-| Allong | Email and whether you are 14 or older | Only if you connect an account |
-| CheerSeat | Device token and team | Only if you turn on Live Activities or add a widget |
-| SameBoat | Account identifier, nickname and points | Only if you sign in to send bubbles or join battles |
-
-All apps send anonymous usage statistics (section 3). No app receives your name or phone number, and none sends your location to the operator's servers. We do not provide your information to others (section 2).
 
 ### 1. Information we process and how long we keep it
 
