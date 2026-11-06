@@ -113,6 +113,8 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
           key={attempt}
           ref={web}
           source={{ uri: legalUrl(doc, lang) }}
+          // 저장해 둔 사본을 쓰지 않는다 — GitHub Pages가 10분 캐시를 허락해, 게시 직후 앱에서 옛 판이 보였다(11-06 종인님 "앱에서 왜 최신이 안보이지")
+          cacheEnabled={false}
           style={styles.web}
           injectedJavaScriptBeforeContentLoaded={PAGE_STYLE}
           onLoadStart={() => setLoading(true)}
