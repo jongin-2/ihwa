@@ -120,7 +120,7 @@ def design_system_page():
             ':root{--ds-bg:#f2f2f7;--ds-card:#fff;--ds-text:#1c1c1e;--ds-sub:#6b6b70;--ds-line:#e2e2e6}'
             '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ds-bg:#000;--ds-card:#1c1c1e;--ds-text:#fff;--ds-sub:#98989d;--ds-line:#38383a;color-scheme:dark}}'
             ':root[data-theme="dark"]{--ds-bg:#000;--ds-card:#1c1c1e;--ds-text:#fff;--ds-sub:#98989d;--ds-line:#38383a;color-scheme:dark}'
-            'body{margin:0;background:var(--ds-bg);color:var(--ds-text);font:15px/1.45 -apple-system,"Apple SD Gothic Neo",sans-serif}'
+            'body{margin:0;background:var(--ds-bg);color:var(--ds-text);font:15px/1.45 -apple-system,"Apple SD Gothic Neo",system-ui,sans-serif}'
             'main{max-width:760px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-left)) 48px;display:grid;gap:16px}'
             'section{background:var(--ds-card);border-radius:16px;padding:14px 16px}h2{margin:0 0 4px;font-size:17px}h2 small{color:var(--ds-sub);font-weight:500}'
             'section>p{margin:0 0 8px;color:var(--ds-sub);font-size:13px}.row{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:2px 12px;padding:9px 0;border-top:1px solid var(--ds-line);align-items:center}'
