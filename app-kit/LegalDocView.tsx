@@ -127,7 +127,8 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
             return false;
           }}
           allowsLinkPreview={false}
-          dataDetectorTypes="none"
+          // 목록으로 넘긴다 — 네이티브 정의가 두 플랫폼 모두 목록이라 문자열이면 Android가 ClassCastException으로 멈춤(11-06 한배 Android)
+          dataDetectorTypes={['none']}
         />
       )}
       {!failed && <DelayedSpinner visible={loading} />}
