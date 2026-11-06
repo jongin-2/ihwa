@@ -40,8 +40,8 @@
 
 | 정보 | 목적 | 보관 기간 |
 |---|---|---|
-| 계정 식별자·알롱 번호 | 게스트 계정 | 계정 삭제 요청 뒤 14일 |
-| 게임 데이터(알롱과 이름·꾸미기·재료·걸음 합계, 도감, 처음 가 본 장소 종류·나라 등 — 생일·좌표·지나간 칸은 빼고) | 게임 진행 저장 | 계정 삭제 요청 뒤 14일 |
+| 계정 식별자·알롱 번호 | 계정(게스트 포함) | 계정 삭제 요청 뒤 14일 |
+| 게임 데이터(알롱과 이름·꾸미기·재료·걸음 합계, 도감, 처음 가 본 장소 종류 등 — 생일·좌표·지나간 칸은 빼고) | 게임 진행 저장 | 계정 삭제 요청 뒤 14일 |
 | 주간 순위(알롱 이름·알롱 번호 뒤 4자리·알롱 모습·이번 주 걸음·이긴 달롱·친밀도 합계) | 다른 이용자에게 순위 공개 | 2주 동안 새로 쓰이지 않으면 자동 삭제, 계정 삭제 때 바로 |
 | 이메일(Apple '이메일 가리기'면 대체 주소)·만 14세 이상 여부 | 계정 연결 | 계정 삭제 요청 뒤 14일 |
 
@@ -82,7 +82,7 @@
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
 - **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
-- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다.
+- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해, 거부하려면 앱을 쓰지 않아야 합니다(계정을 삭제해도 다시 시작하면 새 게스트 계정이 만들어집니다).
 
 ### 3. 사용 통계와 외부 요청
 
@@ -100,7 +100,7 @@
 | Apple 날씨(WeatherKit) — 탐험·홈·전투 화면의 날씨 | 알롱 | 약 1km 단위로 반올림한 위치 |
 | 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 |
 | Apple 푸시 알림 서비스(APNs) — 잠금 화면·위젯 점수 | 응원석 | 1절의 토큰 |
-| Apple App Attest — 앱 변조 확인 | 차곡·응원석·한배 | 앱 확인 값 |
+| Apple App Attest — 앱 변조 확인 | 차곡·응원석·알롱·한배 | 앱 확인 값 |
 
 ### 4. 기기 권한
 
@@ -150,7 +150,7 @@
 
 ### 9. 웹사이트(allong.my)
 
-알롱 소개 사이트 allong.my는 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지·누른 버튼·들어온 경로·기기와 브라우저 종류·IP 주소로 추정한 대략적인 지역(국가·도시 수준, IP 주소 자체는 저장하지 않음)과 브라우저에 저장되는 무작위 식별자(쿠키 _ga·_ga_로 시작하는 쿠키, 최대 2년)를 모으며, 이름·연락처는 받지 않습니다. Google 계정에 로그인해 광고 개인화를 허용한 방문자는 Google이 모은 연령대·성별·관심사가 개인을 알아볼 수 없는 집계 통계로 더해질 수 있습니다. 이 기록은 Google 애널리틱스에 14개월 동안 보관하고 앱의 통계와 섞지 않습니다. 유럽(브라우저 시간대로 판단)에서는 '허용'을 누른 경우에만 쿠키를 쓰고 통계를 보냅니다. 브라우저 설정에서 쿠키를 막거나 [Google 애널리틱스 차단 부가 기능](https://tools.google.com/dlpage/gaoptout)으로 거부할 수 있습니다.
+알롱 소개 사이트 allong.my는 GitHub Pages(GitHub, Inc., 미국)에서 제공되어 접속 정보가 전달될 수 있으며, 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지·누른 버튼·들어온 경로·기기와 브라우저 종류·IP 주소로 추정한 대략적인 지역(국가·도시 수준, IP 주소 자체는 저장하지 않음)과 브라우저에 저장되는 무작위 식별자(쿠키 _ga·_ga_로 시작하는 쿠키, 최대 2년)를 모으며, 이름·연락처는 받지 않습니다. Google 계정에 로그인해 광고 개인화를 허용한 방문자는 Google이 모은 연령대·성별·관심사가 개인을 알아볼 수 없는 집계 통계로 더해질 수 있습니다. 이 기록은 Google 애널리틱스에 14개월 동안 보관하고 앱의 통계와 섞지 않습니다. 유럽(브라우저 시간대로 판단)에서는 '허용'을 누른 경우에만 쿠키를 쓰고 통계를 보냅니다. 브라우저 설정에서 쿠키를 막거나 [Google 애널리틱스 차단 부가 기능](https://tools.google.com/dlpage/gaoptout)으로 거부할 수 있습니다.
 
 ### 10. 변경 사항
 
@@ -204,8 +204,8 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 | Information | Purpose | Kept until |
 |---|---|---|
-| Account identifier and Allong number | Guest account | 14 days after you request account deletion |
-| Game data (your Allong and its name, outfits, materials, step totals, the collection book, and progress such as kinds of places and countries visited — never your date of birth, coordinates or the map cells you passed) | Saving game progress | 14 days after you request account deletion |
+| Account identifier and Allong number | Account (including guests) | 14 days after you request account deletion |
+| Game data (your Allong and its name, outfits, materials, step totals, the collection book, and progress such as kinds of places visited — never your date of birth, coordinates or the map cells you passed) | Saving game progress | 14 days after you request account deletion |
 | Weekly rankings (Allong name, last 4 characters of the Allong number, Allong appearance, this week's steps, Dallongs defeated and friendship totals) | Showing rankings to other users | Deleted automatically if not updated for two weeks, and right away when you delete your account |
 | Email (a relay address if you use Apple's Hide My Email) and whether you are 14 or older | Account connection | 14 days after you request account deletion |
 
@@ -246,7 +246,7 @@ We do not provide your information to others. However, Allong's weekly rankings 
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
 - **Retention**: as in the tables in section 1; statistics for up to 14 months.
-- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account.
+- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means not using the app (if you delete your account and start again, a new guest account is created).
 
 ### 3. Usage statistics and external requests
 
@@ -264,7 +264,7 @@ When an app makes a request to the external services below, connection details s
 | Apple Weather (WeatherKit) — weather on the Explore, Home and battle screens | Allong | Location rounded to about 1 km |
 | Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details |
 | Apple Push Notification service (APNs) — Lock Screen and widget scores | CheerSeat | The tokens in section 1 |
-| Apple App Attest — app integrity check | Chagok, CheerSeat, SameBoat | Integrity check data |
+| Apple App Attest — app integrity check | Chagok, CheerSeat, Allong, SameBoat | Integrity check data |
 
 ### 4. Device permissions
 
@@ -314,7 +314,7 @@ The apps are not directed at children.
 
 ### 9. Website (allong.my)
 
-The Allong website allong.my uses Google Analytics (Google LLC, United States) for visit statistics. It collects the pages you visit, the buttons you tap, how you arrived, your device and browser type, an approximate region estimated from your IP address (country or city level; the IP address itself is not stored) and a random identifier stored in your browser (cookies _ga and those starting with _ga_, up to 2 years). It does not receive your name or contact details. For visitors signed in to a Google account with ad personalization turned on, Google may add age range, gender and interests as aggregated statistics that cannot identify anyone. These records are kept in Google Analytics for 14 months and are not mixed with the apps' statistics. In Europe (judged by your browser's time zone), cookies are used and statistics are sent only if you tap Allow. You can refuse by blocking cookies in your browser settings or with the [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout).
+The Allong website allong.my is served by GitHub Pages (GitHub, Inc., United States), so connection details may reach it, and uses Google Analytics (Google LLC, United States) for visit statistics. It collects the pages you visit, the buttons you tap, how you arrived, your device and browser type, an approximate region estimated from your IP address (country or city level; the IP address itself is not stored) and a random identifier stored in your browser (cookies _ga and those starting with _ga_, up to 2 years). It does not receive your name or contact details. For visitors signed in to a Google account with ad personalization turned on, Google may add age range, gender and interests as aggregated statistics that cannot identify anyone. These records are kept in Google Analytics for 14 months and are not mixed with the apps' statistics. In Europe (judged by your browser's time zone), cookies are used and statistics are sent only if you tap Allow. You can refuse by blocking cookies in your browser settings or with the [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout).
 
 ### 10. Changes
 
