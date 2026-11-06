@@ -116,8 +116,8 @@
 | 알롱 | 알림 | 알림 보내기 |
 | 알롱 | 사진 보관함에 추가 | 방 사진을 '이미지 저장'할 때만(사진을 읽지 않음) |
 | 응원석 | 없음 | — |
-| 한배 | 위치(사용하는 동안) | 고른 노선에 탔는지 확인·근처 노선 추천(꺼도 노선에 들어갈 수 있음) |
-| 한배 | 알림 | 설정에서 '판 시작 알림'을 켤 때만(기기 안에서 예약) |
+| 한배 | 위치(사용하는 동안, '대항전 알림'을 켜고 '항상 허용'하면 앱을 쓰지 않을 때도) | 고른 노선에 탔는지 확인·근처 노선 추천·판 시간에 역 근처에 오면 알림(꺼도 노선에 들어갈 수 있음) |
+| 한배 | 알림 | 설정에서 '대항전 알림'을 켤 때만(기기 안에서 만들어 보냄) |
 
 위치는 기기 안에서만 쓰고 운영자 서버로 보내지 않습니다(알롱 걸음은 하루·주간 합계만 게임 데이터와 순위에 저장). 위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다.
 
@@ -280,8 +280,8 @@ You can turn any permission off anytime in your device settings. Except for Allo
 | Allong | Notifications | Sending alerts |
 | Allong | Add to Photos | Only when you save a room photo with Save Image (the app never reads your photos) |
 | CheerSeat | None | — |
-| SameBoat | Location (while using) | Checking you're on the line you picked and suggesting nearby lines (you can still enter a line without it) |
-| SameBoat | Notifications | Only when you turn on Round alerts in Settings (scheduled on the device) |
+| SameBoat | Location (while using; also in the background if you turn on Line Battle alerts and choose Always) | Checking you're on the line you picked, suggesting nearby lines, and alerting you near a station during a round (you can still enter a line without it) |
+| SameBoat | Notifications | Only when you turn on Line Battle alerts in Settings (created on the device) |
 
 Location is used on your device only and never sent to the operator's servers (for Allong, only daily and weekly step totals are stored in game data and rankings). Location leaves your device only for the Apple Maps and Apple Weather lookups in section 3.
 
