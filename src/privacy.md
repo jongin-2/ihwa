@@ -74,11 +74,11 @@
 
 운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임은 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다.
 
-| 받는 곳(연락처) | 맡기는 일 | 앱 | 정보가 있는 곳 |
-|---|---|---|---|
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관 | 주량체커·차곡·알롱 | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) |
-| Google LLC — Firebase Analytics(같음) | 사용 통계 | 모든 앱 | 미국 |
-| Cloudflare, Inc.(privacyquestions@cloudflare.com) | 운영자 서버 | 응원석·한배 | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
+| 받는 곳(연락처) | 맡기는 일(앱) | 정보가 있는 곳 |
+|---|---|---|
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) |
+| Google LLC — Firebase Analytics(같음) | 사용 통계(모든 앱) | 미국 |
+| Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
 - **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
@@ -238,11 +238,11 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles and nicknames are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea.
 
-| Recipient (contact) | Task | Apps | Where the data is |
-|---|---|---|---|
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records | DrinkChecker, Chagok, Allong | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) |
-| Google LLC — Firebase Analytics (same) | Usage statistics | All apps | United States |
-| Cloudflare, Inc. (privacyquestions@cloudflare.com) | Operator's server | CheerSeat, SameBoat | US company; database in the Asia-Pacific region |
+| Recipient (contact) | Task (apps) | Where the data is |
+|---|---|---|
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) |
+| Google LLC — Firebase Analytics (same) | Usage statistics (all apps) | United States |
+| Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat) | US company; database in the Asia-Pacific region |
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
 - **Retention**: as in the tables in section 1; statistics for up to 14 months.
