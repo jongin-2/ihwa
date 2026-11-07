@@ -129,8 +129,14 @@
 | tr | Son yedekleme: {ago} |
 | id | Cadangan terakhir: {ago} |
 | vi | Sao lưu gần nhất: {ago} |
+| nl | Laatste back-up: {ago} |
+| pl | Ostatnia kopia: {ago} |
+| sv | Senaste säkerhets­kopia: {ago} |
+| th | สำรองล่าสุด: {ago} |
+| cs | Poslední záloha: {ago} |
+| uk | Остання копія: {ago} |
 
-차곡에 없는 언어(nl·pl·sv·th·cs·uk)는 처음 넣는 앱이 같은 꼴(“마지막 백업: {ago}”)로 옮겨 이 표에 더한다.
+nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는 säkerhets와 kopia 사이 소프트 하이픈(U+00AD, sv 앱 문구 관례). 상대 날짜 낱말(오늘·어제·N일 전·N주 전) 20개 언어도 주량체커 1.4.7에 있다(14개는 차곡 낱말).
 
 ②계정 생성(알롱)은 게스트도 서버가 원본이라 다르다 — 서버 사본 올리기 실패가 6시간 이어지면 한 줄(알롱 lib/account.ts BACKUP_WARN_MS, 10-25). 한배는 서버가 원본이고 기기 백업이 없어 해당 없음.
 
