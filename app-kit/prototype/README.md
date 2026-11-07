@@ -41,6 +41,7 @@ Figma 파일의 '스타일 → 컴포넌트 → 화면' 페이지 구성, Storyb
 ## ② 컴포넌트
 
 - `components.css`: 컴포넌트 모양. 색은 `var(--c-…)`만.
+- 모서리는 `var(--r-…)` — `--r-` 토큰과 같은 값을 숫자로 적으면 검사가 막는다(11-07 차곡 .card 14 ≠ 코드 16). 반지름이 크기의 절반인 원·손잡이는 토큰이 아니라 `50%`(토큰을 바꿔도 원이 안 깨짐, 11-07 한배). 그 컴포넌트만의 값은 숫자 그대로 되고, 뜻이 다른데 값만 같으면 이름을 따로 붙인 토큰을 만든다.
 - `mockup.html`: 코드 컴포넌트 폴더의 파일마다 `<section data-component="파일 이름">` 하나. 기본·눌림·끔·불러오는 중·오류·빈 값·긴 글자처럼 그 컴포넌트가 가질 수 있는 상태를 나란히.
 - 화면이 없는 파일(`UpdatePrompt.ts` 같은 것)은 screens.json `components.skip`에 이유와 함께.
 - 링크: `<link rel="stylesheet" href="../design-system/tokens.css"><link rel="stylesheet" href="../components/components.css">`
