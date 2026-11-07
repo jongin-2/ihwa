@@ -176,6 +176,21 @@ for rel, kind in targets:
     if lits:
         fails.append(f'{rel}: 색 값을 직접 적음 {len(lits)}개 — 토큰(var(--c-…))으로: ' + ', '.join(lits[:6]) + (' …' if len(lits) > 6 else ''))
 
+# ④ 모서리: components.css에 --r- 토큰과 같은 값을 숫자로 적으면 토큰으로(11-07 차곡 — 목업 .card가 14로 박혀 코드 16과 어긋난 채 남음).
+#   토큰에 없는 값(스위치 알약 등 그 컴포넌트만의 모서리)은 숫자 그대로 둬도 된다.
+r_tokens = {}
+for name, val in re.findall(r'(--r-[\w-]+)\s*:\s*([0-9.]+px)', tokens):
+    r_tokens.setdefault(val, []).append(name)
+if os.path.exists(P('prd', 'components', 'components.css')):
+    css = re.sub(r'/\*.*?\*/', '', read('prd/components/components.css'), flags=re.S)
+    hits = {}
+    for v in re.findall(r'border-radius\s*:\s*([0-9.]+px)\s*[;}]', css):
+        if v in r_tokens:
+            hits[v] = hits.get(v, 0) + 1
+    if hits:
+        fails.append('components.css: 토큰과 같은 모서리를 숫자로 적음 — var(--r-…)로: '
+                     + ', '.join(f"{v}×{n} → {'/'.join(r_tokens[v])}" for v, n in sorted(hits.items())))
+
 if fails:
     print('✗ 디자인 시스템 점검 실패')
     for f in fails:
