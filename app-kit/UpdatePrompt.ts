@@ -302,7 +302,8 @@ export function useUpdatePrompt(cfg: UpdateConfig, enabled = true): UpdateState 
       if (!alive) return;
       setState(s);
       listeners.forEach((l) => l(s));
-      if (s.prompt && (s.forced || (await dueToday(cfgRef.current, s)))) showPrompt(cfgRef.current, s);
+      // dueToday를 기다리는 동안 화면이 내려가거나 효과가 다시 돌면 옛 실행은 띄우지 않는다(11-07 알롱).
+      if (s.prompt && (s.forced || (await dueToday(cfgRef.current, s))) && alive) showPrompt(cfgRef.current, s);
     };
     run();
     // 뒤로 갔다 돌아오면 다시 조회 — background 뒤 inactive를 거쳐 active가 와도 잡도록 '뒤로 갔었음'을 따로 둔다(11-06 알롱 전수 검토).

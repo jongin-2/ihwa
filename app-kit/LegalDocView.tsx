@@ -2,7 +2,7 @@
 // 각 앱의 빌드 점검(check-docs-sync)이 원본과 같은지 본다. 2026-10-12 종인님 "약관 같은 건 모든 앱 화면도 동일하게 구성하고 잘 관리하면 될 것 같은데
 // 주량체커 같은 거랑 왜 자꾸 달라지지" — 앱마다 따로 짠 사본(주량체커·응원석 가운데 제목, 차곡 큰 제목 + 원 ✕)이 고칠 때마다 벌어졌다.
 //
-// 이용약관·개인정보처리방침을 공용 사이트(jongin-2/ihwa) 페이지 그대로, 주소가 보이지 않는 앱 안 웹뷰로 보여 주는 화면 전체(머리글 포함).
+// 이용약관·개인정보 처리방침을 공용 사이트(jongin-2/ihwa) 페이지 그대로, 주소가 보이지 않는 앱 안 웹뷰로 보여 주는 화면 전체(머리글 포함).
 // 앱은 이 화면을 모달 시트로 띄우되 화면 옵션에 headerShown: true를 처음부터 두고(모달에서 머리글을 나중에 켜면 화면이 다시 만들어져
 // 머리글이 안 나온다 — 10-17 응원석 시험), navigation을 넘긴다. 이 부품은 setOptions로 제목과 왼쪽 단추만 채운다(직접 그리지 않음).
 //  · 머리글: iOS 기본 머리글(native-stack — 앱이 react-navigation이든 expo-router든 같은 options를 받는다)에 가운데 문서 이름,
@@ -33,7 +33,7 @@ const PAGE_STYLE = `(function(){var s=document.createElement('style');s.textCont
 type Words = { terms: string; privacy: string; close: string; offline: string; retry: string; back: string; emailCopied: string };
 // 주량체커 20개 언어 번역(2026-10-12 기준)에서 옮김
 const WORDS: Record<string, Words> = {
-  'ko': {"terms": "이용약관", "privacy": "개인정보처리방침", "close": "닫기", "offline": "인터넷에 연결되면 볼 수 있어요", "retry": "다시 시도", "back": "이전 문서", "emailCopied": "이메일 주소를 복사했어요"},
+  'ko': {"terms": "이용약관", "privacy": "개인정보 처리방침", "close": "닫기", "offline": "인터넷에 연결되면 볼 수 있어요", "retry": "다시 시도", "back": "이전 문서", "emailCopied": "이메일 주소를 복사했어요"},
   'en': {"terms": "Terms of Service", "privacy": "Privacy Policy", "close": "Close", "offline": "Available when you’re online", "retry": "Try Again", "back": "Previous page", "emailCopied": "Email address copied"},
   'ja': {"offline": "インターネットに接続すると表示されます", "retry": "再試行", "back": "前のページ", "emailCopied": "メールアドレスをコピーしました", "terms": "利用規約", "privacy": "プライバシーポリシー", "close": "閉じる"},
   'zh-Hant': {"offline": "連上網路即可查看", "retry": "重試", "back": "上一頁", "emailCopied": "已複製電子郵件地址", "terms": "服務條款", "privacy": "隱私權政策", "close": "關閉"},
@@ -146,8 +146,7 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
             return false;
           }}
           allowsLinkPreview={false}
-          // 목록으로 넘긴다 — 네이티브 정의가 두 플랫폼 모두 목록이라 문자열이면 Android가 ClassCastException으로 멈춤(11-06 한배 Android)
-          dataDetectorTypes={['none']}
+          dataDetectorTypes={NO_DATA_DETECTORS}
         />
       )}
       {!failed && <DelayedSpinner visible={loading} />}
@@ -158,6 +157,9 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
 // 대기 표시(10-22 종인님 "버퍼링이 걸리는 진입 화면은 로딩 스피너를 넣든가 해서 자연스럽게", 알롱 lib/loadingGate.ts와 같은 값):
 // 0.3초 안에 끝나는 짧은 대기엔 아무것도 띄우지 않고(깜빡임 방지), 넘으면 띄우며, 한 번 뜨면 0.4초는 유지한다.
 // 숫자는 애플이 정한 값이 아니라 관례(HIG는 '조금 넘게 걸리면 진행 표시'까지만 말함).
+// 목록으로 넘긴다 — 네이티브 정의가 두 플랫폼 모두 목록이라 문자열이면 Android가 ClassCastException으로 멈춤(11-06 한배 Android).
+// 밖에 상수로 둔다 — 그릴 때마다 새 배열이면 개발 경고가 남(11-06 응원석).
+const NO_DATA_DETECTORS: 'none'[] = ['none'];
 const SHOW_AFTER_MS = 300;
 const MIN_SHOW_MS = 400;
 function DelayedSpinner({ visible }: { visible: boolean }) {
