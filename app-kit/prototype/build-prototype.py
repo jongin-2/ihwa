@@ -5,8 +5,8 @@
 # 프로토타입 탭은 늘 ① 디자인 시스템(prd/design-system/tokens.css에서 자동 생성) ② 컴포넌트(prd/components/mockup.html) ③ 화면들 순서.
 #   목업의 <link href="../design-system/tokens.css">·<link href="../components/components.css">는 여기서 본문에 끼워 넣는다(파일로 열어도 같은 모양).
 # 만드는 것(둘 다 깃 무시 impl/out/ — Artifact로 게시하는 원본):
-#   impl/out/prototype/index.html  ← prd/prototype/template.html + 디자인 시스템 + 컴포넌트 + 목업들(base64)
-#   impl/out/review/index.html     ← prd/prototype/review-template.html + impl/out/review/body.html(없으면 "진행 중인 시안 없음")
+#   impl/out/prototype/index.html  ← impl/prototype/template.html + 디자인 시스템 + 컴포넌트 + 목업들(base64)
+#   impl/out/review/index.html     ← impl/prototype/review-template.html + impl/out/review/body.html(없으면 "진행 중인 시안 없음")
 # 2026-10-15 네 앱 통일(종인님 "통일하게 해", "모바일에서 주로 보는 것도 고려", "반응형으로 하면 되는거 아니야?").
 # 2026-11-06 디자인 시스템·컴포넌트 탭 추가(종인님 "프로토타입이 앱마다 다 다르고 엉망 … 최신 디자인 시스템이랑 컴포넌트랑 각 화면이 있어야지").
 import base64, html, json, os, re, subprocess, sys
@@ -155,7 +155,7 @@ for s in cfg['screens']:
         sys.exit(f'✋ 목업이 없습니다: {os.path.relpath(path, ROOT)}')
     add(s['key'], s['label'], read(path))
 
-tpl = open(P('prd', 'prototype', 'template.html'), encoding='utf-8').read()
+tpl = open(P('impl', 'prototype', 'template.html'), encoding='utf-8').read()
 for k in ('__TITLE__', '__ACCENT__', '__UPDATED__', '__SCREENS__'):
     if k not in tpl:
         sys.exit(f'✋ template.html에 {k} 자리가 없습니다 — app-kit 원본을 다시 복사하세요')
@@ -163,7 +163,7 @@ write('impl/out/prototype/index.html',
       tpl.replace('__TITLE__', html.escape(title)).replace('__ACCENT__', accent).replace('__UPDATED__', updated)
          .replace('__SCREENS__', json.dumps(screens, ensure_ascii=False)))
 
-rtpl = open(P('prd', 'prototype', 'review-template.html'), encoding='utf-8').read()
+rtpl = open(P('impl', 'prototype', 'review-template.html'), encoding='utf-8').read()
 body_path = P('impl', 'out', 'review', 'body.html')
 body = open(body_path, encoding='utf-8').read() if os.path.exists(body_path) else \
     '  <section class="empty"><h1>진행 중인 시안 없음</h1><p>시안을 비교할 일이 생기면 이 자리에 올린다.</p></section>'

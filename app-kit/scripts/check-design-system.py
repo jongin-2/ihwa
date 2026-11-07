@@ -31,7 +31,27 @@ def norm(c):
     c = c.lower().replace(' ', '')
     if re.fullmatch(r'#[0-9a-f]{3}', c):
         c = '#' + ''.join(x * 2 for x in c[1:])
+    m = re.fullmatch(r'(rgba?)\(([^)]*)\)', c)
+    if m:  # rgba(255,255,255,.7) = rgba(255,255,255,0.70) — 숫자 표기만 다른 것은 같게(11-07 Swift opacity 대조)
+        try:
+            c = m.group(1) + '(' + ','.join(f'{float(x):g}' for x in m.group(2).split(',')) + ')'
+        except ValueError:
+            pass
     return c
+
+
+def swift_opacity(src):
+    # 위젯 Swift의 반투명 색을 rgba로 읽는다(11-07 차곡 widget-plus·widget-empty — 전엔 mockOnly로 뺐음):
+    #   Color.white.opacity(0.7)·.black.opacity(.4) → rgba(255,255,255,0.7)
+    #   ink(#RRGGBB).opacity(0.5)·Color(hex: #RRGGBB).opacity(0.5)(0x는 위에서 #로 바꾼 뒤) → rgba(r,g,b,0.5)
+    #   값이 숫자 그대로인 것만(변수·식은 안 읽음)
+    def hexa(m):
+        h, a = m.group(1), m.group(2)
+        return f'rgba({int(h[0:2], 16)},{int(h[2:4], 16)},{int(h[4:6], 16)},{a})'
+    src = re.sub(r'\b\w+\(\s*(?:hex:\s*)?#([0-9A-Fa-f]{6})\s*\)\.opacity\(\s*([0-9]*\.?[0-9]+)\s*\)', hexa, src)
+    src = re.sub(r'(?:\bColor)?\.white\.opacity\(\s*([0-9]*\.?[0-9]+)\s*\)', r'rgba(255,255,255,\1)', src)
+    src = re.sub(r'(?:\bColor)?\.black\.opacity\(\s*([0-9]*\.?[0-9]+)\s*\)', r'rgba(0,0,0,\1)', src)
+    return src
 
 
 def read(rel):
@@ -72,6 +92,7 @@ for rel in theme_files:
     src = strip_comments(read(rel))
     if rel.endswith('.swift'):  # 위젯 Swift의 Color(hex: 0xRRGGBB) 꼴도 대조(11-06 차곡 회신) — 여섯 자리만(여덟 자리는 알파 순서가 코드마다 달라 안 봄)
         src = re.sub(r'\b0x([0-9A-Fa-f]{6})\b', r'#\1', src)
+        src = swift_opacity(src)
     code_colors |= {norm(c) for c in COLOR.findall(src)}
 for c in sorted(code_colors - token_colors):
     fails.append(f'코드 테마에 있는 색이 tokens.css에 없음: {c}')

@@ -89,8 +89,9 @@ Figma 파일의 '스타일 → 컴포넌트 → 화면' 페이지 구성, Storyb
 
 ## 파일(원본 → 앱 사본, 글자 그대로)
 
-- `prototype/template.html` → `prd/prototype/template.html`
-- `prototype/review-template.html` → `prd/prototype/review-template.html`
+- `prototype/template.html` → `impl/prototype/template.html`
+- `prototype/review-template.html` → `impl/prototype/review-template.html`
+- 게시 해시 `impl/prototype/PUBLISHED.sha`(앱 값 — 게시 뒤 `shasum -a 256 impl/out/prototype/index.html > impl/prototype/PUBLISHED.sha`). prd/prototype엔 앱 값 `screens.json`만 둔다(11-07 — prd엔 기획·디자인만, 틀·해시는 구현 도구).
 - `prototype/build-prototype.py` → `impl/scripts/build-prototype.py`
 - `scripts/check-design-system.py` → `impl/scripts/check-design-system.py`
 - `scripts/check-prototype-level.py` → `impl/scripts/check-prototype-level.py`
