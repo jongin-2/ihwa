@@ -136,7 +136,7 @@
 
 - 앱이 주고받는 모든 전송은 암호화(HTTPS)합니다.
 - 주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
-- 응원석의 토큰 등록과 한배의 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다.
+- 응원석의 토큰 등록, 한배의 대항전 참가, 알롱의 로그인과 기록 읽기·쓰기는 정품 앱에서 왔는지 Apple App Attest로 확인합니다.
 - 서버 관리 권한은 운영자 한 명만 가집니다.
 
 ### 8. 아동의 개인정보
@@ -300,7 +300,7 @@ When the retention period in section 1 ends or you request deletion, we delete t
 
 - All traffic to and from the apps is encrypted (HTTPS).
 - In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account.
-- CheerSeat token registrations and SameBoat battle entries are checked with Apple App Attest to confirm they come from the genuine app.
+- CheerSeat token registrations, SameBoat battle entries, and Allong sign-in and record reads and writes are checked with Apple App Attest to confirm they come from the genuine app.
 - Only the operator has administrative access to the servers.
 
 ### 8. Children's privacy
