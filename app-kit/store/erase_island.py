@@ -2,8 +2,8 @@
 # 시뮬레이터 캡처에서 다이나믹 아일랜드(위 가운데 검은 알약)를 지운다 — 11-09 종인님 "앱 마켓 스크린샷등에 다이나믹 아일랜드 없게해".
 #  · 왜 필요한가: iOS 26 시뮬레이터는 섬을 화면(프레임버퍼)에 직접 그린다. `simctl io screenshot`은 --mask=ignored·black·기본값
 #    모두 섬이 찍혔다(11-09 코어 실측, iPhone 17 Pro Max 1320×2868: 섬 x 472~847·y 42~151). 찍는 방식으로는 못 뺀다.
-#  · 하는 일: 위 가운데에서 섬 모양(완전히 검은 알약, 폭·높이가 기기 폭에 비례)을 찾아, 줄마다 섬 왼쪽·오른쪽 바로 바깥 색을
-#    잇는 색으로 메운다. 상태 막대 배경이 한 색·세로 그라데이션이면 자국이 남지 않는다.
+#  · 하는 일: 위 가운데에서 섬 모양(완전히 검은 알약, 폭·높이가 기기 폭에 비례)을 찾아, 섬 상자 바로 바깥 네 변(왼·오·위·아래)
+#    색을 함께 잇는 면(쿤스 패치)으로 메운다. 한 색·세로·가로·대각선 그라데이션 모두 자국이 남지 않는다(11-09 주량체커 제안).
 #  · 안 지우는 것: 섬 안에 무언가 그려져 있으면(실시간 현황 점수 등 기능 그림) 검은 알약이 아니라서 건드리지 않는다.
 #    섬을 못 찾으면 파일을 그대로 두고 '섬 없음'이라 알린다.
 #  · 쓰는 법: python3 erase_island.py <PNG…>             제자리에서 고침
@@ -74,11 +74,19 @@ def erase(path, out):
     if not f: print(f'섬 없음 — 그대로: {path}'); return False
     top, bot, span = f; pad = max(3, w // 300)
     L = min(l for l, r in span.values()) - pad; R = max(r for l, r in span.values()) + pad
-    for y in range(max(0, top - pad), min(h, bot + pad + 1)):
-        line = rows[y]; a = line[(L - 2) * bpp:(L - 1) * bpp]; b = line[(R + 2) * bpp:(R + 3) * bpp]
+    Y0 = max(1, top - pad); Y1 = min(h - 2, bot + pad)
+    # 네 변을 함께 잇는다(쿤스 패치) — 줄마다 좌우만 이으면 대각선 그라데이션 벽지에서 네모난 띠 자국이 남는다(11-09 주량체커 잠금화면)
+    px = lambda y, x: rows[y][x * bpp:(x + 1) * bpp]
+    lc = {y: px(y, L - 2) for y in range(Y0 - 1, Y1 + 2)}; rc = {y: px(y, R + 2) for y in range(Y0 - 1, Y1 + 2)}
+    tr = {x: px(Y0 - 1, x) for x in range(L - 2, R + 3)}; br = {x: px(Y1 + 1, x) for x in range(L - 2, R + 3)}
+    c00, c10, c01, c11 = px(Y0 - 1, L - 2), px(Y0 - 1, R + 2), px(Y1 + 1, L - 2), px(Y1 + 1, R + 2)
+    for y in range(Y0, Y1 + 1):
+        v = (y - Y0 + 1) / (Y1 - Y0 + 2); line = rows[y]
         for x in range(L, R + 1):
-            t = (x - L) / (R - L)
-            line[x * bpp:(x + 1) * bpp] = bytes(round(a[k] * (1 - t) + b[k] * t) for k in range(bpp))
+            u = (x - L + 2) / (R - L + 4)
+            line[x * bpp:(x + 1) * bpp] = bytes(max(0, min(255, round(
+                (1 - u) * lc[y][k] + u * rc[y][k] + (1 - v) * tr[x][k] + v * br[x][k]
+                - ((1 - u) * (1 - v) * c00[k] + u * (1 - v) * c10[k] + (1 - u) * v * c01[k] + u * v * c11[k])))) for k in range(bpp))
     save(out, w, h, ct, rows, chunks)
     print(f'섬 지움 x {L}~{R} · y {top}~{bot}: {out}'); return True
 
