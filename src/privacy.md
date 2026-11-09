@@ -87,7 +87,7 @@
 | Apple 날씨(WeatherKit) — 탐험·홈·전투 화면의 날씨 | 알롱 | 약 1km 단위로 반올림한 위치 |
 | 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 |
 | Apple 푸시 알림 서비스(APNs) — 잠금 화면·위젯 점수 | 응원석 | 1절의 토큰 |
-| 언론사 웹사이트 — 응원팀 뉴스 기사 원문과 목록의 기사 대표 이미지 | 응원석 | 접속 정보 |
+| 언론사 웹사이트 — 오늘 탭 뉴스의 기사 사진·원문 | 응원석 | 접속 정보 |
 | Apple App Attest — 앱 변조 확인 | 차곡·응원석·한배 | 앱 확인 값 |
 
 ### 4. 기기 권한
@@ -239,7 +239,7 @@ When an app makes a request to the external services below, connection details s
 | Apple Weather (WeatherKit) — weather on the Explore, Home and battle screens | Allong | Location rounded to about 1 km |
 | Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details |
 | Apple Push Notification service (APNs) — Lock Screen and widget scores | CheerSeat | The tokens in section 1 |
-| News publishers' websites — full articles and article preview images in your team's news list | CheerSeat | Connection details |
+| News publishers' websites — article photos and full articles in Today news | CheerSeat | Connection details |
 | Apple App Attest — app integrity check | Chagok, CheerSeat, SameBoat | Integrity check data |
 
 ### 4. Device permissions
