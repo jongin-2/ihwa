@@ -5,7 +5,7 @@
 #  · 앱마다 다른 것은 틀 색(color)과 그림자(shadow)뿐. 위 문구 띠는 top 150·높이 350~400(10-30 기준, 앱 디자인대로).
 #  · 표지처럼 화면 위에 다른 것을 겹치려면 inner에 HTML을 넘긴다(화면 900×1956 안 좌표, 넘치는 것은 잘림).
 # 쓰는 법: from device_frame import frame; h += frame(x, img_src, '#0A0F1F')   # x = 그 장의 왼쪽 끝(파노라마면 k*1320)
-# 화면 원본은 `xcrun simctl io <UDID> screenshot --mask=ignored`로만 찍는다 — --mask를 빼면 섬 마스크가 검게 그려지고(11-09 차곡), 창 캡처·목업의 proto-notch도 섬이 같이 찍힌다(알롱 54장·한배 목업). 첫 장은 눈으로 확인.
+# 화면 원본의 섬은 erase_island.py로 지운다 — iOS 26 시뮬레이터는 섬을 화면에 직접 그려 simctl io screenshot(--mask 무엇이든)·창 캡처 모두 섬이 찍힌다(11-09 코어 실측). 목업 캡처면 proto-notch를 숨긴다(한배). 첫 장은 눈으로 확인.
 # 다이나믹 아일랜드는 그리지 않는다(11-09 종인님 "앱 마켓 스크린샷등에 다이나믹 아일랜드 없게해") — island 인자는 옛 호출이 깨지지 않게만 남김, True로 부르지 말 것.
 # 검사: 렌더한 PNG는 공용 check-store-shots.py로 좌우 여백·틀 크기를 픽셀로 잰다(업로드 전 필수).
 
