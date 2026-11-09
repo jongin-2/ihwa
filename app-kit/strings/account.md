@@ -102,6 +102,44 @@
 | cs | Odpojení se nepodařilo. Zkus to znovu. |
 | uk | Не вдалося відключити. Спробуйте ще раз. |
 
+## ① 기록 연결 — 백업 경고 줄(설정 계정 카드)
+
+원본 차곡 lib/backup-status.ts(10-30 종인님 질문 창 #412·#417 "실패할 때만·3일·짧게" — "⚠︎ 마지막 백업 3일 전"). 11-07 주량체커가 같은 것을 물어 종인님 "다른앱이랑 맞춰" → 이 절을 공통으로.
+비교: Google 포토는 평소 조용하고 문제일 때만 상태를 띄운다. iOS 설정의 '백업되지 않음'도 문제일 때만 나온다.
+
+- **보이는 때**: 연결된 채로 기록이 바뀐 뒤(처음 바뀐 시각 `pendingSince`) 서버에 한 번도 못 올린 채 **72시간**이 지났다. 기록이 안 바뀌었으면 오프라인이어도 띄우지 않는다(올릴 것이 없으니 잃을 것도 없다).
+- **사라지는 때**: 한 번이라도 다 올라가면 바로(`okAt` 갱신, `pendingSince` 지움). 연결을 풀면 지우고 다음 연결은 새로 센다.
+- **자리·모양**: 설정 계정 카드 안, 이메일 줄 바로 아래 한 줄. 왼쪽 `exclamationmark.triangle.fill` 12pt + 글자 작은 글씨(footnote), 둘 다 경고 주황(앱 토큰 warning). 누르는 동작 없음(다시 시도는 앱이 저절로 — 앱을 열 때·기록이 바뀔 때). 홈·다른 화면엔 띄우지 않는다.
+- **시각**: 마지막 성공 시각(`okAt`, 성공한 적 없으면 `pendingSince`)을 상대 날짜로 — 오늘 · 어제 · N일 전(13일까지) · N주 전(8주까지) · 그 뒤는 날짜(올해가 아니면 연도), 경계는 기기 현지 자정. 상대 날짜 낱말은 앱이 이미 쓰는 것.
+- **저장**: 기기 안(AsyncStorage)에만, 서버로 보내지 않는다.
+
+| 언어 | 문구(`{ago}` = 상대 날짜) |
+|---|---|
+| ko | 마지막 백업 {ago} |
+| en | Last backup {ago} |
+| ja | 最後のバックアップ：{ago} |
+| zh-Hans | 上次备份：{ago} |
+| zh-Hant | 上次備份：{ago} |
+| es | Última copia: {ago} |
+| pt | Último backup: {ago} |
+| de | Letztes Backup: {ago} |
+| fr | Dernière sauvegarde : {ago} |
+| it | Ultimo backup: {ago} |
+| ru | Последняя копия: {ago} |
+| tr | Son yedekleme: {ago} |
+| id | Cadangan terakhir: {ago} |
+| vi | Sao lưu gần nhất: {ago} |
+| nl | Laatste back-up: {ago} |
+| pl | Ostatnia kopia: {ago} |
+| sv | Senaste säkerhets­kopia: {ago} |
+| th | สำรองล่าสุด: {ago} |
+| cs | Poslední záloha: {ago} |
+| uk | Остання копія: {ago} |
+
+nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는 säkerhets와 kopia 사이 소프트 하이픈(U+00AD, sv 앱 문구 관례). 상대 날짜 낱말(오늘·어제·N일 전·N주 전) 20개 언어도 주량체커 1.4.7에 있다(14개는 차곡 낱말).
+
+②계정 생성(알롱)은 게스트도 서버가 원본이라 다르다 — 서버 사본 올리기 실패가 6시간 이어지면 한 줄(알롱 lib/account.ts BACKUP_WARN_MS, 10-25). 한배는 서버가 원본이고 기기 백업이 없어 해당 없음.
+
 ## ② 계정 생성 — 계정 삭제(알롱)
 
 원본은 알롱 저장소 `impl/app/src/lib/strings/settings.ts`·`notify.ts`·`i18n/*.ts`(14개 언어, 10-21 계정 삭제 구현), 결정·흐름은 `prd/settings/account-deletion.md`. 아래 표는 그 원본에서 뽑은 것 — 고칠 땐 알롱 원본과 이 파일을 함께 고친다. `${d}`는 삭제 예정일(언어별 날짜 꼴), `${p}`는 Apple·Google.

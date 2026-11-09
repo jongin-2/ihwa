@@ -21,7 +21,7 @@ files = [f for f in files if f and os.path.exists(os.path.join(ROOT, f))]
 MEDIA = re.compile(r'\.(png|jpe?g|gif|webp|heic|mp4|mov|m4v|pdf|zip|m4a|mp3|wav|caf|aac|aiff?)$', re.I)   # 소리도(10-16 알롱 제안)
 APP_CODE = ('impl/app/', 'impl/ios/', 'impl/android/', 'impl/server/')   # 앱 코드 폴더 — 빌드에 쓰는 아이콘·그림·글꼴은 늘 보관
 APP_RES = re.compile(r'\.(ttf|otf|m4a|mp3|wav|caf|aac)$', re.I)   # 앱 코드 폴더 안 글꼴·소리는 커도 둔다
-HTML_OK = re.compile(r'^prd/[^/]+/mockup\.html$|^prd/prototype/(review-)?template\.html$')
+HTML_OK = re.compile(r'^prd/[^/]+/mockup\.html$|^impl/prototype/(review-)?template\.html$|^prd/design-system/notes\.html$')
 TOOL = re.compile(r'\.(py|sh)$')
 TOOL_OK = ('impl/scripts/', '.githooks/')
 WORK_LOG = re.compile(r'(^|/)(NEXT_STEPS|QA_RESULT|FEEDBACK)\.md$')
@@ -43,8 +43,8 @@ for f in files:
 
 # 공용 원본과 글자 그대로 같아야 하는 사본 — 고칠 땐 원본만 고치고 다시 복사
 KIT = os.path.expanduser('~/Projects/ihwa-site/app-kit')
-COPIES = (('prototype/template.html', 'prd/prototype/template.html'),
-          ('prototype/review-template.html', 'prd/prototype/review-template.html'),
+COPIES = (('prototype/template.html', 'impl/prototype/template.html'),
+          ('prototype/review-template.html', 'impl/prototype/review-template.html'),
           ('prototype/build-prototype.py', 'impl/scripts/build-prototype.py'),
           ('scripts/check-repo-files.py', 'impl/scripts/check-repo-files.py'))
 for src, dst in COPIES:

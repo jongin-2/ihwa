@@ -7,19 +7,6 @@
 
 **적용 앱: 주량체커 · 응원석 · 차곡 · 알롱 · 한배**
 
-### 한눈에 보기
-
-| 앱 | 운영자 서버에 두는 정보 | 언제 |
-|---|---|---|
-| 주량체커 | 계정 식별자·이메일, 음주 기록 | 계정을 연결한 경우만 |
-| 차곡 | 계정 식별자·이메일·닉네임, 취미 기록(사진은 올리지 않음) | 계정을 연결한 경우만 |
-| 알롱 | 계정 식별자·알롱 번호, 게임 데이터·주간 순위 | 만 14세 이상 확인을 통과한 뒤부터 |
-| 알롱 | 이메일·만 14세 이상 여부 | 계정을 연결한 경우만 |
-| 응원석 | 기기 토큰·응원팀 | '실시간 현황'을 켜거나 위젯을 놓은 경우만 |
-| 한배 | 계정 식별자·닉네임·포인트 | 말풍선·대항전을 쓰려고 로그인한 경우만 |
-
-모든 앱은 익명 사용 통계를 보냅니다(3절). 어느 앱도 이름·전화번호를 받지 않고, 위치를 운영자 서버로 보내지 않습니다. 정보는 다른 사람에게 제공하지 않습니다(2절).
-
 ### 1. 처리하는 정보와 보관 기간
 
 아래 표에 적은 것 말고는 앱에서 입력한 정보를 기기 안에만 저장하며, 앱을 지우면 함께 지워집니다.
@@ -74,11 +61,11 @@
 
 운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임은 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다.
 
-| 받는 곳(연락처) | 맡기는 일 | 앱 | 정보가 있는 곳 |
-|---|---|---|---|
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관 | 주량체커·차곡·알롱 | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) |
-| Google LLC — Firebase Analytics(같음) | 사용 통계 | 모든 앱 | 미국 |
-| Cloudflare, Inc.(privacyquestions@cloudflare.com) | 운영자 서버 | 응원석·한배 | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
+| 받는 곳(연락처) | 맡기는 일(앱) | 정보가 있는 곳 |
+|---|---|---|
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) |
+| Google LLC — Firebase Analytics(같음) | 사용 통계(모든 앱) | 미국 |
+| Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
 - **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
@@ -162,7 +149,7 @@ allong.my와 ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-11-06
+최종 수정일: 2026-11-09
 
 ---
 
@@ -170,19 +157,6 @@ allong.my와 ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 
 ## English
 
 **Applies to: DrinkChecker · CheerSeat · Chagok · Allong · SameBoat**
-
-### At a glance
-
-| App | What we keep on the operator's servers | When |
-|---|---|---|
-| DrinkChecker | Account identifier and email, drinking records | Only if you connect an account |
-| Chagok | Account identifier, email and nickname, hobby records (photos are never uploaded) | Only if you connect an account |
-| Allong | Account identifier and Allong number, game data and weekly rankings | From when you pass the age check (14 or older) |
-| Allong | Email and whether you are 14 or older | Only if you connect an account |
-| CheerSeat | Device token and team | Only if you turn on Live Activities or add a widget |
-| SameBoat | Account identifier, nickname and points | Only if you sign in to send bubbles or join battles |
-
-All apps send anonymous usage statistics (section 3). No app receives your name or phone number, and none sends your location to the operator's servers. We do not provide your information to others (section 2).
 
 ### 1. Information we process and how long we keep it
 
@@ -238,11 +212,11 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles and nicknames are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea.
 
-| Recipient (contact) | Task | Apps | Where the data is |
-|---|---|---|---|
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records | DrinkChecker, Chagok, Allong | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) |
-| Google LLC — Firebase Analytics (same) | Usage statistics | All apps | United States |
-| Cloudflare, Inc. (privacyquestions@cloudflare.com) | Operator's server | CheerSeat, SameBoat | US company; database in the Asia-Pacific region |
+| Recipient (contact) | Task (apps) | Where the data is |
+|---|---|---|
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) |
+| Google LLC — Firebase Analytics (same) | Usage statistics (all apps) | United States |
+| Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat) | US company; database in the Asia-Pacific region |
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
 - **Retention**: as in the tables in section 1; statistics for up to 14 months.
@@ -326,4 +300,4 @@ Any change to this policy is published on this page right away. The apps show th
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-11-06
+Last updated: 2026-11-09
