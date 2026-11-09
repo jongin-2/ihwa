@@ -4,6 +4,8 @@
 #    모두 섬이 찍혔다(11-09 코어 실측, iPhone 17 Pro Max 1320×2868: 섬 x 472~847·y 42~151). 찍는 방식으로는 못 뺀다.
 #  · 하는 일: 위 가운데에서 섬 모양(완전히 검은 알약, 폭·높이가 기기 폭에 비례)을 찾아, 섬 상자 바로 바깥 네 변(왼·오·위·아래)
 #    색을 함께 잇는 면(쿤스 패치)으로 메운다. 한 색·세로·가로·대각선 그라데이션 모두 자국이 남지 않는다(11-09 주량체커 제안).
+#    섬을 가로지르는 줄은 양옆을 따라 이어지지만, 무늬(바둑판·사진·글자) 배경은 매끄러운 면으로 칠해져 네모 자국이 남는다 —
+#    그런 장은 지우지 말고 섬이 안 찍힐 때까지 다시 찍는다(섬은 같은 기기에서도 찍히는 장·안 찍히는 장이 섞임, 11-09 한배).
 #  · 안 지우는 것: 섬 안에 무언가 그려져 있으면(실시간 현황 점수 등 기능 그림) 검은 알약이 아니라서 건드리지 않는다.
 #    섬을 못 찾으면 파일을 그대로 두고 '섬 없음'이라 알린다.
 #  · 쓰는 법: python3 erase_island.py <PNG…>             제자리에서 고침
@@ -53,17 +55,27 @@ def save(path, w, h, ct, rows, chunks):
 def find_island(w, rows, bpp):
     """가운데 줄에서 이어진 검은 구간으로 섬 범위(위·아래·줄마다 왼·오)를 찾는다. 못 찾으면 None."""
     dark = lambda y, x: max(rows[y][x * bpp:x * bpp + 3]) < 24
-    c = w // 2; span = {}
-    for y in range(0, int(w * 0.2)):
-        if not dark(y, c): continue
+    c = w // 2; span = {}; y = 0; lim = int(w * 0.2)
+    while y < lim and not dark(y, c): y += 1
+    if y >= lim: return None
+    top = y
+    # 위에서 처음 만난 검은 구간을 가운데 열이 검은 동안 따라간다. 폭은 섬다운 줄(가운데 쪽 0.33~0.67w 안·폭 0.15w 이상)로만 잰다 —
+    # 섬을 가로지르거나(게임 화면의 검은 가로줄) 섬 아래에 붙은 검은 그림이 있어도 섬 모양만 본다(11-09 한배 미니게임 화면에서 섬을 놓침)
+    while y < lim and y - top <= 0.1 * w and dark(y, c):
         l = c
         while l > 0 and dark(y, l - 1): l -= 1
         r = c
         while r < w - 1 and dark(y, r + 1): r += 1
-        span[y] = (l, r)
-    if not span: return None
-    ys = sorted(span); top, bot = ys[0], ys[-1]
-    if ys != list(range(top, bot + 1)): return None
+        if not (l < 0.33 * w or r > 0.67 * w or r - l + 1 < 0.15 * w): span[y] = (l, r)
+        y += 1
+    if len(span) < 0.03 * w or min(span) - top > 0.01 * w: return None
+    # 섬은 알약이라 위 끝에서 가운데까지 폭이 넓어지다 좁아진다 → 위에서부터 가장 넓은 줄(가운데)을 찾고 같은 거리만큼 아래를 아래끝으로.
+    ys = sorted(span); wid = [span[y][1] - span[y][0] for y in ys]; i = 0
+    while i + 1 < len(wid) and wid[i + 1] >= wid[i]: i += 1
+    j = i
+    while j > 0 and wid[j - 1] == wid[i]: j -= 1
+    bot = min(y - 1, top + round(ys[i] + ys[j] - 2 * top))
+    span = {y: span[y] for y in ys if y <= bot}
     width = max(r - l + 1 for l, r in span.values()); height = bot - top + 1
     # 1320 폭에서 섬 376×110 — 기기 폭에 비례, 넉넉히 ±20%. 그 밖이면 섬이 아니다(화면 위가 원래 검은 경우 등)
     if not (0.23 * w <= width <= 0.34 * w and 0.067 * w <= height <= 0.1 * w and top < 0.06 * w): return None
