@@ -5,6 +5,7 @@
 #  · 앱마다 다른 것은 틀 색(color)과 그림자(shadow)뿐. 위 문구 띠는 top 150·높이 350~400(10-30 기준, 앱 디자인대로).
 #  · 표지처럼 화면 위에 다른 것을 겹치려면 inner에 HTML을 넘긴다(화면 900×1956 안 좌표, 넘치는 것은 잘림).
 # 쓰는 법: from device_frame import frame; h += frame(x, img_src, '#0A0F1F')   # x = 그 장의 왼쪽 끝(파노라마면 k*1320)
+# 다이나믹 아일랜드는 그리지 않는다(11-09 종인님 "앱 마켓 스크린샷등에 다이나믹 아일랜드 없게해") — island 인자는 옛 호출이 깨지지 않게만 남김, True로 부르지 말 것.
 # 검사: 렌더한 PNG는 공용 check-store-shots.py로 좌우 여백·틀 크기를 픽셀로 잰다(업로드 전 필수).
 
 W, H = 1320, 2868
@@ -15,7 +16,7 @@ LEFT = (W - OUTER_W) // 2                   # 196
 RADIUS = 86
 
 
-def frame(x, src, color, shadow='0 30px 80px rgba(0,0,0,.4)', inner='', island=True):
+def frame(x, src, color, shadow='0 30px 80px rgba(0,0,0,.4)', inner='', island=False):
     """기기 틀 HTML. src = 화면 PNG(data URI·파일 주소), color = 틀 색."""
     isl = (f'<div style="position:absolute;left:{SCREEN_W // 2 - 125}px;top:24px;width:250px;height:74px;'
            f'border-radius:37px;background:#000"></div>') if island else ''
