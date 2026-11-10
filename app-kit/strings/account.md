@@ -21,7 +21,7 @@
 | fr | Connecter un compte | Gardez vos enregis­trements en changeant d’appareil |
 | it | Collega account | Mantieni i dati quando cambi dispositivo |
 | ru | Подклю­чить аккаунт | Записи сохранятся при смене устройства |
-| tr | Hesap bağla | Cihaz değiştirsen de kayıtların kalır |
+| tr | Hesap bağla | Cihaz değiştirseniz de kayıtlarınız kalır |
 | id | Hubungkan akun | Catatan tetap ada saat ganti perangkat |
 | vi | Kết nối tài khoản | Đổi thiết bị vẫn giữ được ghi chép |
 | nl | Account koppelen | Je logs blijven bewaard als je van apparaat wisselt |
@@ -64,7 +64,7 @@
 | ja | インターネット接続が必要です | 連携できませんでした。しばらくしてからもう一度お試しください。 |
 | pt | É necessária uma conexão com a internet | Não foi possível conectar. Tente novamente mais tarde. |
 | ru | Нужно подключение к интернету | Не удалось подключить. Попробуйте позже. |
-| tr | İnternet bağlantısı gerekiyor | Bağlanamadı. Lütfen daha sonra tekrar dene. |
+| tr | İnternet bağlantısı gerekiyor | Bağlanamadı. Lütfen daha sonra tekrar deneyin. |
 | vi | Cần có kết nối mạng | Không kết nối được. Vui lòng thử lại sau. |
 | zhHans | 需要网络连接 | 无法连接，请稍后再试。 |
 | zhHant | 需要網路連線 | 無法連接，請稍後再試。 |
@@ -91,7 +91,7 @@
 | ja | 連携を解除できませんでした。もう一度お試しください。 |
 | pt | Não foi possível desconectar. Tente novamente. |
 | ru | Не удалось отключить. Попробуйте ещё раз. |
-| tr | Bağlantı kesilemedi. Lütfen tekrar dene. |
+| tr | Bağlantı kesilemedi. Lütfen tekrar deneyin. |
 | vi | Không hủy kết nối được. Vui lòng thử lại. |
 | zhHans | 无法解除连接，请再试一次。 |
 | zhHant | 無法解除連接，請再試一次。 |
@@ -202,7 +202,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | ja | Allongと記録は14日後（${d}）に完全に削除されます。それまでに同じ${p}アカウントでサインインすると取り消せます。このデバイスのAllongはすぐに削除されます。 |
 | pt | Seu Allong e seus registros serão excluídos permanentemente em 14 dias (${d}). Antes disso, entre com a mesma conta ${p} para desfazer. O Allong deste dispositivo é excluído na hora. |
 | ru | Ваш Allong и записи будут безвозвратно удалены через 14 дней (${d}). Чтобы отменить, войдите до этого в тот же аккаунт ${p}. Allong на этом устройстве удаляется сразу. |
-| tr | Allong’un ve kayıtların 14 gün sonra (${d}) kalıcı olarak silinir. Geri almak için o zamana kadar aynı ${p} hesabıyla giriş yap. Bu cihazdaki Allong hemen silinir. |
+| tr | Allong’unuz ve kayıtlarınız 14 gün sonra (${d}) kalıcı olarak silinir. Geri almak için o zamana kadar aynı ${p} hesabıyla giriş yapın. Bu cihazdaki Allong hemen silinir. |
 | vi | Allong và ghi chép của bạn sẽ bị xóa vĩnh viễn sau 14 ngày (${d}). Hãy đăng nhập lại bằng cùng tài khoản ${p} trước đó để hoàn tác. Allong trên thiết bị này bị xóa ngay. |
 | zhHans | 你的 Allong 和记录将在 14 天后（${d}）被永久删除。在此之前用同一个 ${p} 账号登录即可撤销。这台设备上的 Allong 会立即删除。 |
 | zhHant | 你的 Allong 與紀錄將在 14 天後（${d}）永久刪除。在此之前用同一個 ${p} 帳號登入即可復原。此裝置上的 Allong 會立即刪除。 |
@@ -221,7 +221,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | ja | Allongと記録は14日後（${d}）に完全に削除されます。このデバイスのAllongはすぐに削除されます。元に戻せません。 |
 | pt | Seu Allong e seus registros serão excluídos permanentemente em 14 dias (${d}). O Allong deste dispositivo é excluído na hora. Isso não pode ser desfeito. |
 | ru | Ваш Allong и записи будут безвозвратно удалены через 14 дней (${d}). Allong на этом устройстве удаляется сразу. Это нельзя отменить. |
-| tr | Allong’un ve kayıtların 14 gün sonra (${d}) kalıcı olarak silinir. Bu cihazdaki Allong hemen silinir. Bu işlem geri alınamaz. |
+| tr | Allong’unuz ve kayıtlarınız 14 gün sonra (${d}) kalıcı olarak silinir. Bu cihazdaki Allong hemen silinir. Bu işlem geri alınamaz. |
 | vi | Allong và ghi chép của bạn sẽ bị xóa vĩnh viễn sau 14 ngày (${d}). Allong trên thiết bị này bị xóa ngay. Không thể hoàn tác. |
 | zhHans | 你的 Allong 和记录将在 14 天后（${d}）被永久删除。这台设备上的 Allong 会立即删除。此操作无法撤销。 |
 | zhHant | 你的 Allong 與紀錄將在 14 天後（${d}）永久刪除。此裝置上的 Allong 會立即刪除。此操作無法還原。 |
@@ -297,7 +297,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | ja | しばらくしてからもう一度お試しください。 |
 | pt | Tente novamente em instantes. |
 | ru | Повторите попытку чуть позже. |
-| tr | Lütfen biraz sonra tekrar dene. |
+| tr | Lütfen biraz sonra tekrar deneyin. |
 | vi | Vui lòng thử lại sau giây lát. |
 | zhHans | 请稍后再试。 |
 | zhHant | 請稍後再試。 |
@@ -430,7 +430,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | ja | アカウントが削除されました |
 | pt | Sua conta foi excluída |
 | ru | Ваш аккаунт удалён |
-| tr | Hesabın silindi |
+| tr | Hesabınız silindi |
 | vi | Tài khoản của bạn đã bị xóa |
 | zhHans | 你的账号已删除 |
 | zhHant | 你的帳號已刪除 |
@@ -487,7 +487,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | ja | もう一度サインインすると、このAllongを呼び戻せます。 |
 | pt | Entre de novo para recuperar este Allong. |
 | ru | Войдите снова, чтобы вернуть этого Allong. |
-| tr | Bu Allong'u geri getirmek için yeniden giriş yap. |
+| tr | Bu Allong'u geri getirmek için yeniden giriş yapın. |
 | vi | Đăng nhập lại để lấy lại Allong này. |
 | zhHans | 重新登录即可找回这个 Allong。 |
 | zhHant | 重新登入即可找回這個 Allong。 |
@@ -510,7 +510,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | ja | ニックネーム・プロフィール・ポイントは14日後（${d}）に完全に削除されます。それまでに同じ${p}アカウントでサインインすると取り消せます。このデバイスの記録はすぐに削除されます。 |
 | pt | Seu apelido, perfil e pontos serão excluídos permanentemente em 14 dias (${d}). Antes disso, entre com a mesma conta ${p} para desfazer. Os registros deste dispositivo são excluídos na hora. |
 | ru | Ваш ник, профиль и баллы будут безвозвратно удалены через 14 дней (${d}). Чтобы отменить, войдите до этого в тот же аккаунт ${p}. Записи на этом устройстве удаляются сразу. |
-| tr | Takma adın, profilin ve puanların 14 gün sonra (${d}) kalıcı olarak silinir. Geri almak için o zamana kadar aynı ${p} hesabıyla giriş yap. Bu cihazdaki kayıtlar hemen silinir. |
+| tr | Takma adınız, profiliniz ve puanlarınız 14 gün sonra (${d}) kalıcı olarak silinir. Geri almak için o zamana kadar aynı ${p} hesabıyla giriş yapın. Bu cihazdaki kayıtlar hemen silinir. |
 | vi | Biệt danh, hồ sơ và điểm của bạn sẽ bị xóa vĩnh viễn sau 14 ngày (${d}). Hãy đăng nhập lại bằng cùng tài khoản ${p} trước đó để hoàn tác. Ghi chép trên thiết bị này bị xóa ngay. |
 | zhHans | 你的昵称、头像和积分将在 14 天后（${d}）被永久删除。在此之前用同一个 ${p} 账号登录即可撤销。这台设备上的记录会立即删除。 |
 | zhHant | 你的暱稱、頭像與點數將在 14 天後（${d}）永久刪除。在此之前用同一個 ${p} 帳號登入即可復原。此裝置上的紀錄會立即刪除。 |
@@ -529,7 +529,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | ja | もう一度サインインすると、ニックネーム・プロフィール・ポイントを呼び戻せます。 |
 | pt | Entre de novo para recuperar seu apelido, perfil e pontos. |
 | ru | Войдите снова, чтобы вернуть ник, профиль и баллы. |
-| tr | Takma adını, profilini ve puanlarını geri getirmek için yeniden giriş yap. |
+| tr | Takma adınızı, profilinizi ve puanlarınızı geri getirmek için yeniden giriş yapın. |
 | vi | Đăng nhập lại để lấy lại biệt danh, hồ sơ và điểm. |
 | zhHans | 重新登录即可找回昵称、头像和积分。 |
 | zhHant | 重新登入即可找回暱稱、頭像與點數。 |
