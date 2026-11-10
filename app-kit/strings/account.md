@@ -197,7 +197,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | de | Dein Allong und deine Einträge werden in 14 Tagen (${d}) endgültig gelöscht. Melde dich vorher mit demselben ${p}-Konto an, um das rückgängig zu machen. Das Allong auf diesem Gerät wird sofort gelöscht. |
 | es | Tu Allong y tus registros se eliminarán definitivamente en 14 días (${d}). Antes de eso, inicia sesión con la misma cuenta de ${p} para deshacerlo. El Allong de este dispositivo se elimina al instante. |
 | fr | Votre Allong et vos données seront définitivement supprimés dans 14 jours (${d}). Connectez-vous avant avec le même compte ${p} pour annuler. L’Allong de cet appareil est supprimé immédiatement. |
-| id | Allong dan catatanmu akan dihapus permanen dalam 14 hari (${d}). Masuk dengan akun ${p} yang sama sebelum itu untuk membatalkan. Allong di perangkat ini langsung dihapus. |
+| id | Allong dan catatan Anda akan dihapus permanen dalam 14 hari (${d}). Masuk dengan akun ${p} yang sama sebelum itu untuk membatalkan. Allong di perangkat ini langsung dihapus. |
 | it | Il tuo Allong e i tuoi dati verranno eliminati definitivamente tra 14 giorni (${d}). Prima di allora, accedi con lo stesso account ${p} per annullare. L’Allong su questo dispositivo viene eliminato subito. |
 | ja | Allongと記録は14日後（${d}）に完全に削除されます。それまでに同じ${p}アカウントでサインインすると取り消せます。このデバイスのAllongはすぐに削除されます。 |
 | pt | Seu Allong e seus registros serão excluídos permanentemente em 14 dias (${d}). Antes disso, entre com a mesma conta ${p} para desfazer. O Allong deste dispositivo é excluído na hora. |
@@ -216,7 +216,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | de | Dein Allong und deine Einträge werden in 14 Tagen (${d}) endgültig gelöscht. Das Allong auf diesem Gerät wird sofort gelöscht. Das lässt sich nicht rückgängig machen. |
 | es | Tu Allong y tus registros se eliminarán definitivamente en 14 días (${d}). El Allong de este dispositivo se elimina al instante. No se puede deshacer. |
 | fr | Votre Allong et vos données seront définitivement supprimés dans 14 jours (${d}). L’Allong de cet appareil est supprimé immédiatement. Cette action est irréversible. |
-| id | Allong dan catatanmu akan dihapus permanen dalam 14 hari (${d}). Allong di perangkat ini langsung dihapus. Tindakan ini tidak bisa dibatalkan. |
+| id | Allong dan catatan Anda akan dihapus permanen dalam 14 hari (${d}). Allong di perangkat ini langsung dihapus. Tindakan ini tidak bisa dibatalkan. |
 | it | Il tuo Allong e i tuoi dati verranno eliminati definitivamente tra 14 giorni (${d}). L’Allong su questo dispositivo viene eliminato subito. L’operazione non si può annullare. |
 | ja | Allongと記録は14日後（${d}）に完全に削除されます。このデバイスのAllongはすぐに削除されます。元に戻せません。 |
 | pt | Seu Allong e seus registros serão excluídos permanentemente em 14 dias (${d}). O Allong deste dispositivo é excluído na hora. Isso não pode ser desfeito. |
@@ -425,7 +425,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | de | Dein Konto wurde gelöscht |
 | es | Tu cuenta se eliminó |
 | fr | Votre compte a été supprimé |
-| id | Akunmu telah dihapus |
+| id | Akun Anda telah dihapus |
 | it | Il tuo account è stato eliminato |
 | ja | アカウントが削除されました |
 | pt | Sua conta foi excluída |
@@ -505,7 +505,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | de | Dein Spitzname, dein Profil und deine Punkte werden in 14 Tagen (${d}) endgültig gelöscht. Melde dich vorher mit demselben ${p}-Konto an, um das rückgängig zu machen. Die Einträge auf diesem Gerät werden sofort gelöscht. |
 | es | Tu apodo, tu perfil y tus puntos se eliminarán definitivamente en 14 días (${d}). Antes de eso, inicia sesión con la misma cuenta de ${p} para deshacerlo. Los registros de este dispositivo se eliminan al instante. |
 | fr | Votre pseudo, votre profil et vos points seront définitivement supprimés dans 14 jours (${d}). Connectez-vous avant avec le même compte ${p} pour annuler. Les données de cet appareil sont supprimées immédiatement. |
-| id | Nama panggilan, profil, dan poinmu akan dihapus permanen dalam 14 hari (${d}). Masuk dengan akun ${p} yang sama sebelum itu untuk membatalkan. Catatan di perangkat ini langsung dihapus. |
+| id | Nama panggilan, profil, dan poin Anda akan dihapus permanen dalam 14 hari (${d}). Masuk dengan akun ${p} yang sama sebelum itu untuk membatalkan. Catatan di perangkat ini langsung dihapus. |
 | it | Il tuo nickname, il profilo e i punti verranno eliminati definitivamente tra 14 giorni (${d}). Prima di allora, accedi con lo stesso account ${p} per annullare. I dati su questo dispositivo vengono eliminati subito. |
 | ja | ニックネーム・プロフィール・ポイントは14日後（${d}）に完全に削除されます。それまでに同じ${p}アカウントでサインインすると取り消せます。このデバイスの記録はすぐに削除されます。 |
 | pt | Seu apelido, perfil e pontos serão excluídos permanentemente em 14 dias (${d}). Antes disso, entre com a mesma conta ${p} para desfazer. Os registros deste dispositivo são excluídos na hora. |
@@ -524,7 +524,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | de | Melde dich wieder an, um Spitzname, Profil und Punkte zurückzuholen. |
 | es | Inicia sesión de nuevo para recuperar tu apodo, tu perfil y tus puntos. |
 | fr | Reconnectez-vous pour retrouver votre pseudo, votre profil et vos points. |
-| id | Masuk lagi untuk memulihkan nama panggilan, profil, dan poinmu. |
+| id | Masuk lagi untuk memulihkan nama panggilan, profil, dan poin Anda. |
 | it | Accedi di nuovo per recuperare nickname, profilo e punti. |
 | ja | もう一度サインインすると、ニックネーム・プロフィール・ポイントを呼び戻せます。 |
 | pt | Entre de novo para recuperar seu apelido, perfil e pontos. |
