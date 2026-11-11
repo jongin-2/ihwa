@@ -149,7 +149,7 @@ allong.my와 ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-11-09
+최종 수정일: 2026-11-11
 
 ---
 
@@ -300,4 +300,4 @@ Any change to this policy is published on this page right away. The apps show th
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-11-09
+Last updated: 2026-11-11
