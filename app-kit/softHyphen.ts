@@ -21,6 +21,22 @@ export const COMMON_BREAKS: readonly string[] = [
   'con-fi-den-tia-li-té', 'No-ti-fi-ca-tions', 'd’u-ti-li-sa-tion', 'Con-di-tions', 'Po-li-tique',
   // ru
   'кон-фи-ден-ци-аль-но-сти', 'ис-поль-зо-ва-ния', 'Уве-дом-ле-ния', 'На-по-ми-на-ние', 'Ли-цен-зии', 'кон-фі-ден-цій-но-сті',
+  // 공용 업데이트 안내창(UpdatePrompt)·문서 보기(LegalDocView) 낱말 — 확인 창 제목 기준 8자부터(11-11 응원석 지적). 맥 애플 사전 분철(CFStringGetHyphenationLocationBeforeIndex), tr·id는 음절 규칙, 한 글자 조각은 붙임.
+  // en·de·es·fr·it·pt·nl·sv
+  'Avail-able', 'Ak-tua-li-sie-re', 'ak-tua-li-sie-ren', 'Ak-tua-li-sie-ren', 'ver-füg-bar',
+  'Ac-tua-li-za', 'Ac-tua-li-za-ción', 'Ac-tua-li-zar', 'dis-po-ni-ble', 'con-ti-nuer', 'uti-li-ser',
+  'Ag-gior-na', 'Ag-gior-na-men-to', 'con-ti-nua-re', 'di-spo-ni-bi-le',
+  'Atua-li-za-ção', 'Atua-li-zar', 'Atua-li-ze', 'con-ti-nu-ar', 'dis-po-ní-vel',
+  'be-schik-baar', 'bij-wer-ken', 'Bij-wer-ken', 'ge-brui-ken', 'fort-sät-ta', 'Upp-da-te-ra', 'Upp-da-te-ring',
+  // pl·cs
+  'ak-tu-ali-za-cja', 'Ak-tu-ali-zuj', 'apli-ka-cji', 'Do-stęp-na', 'ko-rzy-stać', 'Zak-tu-ali-zuj',
+  'ak-tua-li-za-ce', 'Ak-tua-li-zo-vat', 'Ak-tua-li-zuj-te', 'ap-li-ka-ci', 'dis-po-zi-ci', 'pou-ží-vat',
+  // tr·id(음절 규칙)
+  'gün-cel-le', 'Gün-cel-le', 'Gün-cel-le-me', 'gün-cel-le-yin', 'Kul-lan-ma-ya',
+  'ap-li-ka-si', 'Pem-ba-ru-an', 'Per-ba-rui', 'se-ka-rang', 'ter-se-dia',
+  // ru·uk
+  'До-ступ-но', 'Об-но-ви-те', 'Об-но-вить', 'про-дол-жить', 'об-нов-ле-ние', 'при-ло-же-ни-ем', 'поль-зо-вать-ся',
+  'До-ступ-не', 'онов-лен-ня', 'за-сто-сун-ком', 'ко-ри-сту-ва-ти-ся',
 ];
 
 const norm = (w: string) => w.replace(/'/g, '’'); // 곧은 따옴표(d'utilisation)도 같은 낱말로 본다
