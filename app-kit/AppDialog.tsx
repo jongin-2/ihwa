@@ -98,8 +98,11 @@ export function AppDialogHost(props: Look) {
         <Pressable style={[st.card, { backgroundColor: c.card }, dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
           {/* 큰 글씨(AX)를 줄이지 않는다 — 글이 길면 이 칸만 스크롤하고 버튼은 늘 보인다(iOS 기본 경고창과 같음, ihwa-design '큰 글씨'). */}
           <ScrollView style={st.body} contentContainerStyle={st.bodyIn} bounces={false}>
-            <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
-            {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{shown(cur.msg)}</Text>}
+            {/* 글 칸이 터치 응답권을 받아야 바깥 카드 Pressable이 스크롤을 가로채지 않는다(11-12 알롱 AX5 es·fr·ru·tr 실측 — 감싸지 않으면 밀어도 안 움직임). */}
+            <View onStartShouldSetResponder={() => true}>
+              <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
+              {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{shown(cur.msg)}</Text>}
+            </View>
           </ScrollView>
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
