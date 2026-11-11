@@ -8,7 +8,7 @@
 //
 // 쓰는 법: 화면에 그릴 때만 softHyphen(text). 저장 값·검색어·서버로 보내는 값에는 넣지 않는다.
 // 빠짐 막기(문구에 이미 든 U+00AD는 떼고 봄): 앱 단위 테스트가 모든 언어 문자열에서 띄어쓰기 없는 12자 이상 낱말(라틴·키릴)이 hasBreaks()에 없으면 실패하게 한다.
-// 확인 창 제목처럼 큰 굵은 글자는 8자부터 — longWords(제목들, 8)(11-11 주량체커 AX5 fr 'Supprimer'). 확인 창은 AppDialog의 setDialogText(softHyphen)로 넣는다.
+// 확인 창 제목처럼 큰 굵은 글자는 7자부터(물음표가 붙으면 8칸) — longWords(제목들, 7)(11-11 주량체커 AX5 fr 'Supprimer', 11-12 알롱 ru 'аккаунт?'). 확인 창은 AppDialog의 setDialogText(softHyphen)로 넣는다.
 // 음절 자리는 각 언어 사전 분철(Duden·RAE·Larousse·러시아어 음절 규칙)을 따른다. '-'로 적는다.
 
 /** 모든 앱 설정·법 문서 줄에 나오는 공통 낱말(앱 낱말은 앱에서 더함). */
@@ -29,14 +29,14 @@ export const COMMON_BREAKS: readonly string[] = [
   'Atua-li-za-ção', 'Atua-li-zar', 'Atua-li-ze', 'con-ti-nu-ar', 'dis-po-ní-vel',
   'be-schik-baar', 'bij-wer-ken', 'Bij-wer-ken', 'ge-brui-ken', 'fort-sät-ta', 'Upp-da-te-ra', 'Upp-da-te-ring',
   // pl·cs
-  'ak-tu-ali-za-cja', 'Ak-tu-ali-zuj', 'apli-ka-cji', 'Do-stęp-na', 'ko-rzy-stać', 'Zak-tu-ali-zuj',
+  'Póź-niej', 'Poz-dě-ji', 'blij-ven', 'an-vän-da', 'ak-tu-ali-za-cja', 'Ak-tu-ali-zuj', 'apli-ka-cji', 'Do-stęp-na', 'ko-rzy-stać', 'Zak-tu-ali-zuj',
   'ak-tua-li-za-ce', 'Ak-tua-li-zo-vat', 'Ak-tua-li-zuj-te', 'ap-li-ka-ci', 'dis-po-zi-ci', 'pou-ží-vat',
   // tr·id(음절 규칙)
   'gün-cel-le', 'Gün-cel-le', 'Gün-cel-le-me', 'gün-cel-le-yin', 'Kul-lan-ma-ya',
-  'ap-li-ka-si', 'Pem-ba-ru-an', 'Per-ba-rui', 'se-ka-rang', 'ter-se-dia',
+  'me-ma-kai', 'ap-li-ka-si', 'Pem-ba-ru-an', 'Per-ba-rui', 'se-ka-rang', 'ter-se-dia',
   // ru·uk
   'До-ступ-но', 'Об-но-ви-те', 'Об-но-вить', 'про-дол-жить', 'об-нов-ле-ние', 'при-ло-же-ни-ем', 'поль-зо-вать-ся',
-  'До-ступ-не', 'онов-лен-ня', 'за-сто-сун-ком', 'ко-ри-сту-ва-ти-ся',
+  'До-ступ-не', 'Оно-віть', 'Оно-ви-ти', 'Піз-ні-ше', 'онов-лен-ня', 'за-сто-сун-ком', 'ко-ри-сту-ва-ти-ся',
 ];
 
 const norm = (w: string) => w.replace(/'/g, '’'); // 곧은 따옴표(d'utilisation)도 같은 낱말로 본다
