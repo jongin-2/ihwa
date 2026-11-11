@@ -20,7 +20,7 @@
 // 공용 원본 LegalDocView(메일 주소 복사 알림)·UpdatePrompt(업데이트 안내)가 './AppDialog'로 이 파일을 쓴다 — 셋을 같은 폴더에 함께 복사한다.
 // 필요한 라이브러리: 없음(react-native만).
 import { useEffect, useRef, useState } from 'react';
-import { Alert, Modal, Pressable, StyleSheet, Text, View, useColorScheme, type ColorValue } from 'react-native';
+import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, type ColorValue } from 'react-native';
 
 export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive' };
 export type DialogOptions = { title: string; msg?: string; buttons: DialogButton[]; dismissable?: boolean };
@@ -91,8 +91,11 @@ export function AppDialogHost(props: Look) {
     <Modal transparent animationType="fade" visible onRequestClose={() => { if (closable) pick(cancel); }}>
       <Pressable style={st.scrim} onPress={() => closable && pick(cancel)} accessible={false}>
         <Pressable style={[st.card, { backgroundColor: c.card }, dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
-          <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={1.5}>{cur.title}</Text>
-          {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={1.5}>{cur.msg}</Text>}
+          {/* 큰 글씨(AX)를 줄이지 않는다 — 글이 길면 이 칸만 스크롤하고 버튼은 늘 보인다(iOS 기본 경고창과 같음, ihwa-design '큰 글씨'). */}
+          <ScrollView style={st.body} contentContainerStyle={st.bodyIn} bounces={false}>
+            <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{cur.title}</Text>
+            {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{cur.msg}</Text>}
+          </ScrollView>
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
@@ -113,8 +116,10 @@ export function AppDialogHost(props: Look) {
 
 const st = StyleSheet.create({
   scrim: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 24, backgroundColor: 'rgba(0,0,0,0.4)' },
-  card: { width: '100%', maxWidth: 400, borderRadius: 28, paddingTop: 24, paddingHorizontal: 20, paddingBottom: 20, shadowColor: '#000', shadowOpacity: 0.28, shadowRadius: 20, shadowOffset: { width: 0, height: 8 } },
+  card: { width: '100%', maxWidth: 400, maxHeight: '85%', borderRadius: 28, paddingTop: 24, paddingHorizontal: 20, paddingBottom: 20, shadowColor: '#000', shadowOpacity: 0.28, shadowRadius: 20, shadowOffset: { width: 0, height: 8 } },
   cardDark: { borderWidth: StyleSheet.hairlineWidth * 2, borderColor: 'rgba(255,255,255,0.12)' }, // 다크에선 카드가 배경과 붙어 테두리
+  body: { flexGrow: 0, flexShrink: 1 },
+  bodyIn: { flexGrow: 0 },
   title: { fontSize: 19, fontWeight: '700', textAlign: 'center', paddingHorizontal: 8 },
   msg: { fontSize: 15, lineHeight: 22, textAlign: 'center', marginTop: 8, paddingHorizontal: 8 },
   row: { flexDirection: 'row', gap: 10, marginTop: 20 },
