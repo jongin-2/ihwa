@@ -7,7 +7,7 @@
 // VoiceOver도 읽지 않는다(차곡 b03020f AX5 es·ru·de·fr 실측). 글자를 줄여 맞추지 않으므로 큰 글씨를 켠 사용자의 크기를 지킨다.
 //
 // 쓰는 법: 화면에 그릴 때만 softHyphen(text). 저장 값·검색어·서버로 보내는 값에는 넣지 않는다.
-// 빠짐 막기: 앱 단위 테스트가 모든 언어 문자열에서 띄어쓰기 없는 12자 이상 낱말(라틴·키릴)이 hasBreaks()에 없으면 실패하게 한다.
+// 빠짐 막기(문구에 이미 든 U+00AD는 떼고 봄): 앱 단위 테스트가 모든 언어 문자열에서 띄어쓰기 없는 12자 이상 낱말(라틴·키릴)이 hasBreaks()에 없으면 실패하게 한다.
 // 음절 자리는 각 언어 사전 분철(Duden·RAE·Larousse·러시아어 음절 규칙)을 따른다. '-'로 적는다.
 
 /** 모든 앱 설정·법 문서 줄에 나오는 공통 낱말(앱 낱말은 앱에서 더함). */
@@ -19,26 +19,33 @@ export const COMMON_BREAKS: readonly string[] = [
   // fr
   'con-fi-den-tia-li-té', 'No-ti-fi-ca-tions', 'd’u-ti-li-sa-tion', 'Con-di-tions', 'Po-li-tique',
   // ru
-  'кон-фи-ден-ци-аль-но-сти', 'ис-поль-зо-ва-ния', 'Уве-дом-ле-ния', 'На-по-ми-на-ние', 'Ли-цен-зии', 'кон-фи-ден-ці-йно-сті',
+  'кон-фи-ден-ци-аль-но-сти', 'ис-поль-зо-ва-ния', 'Уве-дом-ле-ния', 'На-по-ми-на-ние', 'Ли-цен-зии', 'кон-фі-ден-цій-но-сті',
 ];
 
 const norm = (w: string) => w.replace(/'/g, '’'); // 곧은 따옴표(d'utilisation)도 같은 낱말로 본다
 
 /** 앱 낱말을 더해 화면용 함수와 사전 확인 함수를 만든다. */
 export function makeSoftHyphen(appBreaks: readonly string[] = []) {
-  const map = new Map<string, string>();
-  for (const w of [...COMMON_BREAKS, ...appBreaks]) map.set(norm(w.replace(/-/g, '')), w.replace(/-/g, '­'));
+  // 낱말(따옴표 정규화) → 하이픈을 넣을 글자 위치. 값은 위치만 두고 화면 글자는 원래 낱말에 넣는다(곧은 따옴표 그대로 — 11-11 차곡 fr d'utilisation).
+  const map = new Map<string, number[]>();
+  for (const w of [...COMMON_BREAKS, ...appBreaks]) {
+    const at: number[] = [];
+    let n = 0;
+    for (const ch of w) { if (ch === '-') at.push(n); else n += ch.length; }
+    map.set(norm(w.replace(/-/g, '')), at);
+  }
+  const put = (w: string, at: number[]) => { let o = '', i = 0; for (const k of at) { o += w.slice(i, k) + '\u00AD'; i = k; } return o + w.slice(i); };
   return {
-    /** 화면에 그릴 글자에 정해 둔 긴 낱말의 숨은 하이픈을 넣는다(모르는 낱말은 그대로). */
-    softHyphen: (text: string): string => text.replace(/[\p{L}’']+/gu, (w) => map.get(norm(w)) ?? w),
+    /** 화면에 그릴 글자에 정해 둔 긴 낱말의 숨은 하이픈을 넣는다(모르는 낱말은 그대로, 하이픈 말고는 원문 글자 그대로). */
+    softHyphen: (text: string): string => text.replace(/[\p{L}’']+/gu, (w) => { const at = map.get(norm(w)); return at ? put(w, at) : w; }),
     /** 단위 테스트용 — 이 낱말에 하이픈 자리가 있는가. */
-    hasBreaks: (word: string): boolean => map.has(norm(word)),
+    hasBreaks: (word: string): boolean => map.has(norm(word.replace(/\u00AD/g, ''))),
   };
 }
 
 /** 단위 테스트용 — 문자열들에서 하이픈 자리가 필요한 긴 낱말(띄어쓰기 없는 12자 이상, 라틴·키릴)을 뽑는다. */
 export function longWords(texts: readonly string[], min = 12): string[] {
   const out = new Set<string>();
-  for (const t of texts) for (const w of t.match(/[\p{Script=Latin}\p{Script=Cyrillic}’']+/gu) ?? []) if (w.length >= min) out.add(norm(w));
+  for (const t of texts) for (const w of t.replace(/\u00AD/g, '').match(/[\p{Script=Latin}\p{Script=Cyrillic}’']+/gu) ?? []) if (w.length >= min) out.add(norm(w));
   return [...out];
 }
