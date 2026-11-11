@@ -2,7 +2,7 @@
 
 계정이 있는 앱은 아래 두 유형 중 앱에 맞는 것을 글자 그대로 쓴다(10-21 종인님 — 알롱이 계정 삭제로 가며 두 갈래로 나눔).
 - **① 기록 연결**(주량체커·차곡): 계정은 기록을 백업하고 옮기는 수단, 기록의 주인은 기기. 메뉴 '연결 / 연결 해제' — 해제하면 기록은 이 기기에만 남고 서버 사본과 계정을 지운다.
-- **② 계정 생성**(알롱·한배): 계정이 서버에 남는 정체성(순위·알롱 번호, 출시 뒤 친구·크루·거래소), 게스트도 처음부터 서버에 저장. 메뉴는 '계정 삭제' 하나(연결 해제·데이터 초기화를 합침, 게스트·연결 계정 모두) — 서버는 14일 유예 뒤 영구 삭제, 이 기기는 바로 새 알로. 연결 계정만 14일 안에 다시 로그인하면 되돌릴 수 있고 게스트는 되돌릴 수 없다. 애플·구글 연결은 누르는 순간 끊는다. 한배는 게스트 계정이 없다(로그인 전엔 보기만, 서버 저장 없음) — `delBodyGuest`를 쓰지 않고, 앱마다 다른 `delBodyLinked`·`logoutBody`만 맨 아래 '한배 몫' 표를 쓴다(10-23).
+- **② 계정 생성**(알롱·한배·맵나이츠): 계정이 서버에 남는 정체성(순위·알롱 번호, 출시 뒤 친구·크루·거래소), 게스트도 처음부터 서버에 저장. 메뉴는 '계정 삭제' 하나(연결 해제·데이터 초기화를 합침, 게스트·연결 계정 모두) — 서버는 14일 유예 뒤 영구 삭제, 이 기기는 바로 새 알로. 연결 계정만 14일 안에 다시 로그인하면 되돌릴 수 있고 게스트는 되돌릴 수 없다. 애플·구글 연결은 누르는 순간 끊는다. 한배는 게스트 계정이 없다(로그인 전엔 보기만, 서버 저장 없음) — `delBodyGuest`를 쓰지 않고, 앱마다 다른 `delBodyLinked`·`logoutBody`만 맨 아래 '한배 몫' 표를 쓴다(10-23). 맵나이츠도 게스트가 없다(애플 로그인 필수) — 맨 아래 '맵나이츠 몫' 표(11-11).
 
 '연결 전 설정 줄'은 두 유형 공통(게스트가 애플·구글을 연결하는 줄). 앱에 넣을 땐 이 표를 복사하고, 고칠 땐 이 파일부터 고친 뒤 세 앱에 알린다. 번역 원본은 차곡 1.0.0(10-17, 57efabf) — '기록' 낱말은 주량체커 연결 해제 번역과 같게.
 
@@ -533,3 +533,45 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | vi | Đăng nhập lại để lấy lại biệt danh, hồ sơ và điểm. |
 | zhHans | 重新登录即可找回昵称、头像和积分。 |
 | zhHant | 重新登入即可找回暱稱、頭像與點數。 |
+
+### ② 맵나이츠 몫 — 앱마다 다른 두 문구
+
+원본은 맵나이츠 저장소 `prd/settings/spec.md`(e859929). 게스트 없음(애플 로그인 필수), 나머지 ② 문구는 위 표를 글자 그대로. 서버에서 지우는 것 = 캐릭터(기사단)·가방, 이 기기에서 바로 지우는 것 = 기기 안 기록. `${p}`는 로그인한 계정 종류(지금은 Apple — Android 판에서 Google). 다국어 판을 만들 때 '가방'은 앱 안 가방 탭 이름과 같은 낱말로 맞춘다(11-11 코어 초안).
+
+#### 맵나이츠 delBodyLinked
+
+| 언어 | 문구 |
+|---|---|
+| ko | 캐릭터와 가방이 14일 뒤(${d}) 완전히 지워져요. 그 전에 같은 ${p} 계정으로 로그인하면 되돌릴 수 있어요. 이 기기의 기록은 바로 지워져요. |
+| en | Your characters and bag will be permanently deleted in 14 days (${d}). Sign in with the same ${p} account before then to undo this. Records on this device are erased right away. |
+| de | Deine Charaktere und deine Tasche werden in 14 Tagen (${d}) endgültig gelöscht. Melde dich vorher mit demselben ${p}-Konto an, um das rückgängig zu machen. Die Einträge auf diesem Gerät werden sofort gelöscht. |
+| es | Tus personajes y tu bolsa se eliminarán definitivamente en 14 días (${d}). Antes de eso, inicia sesión con la misma cuenta de ${p} para deshacerlo. Los registros de este dispositivo se eliminan al instante. |
+| fr | Vos personnages et votre sac seront définitivement supprimés dans 14 jours (${d}). Connectez-vous avant avec le même compte ${p} pour annuler. Les données de cet appareil sont supprimées immédiatement. |
+| id | Karakter dan tas Anda akan dihapus permanen dalam 14 hari (${d}). Masuk dengan akun ${p} yang sama sebelum itu untuk membatalkan. Catatan di perangkat ini langsung dihapus. |
+| it | I tuoi personaggi e la borsa verranno eliminati definitivamente tra 14 giorni (${d}). Prima di allora, accedi con lo stesso account ${p} per annullare. I dati su questo dispositivo vengono eliminati subito. |
+| ja | キャラクターとバッグは14日後（${d}）に完全に削除されます。それまでに同じ${p}アカウントでサインインすると取り消せます。このデバイスの記録はすぐに削除されます。 |
+| pt | Seus personagens e sua bolsa serão excluídos permanentemente em 14 dias (${d}). Antes disso, entre com a mesma conta ${p} para desfazer. Os registros deste dispositivo são excluídos na hora. |
+| ru | Ваши персонажи и сумка будут безвозвратно удалены через 14 дней (${d}). Чтобы отменить, войдите до этого в тот же аккаунт ${p}. Записи на этом устройстве удаляются сразу. |
+| tr | Karakterleriniz ve çantanız 14 gün sonra (${d}) kalıcı olarak silinir. Geri almak için o zamana kadar aynı ${p} hesabıyla giriş yapın. Bu cihazdaki kayıtlar hemen silinir. |
+| vi | Nhân vật và túi đồ của bạn sẽ bị xóa vĩnh viễn sau 14 ngày (${d}). Hãy đăng nhập lại bằng cùng tài khoản ${p} trước đó để hoàn tác. Ghi chép trên thiết bị này bị xóa ngay. |
+| zhHans | 你的角色和背包将在 14 天后（${d}）被永久删除。在此之前用同一个 ${p} 账号登录即可撤销。这台设备上的记录会立即删除。 |
+| zhHant | 你的角色與背包將在 14 天後（${d}）永久刪除。在此之前用同一個 ${p} 帳號登入即可復原。此裝置上的紀錄會立即刪除。 |
+
+#### 맵나이츠 logoutBody
+
+| 언어 | 문구 |
+|---|---|
+| ko | 다시 로그인하면 캐릭터와 가방을 불러와요. |
+| en | Sign in again to bring back your characters and bag. |
+| de | Melde dich wieder an, um deine Charaktere und deine Tasche zurückzuholen. |
+| es | Inicia sesión de nuevo para recuperar tus personajes y tu bolsa. |
+| fr | Reconnectez-vous pour retrouver vos personnages et votre sac. |
+| id | Masuk lagi untuk memulihkan karakter dan tas Anda. |
+| it | Accedi di nuovo per recuperare i tuoi personaggi e la borsa. |
+| ja | もう一度サインインすると、キャラクターとバッグを呼び戻せます。 |
+| pt | Entre de novo para recuperar seus personagens e sua bolsa. |
+| ru | Войдите снова, чтобы вернуть персонажей и сумку. |
+| tr | Karakterlerinizi ve çantanızı geri getirmek için yeniden giriş yapın. |
+| vi | Đăng nhập lại để lấy lại nhân vật và túi đồ. |
+| zhHans | 重新登录即可找回角色和背包。 |
+| zhHant | 重新登入即可找回角色與背包。 |
