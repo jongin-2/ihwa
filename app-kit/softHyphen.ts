@@ -9,7 +9,7 @@
 // 쓰는 법: 화면에 그릴 때만 softHyphen(text). 저장 값·검색어·서버로 보내는 값에는 넣지 않는다.
 // 빠짐 막기(문구에 이미 든 U+00AD는 떼고 봄): 앱 단위 테스트가 모든 언어 문자열에서 띄어쓰기 없는 12자 이상 낱말(라틴·키릴)이 hasBreaks()에 없으면 실패하게 한다.
 // 확인 창 제목처럼 큰 굵은 글자는 7자부터(물음표가 붙으면 8칸) — longWords(제목들, 7)(11-11 주량체커 AX5 fr 'Supprimer', 11-12 알롱 ru 'аккаунт?'). 확인 창은 AppDialog의 setDialogText(softHyphen)로 넣는다.
-// 음절 자리는 각 언어 사전 분철(Duden·RAE·Larousse·러시아어 음절 규칙)을 따른다. '-'로 적는다.
+// 음절 자리는 각 언어 사전 분철(Duden·RAE·Larousse·러시아어 음절 규칙)을 따른다. '-'로 적는다. 뽑는 도구: app-kit/scripts/hyphenate/(맥 애플 사전 분철·Intl 달·요일 낱말).
 
 /** 모든 앱 설정·법 문서 줄에 나오는 공통 낱말(앱 낱말은 앱에서 더함). */
 export const COMMON_BREAKS: readonly string[] = [
