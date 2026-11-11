@@ -50,7 +50,7 @@
 | 정보 | 목적 | 보관 기간 |
 |---|---|---|
 | 계정 식별자(Apple·Google, 이메일은 받지 않음) | 로그인 | 계정 삭제 요청 뒤 14일(그 안에 다시 로그인하면 취소) |
-| 닉네임·포인트·이용 제한 기록 | 말풍선·대항전·이용 제한 | 계정 삭제 요청 뒤 14일 |
+| 닉네임·포인트·대항전 기록·이용 제한 기록 | 말풍선·대항전·개인 순위·이용 제한 | 계정 삭제 요청 뒤 14일 |
 | 대항전에서 고른 노선(계정과 함께) | 대항전 포인트 지급 | 지급하면 바로(주·월 우승은 기간이 끝날 때까지, 최대 31일) |
 | 신고된 말풍선(글·신고 사유·시각·양쪽 닉네임) | 신고 검토 | 검토가 끝나고 90일 |
 | 영구 이용 제한 계정의 식별자(되돌릴 수 없는 값으로 바꿈) | 다시 가입 막기 | 제한이 풀릴 때까지 |
@@ -59,7 +59,7 @@
 
 ### 2. 맡기는 곳과 국외 이전
 
-운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임은 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다.
+운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임·개인 순위는 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다.
 
 | 받는 곳(연락처) | 맡기는 일(앱) | 정보가 있는 곳 |
 |---|---|---|
@@ -201,7 +201,7 @@ Apart from what the tables below list, what you enter in an app is stored on you
 | Information | Purpose | Kept until |
 |---|---|---|
 | Account identifier (Apple or Google; no email) | Sign-in | 14 days after you request account deletion (signing in again within that time cancels it) |
-| Nickname, points and restriction record | Bubbles, battles and restrictions | 14 days after you request account deletion |
+| Nickname, points, battle records and restriction record | Bubbles, battles, personal rankings and restrictions | 14 days after you request account deletion |
 | The line you picked in a battle (with your account) | Paying battle points | Deleted once paid (for weekly and monthly winners, until the period ends, up to 31 days) |
 | Reported bubbles (text, reason, time and both nicknames) | Reviewing reports | 90 days after review |
 | Identifier of a permanently banned account (turned into an irreversible value) | Preventing re-registration | The ban ends |
@@ -210,7 +210,7 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 ### 2. Service providers and international transfer
 
-We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles and nicknames are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea.
+We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles, nicknames and personal rankings are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea.
 
 | Recipient (contact) | Task (apps) | Where the data is |
 |---|---|---|
