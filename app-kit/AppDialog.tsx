@@ -54,15 +54,15 @@ function pump() {
   top.give(top.cur);
 }
 
+// 제목 큰 글씨 상한 — TextFit titleMul(19)과 같은 값(iOS Title 3 AX5 20→53 급). 19pt가 AX5 약 3.1배면 '삭제할까요?'의 '?'가 혼자 떨어짐(11-13 차곡 1.0.6 재회귀).
+// AppDialog만 복사한 앱도 돌게 TextFit을 가져오지 않고 값을 둔다.
+const TITLE_MUL = 2.65;
+
 let shown: (t: string) => string = (t) => t;
 /** 앱 뿌리에서 한 번 — 창에 그릴 글자 변환(보통 makeSoftHyphen(앱 낱말).softHyphen). 기본은 그대로. iOS 경고창 대신 띄울 땐 쓰지 않는다. */
 export function setDialogText(fn: (t: string) => string): void { shown = fn; }
 
 /** 지금 떠 있는 창(가장 위 층)의 단추·글·body를 바꾼다 — body 안 선택에 따라 단추 흐림을 풀 때. 떠 있는 창이 없으면 아무것도 안 한다. */
-// 제목 큰 글씨 상한 — TextFit titleMul(19)과 같은 값(iOS Title 3 AX5 20→53 급). 19pt가 AX5 약 3.1배면 '삭제할까요?'의 '?'가 혼자 떨어짐(11-13 차곡 1.0.6 재회귀).
-// AppDialog만 복사한 앱도 돌게 TextFit을 가져오지 않고 값을 둔다.
-const TITLE_MUL = 2.65;
-
 export function updateDialog(patch: Partial<Pick<DialogOptions, 'buttons' | 'msg' | 'body'>>): void {
   const top = [...layers].reverse().find((l) => l.cur);
   if (!top || !top.cur) return;
