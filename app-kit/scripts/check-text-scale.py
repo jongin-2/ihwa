@@ -15,6 +15,8 @@
       적지 않은 것은 자유(C, 본문은 iOS처럼 끝까지 커짐 — HIG)로 본다 → R1·R2 건너뜀, R3(22pt 이상)·R4(자유+한 줄 고정)는 그대로(11-13 주량체커 제안).
   R4 예외: 같은 태그에 adjustsFontSizeToFit(칸 폭에 맞춰 줄어듦) 또는 ellipsizeMode(일부러 말줄임 — iOS 설정 계정 줄 관례)가 있으면(11-13 주량체커).
   주석(// … · /* … */) 안의 <Text> 글자는 태그로 보지 않는다(문자열 안 '//'는 주석 아님).
+  R6  한 줄 줄이기(adjustsFontSizeToFit)를 쓰는 <Text>의 style(태그 안이나 같은 파일 StyleSheet)에 lineHeight·고정 height를 직접 두지 않는다
+      — iOS에서 글자가 4pt까지 줄어든다(11-13 알롱 69d168c5). 줄 높이가 필요하면 TextFit의 fitBox(줄 높이, 배율)를 같은 태그에.
 
 쓰기
   python3 impl/scripts/check-text-scale.py            전체(위반이 있으면 종료 코드 1)
@@ -87,6 +89,7 @@ def check(rel, src):
     out = []
     wrap = wrapper_text(src)
     src = mask_comments(src)
+    sheet = dict(re.findall(r'\b(\w+):\s*\{([^{}]*)\}', src))  # 같은 파일 StyleSheet 이름 → 본문(한 단계)
     for pos, name, tag in open_tags(src):
         line = src.count('\n', 0, pos) + 1
         capm = re.search(r'maxFontSizeMultiplier=\{([^}]*)\}', tag)
@@ -116,6 +119,14 @@ def check(rel, src):
                         out.append((line, f'R3 글자 {big:g}pt 상한 {capm.group(1)} > titleMul({big:g}) = {title_mul(big)}'))
                 except ValueError:
                     pass  # 식(변수·함수)은 사람이 본다
+        if name == 'Text' and 'adjustsFontSizeToFit' in tag and 'fitBox(' not in tag:
+            hit = re.search(r'\b(lineHeight|height)\s*:', tag)
+            if not hit:
+                for k in re.findall(r'\b\w+\.(\w+)\b', tag):
+                    if k in sheet and re.search(r'(?<![\w])(lineHeight|height)\s*:', sheet[k]):
+                        hit = True; break
+            if hit:
+                out.append((line, 'R6 한 줄 줄이기 글자 style에 lineHeight·height — fitBox(줄 높이, 배율)로(iOS 4pt 버그)'))
         if free and one and 'adjustsFontSizeToFit' not in tag and 'ellipsizeMode' not in tag:
             out.append((line, 'R4 자유(allowFontScaling)인데 한 줄 고정 — 상한 + adjustsFontSizeToFit로'))
     return out
