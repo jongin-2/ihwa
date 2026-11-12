@@ -59,6 +59,10 @@ let shown: (t: string) => string = (t) => t;
 export function setDialogText(fn: (t: string) => string): void { shown = fn; }
 
 /** 지금 떠 있는 창(가장 위 층)의 단추·글·body를 바꾼다 — body 안 선택에 따라 단추 흐림을 풀 때. 떠 있는 창이 없으면 아무것도 안 한다. */
+// 제목 큰 글씨 상한 — TextFit titleMul(19)과 같은 값(iOS Title 3 AX5 20→53 급). 19pt가 AX5 약 3.1배면 '삭제할까요?'의 '?'가 혼자 떨어짐(11-13 차곡 1.0.6 재회귀).
+// AppDialog만 복사한 앱도 돌게 TextFit을 가져오지 않고 값을 둔다.
+const TITLE_MUL = 2.65;
+
 export function updateDialog(patch: Partial<Pick<DialogOptions, 'buttons' | 'msg' | 'body'>>): void {
   const top = [...layers].reverse().find((l) => l.cur);
   if (!top || !top.cur) return;
@@ -145,10 +149,10 @@ export function AppDialogHost(props: Look) {
                     : <View pointerEvents="none" style={[st.fill, { top: '50%', backgroundColor: look.titleBand.to }]} />}
                   <View pointerEvents="none" style={[st.diamond, { left: 18, backgroundColor: look.titleBand.line }]} />
                   <View pointerEvents="none" style={[st.diamond, { right: 18, backgroundColor: look.titleBand.line }]} />
-                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
+                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={TITLE_MUL}>{shown(cur.title)}</Text>
                 </View>
               ) : (
-                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
+                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={TITLE_MUL}>{shown(cur.title)}</Text>
               )}
               {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{shown(cur.msg)}</Text>}
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
