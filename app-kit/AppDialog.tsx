@@ -19,11 +19,11 @@
 //   → 누른 단추 순번(바깥을 눌러 닫으면 취소 단추 순번). Host가 하나도 없으면 iOS 경고창으로 대신 띄운다(멈추지 않게).
 // 앱마다 다른 값: accent(실행 단추 색)·onAccent(그 위 글자색, 기본 흰색)·colors(카드·글자 색을 앱 장면 값으로 바꿀 때만)·stack(늘 세로 쌓기).
 //   장식(11-12 맵나이츠 'A 절충' — 모두 선택, 안 주면 지금 모양 그대로): radius(카드 모서리, 기본 28)·frame(2px 테두리+안쪽 이중선 2px/1px)
-//   ·cornerOrnament(모서리 L자 4개 14×2·2×14, 안쪽 6)·titleBand(위·아래 선 있는 제목 띠+양끝 마름모)·buttons(종류별 단추 색·테·모서리·뒤판 그리기 — 그라데이션은 앱이 back으로).
+//   ·cornerOrnament(모서리 L자 4개 14×2·2×14, 안쪽 6)·titleBand(위·아래 선 있는 제목 띠+양끝 마름모 — 위 빛·아래 선 따로, 바탕 그라데이션은 back, 글자는 textStyle)·buttons(종류별 단추 색·테·모서리·뒤판 그리기 — 그라데이션은 앱이 back으로).
 // 공용 원본 LegalDocView(메일 주소 복사 알림)·UpdatePrompt(업데이트 안내)가 './AppDialog'로 이 파일을 쓴다 — 셋을 같은 폴더에 함께 복사한다.
 // 필요한 라이브러리: 없음(react-native만).
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, type ColorValue } from 'react-native';
+import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, type ColorValue, type TextStyle } from 'react-native';
 
 export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive' };
 export type DialogOptions = { title: string; msg?: string; buttons: DialogButton[]; dismissable?: boolean };
@@ -36,7 +36,7 @@ export type Look = {
   radius?: number;
   frame?: { border: ColorValue; innerLo: ColorValue; innerHi: ColorValue };
   cornerOrnament?: ColorValue;
-  titleBand?: { from: ColorValue; to: ColorValue; text: ColorValue; line: ColorValue };
+  titleBand?: { from: ColorValue; to: ColorValue; text: ColorValue; line: ColorValue; topLight?: ColorValue; bottomLine?: ColorValue; back?: () => ReactNode; textStyle?: TextStyle };
   buttons?: Partial<Record<Kind, ButtonLook>>;
 };
 type Layer = { look: Look; cur: Req | null; give: (r: Req | null) => void };
@@ -128,11 +128,13 @@ export function AppDialogHost(props: Look) {
             {/* 글 칸이 터치 응답권을 받아야 바깥 카드 Pressable이 스크롤을 가로채지 않는다(11-12 알롱 AX5 es·fr·ru·tr 실측 — 감싸지 않으면 밀어도 안 움직임). */}
             <View onStartShouldSetResponder={() => true}>
               {look.titleBand ? (
-                <View style={[st.band, { backgroundColor: look.titleBand.from, borderColor: look.titleBand.line }]}>
-                  <View pointerEvents="none" style={[st.fill, { top: '50%', backgroundColor: look.titleBand.to }]} />
-                  <View pointerEvents="none" style={[st.diamond, { left: 8, backgroundColor: look.titleBand.line }]} />
-                  <View pointerEvents="none" style={[st.diamond, { right: 8, backgroundColor: look.titleBand.line }]} />
-                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
+                <View style={[st.band, { backgroundColor: look.titleBand.from, borderTopColor: look.titleBand.topLight ?? look.titleBand.line, borderBottomColor: look.titleBand.bottomLine ?? look.titleBand.line }]}>
+                  {look.titleBand.back
+                    ? <View pointerEvents="none" style={st.fill}>{look.titleBand.back()}</View>
+                    : <View pointerEvents="none" style={[st.fill, { top: '50%', backgroundColor: look.titleBand.to }]} />}
+                  <View pointerEvents="none" style={[st.diamond, { left: 18, backgroundColor: look.titleBand.line }]} />
+                  <View pointerEvents="none" style={[st.diamond, { right: 18, backgroundColor: look.titleBand.line }]} />
+                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
                 </View>
               ) : (
                 <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
@@ -181,7 +183,7 @@ const st = StyleSheet.create({
   orn: { position: 'absolute', width: 14, height: 14 },
   ornH: { position: 'absolute', width: 14, height: 2 },
   ornV: { position: 'absolute', width: 2, height: 14 },
-  band: { marginHorizontal: -20, paddingVertical: 10, paddingHorizontal: 28, borderTopWidth: 1, borderBottomWidth: 1, overflow: 'hidden', justifyContent: 'center' },
-  bandTitle: { paddingHorizontal: 0 },
-  diamond: { position: 'absolute', top: '50%', marginTop: -4, width: 8, height: 8, transform: [{ rotate: '45deg' }] },
+  band: { marginHorizontal: -20, paddingVertical: 9, paddingHorizontal: 32, borderTopWidth: 1, borderBottomWidth: 1, overflow: 'hidden', justifyContent: 'center' },
+  bandTitle: { paddingHorizontal: 0, lineHeight: 24 },
+  diamond: { position: 'absolute', top: '50%', marginTop: -3.5, width: 7, height: 7, transform: [{ rotate: '45deg' }] },
 });
