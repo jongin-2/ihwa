@@ -35,7 +35,7 @@ Apple '이메일 가리기'로 로그인했다면 iPhone 설정 › 이름 › �
 
 이화(ihwa, 개발자 Jongin Lee)의 모든 앱은 아동 성적 학대·착취(CSAE)와 아동 성 착취물(CSAM)을 어떤 형태로도 허용하지 않아요. 다른 이용자와 글이나 이름을 나누는 앱(한배 등)에서는 미성년자를 성적으로 대상화하는 글·이름, 미성년자에게 다가가 성적 목적으로 꾀어내는 행위(그루밍), 아동 성 착취물을 나누거나 요청하는 행위를 금지해요.
 
-발견하면 앱 안 신고(한배: 말풍선 길게 누르기 › 신고)나 ihwa.support@gmail.com으로 알려 주세요. 확인하는 즉시 내용을 지우고 계정을 영구 정지하며, 관련 법에 따라 수사기관(대한민국 경찰청 등)과 해당 국가 당국에 신고해요.
+발견하면 앱 안 신고(한배: 말풍선 탭 › 신고)나 ihwa.support@gmail.com으로 알려 주세요. 확인하는 즉시 내용을 지우고 계정을 영구 정지하며, 관련 법에 따라 수사기관(대한민국 경찰청 등)과 해당 국가 당국에 신고해요.
 
 아동 안전 담당 연락처: [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
@@ -78,7 +78,7 @@ If you signed in with Apple's Hide My Email, go to iPhone Settings › your name
 
 ihwa (developer Jongin Lee) does not allow child sexual abuse and exploitation (CSAE) or child sexual abuse material (CSAM) in any form, in any of its apps. In apps where people share posts or names with other users (such as SameBoat), we prohibit posts or names that sexualize minors, approaching minors to lure them for sexual purposes (grooming), and sharing or requesting child sexual abuse material.
 
-If you see any of this, report it in the app (SameBoat: press and hold a bubble › Report) or email ihwa.support@gmail.com. Once confirmed, we remove the content immediately, permanently suspend the account, and report it to law enforcement (such as the Korean National Police Agency) and the relevant authorities as required by law.
+If you see any of this, report it in the app (SameBoat: tap a bubble › Report) or email ihwa.support@gmail.com. Once confirmed, we remove the content immediately, permanently suspend the account, and report it to law enforcement (such as the Korean National Police Agency) and the relevant authorities as required by law.
 
 Child safety contact: [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
