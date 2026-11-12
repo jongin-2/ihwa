@@ -12,6 +12,8 @@
       (크기를 직접 계산 — maxFontSizeMultiplier는 그리기만 줄고 자리는 상한 없이 재서 옆이 밀림, 11-13 주량체커).
   앱 글자 래퍼: 파일이 Text를 'react-native'가 아닌 곳(../components/AppText 등)에서 가져오면 그 <Text>는 래퍼가 hangul-word를 걸고
       적지 않은 것은 자유(C, 본문은 iOS처럼 끝까지 커짐 — HIG)로 본다 → R1·R2 건너뜀, R3(22pt 이상)·R4(자유+한 줄 고정)는 그대로(11-13 주량체커 제안).
+  R4 예외: 같은 태그에 adjustsFontSizeToFit(칸 폭에 맞춰 줄어듦) 또는 ellipsizeMode(일부러 말줄임 — iOS 설정 계정 줄 관례)가 있으면(11-13 주량체커).
+  주석(// … · /* … */) 안의 <Text> 글자는 태그로 보지 않는다(문자열 안 '//'는 주석 아님).
 
 쓰기
   python3 impl/scripts/check-text-scale.py            전체(위반이 있으면 종료 코드 1)
@@ -29,6 +31,30 @@ SKIP = {'AppDialog.tsx', 'TextFit.tsx', 'LegalDocView.tsx'}  # 공용 사본 파
 
 def title_mul(size):
     return 1.76 if size >= 34 else 2.07 if size >= 28 else 2.3 if size >= 24 else 2.55 if size >= 22 else 2.65
+
+
+def mask_comments(src):
+    """주석을 같은 길이 공백으로(줄바꿈은 남겨 줄 번호 유지). 따옴표·백틱 문자열 안은 그대로."""
+    out, i, n, q = [], 0, len(src), None
+    while i < n:
+        c = src[i]
+        if q:
+            out.append(c)
+            if c == '\\' and i + 1 < n:
+                out.append(src[i + 1]); i += 2; continue
+            if c == q:
+                q = None
+            i += 1; continue
+        if c in '\'"`':
+            q = c; out.append(c); i += 1; continue
+        if src.startswith('//', i):
+            j = src.find('\n', i); j = n if j < 0 else j
+            out.append(' ' * (j - i)); i = j; continue
+        if src.startswith('/*', i):
+            j = src.find('*/', i + 2); j = n if j < 0 else j + 2
+            out.append(re.sub(r'[^\n]', ' ', src[i:j])); i = j; continue
+        out.append(c); i += 1
+    return ''.join(out)
 
 
 def open_tags(src):
@@ -59,6 +85,7 @@ def wrapper_text(src):
 def check(rel, src):
     out = []
     wrap = wrapper_text(src)
+    src = mask_comments(src)
     for pos, name, tag in open_tags(src):
         line = src.count('\n', 0, pos) + 1
         capm = re.search(r'maxFontSizeMultiplier=\{([^}]*)\}', tag)
@@ -87,7 +114,7 @@ def check(rel, src):
                         out.append((line, f'R3 글자 {big:g}pt 상한 {capm.group(1)} > titleMul({big:g}) = {title_mul(big)}'))
                 except ValueError:
                     pass  # 식(변수·함수)은 사람이 본다
-        if free and one:
+        if free and one and 'adjustsFontSizeToFit' not in tag and 'ellipsizeMode' not in tag:
             out.append((line, 'R4 자유(allowFontScaling)인데 한 줄 고정 — 상한 + adjustsFontSizeToFit로'))
     return out
 
