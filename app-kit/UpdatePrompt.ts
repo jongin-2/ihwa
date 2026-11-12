@@ -31,6 +31,9 @@ import { AppState, Linking, Platform } from 'react-native';
 import { requireOptionalNativeModule } from 'expo';
 import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 
+// 캐시가 아직 유효한지 — 시계를 되돌려 지금이 저장 시각보다 앞이면(음수) 유효로 보지 않는다(11-13 응원석 제안, 알롱 버그 찾기 전파).
+const fresh = (at: number) => { const age = Date.now() - at; return age >= 0 && age < CACHE_MS; };
+
 export const CONFIG_SITE = 'https://jongin-2.github.io/ihwa/app-config';
 
 export type UpdateConfig = {
@@ -201,7 +204,7 @@ async function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T
 export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
   if (Platform.OS === 'android') {
     const key = `android:${cfg.currentVersion}`;
-    if (cache && cache.key === key && Date.now() - cache.at < CACHE_MS) return cache.state;
+    if (cache && cache.key === key && fresh(cache.at)) return cache.state;
     const [info, config] = await Promise.all([
       AU ? withTimeout<PlayInfo | null>(AU.getInfo(), 8000, null) : Promise.resolve(null),
       getJson(`${CONFIG_SITE}/${cfg.configName}.json`),
@@ -213,7 +216,7 @@ export async function checkForUpdate(cfg: UpdateConfig): Promise<UpdateState> {
   }
   if (Platform.OS !== 'ios') return NO_UPDATE;
   const key = `${cfg.appStoreId}:${cfg.currentVersion}`;
-  if (cache && cache.key === key && Date.now() - cache.at < CACHE_MS) return cache.state;
+  if (cache && cache.key === key && fresh(cache.at)) return cache.state;
   const [latest, config] = await Promise.all([
     fetchLatest(cfg.appStoreId),
     getJson(`${CONFIG_SITE}/${cfg.configName}.json`),
