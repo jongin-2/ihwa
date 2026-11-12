@@ -85,11 +85,38 @@ def wrapper_text(src):
     return False
 
 
+def balanced(src, i):
+    """src[i]가 '{' 또는 '('일 때 짝 닫는 괄호까지의 글자."""
+    op = src[i]; cl = '}' if op == '{' else ')'; d = 0
+    for j in range(i, len(src)):
+        if src[j] == op: d += 1
+        elif src[j] == cl:
+            d -= 1
+            if d == 0: return src[i:j + 1]
+    return src[i:]
+
+
+def sheet_styles(src):
+    """StyleSheet.create로 만든 변수 이름들과, 그 본문 안 스타일 이름 → 본문(한 단계)."""
+    names, body = set(), {}
+    for m in re.finditer(r'\b(?:const|let|var)\s+(\w+)\s*=\s*StyleSheet\.create\(', src):
+        names.add(m.group(1))
+        inner = balanced(src, m.end() - 1)
+        body.update(re.findall(r'\b(\w+):\s*\{([^{}]*)\}', inner))
+    return names, body
+
+
+def style_attr(tag):
+    """여는 태그의 style={…} 속성 안 글자(없으면 빈 글자)."""
+    m = re.search(r'\bstyle=\{', tag)
+    return balanced(tag, m.end() - 1) if m else ''
+
+
 def check(rel, src):
     out = []
     wrap = wrapper_text(src)
     src = mask_comments(src)
-    sheet = dict(re.findall(r'\b(\w+):\s*\{([^{}]*)\}', src))  # 같은 파일 StyleSheet 이름 → 본문(한 단계)
+    sheets, sheet = sheet_styles(src)  # StyleSheet.create로 만든 변수 이름들, 그 안 스타일 이름 → 본문(한 단계)
     for pos, name, tag in open_tags(src):
         line = src.count('\n', 0, pos) + 1
         capm = re.search(r'maxFontSizeMultiplier=\{([^}]*)\}', tag)
@@ -120,10 +147,11 @@ def check(rel, src):
                 except ValueError:
                     pass  # 식(변수·함수)은 사람이 본다
         if name == 'Text' and 'adjustsFontSizeToFit' in tag and 'fitBox(' not in tag:
-            hit = re.search(r'\b(lineHeight|height)\s*:', tag)
+            sty = style_attr(tag)  # style={…} 속성 안만 본다(11-13 알롱 — maxFontSizeMultiplier={FONT_CAP.pill}의 pill을 컨테이너 스타일 pill과 잘못 짝지음)
+            hit = re.search(r'(?<![\w])(lineHeight|height)\s*:', sty)
             if not hit:
-                for k in re.findall(r'\b\w+\.(\w+)\b', tag):
-                    if k in sheet and re.search(r'(?<![\w])(lineHeight|height)\s*:', sheet[k]):
+                for obj, k in re.findall(r'\b(\w+)\.(\w+)\b', sty):
+                    if obj in sheets and k in sheet and re.search(r'(?<![\w])(lineHeight|height)\s*:', sheet[k]):
                         hit = True; break
             if hit:
                 out.append((line, 'R6 한 줄 줄이기 글자 style에 lineHeight·height — fitBox(줄 높이, 배율)로(iOS 4pt 버그)'))
