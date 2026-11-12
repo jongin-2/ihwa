@@ -9,6 +9,9 @@
 #     (화면이 없는 파일은 "components.skip": {"파일": "이유"})
 #  ③ 화면은 공용 CSS만: prd/<화면>/mockup.html이 tokens.css·components.css를 링크하고, <style>·style=""에 색 값을 직접 적지 않는다
 #     (팀 색·아이템 그림처럼 내용인 색은 "contentColors"에, SVG 그림 안과 data: 주소는 보지 않음). components.css·컴포넌트 목업도 같다.
+#  ④ 크기도 최신(11-13 주량체커 제안, 맵나이츠 목업 낡은 수치 전파): tokens.css의 간격(--s-)·모서리(--r-) px 값이 코드 테마 파일에 숫자로 있다
+#     (목업에만 있는 값 — iOS가 그리는 시트 모서리 등 — 은 "mockOnlySizes": {"--r-이름": "이유"}, 999 이상 알약 모서리는 뺌).
+#     글자(--t-)는 보지 않는다 — iOS 기본 글자 크기·줄 높이를 옮긴 값이라 코드에 없는 게 정상(여섯 앱 시험에서 오탐뿐).
 import json, os, re, sys
 
 
@@ -98,6 +101,25 @@ for c in sorted(code_colors - token_colors):
     fails.append(f'코드 테마에 있는 색이 tokens.css에 없음: {c}')
 for c in sorted(c_token_colors - code_colors):
     fails.append(f'tokens.css에 있는 색이 코드 테마에 없음(옛 값?): {c}')
+
+# ④ 간격·모서리 토큰 값 = 코드 테마의 숫자
+mock_sizes = cfg.get('mockOnlySizes') or {}
+for k in mock_sizes:
+    if not re.search(re.escape(k) + r'\s*:', tokens):
+        fails.append(f'mockOnlySizes {k}: tokens.css에 없음')
+code_nums = set()
+for rel in theme_files:
+    if os.path.exists(P(*rel.split('/'))):
+        code_nums |= {float(x) for x in re.findall(r'(?<![\w.#])(\d+(?:\.\d+)?)(?![\w])', strip_comments(read(rel)))}
+seen_size = set()
+for k, v in re.findall(r'(--(?:s|r)-[\w-]+)\s*:\s*([^;]+);', tokens):
+    if k in seen_size or k in mock_sizes:
+        continue
+    seen_size.add(k)
+    for x in re.findall(r'(\d+(?:\.\d+)?)px', v):
+        f = float(x)
+        if f and f < 999 and f not in code_nums:
+            fails.append(f'tokens.css {k} {x}px가 코드 테마에 없음(옛 값? 목업 전용이면 screens.json "mockOnlySizes")')
 
 # ①-2 시스템 색: 코드가 값 없이 이름만 쓰는 색(PlatformColor('label')·UIColor.systemBlue·Color(.secondaryLabel))은
 #   screens.json "systemColors": {"이름": "--c-토큰"}으로 어느 토큰인지 밝힌다. 값은 앱이 QA 앱 시뮬레이터 캡처에서 재 넣는다(11-06 응원석 회신).
