@@ -66,3 +66,11 @@ export function longWords(texts: readonly string[], min = 12): string[] {
   for (const t of texts) for (const w of t.replace(/\u00AD/g, '').match(/[\p{Script=Latin}\p{Script=Cyrillic}’']+/gu) ?? []) if (w.length >= min) out.add(norm(w));
   return [...out];
 }
+
+// 영문·숫자와 뒤 한글 사이 줄바꿈 막기(11-13 — 차곡 'CGK / 도'·주량체커 '약 1 / 잔'·알롱 TextKit 실험 1092건 중 205건 끊김 → U+2060 뒤 48건, 남은 것은 낱말이 줄보다 넓은 폭뿐).
+// iOS 어절 줄바꿈(hangul-word)도 숫자·라틴·%·닫는 괄호 → 한글 경계는 끊을 자리로 본다. 그 사이에 U+2060(WORD JOINER, 폭 0·VoiceOver 안 읽음)을 넣는다.
+// 화면에 그릴 때만. 여러 번 불러도 같다(이미 넣은 자리는 앞 글자가 U+2060이라 다시 안 맞음). 확인 창은 setDialogText((t) => glueHangul(softHyphen(t))).
+const GLUE_BEFORE_HANGUL = /([0-9A-Za-z%)\]])(?=[가-힣])/g; // ko-ok: 줄바꿈 규칙(화면 문구 아님)
+export function glueHangul(text: string): string {
+  return text.replace(GLUE_BEFORE_HANGUL, '$1⁠');
+}
