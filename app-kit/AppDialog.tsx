@@ -25,7 +25,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, type ColorValue, type TextStyle } from 'react-native';
 
-export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive' };
+// disabled: 흐림(투명도 0.4·누름 무시) — body 안에서 고르기 전엔 실행 단추를 막을 때. 고른 뒤엔 updateDialog로 바꾼다(11-12 맵나이츠 신고 사유·골드 모자람).
+export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive'; disabled?: boolean };
 // body: 설명 글 아래(단추 위)에 그림 등 앱이 그린 내용을 넣을 때만(11-12 맵나이츠 장비·초상 확인 창). 안 주면 지금 그대로, Host가 없어 iOS 경고창으로 갈 땐 빠진다.
 export type DialogOptions = { title: string; msg?: string; body?: ReactNode; buttons: DialogButton[]; dismissable?: boolean };
 type Req = DialogOptions & { done: (i: number) => void };
@@ -40,7 +41,7 @@ export type Look = {
   titleBand?: { from: ColorValue; to: ColorValue; text: ColorValue; line: ColorValue; topLight?: ColorValue; bottomLine?: ColorValue; back?: () => ReactNode; textStyle?: TextStyle };
   buttons?: Partial<Record<Kind, ButtonLook>>;
 };
-type Layer = { look: Look; cur: Req | null; give: (r: Req | null) => void };
+type Layer = { look: Look; cur: Req | null; give: (r: Req | null) => void; redraw: () => void };
 
 const layers: Layer[] = []; // 붙은 순서 = 아래 → 위
 const queue: Req[] = [];
@@ -56,6 +57,14 @@ function pump() {
 let shown: (t: string) => string = (t) => t;
 /** 앱 뿌리에서 한 번 — 창에 그릴 글자 변환(보통 makeSoftHyphen(앱 낱말).softHyphen). 기본은 그대로. iOS 경고창 대신 띄울 땐 쓰지 않는다. */
 export function setDialogText(fn: (t: string) => string): void { shown = fn; }
+
+/** 지금 떠 있는 창(가장 위 층)의 단추·글·body를 바꾼다 — body 안 선택에 따라 단추 흐림을 풀 때. 떠 있는 창이 없으면 아무것도 안 한다. */
+export function updateDialog(patch: Partial<Pick<DialogOptions, 'buttons' | 'msg' | 'body'>>): void {
+  const top = [...layers].reverse().find((l) => l.cur);
+  if (!top || !top.cur) return;
+  Object.assign(top.cur, patch);
+  top.redraw();
+}
 
 export function appDialog(o: DialogOptions): Promise<number> {
   return new Promise((done) => {
@@ -73,8 +82,9 @@ const DARK: Palette = { card: '#2C2C2E', text: '#FFFFFF', sub: '#AEAEB2', fill: 
 
 export function AppDialogHost(props: Look) {
   const [cur, setCur] = useState<Req | null>(null);
+  const [, setTick] = useState(0);
   const dark = useColorScheme() === 'dark';
-  const me = useRef<Layer>({ look: props, cur: null, give: setCur }).current;
+  const me = useRef<Layer>({ look: props, cur: null, give: setCur, redraw: () => setTick((n) => n + 1) }).current;
   me.look = props;
   useEffect(() => {
     // 새 층이 위에 붙으면 아래 층에 떠 있던 창은 가려지므로 줄 맨 앞으로 되돌려 이 층에서 다시 띄운다
@@ -151,7 +161,7 @@ export function AppDialogHost(props: Look) {
               const bg = bl?.bg ?? (k === 'cancel' ? c.fill : k === 'destructive' ? c.red : look.accent ?? '#007AFF');
               const fg = bl?.fg ?? (k === 'cancel' ? c.text : k === 'destructive' ? '#FFFFFF' : look.onAccent ?? '#FFFFFF');
               return (
-                <Pressable key={i} onPress={() => pick(i)} accessibilityRole="button" style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: pressed ? 0.7 : 1 }, bl?.radius != null && { borderRadius: bl.radius }, bl?.border != null && { borderWidth: 1, borderColor: bl.border }, bl?.back && { overflow: 'hidden' }]}>
+                <Pressable key={i} onPress={() => pick(i)} disabled={!!b.disabled} accessibilityRole="button" accessibilityState={{ disabled: !!b.disabled }} style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: b.disabled ? 0.4 : pressed ? 0.7 : 1 }, bl?.radius != null && { borderRadius: bl.radius }, bl?.border != null && { borderWidth: 1, borderColor: bl.border }, bl?.back && { overflow: 'hidden' }]}>
                   {({ pressed }) => (<>
                   {bl?.back && <View pointerEvents="none" style={st.fill}>{bl.back(pressed)}</View>}
                   <Text style={[st.btnText, { color: fg, fontWeight: k === 'cancel' ? '600' : '700' }]} numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.3}>{shown(b.text)}</Text>
