@@ -6,6 +6,7 @@
 규칙
   R1  여는 태그에 `maxFontSizeMultiplier={…}`(상한) 또는 값 없는 `allowFontScaling`(자유 — 늘어나고 스크롤되는 칸의 본문) 중 하나가 있어야 한다.
   R2  한 줄 고정(`numberOfLines={1}`)이 아닌 <Text>는 `lineBreakStrategyIOS="hangul-word"`가 있어야 한다(한글 낱말 줄바꿈).
+      "standard"도 된다(조건식 안이어도) — UIKit NSParagraphStyle.h NSLineBreakStrategyStandard = 0xFFFF = 한글 어절 우선 + 끝줄 외톨이 밀어내기(11-13 알롱).
   R3  글자 크기 22 이상(style 안 `fontSize: 숫자`)은 상한이 `titleMul(…)`이거나 그 값 이하 숫자여야 한다(자유 금지).
   R4  자유(`allowFontScaling`)인데 한 줄 고정이면 안 된다(커지면 잘리거나 넘침 — 상한 + adjustsFontSizeToFit로).
   R5  `allowFontScaling={false}`는 쓰지 않는다(상한 1로 적는다 — 한 가지 표기). 예외: 같은 태그 style에 `cappedFontSize(`가 있으면
@@ -101,8 +102,9 @@ def check(rel, src):
             out.append((line, f'R1 <{name}>에 maxFontSizeMultiplier(상한)나 allowFontScaling(자유)이 없음'))
         if capm and free:
             out.append((line, 'R1 상한과 자유를 함께 적음 — 하나만'))
-        if name == 'Text' and not wrapped and not one and 'lineBreakStrategyIOS="hangul-word"' not in tag:
-            out.append((line, 'R2 여러 줄 <Text>에 lineBreakStrategyIOS="hangul-word"가 없음'))
+        lbs = re.search(r'lineBreakStrategyIOS=(\"[^\"]*\"|\{[^}]*\})', tag)
+        if name == 'Text' and not wrapped and not one and not (lbs and re.search(r'hangul-word|standard', lbs.group(1))):
+            out.append((line, 'R2 여러 줄 <Text>에 lineBreakStrategyIOS(hangul-word 또는 standard)가 없음'))
         sizes = [float(x) for x in re.findall(r'fontSize:\s*(\d+(?:\.\d+)?)\b', tag)]
         if sizes and max(sizes) >= 22:
             big = max(sizes)
