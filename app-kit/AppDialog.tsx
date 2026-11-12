@@ -23,7 +23,7 @@
 //   ·cornerOrnament(모서리 L자 4개 14×2·2×14, 안쪽 6)·titleBand(위·아래 선 있는 제목 띠+양끝 마름모 — 위 빛·아래 선 따로, 바탕 그라데이션은 back, 글자는 textStyle)·buttons(종류별 단추 색·테·모서리·뒤판 그리기 — 그라데이션은 앱이 back으로).
 // 공용 원본 LegalDocView(메일 주소 복사 알림)·UpdatePrompt(업데이트 안내)가 './AppDialog'로 이 파일을 쓴다 — 셋을 같은 폴더에 함께 복사한다.
 // 필요한 라이브러리: 없음(react-native만).
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ComponentRef, type ReactNode } from 'react';
 import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, useWindowDimensions, type ColorValue, type TextStyle } from 'react-native';
 
 // disabled: 흐림(투명도 0.4·누름 무시) — body 안에서 고르기 전엔 실행 단추를 막을 때. 고른 뒤엔 updateDialog로 바꾼다(11-12 맵나이츠 신고 사유·골드 모자람).
@@ -103,6 +103,8 @@ export function AppDialogHost(props: Look) {
   const [, setTick] = useState(0);
   const dark = useColorScheme() === 'dark';
   const win = useWindowDimensions();
+  const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
+  const box = useRef({ h: 0, c: 0, flashed: null as Req | null });
   const me = useRef<Layer>({ look: props, cur: null, give: setCur, redraw: () => setTick((n) => n + 1) }).current;
   me.look = props;
   useEffect(() => {
@@ -139,6 +141,8 @@ export function AppDialogHost(props: Look) {
   const bandSize = StyleSheet.flatten(look.titleBand?.textStyle)?.fontSize ?? 19;
   const mul = titleMul(titleText, look.titleBand ? bandSize : 19, titleW);
   const innerR = Math.max(0, (look.radius ?? 28) - (look.frame ? 2 : 0));
+  // 글이 칸보다 길면 열릴 때 스크롤 표시를 한 번 보여 준다 — 잘린 게 아니라 밀면 읽힌다는 표시(애플 flashScrollIndicators 권장, 11-13 맵나이츠 AX5 ru 본문 6줄째에서 끊겨 보임).
+  const flash = () => { const b = box.current; if (b.flashed !== cur && b.h > 0 && b.c > b.h + 1) { b.flashed = cur; setTimeout(() => scroll.current?.flashScrollIndicators(), 250); } };
   if (stack) order.sort((x, y) => Number(x.b.kind === 'cancel') - Number(y.b.kind === 'cancel'));
   return (
     <Modal transparent animationType="fade" visible onRequestClose={() => { if (closable) pick(cancel); }}>
@@ -161,7 +165,7 @@ export function AppDialogHost(props: Look) {
           })}
           {/* 큰 글씨(AX)를 줄이지 않는다 — 글이 길면 이 칸만 스크롤하고 버튼은 늘 보인다(iOS 기본 경고창과 같음, ihwa-design '큰 글씨'). */}
           {/* 제목 띠는 카드 좌우 안쪽 여백을 넘어 그려야 해서 글 칸을 여백만큼 넓힌다(ScrollView가 넘친 곳을 자르므로). */}
-          <ScrollView style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
+          <ScrollView ref={scroll} onLayout={(e) => { box.current.h = e.nativeEvent.layout.height; flash(); }} onContentSizeChange={(_, h) => { box.current.c = h; flash(); }} style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
             {/* 글 칸이 터치 응답권을 받아야 바깥 카드 Pressable이 스크롤을 가로채지 않는다(11-12 알롱 AX5 es·fr·ru·tr 실측 — 감싸지 않으면 밀어도 안 움직임). */}
             <View onStartShouldSetResponder={() => true}>
               {look.titleBand ? (
