@@ -8,7 +8,10 @@
   R2  한 줄 고정(`numberOfLines={1}`)이 아닌 <Text>는 `lineBreakStrategyIOS="hangul-word"`가 있어야 한다(한글 낱말 줄바꿈).
   R3  글자 크기 22 이상(style 안 `fontSize: 숫자`)은 상한이 `titleMul(…)`이거나 그 값 이하 숫자여야 한다(자유 금지).
   R4  자유(`allowFontScaling`)인데 한 줄 고정이면 안 된다(커지면 잘리거나 넘침 — 상한 + adjustsFontSizeToFit로).
-  R5  `allowFontScaling={false}`는 쓰지 않는다(상한 1로 적는다 — 한 가지 표기).
+  R5  `allowFontScaling={false}`는 쓰지 않는다(상한 1로 적는다 — 한 가지 표기). 예외: 같은 태그 style에 `cappedFontSize(`가 있으면
+      (크기를 직접 계산 — maxFontSizeMultiplier는 그리기만 줄고 자리는 상한 없이 재서 옆이 밀림, 11-13 주량체커).
+  앱 글자 래퍼: 파일이 Text를 'react-native'가 아닌 곳(../components/AppText 등)에서 가져오면 그 <Text>는 래퍼가 hangul-word를 걸고
+      적지 않은 것은 자유(C, 본문은 iOS처럼 끝까지 커짐 — HIG)로 본다 → R1·R2 건너뜀, R3(22pt 이상)·R4(자유+한 줄 고정)는 그대로(11-13 주량체커 제안).
 
 쓰기
   python3 impl/scripts/check-text-scale.py            전체(위반이 있으면 종료 코드 1)
@@ -44,20 +47,34 @@ def open_tags(src):
         yield m.start(), m.group(1), src[m.start():q + 1]
 
 
+def wrapper_text(src):
+    """Text를 react-native가 아닌 모듈(앱 래퍼)에서 가져오는지."""
+    for m in re.finditer(r'import\s+(?:(\w+)\s*,?\s*)?(?:\{([^}]*)\})?\s*from\s*[\'"]([^\'"]+)[\'"]', src):
+        names = [m.group(1) or ''] + [n.strip().split(' as ')[-1].strip() for n in (m.group(2) or '').split(',')]
+        if 'Text' in names and m.group(3) != 'react-native':
+            return True
+    return False
+
+
 def check(rel, src):
     out = []
+    wrap = wrapper_text(src)
     for pos, name, tag in open_tags(src):
         line = src.count('\n', 0, pos) + 1
         capm = re.search(r'maxFontSizeMultiplier=\{([^}]*)\}', tag)
         free = re.search(r'\ballowFontScaling(?!\s*=)', tag) is not None
         one = re.search(r'numberOfLines=\{1\}', tag) is not None
-        if re.search(r'allowFontScaling=\{\s*false\s*\}', tag):
+        off = re.search(r'allowFontScaling=\{\s*false\s*\}', tag) is not None
+        wrapped = wrap and name == 'Text'
+        if wrapped and not capm and not off:
+            free = True  # 래퍼 글자: 적지 않으면 자유
+        if off and 'cappedFontSize(' not in tag:
             out.append((line, 'R5 allowFontScaling={false} 대신 maxFontSizeMultiplier={1}'))
-        if not capm and not free:
+        if not capm and not free and not off:
             out.append((line, f'R1 <{name}>에 maxFontSizeMultiplier(상한)나 allowFontScaling(자유)이 없음'))
         if capm and free:
             out.append((line, 'R1 상한과 자유를 함께 적음 — 하나만'))
-        if name == 'Text' and not one and 'lineBreakStrategyIOS="hangul-word"' not in tag:
+        if name == 'Text' and not wrapped and not one and 'lineBreakStrategyIOS="hangul-word"' not in tag:
             out.append((line, 'R2 여러 줄 <Text>에 lineBreakStrategyIOS="hangul-word"가 없음'))
         sizes = [float(x) for x in re.findall(r'fontSize:\s*(\d+(?:\.\d+)?)\b', tag)]
         if sizes and max(sizes) >= 22:
