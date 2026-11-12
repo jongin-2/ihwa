@@ -85,6 +85,9 @@ def wrapper_text(src):
     return False
 
 
+NESTED = re.compile(r'\b\w+\s*:\s*\{[^{}]*\}')  # style 안 묶음 값(그림자 오프셋 등)
+
+
 def balanced(src, i):
     """src[i]가 '{' 또는 '('일 때 짝 닫는 괄호까지의 글자."""
     op = src[i]; cl = '}' if op == '{' else ')'; d = 0
@@ -148,6 +151,7 @@ def check(rel, src):
                     pass  # 식(변수·함수)은 사람이 본다
         if name == 'Text' and 'adjustsFontSizeToFit' in tag and 'fitBox(' not in tag:
             sty = style_attr(tag)  # style={…} 속성 안만 본다(11-13 알롱 — maxFontSizeMultiplier={FONT_CAP.pill}의 pill을 컨테이너 스타일 pill과 잘못 짝지음)
+            sty = NESTED.sub('', sty)  # textShadowOffset: { width, height } 같은 묶음 값 안 height는 고정 높이가 아님(11-13 맵나이츠)
             hit = re.search(r'(?<![\w])(lineHeight|height)\s*:', sty)
             if not hit:
                 for obj, k in re.findall(r'\b(\w+)\.(\w+)\b', sty):
