@@ -103,9 +103,9 @@ export default function LegalDocView({ doc, lang, tint, onClose, navigation }: {
     <View style={styles.container}>
       {failed ? (
         <View style={styles.center}>
-          <Text style={styles.msg}>{w.offline}</Text>
+          <Text lineBreakStrategyIOS="hangul-word" style={styles.msg}>{w.offline}</Text>
           <Pressable onPress={() => { setFailed(false); setLoading(true); setAttempt((a) => a + 1); }} style={styles.btn} accessibilityRole="button">
-            {({ pressed }) => <Text style={[styles.retry, { color: tint }, pressed && styles.pressed]}>{w.retry}</Text>}
+            {({ pressed }) => <Text lineBreakStrategyIOS="hangul-word" style={[styles.retry, { color: tint }, pressed && styles.pressed]}>{w.retry}</Text>}
           </Pressable>
         </View>
       ) : (
