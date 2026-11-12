@@ -18,16 +18,27 @@
 //   const i = await appDialog({ title, msg, buttons: [{ text: '취소', kind: 'cancel' }, { text: '삭제', kind: 'destructive' }] })
 //   → 누른 단추 순번(바깥을 눌러 닫으면 취소 단추 순번). Host가 하나도 없으면 iOS 경고창으로 대신 띄운다(멈추지 않게).
 // 앱마다 다른 값: accent(실행 단추 색)·onAccent(그 위 글자색, 기본 흰색)·colors(카드·글자 색을 앱 장면 값으로 바꿀 때만)·stack(늘 세로 쌓기).
+//   장식(11-12 맵나이츠 'A 절충' — 모두 선택, 안 주면 지금 모양 그대로): radius(카드 모서리, 기본 28)·frame(2px 테두리+안쪽 이중선 2px/1px)
+//   ·cornerOrnament(모서리 L자 4개 14×2·2×14, 안쪽 6)·titleBand(위·아래 선 있는 제목 띠+양끝 마름모)·buttons(종류별 단추 색·테·모서리·뒤판 그리기 — 그라데이션은 앱이 back으로).
 // 공용 원본 LegalDocView(메일 주소 복사 알림)·UpdatePrompt(업데이트 안내)가 './AppDialog'로 이 파일을 쓴다 — 셋을 같은 폴더에 함께 복사한다.
 // 필요한 라이브러리: 없음(react-native만).
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, type ColorValue } from 'react-native';
 
 export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive' };
 export type DialogOptions = { title: string; msg?: string; buttons: DialogButton[]; dismissable?: boolean };
 type Req = DialogOptions & { done: (i: number) => void };
 type Palette = { card: string; text: string; sub: string; fill: string; red: string };
-type Look = { accent?: ColorValue; onAccent?: ColorValue; colors?: { light?: Partial<Palette>; dark?: Partial<Palette> }; stack?: boolean };
+type Kind = 'cancel' | 'primary' | 'destructive';
+export type ButtonLook = { bg?: ColorValue; fg?: ColorValue; border?: ColorValue; radius?: number; back?: (pressed: boolean) => ReactNode };
+export type Look = {
+  accent?: ColorValue; onAccent?: ColorValue; colors?: { light?: Partial<Palette>; dark?: Partial<Palette> }; stack?: boolean;
+  radius?: number;
+  frame?: { border: ColorValue; innerLo: ColorValue; innerHi: ColorValue };
+  cornerOrnament?: ColorValue;
+  titleBand?: { from: ColorValue; to: ColorValue; text: ColorValue; line: ColorValue };
+  buttons?: Partial<Record<Kind, ButtonLook>>;
+};
 type Layer = { look: Look; cur: Req | null; give: (r: Req | null) => void };
 
 const layers: Layer[] = []; // 붙은 순서 = 아래 → 위
@@ -95,23 +106,52 @@ export function AppDialogHost(props: Look) {
   return (
     <Modal transparent animationType="fade" visible onRequestClose={() => { if (closable) pick(cancel); }}>
       <Pressable style={st.scrim} onPress={() => closable && pick(cancel)} accessible={false}>
-        <Pressable style={[st.card, { backgroundColor: c.card }, dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
+        <Pressable style={[st.card, { backgroundColor: c.card }, look.radius != null && { borderRadius: look.radius }, look.frame ? { borderWidth: 2, borderColor: look.frame.border } : dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
+          {look.frame && (
+            <View pointerEvents="none" style={[st.fill, { margin: 2, borderWidth: 2, borderColor: look.frame.innerLo, borderRadius: Math.max(0, (look.radius ?? 28) - 4) }]}>
+              <View style={[st.fill, { borderWidth: 1, borderColor: look.frame.innerHi, borderRadius: Math.max(0, (look.radius ?? 28) - 6) }]} />
+            </View>
+          )}
+          {look.cornerOrnament != null && (['tl', 'tr', 'bl', 'br'] as const).map((k) => {
+            const v = k[0] === 't' ? { top: 6 } : { bottom: 6 };
+            const h = k[1] === 'l' ? { left: 6 } : { right: 6 };
+            return (
+              <View key={k} pointerEvents="none" style={[st.orn, v, h]}>
+                <View style={[st.ornH, { backgroundColor: look.cornerOrnament }, k[0] === 't' ? { top: 0 } : { bottom: 0 }, k[1] === 'l' ? { left: 0 } : { right: 0 }]} />
+                <View style={[st.ornV, { backgroundColor: look.cornerOrnament }, k[0] === 't' ? { top: 0 } : { bottom: 0 }, k[1] === 'l' ? { left: 0 } : { right: 0 }]} />
+              </View>
+            );
+          })}
           {/* 큰 글씨(AX)를 줄이지 않는다 — 글이 길면 이 칸만 스크롤하고 버튼은 늘 보인다(iOS 기본 경고창과 같음, ihwa-design '큰 글씨'). */}
-          <ScrollView style={st.body} contentContainerStyle={st.bodyIn} bounces={false}>
+          {/* 제목 띠는 카드 좌우 안쪽 여백을 넘어 그려야 해서 글 칸을 여백만큼 넓힌다(ScrollView가 넘친 곳을 자르므로). */}
+          <ScrollView style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
             {/* 글 칸이 터치 응답권을 받아야 바깥 카드 Pressable이 스크롤을 가로채지 않는다(11-12 알롱 AX5 es·fr·ru·tr 실측 — 감싸지 않으면 밀어도 안 움직임). */}
             <View onStartShouldSetResponder={() => true}>
-              <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
+              {look.titleBand ? (
+                <View style={[st.band, { backgroundColor: look.titleBand.from, borderColor: look.titleBand.line }]}>
+                  <View pointerEvents="none" style={[st.fill, { top: '50%', backgroundColor: look.titleBand.to }]} />
+                  <View pointerEvents="none" style={[st.diamond, { left: 8, backgroundColor: look.titleBand.line }]} />
+                  <View pointerEvents="none" style={[st.diamond, { right: 8, backgroundColor: look.titleBand.line }]} />
+                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
+                </View>
+              ) : (
+                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
+              )}
               {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{shown(cur.msg)}</Text>}
             </View>
           </ScrollView>
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
-              const bg = k === 'cancel' ? c.fill : k === 'destructive' ? c.red : look.accent ?? '#007AFF';
-              const fg = k === 'cancel' ? c.text : k === 'destructive' ? '#FFFFFF' : look.onAccent ?? '#FFFFFF';
+              const bl = look.buttons?.[k];
+              const bg = bl?.bg ?? (k === 'cancel' ? c.fill : k === 'destructive' ? c.red : look.accent ?? '#007AFF');
+              const fg = bl?.fg ?? (k === 'cancel' ? c.text : k === 'destructive' ? '#FFFFFF' : look.onAccent ?? '#FFFFFF');
               return (
-                <Pressable key={i} onPress={() => pick(i)} accessibilityRole="button" style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: pressed ? 0.7 : 1 }]}>
+                <Pressable key={i} onPress={() => pick(i)} accessibilityRole="button" style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: pressed ? 0.7 : 1 }, bl?.radius != null && { borderRadius: bl.radius }, bl?.border != null && { borderWidth: 1, borderColor: bl.border }, bl?.back && { overflow: 'hidden' }]}>
+                  {({ pressed }) => (<>
+                  {bl?.back && <View pointerEvents="none" style={st.fill}>{bl.back(pressed)}</View>}
                   <Text style={[st.btnText, { color: fg, fontWeight: k === 'cancel' ? '600' : '700' }]} numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.3}>{shown(b.text)}</Text>
+                  </>)}
                 </Pressable>
               );
             })}
@@ -128,6 +168,8 @@ const st = StyleSheet.create({
   cardDark: { borderWidth: StyleSheet.hairlineWidth * 2, borderColor: 'rgba(255,255,255,0.12)' }, // 다크에선 카드가 배경과 붙어 테두리
   body: { flexGrow: 0, flexShrink: 1 },
   bodyIn: { flexGrow: 0 },
+  bodyWide: { marginHorizontal: -20 },
+  bodyInWide: { paddingHorizontal: 20 },
   title: { fontSize: 19, fontWeight: '700', textAlign: 'center', paddingHorizontal: 8 },
   msg: { fontSize: 15, lineHeight: 22, textAlign: 'center', marginTop: 8, paddingHorizontal: 8 },
   row: { flexDirection: 'row', gap: 10, marginTop: 20 },
@@ -135,4 +177,11 @@ const st = StyleSheet.create({
   btn: { minHeight: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
   btnFlex: { flex: 1 },
   btnText: { fontSize: 17 },
+  fill: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 },
+  orn: { position: 'absolute', width: 14, height: 14 },
+  ornH: { position: 'absolute', width: 14, height: 2 },
+  ornV: { position: 'absolute', width: 2, height: 14 },
+  band: { marginHorizontal: -20, paddingVertical: 10, paddingHorizontal: 28, borderTopWidth: 1, borderBottomWidth: 1, overflow: 'hidden', justifyContent: 'center' },
+  bandTitle: { paddingHorizontal: 0 },
+  diamond: { position: 'absolute', top: '50%', marginTop: -4, width: 8, height: 8, transform: [{ rotate: '45deg' }] },
 });
