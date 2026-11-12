@@ -8,6 +8,7 @@
 //    빨강은 흰 글자 대비 4.5 이상(라이트 #D70015 5.4 · 다크 #D63A2F 4.7 — iOS 다크 빨강 #FF453A는 3.4라 쓰지 않음, 10-27 알롱).
 //    한국어는 단어 중간에서 꺾이지 않게 lineBreakStrategyIOS hangul-word(10-27 알롱 "완전/히").
 //    큰 글씨: 제목·설명은 줄이지 않고 글 칸만 스크롤(카드 최대 85%), 단추 글자만 1.3·한 줄 줄여 맞추기, 단추 높이 최소 50(11-11 공통안, 10-30 주량체커 SET-43).
+//    제목은 상한 2.65, 가장 긴 낱말이 한 줄에 안 들면 그 제목만 상한을 낮춤(11-13 맵나이츠 AX5 "로그아웃할까/요?"). 제목 띠가 있으면 띠가 카드 맨 위에 붙는다.
 //    긴 낱말: 앱이 setDialogText(softHyphen)를 한 번 부르면 제목·설명·단추에 숨은 하이픈이 들어간다 — 공용 사본(LegalDocView·UpdatePrompt)이 여는 창에도(11-11 주량체커 AX5 fr 'Supprim/er').
 //  · 바깥을 누르거나 뒤로 가기면 취소 단추(kind 'cancel')를 누른 것과 같다 — 취소 단추가 없거나 dismissable: false면 닫히지 않는다.
 //  · 창이 떠 있는 동안 새 요청은 줄을 서서 차례로 뜬다.
@@ -23,10 +24,11 @@
 // 공용 원본 LegalDocView(메일 주소 복사 알림)·UpdatePrompt(업데이트 안내)가 './AppDialog'로 이 파일을 쓴다 — 셋을 같은 폴더에 함께 복사한다.
 // 필요한 라이브러리: 없음(react-native만).
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, type ColorValue, type TextStyle } from 'react-native';
+import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, useWindowDimensions, type ColorValue, type TextStyle } from 'react-native';
 
 // disabled: 흐림(투명도 0.4·누름 무시) — body 안에서 고르기 전엔 실행 단추를 막을 때. 고른 뒤엔 updateDialog로 바꾼다(11-12 맵나이츠 신고 사유·골드 모자람).
-export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive'; disabled?: boolean };
+// dim: 모양만 흐림(투명도 0.4)·누름은 그대로 — 눌렀을 때 왜 안 되는지 알려 줄 때(앱이 그 순번을 받아 토스트 등, 11-13 맵나이츠 골드 부족 [사기]).
+export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive'; disabled?: boolean; dim?: boolean };
 // body: 설명 글 아래(단추 위)에 그림 등 앱이 그린 내용을 넣을 때만(11-12 맵나이츠 장비·초상 확인 창). 안 주면 지금 그대로, Host가 없어 iOS 경고창으로 갈 땐 빠진다.
 export type DialogOptions = { title: string; msg?: string; body?: ReactNode; buttons: DialogButton[]; dismissable?: boolean };
 type Req = DialogOptions & { done: (i: number) => void };
@@ -57,6 +59,18 @@ function pump() {
 // 제목 큰 글씨 상한 — TextFit titleMul(19)과 같은 값(iOS Title 3 AX5 20→53 급). 19pt가 AX5 약 3.1배면 '삭제할까요?'의 '?'가 혼자 떨어짐(11-13 차곡 1.0.6 재회귀).
 // AppDialog만 복사한 앱도 돌게 TextFit을 가져오지 않고 값을 둔다.
 const TITLE_MUL = 2.65;
+// 한 낱말이 칸 폭을 넘으면 글자 단위로 꺾이므로(AX5 ko '로그아웃할까/요?', 11-13 맵나이츠) 그 제목만 상한을 낮춰 가장 긴 낱말이 한 줄에 들게 한다.
+// 낱말 폭은 글자 수로 어림(한글·한자·가나 1em, 그 밖 0.66em — 굵은 라틴·키릴 평균보다 넉넉히). 숨은 하이픈(U+00AD)·공백·하이픈에서 끊을 수 있으니 그 사이 조각으로 잰다.
+const WIDE = /[\u1100-\u11FF\u3040-\u30FF\u3130-\u318F\u4E00-\u9FFF\uAC00-\uD7AF\uFF00-\uFFEF]/;
+function titleMul(text: string, fontSize: number, width: number): number {
+  let em = 0;
+  for (const part of text.split(/[\s\u00AD\-‐–—/]+/)) {
+    let w = 0;
+    for (const ch of part.replace(/\u2060/g, '')) w += WIDE.test(ch) ? 1 : 0.66;
+    if (w > em) em = w;
+  }
+  return em ? Math.max(1, Math.min(TITLE_MUL, width / (fontSize * em))) : TITLE_MUL;
+}
 
 let shown: (t: string) => string = (t) => t;
 /** 앱 뿌리에서 한 번 — 창에 그릴 글자 변환(보통 makeSoftHyphen(앱 낱말).softHyphen). 기본은 그대로. iOS 경고창 대신 띄울 땐 쓰지 않는다. */
@@ -88,6 +102,7 @@ export function AppDialogHost(props: Look) {
   const [cur, setCur] = useState<Req | null>(null);
   const [, setTick] = useState(0);
   const dark = useColorScheme() === 'dark';
+  const win = useWindowDimensions();
   const me = useRef<Layer>({ look: props, cur: null, give: setCur, redraw: () => setTick((n) => n + 1) }).current;
   me.look = props;
   useEffect(() => {
@@ -117,11 +132,18 @@ export function AppDialogHost(props: Look) {
   const stack = !!look.stack || cur.buttons.length > 2;
   // 세로일 때 취소는 맨 아래로(누른 순번은 원래 순번 그대로 돌려준다)
   const order = cur.buttons.map((b, i) => ({ b, i }));
+  // 제목 칸 폭: 카드(화면 − 좌우 24, 최대 400) − 카드 안쪽 20×2 − 제목 안쪽 8×2, 제목 띠면 띠 안쪽 32×2(띠는 카드 안쪽 여백을 넘어 그림)
+  const cardW = Math.min(win.width - 48, 400) - (look.frame ? 4 : 0);
+  const titleW = look.titleBand ? cardW - 64 : cardW - 56;
+  const titleText = shown(cur.title);
+  const bandSize = StyleSheet.flatten(look.titleBand?.textStyle)?.fontSize ?? 19;
+  const mul = titleMul(titleText, look.titleBand ? bandSize : 19, titleW);
+  const innerR = Math.max(0, (look.radius ?? 28) - (look.frame ? 2 : 0));
   if (stack) order.sort((x, y) => Number(x.b.kind === 'cancel') - Number(y.b.kind === 'cancel'));
   return (
     <Modal transparent animationType="fade" visible onRequestClose={() => { if (closable) pick(cancel); }}>
       <Pressable style={st.scrim} onPress={() => closable && pick(cancel)} accessible={false}>
-        <Pressable style={[st.card, { backgroundColor: c.card }, look.radius != null && { borderRadius: look.radius }, look.frame ? { borderWidth: 2, borderColor: look.frame.border } : dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
+        <Pressable style={[st.card, { backgroundColor: c.card }, look.radius != null && { borderRadius: look.radius }, look.titleBand && { paddingTop: 0 }, look.frame ? { borderWidth: 2, borderColor: look.frame.border } : dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
           {look.frame && (
             <View pointerEvents="none" style={[st.fill, { margin: 2, borderWidth: 2, borderColor: look.frame.innerLo, borderRadius: Math.max(0, (look.radius ?? 28) - 4) }]}>
               <View style={[st.fill, { borderWidth: 1, borderColor: look.frame.innerHi, borderRadius: Math.max(0, (look.radius ?? 28) - 6) }]} />
@@ -143,16 +165,16 @@ export function AppDialogHost(props: Look) {
             {/* 글 칸이 터치 응답권을 받아야 바깥 카드 Pressable이 스크롤을 가로채지 않는다(11-12 알롱 AX5 es·fr·ru·tr 실측 — 감싸지 않으면 밀어도 안 움직임). */}
             <View onStartShouldSetResponder={() => true}>
               {look.titleBand ? (
-                <View style={[st.band, { backgroundColor: look.titleBand.from, borderTopColor: look.titleBand.topLight ?? look.titleBand.line, borderBottomColor: look.titleBand.bottomLine ?? look.titleBand.line }]}>
+                <View style={[st.band, { borderTopLeftRadius: innerR, borderTopRightRadius: innerR }, { backgroundColor: look.titleBand.from, borderTopColor: look.titleBand.topLight ?? look.titleBand.line, borderBottomColor: look.titleBand.bottomLine ?? look.titleBand.line }]}>
                   {look.titleBand.back
                     ? <View pointerEvents="none" style={st.fill}>{look.titleBand.back()}</View>
                     : <View pointerEvents="none" style={[st.fill, { top: '50%', backgroundColor: look.titleBand.to }]} />}
                   <View pointerEvents="none" style={[st.diamond, { left: 18, backgroundColor: look.titleBand.line }]} />
                   <View pointerEvents="none" style={[st.diamond, { right: 18, backgroundColor: look.titleBand.line }]} />
-                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={TITLE_MUL}>{shown(cur.title)}</Text>
+                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleText}</Text>
                 </View>
               ) : (
-                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={TITLE_MUL}>{shown(cur.title)}</Text>
+                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleText}</Text>
               )}
               {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{shown(cur.msg)}</Text>}
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
@@ -165,7 +187,7 @@ export function AppDialogHost(props: Look) {
               const bg = bl?.bg ?? (k === 'cancel' ? c.fill : k === 'destructive' ? c.red : look.accent ?? '#007AFF');
               const fg = bl?.fg ?? (k === 'cancel' ? c.text : k === 'destructive' ? '#FFFFFF' : look.onAccent ?? '#FFFFFF');
               return (
-                <Pressable key={i} onPress={() => pick(i)} disabled={!!b.disabled} accessibilityRole="button" accessibilityState={{ disabled: !!b.disabled }} style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: b.disabled ? 0.4 : pressed ? 0.7 : 1 }, bl?.radius != null && { borderRadius: bl.radius }, bl?.border != null && { borderWidth: 1, borderColor: bl.border }, bl?.back && { overflow: 'hidden' }]}>
+                <Pressable key={i} onPress={() => pick(i)} disabled={!!b.disabled} accessibilityRole="button" accessibilityState={{ disabled: !!b.disabled }} style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: b.disabled || b.dim ? (pressed && !b.disabled ? 0.3 : 0.4) : pressed ? 0.7 : 1 }, bl?.radius != null && { borderRadius: bl.radius }, bl?.border != null && { borderWidth: 1, borderColor: bl.border }, bl?.back && { overflow: 'hidden' }]}>
                   {({ pressed }) => (<>
                   {bl?.back && <View pointerEvents="none" style={st.fill}>{bl.back(pressed)}</View>}
                   <Text style={[st.btnText, { color: fg, fontWeight: k === 'cancel' ? '600' : '700' }]} numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.3}>{shown(b.text)}</Text>
