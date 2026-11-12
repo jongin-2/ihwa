@@ -76,7 +76,8 @@ export function glueHangul(text: string): string {
 }
 
 // 조각으로 들어온 글(<Text>{n}잔</Text> → [3, '잔'])은 조각 사이 경계도 본다(11-13 주량체커 d4d5d14 AppText). 문자열 조각만 바꾸고 요소·숫자는 그대로.
-// shy: 조각마다 먼저 적용할 변환(보통 앱 softHyphen). 쓰기: Text 래퍼에서 Array.isArray(children) ? glueHangulParts(children, softHyphen) : …
+// shy: 조각마다 먼저 적용할 변환(보통 앱 softHyphen). 쓰기: Text 래퍼에서 Array.isArray(children) ? glueHangulParts(Children.toArray(children), softHyphen) : …
+// Children.toArray를 거친다 — 새 배열을 그대로 자식으로 넘기면 React가 목록으로 보고 중첩 <Text>에 key 경고를 낸다(11-13 차곡 5fd2636).
 export function glueHangulParts<T>(parts: readonly T[], shy: (t: string) => string = (t) => t): (T | string)[] {
   return parts.map((p, i) => {
     if (typeof p !== 'string') return p;
