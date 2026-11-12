@@ -26,7 +26,8 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorScheme, type ColorValue, type TextStyle } from 'react-native';
 
 export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive' };
-export type DialogOptions = { title: string; msg?: string; buttons: DialogButton[]; dismissable?: boolean };
+// body: 설명 글 아래(단추 위)에 그림 등 앱이 그린 내용을 넣을 때만(11-12 맵나이츠 장비·초상 확인 창). 안 주면 지금 그대로, Host가 없어 iOS 경고창으로 갈 땐 빠진다.
+export type DialogOptions = { title: string; msg?: string; body?: ReactNode; buttons: DialogButton[]; dismissable?: boolean };
 type Req = DialogOptions & { done: (i: number) => void };
 type Palette = { card: string; text: string; sub: string; fill: string; red: string };
 type Kind = 'cancel' | 'primary' | 'destructive';
@@ -140,6 +141,7 @@ export function AppDialogHost(props: Look) {
                 <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word">{shown(cur.title)}</Text>
               )}
               {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{shown(cur.msg)}</Text>}
+              {cur.body != null && <View style={st.extra}>{cur.body}</View>}
             </View>
           </ScrollView>
           <View style={[st.row, stack && st.stack]}>
@@ -170,6 +172,7 @@ const st = StyleSheet.create({
   cardDark: { borderWidth: StyleSheet.hairlineWidth * 2, borderColor: 'rgba(255,255,255,0.12)' }, // 다크에선 카드가 배경과 붙어 테두리
   body: { flexGrow: 0, flexShrink: 1 },
   bodyIn: { flexGrow: 0 },
+  extra: { marginTop: 12 },
   bodyWide: { marginHorizontal: -20 },
   bodyInWide: { paddingHorizontal: 20 },
   title: { fontSize: 19, fontWeight: '700', textAlign: 'center', paddingHorizontal: 8 },
