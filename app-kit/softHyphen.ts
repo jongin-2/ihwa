@@ -72,5 +72,17 @@ export function longWords(texts: readonly string[], min = 12): string[] {
 // 화면에 그릴 때만. 여러 번 불러도 같다(이미 넣은 자리는 앞 글자가 U+2060이라 다시 안 맞음). 확인 창은 setDialogText((t) => glueHangul(softHyphen(t))).
 const GLUE_BEFORE_HANGUL = /([0-9A-Za-z%)\]])(?=[가-힣])/g; // ko-ok: 줄바꿈 규칙(화면 문구 아님)
 export function glueHangul(text: string): string {
-  return text.replace(GLUE_BEFORE_HANGUL, '$1⁠');
+  return text.replace(GLUE_BEFORE_HANGUL, '$1\u2060');
+}
+
+// 조각으로 들어온 글(<Text>{n}잔</Text> → [3, '잔'])은 조각 사이 경계도 본다(11-13 주량체커 d4d5d14 AppText). 문자열 조각만 바꾸고 요소·숫자는 그대로.
+// shy: 조각마다 먼저 적용할 변환(보통 앱 softHyphen). 쓰기: Text 래퍼에서 Array.isArray(children) ? glueHangulParts(children, softHyphen) : …
+export function glueHangulParts<T>(parts: readonly T[], shy: (t: string) => string = (t) => t): (T | string)[] {
+  return parts.map((p, i) => {
+    if (typeof p !== 'string') return p;
+    const prev = i > 0 ? parts[i - 1] : null;
+    const tail = typeof prev === 'number' ? String(prev) : typeof prev === 'string' ? prev : '';
+    const g = glueHangul(shy(p));
+    return tail && /^[가-힣]/.test(g) && /[0-9A-Za-z%)\]]$/.test(tail) ? '\u2060' + g : g; // ko-ok: 줄바꿈 규칙(화면 문구 아님)
+  });
 }
