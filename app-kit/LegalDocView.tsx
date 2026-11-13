@@ -45,7 +45,7 @@ type Words = { terms: string; privacy: string; close: string; offline: string; r
 const WORDS: Record<string, Words> = {
   'ko': {"terms": "이용약관", "privacy": "개인정보 처리방침", "close": "닫기", "offline": "인터넷에 연결되면 볼 수 있어요", "retry": "다시 시도", "back": "이전 문서", "emailCopied": "이메일 주소를 복사했어요", "ok": "확인"},
   'en': {"terms": "Terms of Service", "privacy": "Privacy Policy", "close": "Close", "offline": "Available when you’re online", "retry": "Try Again", "back": "Previous page", "emailCopied": "Email address copied", "ok": "OK"},
-  'ja': {"offline": "インターネットに接続すると表示されます", "retry": "再試行", "back": "前のページ", "emailCopied": "メールアドレスをコピーしました", "terms": "利用規約", "privacy": "プライバシーポリシー", "close": "閉じる", "ok": "OK", "only": "このドキュメントは\u200b英語と韓国語でのみ\u200b提供されています。"},
+  'ja': {"offline": "インターネットに接続すると表示されます", "retry": "再試行", "back": "前のページ", "emailCopied": "メールアドレスをコピーしました", "terms": "利用規約", "privacy": "プライバシーポリシー", "close": "閉じる", "ok": "OK", "only": "この\u200bドキュメントは\u200b英語と\u200b韓国語でのみ\u200b提供されて\u200bいます。"},
   'zh-Hant': {"offline": "連上網路即可查看", "retry": "重試", "back": "上一頁", "emailCopied": "已複製電子郵件地址", "terms": "服務條款", "privacy": "隱私權政策", "close": "關閉", "ok": "好", "only": "本文件\u200b僅提供\u200b英文和韓文版本。"},
   'zh-Hans': {"offline": "联网后即可查看", "retry": "重试", "back": "上一页", "emailCopied": "已复制电子邮件地址", "terms": "服务条款", "privacy": "隐私政策", "close": "关闭", "ok": "好", "only": "本文档\u200b仅提供\u200b英文和韩文版本。"},
   'es': {"offline": "Disponible cuando tengas conexión a internet", "retry": "Reintentar", "back": "Página anterior", "emailCopied": "Dirección de correo copiada", "terms": "Términos del servicio", "privacy": "Política de privacidad", "close": "Cerrar", "ok": "Aceptar", "only": "Este documento solo está disponible en inglés y coreano."},
