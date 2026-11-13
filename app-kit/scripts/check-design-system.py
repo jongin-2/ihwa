@@ -27,7 +27,8 @@ ROOT = repo_root()
 P = lambda *a: os.path.join(ROOT, *a)
 cfg = json.load(open(P('prd', 'prototype', 'screens.json'), encoding='utf-8'))
 fails = []
-COLOR = re.compile(r'#[0-9a-fA-F]{8}\b|#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|rgba?\([^)]*\)|hsla?\([^)]*\)')
+# rgb()·rgba()는 괄호 안이 숫자·점·쉼표·공백·%·/일 때만 색 — 코드의 계산식(rgba(${…}), rgba(c.card, 0))까지 색으로 읽어 막았다(11-13 한배, AppDialog 흐림 띠).
+COLOR = re.compile(r'#[0-9a-fA-F]{8}\b|#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|rgba?\(\s*[0-9.\s,%/]+\)|hsla?\([^)]*\)')
 
 
 def norm(c):
