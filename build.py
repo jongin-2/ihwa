@@ -32,14 +32,14 @@ p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);
 .ver{margin:4px 0 20px}.ver select{font:inherit;font-size:min(1em,26px);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 28px 6px 10px;max-width:100%;box-sizing:border-box;height:max(44px,calc(1.25em + 14px))}.old{background:var(--line);border-radius:10px;padding:10px 12px;margin:0 0 20px;font-size:.875em;line-height:1.5}
 .tbl{overflow-x:auto;margin:12px 0;background:linear-gradient(to right,var(--bg) 30%,rgba(0,0,0,0)) left/32px 100% no-repeat local,linear-gradient(to left,var(--bg) 30%,rgba(0,0,0,0)) right/32px 100% no-repeat local,radial-gradient(farthest-side at 0 50%,rgba(0,0,0,.22),rgba(0,0,0,0)) left/12px 100% no-repeat scroll,radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.22),rgba(0,0,0,0)) right/12px 100% no-repeat scroll}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{color:var(--sub);font-weight:600}
 th,td{overflow-wrap:normal;min-width:6em}
-@media (max-width:480px){.tbl{background:none;overflow:visible}.tbl table,.tbl tbody,.tbl tr,.tbl td{display:block;width:auto}.tbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.tbl tr{border:1px solid var(--line);border-radius:10px;margin:0 0 10px;padding:6px 0}.tbl td{border:0;min-width:0;padding:4px 12px}.tbl td::before{content:attr(data-label);display:block;color:var(--sub);font-size:.85em;font-weight:600}}td a{overflow-wrap:anywhere}.nw{white-space:nowrap}
+@media (max-width:480px){.tbl{background:none;overflow:visible}.tbl table,.tbl tbody,.tbl tr,.tbl td{display:block;width:auto}.tbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.tbl tr{border:1px solid var(--line);border-radius:10px;margin:0 0 10px;padding:6px 0}.tbl td{border:0;min-width:0;padding:4px 12px}.tbl td::before{content:attr(data-label);display:block;color:var(--sub);font-size:.85em;font-weight:600}}td a{overflow-wrap:anywhere}
 ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}"""
 def inline(t):
     t = html.escape(t, quote=False).replace('&lt;a id=', '<a id=').replace('&gt;&lt;/a&gt;', '></a>')
     t = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', t)
     t = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', t)
-    # 11-13 주량체커 비평 AX5: 📧과 주소가 따로 꺾이지 않게 한 덩어리로(본문은 break-word라 긴 주소만 줄 끝에서 꺾임)
-    t = re.sub(r'📧 (<a href="mailto:[^"]+">[^<]+</a>)', r'<span class="nw">📧 \1</span>', t)
+    # 11-13 응원석 ja AX5: 한 덩어리(nowrap)로 묶었더니 주소가 화면 오른쪽 밖으로 넘쳤다 — 📧과 주소 첫 글자만 붙이고(nbsp), 주소는 '@' 뒤에서 꺾일 수 있게
+    t = re.sub(r'📧 (<a href="mailto:[^"]+">)([^<@]+)@([^<]+)(</a>)', '📧\u00a0\\1\\2@<wbr>\\3\\4', t)
     return t
 def table(b):
     """| 머리 | 머리 |\n|---|---|\n| 칸 | 칸 | → <table>. 둘째 줄(구분선)은 건너뛴다."""
