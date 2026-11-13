@@ -250,6 +250,7 @@ def for_app(md, app):
 for stem in ('terms', 'privacy'):
     names, ko, en = split_lang(fill((ROOT/'src'/f'{stem}.md').read_text()))
     for app, (ko_name, en_name) in APPS.items():
+        both = {}
         for lang, part, name in (('ko', ko, names[0]), ('en', en, names[-1])):
             part = for_app(part, app)
             other = {APPS[a][0 if lang == 'ko' else 1] for a in APPS if a != app}
@@ -259,6 +260,10 @@ for stem in ('terms', 'privacy'):
             if left: print(f'  · {stem}/{app}/{lang} 공통 문장에 남은 다른 앱 이름: {left}')
             _, lbody = render(f'# {name}\n\n' + part)
             page(ROOT/'docs'/stem/app/lang/'index.html', lang, name, under_title(lbody, versions_html(stem, [lang], '../../', None, NOW.get(stem), here='./')))
+            both[lang] = part
+        # 두 언어 한 장(/<문서>/<앱>/) — Play 콘솔처럼 언어별 주소를 못 넣는 곳용(11-13 한배). 본문은 위 언어별 판 그대로 이어 붙임.
+        _, bbody = render(f'# {names[0]} · {names[-1]}\n\n<a id="ko"></a>\n## 한국어\n\n' + both['ko'] + '\n\n---\n\n<a id="en"></a>\n## English\n\n' + both['en'])
+        page(ROOT/'docs'/stem/app/'index.html', 'ko', f'{names[0]} · {names[-1]}', under_title(bbody, versions_html(stem, ['ko', 'en'], '../', None, NOW.get(stem), here='./')))
 
 # ---- 옛 주소 이동 페이지 ----
 # 지원 페이지는 2026-10-10에 내렸지만, 판매 중인 주량체커 1.2.0의 ko·en-US·en-GB 스토어 지원 URL이 /support/(ko|en)/에 고정돼 있다
