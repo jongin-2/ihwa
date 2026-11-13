@@ -145,6 +145,9 @@ export function AppDialogHost(props: Look) {
   const titleText = shown(cur.title);
   const bandSize = StyleSheet.flatten(look.titleBand?.textStyle)?.fontSize ?? 19;
   const mul = titleMul(titleText, look.titleBand ? bandSize : 19, titleW);
+  // 본문은 줄이지 않되 제목보다 커지지 않게 — 긴 낱말 때문에 제목 상한이 낮아지면 회색 본문이 제목보다 커져 위계가 뒤집혔다(11-13 차곡 AX5 ru).
+  // 애플 경고창의 제목(headline)·본문(footnote) AX5 크기 비 0.83을 지킨다.
+  const msgMul = Math.max(1, (0.83 * (look.titleBand ? bandSize : 19) * mul) / 15);
   const innerR = Math.max(0, (look.radius ?? 28) - (look.frame ? 2 : 0));
   // 글이 칸보다 길면 열릴 때 스크롤 표시를 한 번 보여 준다 — 잘린 게 아니라 밀면 읽힌다는 표시(애플 flashScrollIndicators 권장, 11-13 맵나이츠 AX5 ru 본문 6줄째에서 끊겨 보임).
   const edge = () => { const b = box.current; if (b.of !== cur) { b.of = cur; b.y = 0; } const m = b.h > 0 && b.c > b.h + 1 && b.y + b.h < b.c - 1; if (m !== more) setMore(m); };
@@ -186,7 +189,7 @@ export function AppDialogHost(props: Look) {
               ) : (
                 <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleText}</Text>
               )}
-              {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word">{shown(cur.msg)}</Text>}
+              {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={msgMul}>{shown(cur.msg)}</Text>}
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
             </View>
           </ScrollView>

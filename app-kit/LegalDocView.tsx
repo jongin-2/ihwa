@@ -36,6 +36,7 @@ const PAGE_STYLE = `(function(){var s=document.createElement('style');s.textCont
 // 번역 의무는 없고(한국 법·애플 심사), Hostinger·GoDaddy처럼 다른 언어 이용자에게 알리는 관례. 법적 내용이 아닌 안내라 문서를 번역하지 않는다.
 // 11-13 맵나이츠 ru 실측: 문서 끝에 도는 injectedJavaScript는 iOS에서 onMessage가 없으면 안 돌았다(PAGE_STYLE만 먹고 줄 없음).
 // → 문서 앞에 넣는 injectedJavaScriptBeforeContentLoaded 하나로 합치고, 줄은 DOMContentLoaded 뒤에 넣는다(본문 링크로 옮긴 문서에도 같이).
+// ja·zh 문장엔 띄어쓰기가 없어, 사이트의 word-break:keep-all 때문에 끊을 자리가 없어 아무 데서나 꺾였다('提供さ/れています', 11-13 차곡) — 구 사이에 폭 없는 공백(\u200b)을 넣어 그 자리에서만 꺾이게.
 const noticeAdd = (text: string) => `(function(){function a(){if(document.getElementById('ihwa-only'))return;var h=document.querySelector('main h1');if(!h)return;var p=document.createElement('p');p.id='ihwa-only';p.className='old';p.textContent=${JSON.stringify(text)};h.parentNode.insertBefore(p,h.nextSibling);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',a);else a();})();`;
 const pageScript = (text?: string) => text ? PAGE_STYLE.replace(/true;$/, noticeAdd(text) + 'true;') : PAGE_STYLE;
 
@@ -44,9 +45,9 @@ type Words = { terms: string; privacy: string; close: string; offline: string; r
 const WORDS: Record<string, Words> = {
   'ko': {"terms": "이용약관", "privacy": "개인정보 처리방침", "close": "닫기", "offline": "인터넷에 연결되면 볼 수 있어요", "retry": "다시 시도", "back": "이전 문서", "emailCopied": "이메일 주소를 복사했어요", "ok": "확인"},
   'en': {"terms": "Terms of Service", "privacy": "Privacy Policy", "close": "Close", "offline": "Available when you’re online", "retry": "Try Again", "back": "Previous page", "emailCopied": "Email address copied", "ok": "OK"},
-  'ja': {"offline": "インターネットに接続すると表示されます", "retry": "再試行", "back": "前のページ", "emailCopied": "メールアドレスをコピーしました", "terms": "利用規約", "privacy": "プライバシーポリシー", "close": "閉じる", "ok": "OK", "only": "このドキュメントは英語と韓国語でのみ提供されています。"},
-  'zh-Hant': {"offline": "連上網路即可查看", "retry": "重試", "back": "上一頁", "emailCopied": "已複製電子郵件地址", "terms": "服務條款", "privacy": "隱私權政策", "close": "關閉", "ok": "好", "only": "本文件僅提供英文和韓文版本。"},
-  'zh-Hans': {"offline": "联网后即可查看", "retry": "重试", "back": "上一页", "emailCopied": "已复制电子邮件地址", "terms": "服务条款", "privacy": "隐私政策", "close": "关闭", "ok": "好", "only": "本文档仅提供英文和韩文版本。"},
+  'ja': {"offline": "インターネットに接続すると表示されます", "retry": "再試行", "back": "前のページ", "emailCopied": "メールアドレスをコピーしました", "terms": "利用規約", "privacy": "プライバシーポリシー", "close": "閉じる", "ok": "OK", "only": "このドキュメントは\u200b英語と韓国語でのみ\u200b提供されています。"},
+  'zh-Hant': {"offline": "連上網路即可查看", "retry": "重試", "back": "上一頁", "emailCopied": "已複製電子郵件地址", "terms": "服務條款", "privacy": "隱私權政策", "close": "關閉", "ok": "好", "only": "本文件\u200b僅提供\u200b英文和韓文版本。"},
+  'zh-Hans': {"offline": "联网后即可查看", "retry": "重试", "back": "上一页", "emailCopied": "已复制电子邮件地址", "terms": "服务条款", "privacy": "隐私政策", "close": "关闭", "ok": "好", "only": "本文档\u200b仅提供\u200b英文和韩文版本。"},
   'es': {"offline": "Disponible cuando tengas conexión a internet", "retry": "Reintentar", "back": "Página anterior", "emailCopied": "Dirección de correo copiada", "terms": "Términos del servicio", "privacy": "Política de privacidad", "close": "Cerrar", "ok": "Aceptar", "only": "Este documento solo está disponible en inglés y coreano."},
   'pt': {"offline": "Disponível quando você estiver online", "retry": "Tentar novamente", "back": "Página anterior", "emailCopied": "Endereço de e-mail copiado", "terms": "Termos de uso", "privacy": "Política de privacidade", "close": "Fechar", "ok": "OK", "only": "Este documento está disponível apenas em inglês e coreano."},
   'de': {"offline": "Verfügbar, sobald du online bist", "retry": "Erneut versuchen", "back": "Vorherige Seite", "emailCopied": "E-Mail-Adresse kopiert", "terms": "Nutzungsbedingungen", "privacy": "Datenschutzerklärung", "close": "Schließen", "ok": "OK", "only": "Dieses Dokument ist nur auf Englisch und Koreanisch verfügbar."},
