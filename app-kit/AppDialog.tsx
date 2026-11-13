@@ -109,8 +109,9 @@ export function AppDialogHost(props: Look) {
   const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
   const box = useRef({ h: 0, c: 0, y: 0, flashed: null as Req | null, of: null as Req | null });
   // 글 칸 아래에 더 읽을 글이 남았는지 — 남았으면 칸 아래 끝을 카드색으로 흐리게(iOS 26 스크롤 가장자리 효과와 같은 뜻, 11-13 한배 AX5 ru 본문이 중간에서 끊겨 보임)
-  const [more, setMore] = useState(false);
-  useEffect(() => setMore(false), [cur]);
+  // 띠를 켠 창(요청)을 기억한다 — 참·거짓 하나로 두고 cur가 바뀔 때 effect로 끄면, 창이 열린 직후의 레이아웃 판정(참)을 effect가 뒤에서 덮어
+  // 첫 화면에 띠가 안 보였다(11-13 알롱 de AX5 계정 삭제 창). 창마다 다른 값이라 이전 창의 띠도 남지 않는다.
+  const [moreFor, setMoreFor] = useState<Req | null>(null);
   const me = useRef<Layer>({ look: props, cur: null, give: setCur, redraw: () => setTick((n) => n + 1) }).current;
   me.look = props;
   useEffect(() => {
@@ -156,7 +157,7 @@ export function AppDialogHost(props: Look) {
   const msgMul = Math.max(1, (0.83 * (look.titleBand ? bandSize : 19) * mul) / 15);
   const innerR = Math.max(0, (look.radius ?? 28) - (look.frame ? 2 : 0));
   // 글이 칸보다 길면 열릴 때 스크롤 표시를 한 번 보여 준다 — 잘린 게 아니라 밀면 읽힌다는 표시(애플 flashScrollIndicators 권장, 11-13 맵나이츠 AX5 ru 본문 6줄째에서 끊겨 보임).
-  const edge = () => { const b = box.current; if (b.of !== cur) { b.of = cur; b.y = 0; } const m = b.h > 0 && b.c > b.h + 1 && b.y + b.h < b.c - 1; if (m !== more) setMore(m); };
+  const edge = () => { const b = box.current; if (b.of !== cur) { b.of = cur; b.y = 0; } const m = b.h > 0 && b.c > b.h + 1 && b.y + b.h < b.c - 1; setMoreFor(m ? cur : null); };
   const flash = () => { const b = box.current; if (b.flashed !== cur && b.h > 0 && b.c > b.h + 1) { b.flashed = cur; setTimeout(() => scroll.current?.flashScrollIndicators(), 250); } };
   if (stack) order.sort((x, y) => Number(x.b.kind === 'cancel') - Number(y.b.kind === 'cancel'));
   return (
@@ -199,7 +200,7 @@ export function AppDialogHost(props: Look) {
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
             </View>
           </ScrollView>
-          {more && <View pointerEvents="none" style={[st.fade, { experimental_backgroundImage: `linear-gradient(180deg, ${rgba(c.card, 0)} 0%, ${rgba(c.card, 1)} 100%)` }]} />}
+          {moreFor === cur && <View pointerEvents="none" style={[st.fade, { experimental_backgroundImage: `linear-gradient(180deg, ${rgba(c.card, 0)} 0%, ${rgba(c.card, 1)} 100%)` }]} />}
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
