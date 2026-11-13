@@ -14,6 +14,7 @@
     그 뒤는 "## <버전> 출시 회귀" 절에 돌린 케이스 1건 이상 + `> 승계: 나머지는 <직전 버전> 결과` 줄
     (옛 "## <버전> 전체 회귀" 절이 있으면 그것도 받는다). 설정 release_mode가 "full"이면 늘 전체 회귀 절("## 빌드 7 전체 회귀").
     첫 출시도 "## 전체 회귀(기준 <커밋>)" 절(모든 케이스) + 출시 회귀 절(그 커밋 뒤 바뀐 케이스 + `> 승계: 나머지는 <커밋> 결과`)이면 통과(10-20).
+ 7. --release <버전>: "## <버전> 화면 비평" 절과 그 마지막 `> 남은 높음 0 · 중간 0` 요약 줄(11-13 외부 눈 비평)
 작업 기록 위치: 환경변수 QA_WORK_DIR > iCloud ihwa/<저장소 폴더 이름>/work/ > 저장소 impl/qa/ (옛 위치).
 사용: python3 impl/scripts/check-qa-coverage.py [--root <저장소>] [--release <버전>]   (표준 라이브러리만, 저장소 파일은 쓰지 않음)
 설정(impl/scripts/qa-config.json, 모두 선택): {"app": "폴더와 iCloud 이름이 다를 때", "release_mode": "incremental"|"full",
@@ -243,6 +244,18 @@ if args.release:
         problems.append(f'QA_RESULT에 "{full}" 절이 없다 — {ver} 코드로 모든 케이스를 돌려 그 절에 적거나, 첫 출시는 "## 전체 회귀(기준 <커밋>)" 절 + "{part}" 절(그 커밋 뒤 바뀐 케이스 + `> 승계: 나머지는 <커밋> 결과`)로')
     else:
         problems.append(f'QA_RESULT에 "{part}"(첫 출시는 "{full}") 절이 없다 — 바꾼 부분의 케이스를 {ver} 코드로 돌려 그 절에 적을 것')
+
+    # 외부 눈 화면 비평(11-13 종인님 "자잘한 퀄리티가 왜이렇지" → 질문 창 "외부 눈 비평 단계 넣어", ihwa-qa): 출시마다 "## <버전> 화면 비평" 절과
+    # 그 절의 마지막 요약 줄 "> 남은 높음 0 · 중간 0"이 있어야 한다(완료 = 높음·중간 0, 낮음은 큐로). 괄호 안 설명은 붙여도 된다.
+    crit = f'## {ver} 화면 비평'
+    if not has(crit):
+        problems.append(f'QA_RESULT에 "{crit}" 절이 없다 — 만든 세션과 다른 비평 에이전트가 캡처를 보고 찾은 것을 적고, 높음·중간을 고친 뒤 `> 남은 높음 0 · 중간 0` 줄로 닫을 것(ihwa-qa)')
+    else:
+        last = re.findall(r'^> 남은 [^\n]*', '\n'.join(section_at(m.start()) for m in re.finditer(r'^' + re.escape(crit), QR, re.M)), re.M)
+        if not last:
+            problems.append(f'"{crit}" 절에 요약 줄(`> 남은 높음 0 · 중간 0`)이 없다')
+        elif not (re.search(r'높음\s*0(?!\d)', last[-1]) and re.search(r'중간\s*0(?!\d)', last[-1])):
+            problems.append(f'"{crit}" 마지막 요약 줄에 높음·중간이 남았다: {last[-1][:80]}')
 
 if problems:
     for p in problems:
