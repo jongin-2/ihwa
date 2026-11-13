@@ -95,6 +95,8 @@ export function appDialog(o: DialogOptions): Promise<number> {
   });
 }
 
+// 흐림 띠 시작색 — 'transparent'(검정 투명)로 섞으면 밝은 카드에서 회색 띠가 생겨 같은 색의 알파 0을 쓴다
+const clear = (h: string) => /^#[0-9a-f]{6}$/i.test(h) ? h + '00' : 'transparent';
 const LIGHT: Palette = { card: '#FFFFFF', text: '#1C1C1E', sub: '#6C6C70', fill: 'rgba(120,120,128,0.16)', red: '#D70015' };
 const DARK: Palette = { card: '#2C2C2E', text: '#FFFFFF', sub: '#AEAEB2', fill: 'rgba(120,120,128,0.32)', red: '#D63A2F' };
 
@@ -104,7 +106,10 @@ export function AppDialogHost(props: Look) {
   const dark = useColorScheme() === 'dark';
   const win = useWindowDimensions();
   const scroll = useRef<ComponentRef<typeof ScrollView>>(null);
-  const box = useRef({ h: 0, c: 0, flashed: null as Req | null });
+  const box = useRef({ h: 0, c: 0, y: 0, flashed: null as Req | null, of: null as Req | null });
+  // 글 칸 아래에 더 읽을 글이 남았는지 — 남았으면 칸 아래 끝을 카드색으로 흐리게(iOS 26 스크롤 가장자리 효과와 같은 뜻, 11-13 한배 AX5 ru 본문이 중간에서 끊겨 보임)
+  const [more, setMore] = useState(false);
+  useEffect(() => setMore(false), [cur]);
   const me = useRef<Layer>({ look: props, cur: null, give: setCur, redraw: () => setTick((n) => n + 1) }).current;
   me.look = props;
   useEffect(() => {
@@ -142,6 +147,7 @@ export function AppDialogHost(props: Look) {
   const mul = titleMul(titleText, look.titleBand ? bandSize : 19, titleW);
   const innerR = Math.max(0, (look.radius ?? 28) - (look.frame ? 2 : 0));
   // 글이 칸보다 길면 열릴 때 스크롤 표시를 한 번 보여 준다 — 잘린 게 아니라 밀면 읽힌다는 표시(애플 flashScrollIndicators 권장, 11-13 맵나이츠 AX5 ru 본문 6줄째에서 끊겨 보임).
+  const edge = () => { const b = box.current; if (b.of !== cur) { b.of = cur; b.y = 0; } const m = b.h > 0 && b.c > b.h + 1 && b.y + b.h < b.c - 1; if (m !== more) setMore(m); };
   const flash = () => { const b = box.current; if (b.flashed !== cur && b.h > 0 && b.c > b.h + 1) { b.flashed = cur; setTimeout(() => scroll.current?.flashScrollIndicators(), 250); } };
   if (stack) order.sort((x, y) => Number(x.b.kind === 'cancel') - Number(y.b.kind === 'cancel'));
   return (
@@ -165,7 +171,7 @@ export function AppDialogHost(props: Look) {
           })}
           {/* 큰 글씨(AX)를 줄이지 않는다 — 글이 길면 이 칸만 스크롤하고 버튼은 늘 보인다(iOS 기본 경고창과 같음, ihwa-design '큰 글씨'). */}
           {/* 제목 띠는 카드 좌우 안쪽 여백을 넘어 그려야 해서 글 칸을 여백만큼 넓힌다(ScrollView가 넘친 곳을 자르므로). */}
-          <ScrollView ref={scroll} onLayout={(e) => { box.current.h = e.nativeEvent.layout.height; flash(); }} onContentSizeChange={(_, h) => { box.current.c = h; flash(); }} style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
+          <ScrollView ref={scroll} onLayout={(e) => { box.current.h = e.nativeEvent.layout.height; flash(); edge(); }} onContentSizeChange={(_, h) => { box.current.c = h; flash(); edge(); }} onScroll={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} scrollEventThrottle={32} style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
             {/* 글 칸이 터치 응답권을 받아야 바깥 카드 Pressable이 스크롤을 가로채지 않는다(11-12 알롱 AX5 es·fr·ru·tr 실측 — 감싸지 않으면 밀어도 안 움직임). */}
             <View onStartShouldSetResponder={() => true}>
               {look.titleBand ? (
@@ -184,6 +190,7 @@ export function AppDialogHost(props: Look) {
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
             </View>
           </ScrollView>
+          {more && <View pointerEvents="none" style={[st.fade, { experimental_backgroundImage: `linear-gradient(180deg, ${clear(c.card)} 0%, ${c.card} 100%)` }]} />}
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
@@ -211,6 +218,7 @@ const st = StyleSheet.create({
   card: { width: '100%', maxWidth: 400, maxHeight: '85%', borderRadius: 28, paddingTop: 24, paddingHorizontal: 20, paddingBottom: 20, shadowColor: '#000', shadowOpacity: 0.28, shadowRadius: 20, shadowOffset: { width: 0, height: 8 } },
   cardDark: { borderWidth: StyleSheet.hairlineWidth * 2, borderColor: 'rgba(255,255,255,0.12)' }, // 다크에선 카드가 배경과 붙어 테두리
   body: { flexGrow: 0, flexShrink: 1 },
+  fade: { height: 20, marginTop: -20 },
   bodyIn: { flexGrow: 0 },
   extra: { marginTop: 12 },
   bodyWide: { marginHorizontal: -20 },
