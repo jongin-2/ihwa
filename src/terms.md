@@ -35,11 +35,18 @@
 
 ### 5. 이용 연령
 
-주량체커는 이용 중인 국가·지역의 법정 음주 가능 연령 이상, 알롱·한배는 만 14세 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다.
+주량체커는 이용 중인 국가·지역의 법정 음주 가능 연령 이상, 알롱·한배는 만 14세 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 전체만 -->
+주량체커는 이용 중인 국가·지역의 법정 음주 가능 연령 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 앱만 drinkchecker -->
+알롱은 만 14세 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 앱만 allong -->
+한배는 만 14세 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 앱만 sameboat -->
+이 앱에는 해당하지 않습니다. <!-- 앱만 cheerseat,chagok -->
 
 ### 6. 다른 이용자에게 보이는 이름과 글
 
-이름·닉네임·글이 다른 이용자에게 보이는 앱(알롱·한배)에서는 욕설·혐오·차별·성적인 내용·괴롭힘·광고·남의 개인정보·남을 사칭하는 내용·불법인 내용을 쓸 수 없고, 운영자는 이런 내용을 용납하지 않습니다. 운영자는 이런 이름·글이나 앱 변조·조작으로 얻은 기록·보상을 바꾸거나 지우고, 그 계정의 이용을 제한할 수 있습니다.
+이름·닉네임·글이 다른 이용자에게 보이는 앱(알롱·한배)에서는 욕설·혐오·차별·성적인 내용·괴롭힘·광고·남의 개인정보·남을 사칭하는 내용·불법인 내용을 쓸 수 없고, 운영자는 이런 내용을 용납하지 않습니다. 운영자는 이런 이름·글이나 앱 변조·조작으로 얻은 기록·보상을 바꾸거나 지우고, 그 계정의 이용을 제한할 수 있습니다. <!-- 전체만 -->
+이름·닉네임·글이 다른 이용자에게 보이는 알롱에서는 욕설·혐오·차별·성적인 내용·괴롭힘·광고·남의 개인정보·남을 사칭하는 내용·불법인 내용을 쓸 수 없고, 운영자는 이런 내용을 용납하지 않습니다. 운영자는 이런 이름·글이나 앱 변조·조작으로 얻은 기록·보상을 바꾸거나 지우고, 그 계정의 이용을 제한할 수 있습니다. <!-- 앱만 allong -->
+이름·닉네임·글이 다른 이용자에게 보이는 한배에서는 욕설·혐오·차별·성적인 내용·괴롭힘·광고·남의 개인정보·남을 사칭하는 내용·불법인 내용을 쓸 수 없고, 운영자는 이런 내용을 용납하지 않습니다. 운영자는 이런 이름·글이나 앱 변조·조작으로 얻은 기록·보상을 바꾸거나 지우고, 그 계정의 이용을 제한할 수 있습니다. <!-- 앱만 sameboat -->
+이 앱에는 해당하지 않습니다. <!-- 앱만 drinkchecker,cheerseat,chagok -->
 
 ### 7. 앱 안 점수와 재화
 
@@ -47,7 +54,10 @@
 
 ### 8. 계정 삭제
 
-계정을 만드는 앱(알롱·한배)은 앱 안의 '계정 삭제'로 언제든 계정을 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다.
+계정을 만드는 앱(알롱·한배)은 앱 안의 '계정 삭제'로 언제든 계정을 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다. <!-- 전체만 -->
+앱 안의 '계정 삭제'로 언제든 계정을 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다. <!-- 앱만 allong,sameboat -->
+계정을 연결했다면 앱 안의 '연결 해제'로 언제든 서버의 계정과 기록을 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다. <!-- 앱만 drinkchecker,chagok -->
+이 앱에는 해당하지 않습니다. <!-- 앱만 cheerseat -->
 
 ### 9. 약관 변경
 
@@ -112,11 +122,18 @@ To the maximum extent permitted by law, the operator is not liable for any damag
 
 ### 5. Age requirement
 
-DrinkChecker is for users who meet the legal drinking age in their country or region, and Allong and SameBoat are only for users aged 14 or older. By using an app, you confirm that you meet this requirement.
+DrinkChecker is for users who meet the legal drinking age in their country or region, and Allong and SameBoat are only for users aged 14 or older. By using an app, you confirm that you meet this requirement. <!-- 전체만 -->
+DrinkChecker is for users who meet the legal drinking age in their country or region. By using the app, you confirm that you meet this requirement. <!-- 앱만 drinkchecker -->
+Allong is only for users aged 14 or older. By using the app, you confirm that you meet this requirement. <!-- 앱만 allong -->
+SameBoat is only for users aged 14 or older. By using the app, you confirm that you meet this requirement. <!-- 앱만 sameboat -->
+This section does not apply to this app. <!-- 앱만 cheerseat,chagok -->
 
 ### 6. Names and content visible to others
 
-In apps where names, nicknames or posts are visible to other users (Allong, SameBoat), you may not use abuse, hate, discrimination, sexual content, harassment, ads, other people's personal information, impersonation or anything illegal, and the operator has zero tolerance for such content. The operator may change or remove such names and posts, and records or rewards obtained by modifying or manipulating the app, and may restrict that account's use.
+In apps where names, nicknames or posts are visible to other users (Allong, SameBoat), you may not use abuse, hate, discrimination, sexual content, harassment, ads, other people's personal information, impersonation or anything illegal, and the operator has zero tolerance for such content. The operator may change or remove such names and posts, and records or rewards obtained by modifying or manipulating the app, and may restrict that account's use. <!-- 전체만 -->
+In Allong, where names, nicknames and posts are visible to other users, you may not use abuse, hate, discrimination, sexual content, harassment, ads, other people's personal information, impersonation or anything illegal, and the operator has zero tolerance for such content. The operator may change or remove such names and posts, and records or rewards obtained by modifying or manipulating the app, and may restrict that account's use. <!-- 앱만 allong -->
+In SameBoat, where names, nicknames and posts are visible to other users, you may not use abuse, hate, discrimination, sexual content, harassment, ads, other people's personal information, impersonation or anything illegal, and the operator has zero tolerance for such content. The operator may change or remove such names and posts, and records or rewards obtained by modifying or manipulating the app, and may restrict that account's use. <!-- 앱만 sameboat -->
+This section does not apply to this app. <!-- 앱만 drinkchecker,cheerseat,chagok -->
 
 ### 7. In-app scores and currency
 
@@ -124,7 +141,10 @@ In-app scores, currency and items have no monetary value and cannot be exchanged
 
 ### 8. Account deletion
 
-In apps where you create an account (Allong, SameBoat), you can delete your account anytime with Delete Account in the app; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/).
+In apps where you create an account (Allong, SameBoat), you can delete your account anytime with Delete Account in the app; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/). <!-- 전체만 -->
+You can delete your account anytime with Delete Account in the app; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/). <!-- 앱만 allong,sameboat -->
+If you connected an account, you can delete it and its records from the server anytime with Disconnect in the app; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/). <!-- 앱만 drinkchecker,chagok -->
+This section does not apply to this app. <!-- 앱만 cheerseat -->
 
 ### 9. Changes to these terms
 

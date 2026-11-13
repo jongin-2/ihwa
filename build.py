@@ -16,6 +16,10 @@ OPERATOR = {
 }
 SITE_NAME = 'Jongin Lee'  # 첫 화면 제목 — ihwa 때: ihwa
 TITLE_SUFFIX = ''         # 각 페이지 <title> 꼬리 — ihwa 때: ' — ihwa'
+# 앱별 문장 표시(11-13 주량체커 지적 — 공통 조항 문장에 다른 앱 이름이 남아 '그 앱만'으로 안 읽힘): 줄 끝 ' <!-- 전체만 -->'은 전체 문서에만,
+# ' <!-- 앱만 a,b -->'는 그 앱들의 앱별 페이지에만 쓰인다(바로 위 '전체만' 줄의 앱별 문장). 전체 문서는 표시를 지워 그대로 나온다.
+MARK_ALL, MARK_APP = ' <!-- 전체만 -->', re.compile(r' <!-- 앱만 ([a-z,]+) -->$')
+def full_only(md): return '\n'.join(l.replace(MARK_ALL, '') for l in md.split('\n') if not MARK_APP.search(l))
 def fill(md):
     for k, v in OPERATOR.items(): md = md.replace('{{' + k + '}}', v)
     assert '{{' not in md, '채우지 못한 운영자 표기 자리'
@@ -145,7 +149,7 @@ if _hit:
     raise SystemExit(f'✋ 개인정보처리방침에 개인정보가 아닌 내용이 있습니다: {_hit} — README "방침에 쓰는 것과 쓰지 않는 것"')
 
 for src in sorted((ROOT/'src').glob('*.md')):
-    build(fill(src.read_text()), ROOT/'docs'/src.stem, src.stem)
+    build(full_only(fill(src.read_text())), ROOT/'docs'/src.stem, src.stem)
     for v in archives(src.stem):
         build(fill((ROOT/'src'/'archive'/src.stem/f'{v}.md').read_text()), ROOT/'docs'/src.stem/'archive'/v, src.stem, archived=v)
 # ---- 앱별 페이지(2026-11-13 종인님 "앱별 주소로 나눠") ----
@@ -168,10 +172,23 @@ def only_names(t):
     r = t
     for ko, en in APPS.values(): r = r.replace(ko, '').replace(en, '')
     return names_in(t) and not re.sub(r'[·,\s]|\band\b', '', r)
+def own_list(t, app):
+    """'주량체커·차곡·알롱'·'Chagok, CheerSeat, SameBoat'·'DrinkChecker and Chagok'처럼 앱 이름만 이어 쓴 나열을 그 앱 이름 하나로."""
+    names = '|'.join(re.escape(n) for v in APPS.values() for n in v)
+    pat = rf'(?:{names})(?:(?:·|, | and )(?:{names}))+'
+    ko, en = APPS[app]
+    return re.sub(pat, lambda m: (ko if ko in m.group(0) else en) if app in names_in(m.group(0)) else m.group(0), t)
 def for_app(md, app):
     out, skip = [], False
-    for b in md.split('\n\n'):
+    kept = []
+    for l in md.split('\n'):
+        if MARK_ALL in l: continue
+        m = MARK_APP.search(l)
+        if m and app not in m.group(1).split(','): continue
+        kept.append(MARK_APP.sub('', l))
+    for b in '\n'.join(kept).split('\n\n'):
         s = b.strip()
+        if not s: continue
         if s.startswith('#'):
             m = re.match(r'#+ (.+?) (추가 조항|addendum)$', s)
             skip = bool(m) and app not in names_in(m.group(1))
@@ -191,7 +208,7 @@ def for_app(md, app):
             if col is not None:
                 keep = [l for l in lines[2:] if not names_in(l.strip('|').split('|')[col]) or app in names_in(l.strip('|').split('|')[col])]
                 if not keep: continue
-                lines = lines[:2] + keep
+                lines = lines[:2] + [own_list(l, app) for l in keep]
             else:  # 앱 칸이 없는 묶음 표: 첫 칸이 다른 앱 이름으로 시작하는 줄('차곡 기록(…)')만 뺀다
                 lines = lines[:2] + [l for l in lines[2:] if not ((n := names_in(l.strip('|').split('|')[0].strip().split('(')[0].split(' ')[0])) and app not in n)]
             out.append('\n'.join(lines)); continue
@@ -202,7 +219,7 @@ def for_app(md, app):
                     bl = re.match(r'- \*\*([^*]+)\*\*', l)
                     n = names_in(bl.group(1)) if bl else names_in(l)
                     drop = bool(n) and app not in n
-                if not drop: keep.append(l)
+                if not drop: keep.append(re.sub(r'^- \*\*([^*]+)\*\*', lambda m: f'- **{own_list(m.group(1), app)}**' if only_names(m.group(1)) else m.group(0), l))
             if keep: out.append('\n'.join(keep))
             continue
         out.append(s)
@@ -218,6 +235,8 @@ for stem in ('terms', 'privacy'):
             other = {APPS[a][0 if lang == 'ko' else 1] for a in APPS if a != app}
             hit = [h for h in re.findall(r'^### (.+?) (?:추가 조항|addendum)$', part, re.M) if h in other]
             assert not hit and APPS[app][0 if lang == 'ko' else 1] in part, f'{stem}/{app}/{lang} 거르기 실패 {hit}'
+            left = sorted({n for a, v in APPS.items() if a != app for n in v if n in part})
+            if left: print(f'  · {stem}/{app}/{lang} 공통 문장에 남은 다른 앱 이름: {left}')
             _, lbody = render(f'# {name}\n\n' + part)
             page(ROOT/'docs'/stem/app/lang/'index.html', lang, name, under_title(lbody, versions_html(stem, [lang], '../../', None, NOW.get(stem), here='./')))
 

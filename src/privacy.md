@@ -15,7 +15,9 @@
 
 | 정보 | 목적 | 보관 기간 |
 |---|---|---|
-| 계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소), 차곡은 직접 정한 닉네임도 | 계정 연결 | 연결 해제할 때까지 |
+| 계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소), 차곡은 직접 정한 닉네임도 | 계정 연결 | 연결 해제할 때까지 | <!-- 전체만 -->
+| 계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소) | 계정 연결 | 연결 해제할 때까지 | <!-- 앱만 drinkchecker -->
+| 계정 식별자·이메일(Apple '이메일 가리기'면 대체 주소)·직접 정한 닉네임 | 계정 연결 | 연결 해제할 때까지 | <!-- 앱만 chagok -->
 | 주량체커 기록(술 종류·양·날짜·시각·한도) | 기록 백업 | 연결 해제할 때까지 |
 | 차곡 기록(어느 취미에 무엇을 언제 기록했는지·사진으로 확인된 기록인지) | 기록 백업 | 연결 해제할 때까지 |
 
@@ -59,17 +61,26 @@
 
 ### 2. 맡기는 곳과 국외 이전
 
-운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임·개인 순위는 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다.
+운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 알롱의 주간 순위와 한배의 말풍선·닉네임·개인 순위는 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다. <!-- 전체만 -->
+운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 주간 순위는 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다. <!-- 앱만 allong -->
+운영자는 정보를 다른 사람에게 제공하지 않습니다. 다만 말풍선·닉네임·개인 순위는 앱 안에서 다른 이용자에게 보입니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다. <!-- 앱만 sameboat -->
+운영자는 정보를 다른 사람에게 제공하지 않습니다. 서버 운영과 통계는 아래 회사에 맡기며, 이 회사들은 국외에 있습니다. <!-- 앱만 drinkchecker,cheerseat,chagok -->
 
 | 받는 곳(연락처) | 맡기는 일(앱) | 정보가 있는 곳 |
 |---|---|---|
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) |
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) | <!-- 전체만 -->
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 앱만 drinkchecker,chagok -->
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 게임 데이터·순위·알롱 번호는 대한민국(서울 리전) | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics(같음) | 사용 통계(모든 앱) | 미국 |
 | Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
 - **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
-- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다.
+- **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다. <!-- 전체만 -->
+- **거부하는 방법과 그 결과**: 계정을 연결하지 않거나 연결 해제를 하면 서버로 보내지 않습니다. 그러면 기록 백업은 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. <!-- 앱만 drinkchecker,chagok -->
+- **거부하는 방법과 그 결과**: '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. <!-- 앱만 cheerseat -->
+- **거부하는 방법과 그 결과**: 로그인하지 않거나 계정을 삭제하면 서버로 보내지 않습니다. 그러면 말풍선·대항전은 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. <!-- 앱만 sameboat -->
+- **거부하는 방법과 그 결과**: 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다. <!-- 앱만 allong -->
 
 ### 3. 사용 통계와 외부 요청
 
@@ -91,7 +102,9 @@
 
 ### 4. 기기 권한
 
-권한은 기기 설정에서 언제든 끌 수 있습니다. 알롱의 위치를 빼면 꺼도 앱의 핵심 기능은 그대로입니다.
+권한은 기기 설정에서 언제든 끌 수 있습니다. 알롱의 위치를 빼면 꺼도 앱의 핵심 기능은 그대로입니다. <!-- 전체만 -->
+권한은 기기 설정에서 언제든 끌 수 있습니다. 위치를 빼면 꺼도 앱의 핵심 기능은 그대로입니다. <!-- 앱만 allong -->
+권한은 기기 설정에서 언제든 끌 수 있고, 꺼도 앱의 핵심 기능은 그대로입니다. <!-- 앱만 drinkchecker,cheerseat,chagok,sameboat -->
 
 | 앱 | 권한 | 언제·왜 |
 |---|---|---|
@@ -106,13 +119,18 @@
 | 한배 | 위치(사용하는 동안, '대항전 알림'을 켜고 '항상 허용'하면 앱을 쓰지 않을 때도) | 고른 노선에 탔는지 확인·근처 노선 추천·판 시간에 역 근처에 오면 알림(꺼도 노선에 들어갈 수 있음) |
 | 한배 | 알림 | 설정에서 '대항전 알림'을 켤 때만(기기 안에서 만들어 보냄) |
 
-위치는 기기 안에서만 쓰고 운영자 서버로 보내지 않습니다(알롱 걸음은 하루·주간 합계만 게임 데이터와 순위에 저장). 위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다.
+위치는 기기 안에서만 쓰고 운영자 서버로 보내지 않습니다(알롱 걸음은 하루·주간 합계만 게임 데이터와 순위에 저장). 위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다. <!-- 전체만 -->
+위치는 기기 안에서만 쓰고 운영자 서버로 보내지 않습니다(걸음은 하루·주간 합계만 게임 데이터와 순위에 저장). 위치가 기기 밖으로 나가는 것은 3절의 Apple 지도·날씨 조회뿐입니다. <!-- 앱만 allong -->
+위치는 기기 안에서만 쓰고 운영자 서버로 보내지 않습니다. <!-- 앱만 sameboat -->
 
 ### 5. 이용자의 권리와 행사 방법
 
 이용자는 언제든 자기 개인정보의 열람·정정·삭제·처리 정지를 요구할 수 있습니다.
 
-- 앱 안에서 바로: 주량체커·차곡은 '연결 해제', 알롱·한배는 '계정 삭제', 응원석은 '실시간 현황' 끄기(위젯 토큰은 앱 삭제).
+- 앱 안에서 바로: 주량체커·차곡은 '연결 해제', 알롱·한배는 '계정 삭제', 응원석은 '실시간 현황' 끄기(위젯 토큰은 앱 삭제). <!-- 전체만 -->
+- 앱 안에서 바로: '연결 해제'. <!-- 앱만 drinkchecker,chagok -->
+- 앱 안에서 바로: '계정 삭제'. <!-- 앱만 allong,sameboat -->
+- 앱 안에서 바로: '실시간 현황' 끄기(위젯 토큰은 앱 삭제). <!-- 앱만 cheerseat -->
 - 그 밖의 요구는 아래 메일로 보내 주시면 10일 안에 처리 결과를 알려 드립니다.
 
 ### 6. 파기 절차와 방법
@@ -122,8 +140,11 @@
 ### 7. 안전성 확보 조치
 
 - 앱이 주고받는 모든 전송은 암호화(HTTPS)합니다.
-- 주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다.
-- 응원석의 토큰 등록과 한배의 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다.
+- 주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다. <!-- 전체만 -->
+- 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다. <!-- 앱만 drinkchecker,chagok,allong -->
+- 응원석의 토큰 등록과 한배의 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다. <!-- 전체만 -->
+- 토큰 등록은 정품 앱에서 왔는지 Apple App Attest로 확인합니다. <!-- 앱만 cheerseat -->
+- 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다. <!-- 앱만 sameboat -->
 - 서버 관리 권한은 운영자 한 명만 가집니다.
 
 ### 8. 아동의 개인정보
@@ -166,7 +187,9 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 | Information | Purpose | Kept until |
 |---|---|---|
-| Account identifier and email (a relay address if you use Apple's Hide My Email), plus in Chagok a nickname you set | Account connection | You disconnect |
+| Account identifier and email (a relay address if you use Apple's Hide My Email), plus in Chagok a nickname you set | Account connection | You disconnect | <!-- 전체만 -->
+| Account identifier and email (a relay address if you use Apple's Hide My Email) | Account connection | You disconnect | <!-- 앱만 drinkchecker -->
+| Account identifier, email (a relay address if you use Apple's Hide My Email) and a nickname you set | Account connection | You disconnect | <!-- 앱만 chagok -->
 | DrinkChecker records (drink type, amount, date and time, limit) | Record backup | You disconnect |
 | Chagok records (which hobby, what and when, whether a record was confirmed by a photo) | Record backup | You disconnect |
 
@@ -210,17 +233,26 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 ### 2. Service providers and international transfer
 
-We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles, nicknames and personal rankings are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea.
+We do not provide your information to others. However, Allong's weekly rankings and SameBoat's bubbles, nicknames and personal rankings are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea. <!-- 전체만 -->
+We do not provide your information to others. However, weekly rankings are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea. <!-- 앱만 allong -->
+We do not provide your information to others. However, bubbles, nicknames and personal rankings are visible to other users in the app. We entrust server operation and statistics to the companies below, which are located outside Korea. <!-- 앱만 sameboat -->
+We do not provide your information to others. We entrust server operation and statistics to the companies below, which are located outside Korea. <!-- 앱만 drinkchecker,cheerseat,chagok -->
 
 | Recipient (contact) | Task (apps) | Where the data is |
 |---|---|---|
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) |
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) | <!-- 전체만 -->
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 앱만 drinkchecker,chagok -->
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; game data, rankings and Allong numbers in South Korea (Seoul region) | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics (same) | Usage statistics (all apps) | United States |
 | Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat) | US company; database in the Asia-Pacific region |
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
 - **Retention**: as in the tables in section 1; statistics for up to 14 months.
-- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account.
+- **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account. <!-- 전체만 -->
+- **How to refuse and what happens**: if you don't connect an account, or you disconnect it, nothing is sent to the server. You then can't use record backup, but everything else keeps working. <!-- 앱만 drinkchecker,chagok -->
+- **How to refuse and what happens**: turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use live scores, but everything else keeps working. <!-- 앱만 cheerseat -->
+- **How to refuse and what happens**: if you don't sign in, or you delete your account, nothing is sent to the server. You then can't use bubbles or battles, but everything else keeps working. <!-- 앱만 sameboat -->
+- **How to refuse and what happens**: the game needs server storage, so refusing means deleting your account. <!-- 앱만 allong -->
 
 ### 3. Usage statistics and external requests
 
@@ -242,7 +274,9 @@ When an app makes a request to the external services below, connection details s
 
 ### 4. Device permissions
 
-You can turn any permission off anytime in your device settings. Except for Allong's location, the app's core features keep working.
+You can turn any permission off anytime in your device settings. Except for Allong's location, the app's core features keep working. <!-- 전체만 -->
+You can turn any permission off anytime in your device settings. Except for location, the app's core features keep working. <!-- 앱만 allong -->
+You can turn any permission off anytime in your device settings, and the app's core features keep working. <!-- 앱만 drinkchecker,cheerseat,chagok,sameboat -->
 
 | App | Permission | When and why |
 |---|---|---|
@@ -257,13 +291,18 @@ You can turn any permission off anytime in your device settings. Except for Allo
 | SameBoat | Location (while using; also in the background if you turn on Line Battle alerts and choose Always) | Checking you're on the line you picked, suggesting nearby lines, and alerting you near a station during a round (you can still enter a line without it) |
 | SameBoat | Notifications | Only when you turn on Line Battle alerts in Settings (created on the device) |
 
-Location is used on your device only and never sent to the operator's servers (for Allong, only daily and weekly step totals are stored in game data and rankings). Location leaves your device only for the Apple Maps and Apple Weather lookups in section 3.
+Location is used on your device only and never sent to the operator's servers (for Allong, only daily and weekly step totals are stored in game data and rankings). Location leaves your device only for the Apple Maps and Apple Weather lookups in section 3. <!-- 전체만 -->
+Location is used on your device only and never sent to the operator's servers (only daily and weekly step totals are stored in game data and rankings). Location leaves your device only for the Apple Maps and Apple Weather lookups in section 3. <!-- 앱만 allong -->
+Location is used on your device only and never sent to the operator's servers. <!-- 앱만 sameboat -->
 
 ### 5. Your rights and how to use them
 
 You can ask at any time to see, correct, delete or stop the processing of your personal information.
 
-- In the app: Disconnect in DrinkChecker and Chagok, Delete Account in Allong and SameBoat, and turning Live Activities off in CheerSeat (widget tokens: delete the app).
+- In the app: Disconnect in DrinkChecker and Chagok, Delete Account in Allong and SameBoat, and turning Live Activities off in CheerSeat (widget tokens: delete the app). <!-- 전체만 -->
+- In the app: Disconnect. <!-- 앱만 drinkchecker,chagok -->
+- In the app: Delete Account. <!-- 앱만 allong,sameboat -->
+- In the app: turn Live Activities off (widget tokens: delete the app). <!-- 앱만 cheerseat -->
 - For anything else, email us below and we will reply with the result within 10 days.
 
 ### 6. Deletion procedure and method
@@ -273,8 +312,11 @@ When the retention period in section 1 ends or you request deletion, we delete t
 ### 7. Security measures
 
 - All traffic to and from the apps is encrypted (HTTPS).
-- In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account.
-- CheerSeat token registrations and SameBoat battle entries are checked with Apple App Attest to confirm they come from the genuine app.
+- In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account. <!-- 전체만 -->
+- Each per-account space can be read and written only by its own account. <!-- 앱만 drinkchecker,chagok,allong -->
+- CheerSeat token registrations and SameBoat battle entries are checked with Apple App Attest to confirm they come from the genuine app. <!-- 전체만 -->
+- Token registrations are checked with Apple App Attest to confirm they come from the genuine app. <!-- 앱만 cheerseat -->
+- Battle entries are checked with Apple App Attest to confirm they come from the genuine app. <!-- 앱만 sameboat -->
 - Only the operator has administrative access to the servers.
 
 ### 8. Children's privacy
