@@ -39,6 +39,10 @@ export const COMMON_BREAKS: readonly string[] = [
   // ru·uk
   'До-ступ-но', 'Об-но-ви-те', 'Об-но-вить', 'про-дол-жить', 'об-нов-ле-ние', 'при-ло-же-ни-ем', 'поль-зо-вать-ся',
   'До-ступ-не', 'Оно-віть', 'Оно-ви-ти', 'Піз-ні-ше', 'онов-лен-ня', 'за-сто-сун-ком', 'ко-ри-сту-ва-ти-ся',
+  // 문서 보기 메일 복사 창 제목(11-13 '이메일 주소를 복사했어요'가 제목으로 — 한배 제보, 20개 언어 7자 이상 전부). 맥 애플 사전 분철, fr Adresse·tr·id는 음절 규칙
+  'ad-dress', 'Di-rec-ción', 'co-pia-da', 'En-de-re-ço', 'co-pi-ado', 'Adres-se', 'ko-piert', 'In-di-riz-zo', 'co-pia-to',
+  'mail-adres', 'ge-ko-pi-eerd', 'post-adres-sen', 'ko-pi-era-des', 'Sko-pio-wa-no', 'mai-lo-vá', 'zko-pí-ro-vá-na',
+  'kop-ya-lan-dı', 'di-sa-lin', 'ско-пи-ро-ван', 'еле-ктрон-ної', 'ско-пі-йо-ва-но',
 ];
 
 const norm = (w: string) => w.replace(/'/g, '’'); // 곧은 따옴표(d'utilisation)도 같은 낱말로 본다
