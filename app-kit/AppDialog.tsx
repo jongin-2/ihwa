@@ -164,6 +164,8 @@ export function AppDialogHost(props: Look) {
   const innerR = Math.max(0, (look.radius ?? 28) - (look.frame ? 2 : 0));
   // 글이 칸보다 길면 열릴 때 스크롤 표시를 한 번 보여 준다 — 잘린 게 아니라 밀면 읽힌다는 표시(애플 flashScrollIndicators 권장, 11-13 맵나이츠 AX5 ru 본문 6줄째에서 끊겨 보임).
   const edge = () => { const b = box.current; if (b.of !== cur) { b.of = cur; b.y = 0; } const m = b.h > 0 && b.c > b.h + 1 && b.y + b.h < b.c - 1; setMoreFor(m ? cur : null); };
+  // 띠는 본문 한 줄 높이의 0.8배 — 20pt 고정이면 큰 글씨에서 줄 사이 빈칸만 덮어 '더 있다'가 안 보였다(11-13 응원석 ru AX5, 다음 줄이 경계 밖에 딱 걸릴 때). 마지막 보이는 줄이 흐려져 줄 위치와 상관없이 보인다.
+  const fadeH = Math.max(20, Math.round(22 * Math.min(win.fontScale || 1, msgMul) * 0.8));
   const flash = () => { const b = box.current; if (b.flashed !== cur && b.h > 0 && b.c > b.h + 1) { b.flashed = cur; setTimeout(() => scroll.current?.flashScrollIndicators(), 250); } };
   if (stack) order.sort((x, y) => Number(x.b.kind === 'cancel') - Number(y.b.kind === 'cancel'));
   return (
@@ -206,7 +208,7 @@ export function AppDialogHost(props: Look) {
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
             </View>
           </ScrollView>
-          {moreFor === cur && <View pointerEvents="none" style={[st.fade, { experimental_backgroundImage: `linear-gradient(180deg, ${rgba(c.card, 0)} 0%, ${rgba(c.card, 1)} 100%)` }]} />}
+          {moreFor === cur && <View pointerEvents="none" style={[st.fade, { height: fadeH, marginTop: -fadeH, experimental_backgroundImage: `linear-gradient(180deg, ${rgba(c.card, 0)} 0%, ${rgba(c.card, 1)} 100%)` }]} />}
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
