@@ -74,7 +74,10 @@
 | Google LLC — Firebase Analytics(같음) | 사용 통계(모든 앱) | 미국 |
 | Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
-- **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다.
+- **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다. <!-- 전체만 -->
+- **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경 등) 인터넷으로 암호화해 보냅니다. <!-- 앱만 drinkchecker,chagok,allong -->
+- **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(토큰 등록 등) 인터넷으로 암호화해 보냅니다. <!-- 앱만 cheerseat -->
+- **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(로그인·말풍선·대항전 등) 인터넷으로 암호화해 보냅니다. <!-- 앱만 sameboat -->
 - **보관 기간**: 1절 표의 기간, 통계는 최대 14개월.
 - **거부하는 방법과 그 결과**: 계정을 연결(로그인)하지 않거나, 연결 해제·계정 삭제를 하면 서버로 보내지 않습니다. 응원석은 '실시간 현황'을 끄고 위젯을 치우면 서버로 새로 보내지 않고, 이미 둔 위젯 토큰은 앱을 지우면 지워집니다. 그러면 기록 백업·말풍선·대항전·실시간 점수는 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. 알롱은 서버 저장이 게임에 꼭 필요해 거부하려면 계정을 삭제해야 합니다. <!-- 전체만 -->
 - **거부하는 방법과 그 결과**: 계정을 연결하지 않거나 연결 해제를 하면 서버로 보내지 않습니다. 그러면 기록 백업은 쓸 수 없고 나머지 기능은 그대로 쓸 수 있습니다. <!-- 앱만 drinkchecker,chagok -->
@@ -84,7 +87,12 @@
 
 ### 3. 사용 통계와 외부 요청
 
-모든 앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(음주 기록, 취미 기록의 제목·메모·사진, 말풍선, 노선, 위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다.
+모든 앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(음주 기록, 취미 기록의 제목·메모·사진, 말풍선, 노선, 위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다. <!-- 전체만 -->
+앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(음주 기록, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다. <!-- 앱만 drinkchecker -->
+앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(취미 기록의 제목·메모·사진, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다. <!-- 앱만 chagok -->
+앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다. <!-- 앱만 cheerseat -->
+앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다. <!-- 앱만 allong -->
+앱은 서비스를 개선하는 통계 분석을 위해 Google Firebase Analytics로 **서비스 이용 기록**과 **기기 정보**(기기 종류·OS 버전·앱 버전, 앱 설치마다 정해지는 무작위 식별값), IP 주소로 추정한 **대략적인 지역**(국가·도시 수준, Google이 IP 주소 일부를 가린 뒤 추정)을 자동으로 수집합니다. 이 정보로 이용자를 식별하지 않으며 이름·연락처·광고 식별자와 연결하지 않습니다. 기록한 내용(말풍선, 노선, 위치, 생일, 계정 정보)은 통계에 담지 않습니다. 광고 식별자(IDFA)와 크래시 리포트는 수집하지 않고, 광고나 추적에 쓰지 않습니다. <!-- 앱만 sameboat -->
 
 앱이 아래 외부 서비스에 요청할 때는 일반적인 웹 요청처럼 IP 주소 같은 접속 정보가 그 서비스에 전달될 수 있으며, 운영자는 이를 받거나 보관하지 않습니다.
 
@@ -96,7 +104,9 @@
 | Open Library(Internet Archive, 미국)·국립중앙도서관 — 도서 정보 | 차곡 | 사진에서 읽은 책 바코드 번호(ISBN) 또는 제목으로 보이는 글자(사진 자체는 보내지 않음) |
 | Apple 지도 — 지도와 주변 장소 | 알롱 | 현재 위치 좌표('항상 허용'이면 앱을 닫은 동안에도) |
 | Apple 날씨(WeatherKit) — 탐험·홈·전투 화면의 날씨 | 알롱 | 약 1km 단위로 반올림한 위치 |
-| 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 |
+| 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 | <!-- 전체만 -->
+| 운영자 서버(Cloudflare) — 점수·일정·순위 | 응원석·한배 | 접속 정보 | <!-- 앱만 cheerseat -->
+| 운영자 서버(Cloudflare) — 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 | <!-- 앱만 sameboat -->
 | Apple 푸시 알림 서비스(APNs) — 잠금 화면·위젯 점수 | 응원석 | 1절의 토큰 |
 | Apple App Attest — 앱 변조 확인 | 차곡·응원석·한배 | 앱 확인 값 |
 
@@ -158,7 +168,9 @@
 
 ### 9. 웹사이트
 
-allong.my와 ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지, 기기·브라우저 종류, 대략적인 지역, 쿠키 식별자(_ga, 최대 2년)를 모으고 이름·연락처는 받지 않으며, 14개월 보관합니다. 유럽에서는 '허용'을 누른 경우에만 씁니다. 브라우저 설정에서 쿠키를 막아 거부할 수 있습니다.
+allong.my와 ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지, 기기·브라우저 종류, 대략적인 지역, 쿠키 식별자(_ga, 최대 2년)를 모으고 이름·연락처는 받지 않으며, 14개월 보관합니다. 유럽에서는 '허용'을 누른 경우에만 씁니다. 브라우저 설정에서 쿠키를 막아 거부할 수 있습니다. <!-- 전체만 -->
+allong.my와 ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지, 기기·브라우저 종류, 대략적인 지역, 쿠키 식별자(_ga, 최대 2년)를 모으고 이름·연락처는 받지 않으며, 14개월 보관합니다. 유럽에서는 '허용'을 누른 경우에만 씁니다. 브라우저 설정에서 쿠키를 막아 거부할 수 있습니다. <!-- 앱만 allong -->
+ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 방문 통계를 위해 Google 애널리틱스(Google LLC, 미국)를 씁니다. 방문한 페이지, 기기·브라우저 종류, 대략적인 지역, 쿠키 식별자(_ga, 최대 2년)를 모으고 이름·연락처는 받지 않으며, 14개월 보관합니다. 유럽에서는 '허용'을 누른 경우에만 씁니다. 브라우저 설정에서 쿠키를 막아 거부할 수 있습니다. <!-- 앱만 drinkchecker,cheerseat,chagok,sameboat -->
 
 ### 10. 변경 사항
 
@@ -246,7 +258,10 @@ We do not provide your information to others. We entrust server operation and st
 | Google LLC — Firebase Analytics (same) | Usage statistics (all apps) | United States |
 | Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat) | US company; database in the Asia-Pacific region |
 
-- **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on).
+- **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on). <!-- 전체만 -->
+- **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records and so on). <!-- 앱만 drinkchecker,chagok,allong -->
+- **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (registering tokens and so on). <!-- 앱만 cheerseat -->
+- **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (signing in, bubbles, battles and so on). <!-- 앱만 sameboat -->
 - **Retention**: as in the tables in section 1; statistics for up to 14 months.
 - **How to refuse and what happens**: if you don't connect an account (sign in), or you disconnect or delete your account, nothing is sent to the server. In CheerSeat, turn Live Activities off and remove widgets so nothing new is sent; a widget token already stored is removed when you delete the app. You then can't use record backup, bubbles, battles or live scores, but everything else keeps working. Allong needs server storage for the game, so refusing means deleting your account. <!-- 전체만 -->
 - **How to refuse and what happens**: if you don't connect an account, or you disconnect it, nothing is sent to the server. You then can't use record backup, but everything else keeps working. <!-- 앱만 drinkchecker,chagok -->
@@ -256,7 +271,12 @@ We do not provide your information to others. We entrust server operation and st
 
 ### 3. Usage statistics and external requests
 
-To analyze statistics for improving the service, all apps automatically collect **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (drinking records, the titles, notes and photos of hobby records, bubbles, lines, location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking.
+To analyze statistics for improving the service, all apps automatically collect **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (drinking records, the titles, notes and photos of hobby records, bubbles, lines, location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking. <!-- 전체만 -->
+To analyze statistics for improving the service, the app automatically collects **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (drinking records, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking. <!-- 앱만 drinkchecker -->
+To analyze statistics for improving the service, the app automatically collects **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (the titles, notes and photos of hobby records, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking. <!-- 앱만 chagok -->
+To analyze statistics for improving the service, the app automatically collects **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking. <!-- 앱만 cheerseat -->
+To analyze statistics for improving the service, the app automatically collects **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking. <!-- 앱만 allong -->
+To analyze statistics for improving the service, the app automatically collects **service usage records**, **device information** (device model, OS version, app version, and a random identifier created for each installation) and an **approximate region** estimated from your IP address (country or city level; Google masks part of the IP address first) through Google Firebase Analytics. This is not used to identify you and is not linked to your name, contact details or advertising identifier. What you record (bubbles, lines, location, date of birth, account details) is never included. No app collects an advertising identifier (IDFA) or crash reports, and none of this is used for advertising or tracking. <!-- 앱만 sameboat -->
 
 When an app makes a request to the external services below, connection details such as your IP address may reach that service, as with any web request; the operator does not receive or keep them.
 
@@ -268,7 +288,9 @@ When an app makes a request to the external services below, connection details s
 | Open Library (Internet Archive, United States) and the National Library of Korea — book details | Chagok | A book barcode number (ISBN) or text that looks like a title, read from a photo (the photo itself is never sent) |
 | Apple Maps — map and nearby places | Allong | Current location coordinates (also while the app is closed if you choose Always Allow) |
 | Apple Weather (WeatherKit) — weather on the Explore, Home and battle screens | Allong | Location rounded to about 1 km |
-| Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details |
+| Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details | <!-- 전체만 -->
+| Operator's server (Cloudflare) — scores, schedules and standings | CheerSeat, SameBoat | Connection details | <!-- 앱만 cheerseat -->
+| Operator's server (Cloudflare) — lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details | <!-- 앱만 sameboat -->
 | Apple Push Notification service (APNs) — Lock Screen and widget scores | CheerSeat | The tokens in section 1 |
 | Apple App Attest — app integrity check | Chagok, CheerSeat, SameBoat | Integrity check data |
 
@@ -330,7 +352,9 @@ The apps are not directed at children.
 
 ### 9. Websites
 
-allong.my and ihwa.app are served by GitHub Pages (GitHub, Inc., United States) and use Google Analytics (Google LLC, United States) for visit statistics. They collect the pages you visit, your device and browser type, an approximate region and a cookie identifier (_ga, up to 2 years), do not receive your name or contact details, and keep this for 14 months. In Europe, they are used only if you tap Allow. You can refuse by blocking cookies in your browser settings.
+allong.my and ihwa.app are served by GitHub Pages (GitHub, Inc., United States) and use Google Analytics (Google LLC, United States) for visit statistics. They collect the pages you visit, your device and browser type, an approximate region and a cookie identifier (_ga, up to 2 years), do not receive your name or contact details, and keep this for 14 months. In Europe, they are used only if you tap Allow. You can refuse by blocking cookies in your browser settings. <!-- 전체만 -->
+allong.my and ihwa.app are served by GitHub Pages (GitHub, Inc., United States) and use Google Analytics (Google LLC, United States) for visit statistics. They collect the pages you visit, your device and browser type, an approximate region and a cookie identifier (_ga, up to 2 years), do not receive your name or contact details, and keep this for 14 months. In Europe, they are used only if you tap Allow. You can refuse by blocking cookies in your browser settings. <!-- 앱만 allong -->
+ihwa.app is served by GitHub Pages (GitHub, Inc., United States) and uses Google Analytics (Google LLC, United States) for visit statistics. It collects the pages you visit, your device and browser type, an approximate region and a cookie identifier (_ga, up to 2 years), do not receive your name or contact details, and keep this for 14 months. In Europe, it is used only if you tap Allow. You can refuse by blocking cookies in your browser settings. <!-- 앱만 drinkchecker,cheerseat,chagok,sameboat -->
 
 ### 10. Changes
 

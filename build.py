@@ -223,7 +223,22 @@ def for_app(md, app):
             if keep: out.append('\n'.join(keep))
             continue
         out.append(s)
-    md = '\n\n'.join(out)
+    # 그 앱에 해당하지 않는 절(원본에 앱만 줄로 '이 앱에는 해당하지 않습니다'를 둔 절)은 빼고 번호를 다시 매긴다(11-13 타사 조사: Google·Microsoft·Apple·카카오는
+    # 서비스별 문서에 '해당 없음' 절을 두지 않고 빼며, Apple은 국가별 판마다 절을 다시 매김. 개인정보보호위원회 작성지침도 해당 없는 항목 생략 허용). 'N절'·'section N' 참조도 함께 고치고, 뺀 절을 가리키면 멈춘다.
+    NA = ('이 앱에는 해당하지 않습니다.', 'This section does not apply to this app.')
+    out = [b.strip() for b in out]
+    kept, removed, i = [], [], 0
+    while i < len(out):
+        h = re.match(r'### (\d+)\. ', out[i])
+        if h and i + 1 < len(out) and out[i + 1].strip() in NA: removed.append(int(h.group(1))); i += 2; continue
+        kept.append(out[i]); i += 1
+    nums = [int(m.group(1)) for b in kept for m in [re.match(r'### (\d+)\. ', b)] if m]
+    new = {n: k + 1 for k, n in enumerate(nums)}
+    md = '\n\n'.join(kept)
+    for n in removed: assert not re.search(rf'(?<!\d){n}절|[Ss]ection {n}\b', md), f'{app}: 뺀 {n}절을 가리키는 참조'
+    md = re.sub(r'^### (\d+)\. ', lambda m: f'### {new[int(m.group(1))]}. ', md, flags=re.M)
+    md = re.sub(r'(?<!\d)(\d+)절', lambda m: f'{new.get(int(m.group(1)), int(m.group(1)))}절', md)
+    md = re.sub(r'\b([Ss]ection) (\d+)\b', lambda m: f'{m.group(1)} {new.get(int(m.group(2)), int(m.group(2)))}', md)
     for d in ('terms', 'privacy'):
         for lang in ('ko', 'en'): md = md.replace(f'{SITE}/{d}/{lang}/', f'{SITE}/{d}/{app}/{lang}/')
     return md
