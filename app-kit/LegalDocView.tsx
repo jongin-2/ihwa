@@ -34,8 +34,10 @@ const PAGE_STYLE = `(function(){var s=document.createElement('style');s.textCont
 
 // 한국어·영어 밖 언어는 영어 본문 맨 위(버전 고르기 위)에 그 언어로 '영어·한국어로만 제공' 한 줄(11-13 종인님 "앱 언어로 안내 한 줄").
 // 번역 의무는 없고(한국 법·애플 심사), Hostinger·GoDaddy처럼 다른 언어 이용자에게 알리는 관례. 법적 내용이 아닌 안내라 문서를 번역하지 않는다.
-const noticeScript = (text?: string) => !text ? undefined
-  : `(function(){if(document.getElementById('ihwa-only'))return;var h=document.querySelector('main h1');if(!h)return;var p=document.createElement('p');p.id='ihwa-only';p.className='old';p.textContent=${JSON.stringify(text)};h.parentNode.insertBefore(p,h.nextSibling);})();true;`;
+// 11-13 맵나이츠 ru 실측: 문서 끝에 도는 injectedJavaScript는 iOS에서 onMessage가 없으면 안 돌았다(PAGE_STYLE만 먹고 줄 없음).
+// → 문서 앞에 넣는 injectedJavaScriptBeforeContentLoaded 하나로 합치고, 줄은 DOMContentLoaded 뒤에 넣는다(본문 링크로 옮긴 문서에도 같이).
+const noticeAdd = (text: string) => `(function(){function a(){if(document.getElementById('ihwa-only'))return;var h=document.querySelector('main h1');if(!h)return;var p=document.createElement('p');p.id='ihwa-only';p.className='old';p.textContent=${JSON.stringify(text)};h.parentNode.insertBefore(p,h.nextSibling);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',a);else a();})();`;
+const pageScript = (text?: string) => text ? PAGE_STYLE.replace(/true;$/, noticeAdd(text) + 'true;') : PAGE_STYLE;
 
 type Words = { terms: string; privacy: string; close: string; offline: string; retry: string; back: string; emailCopied: string; ok: string; only?: string };
 // 주량체커 20개 언어 번역(2026-10-12 기준)에서 옮김
@@ -133,8 +135,7 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
           // 저장해 둔 사본을 쓰지 않는다 — GitHub Pages가 10분 캐시를 허락해, 게시 직후 앱에서 옛 판이 보였다(11-06 종인님 "앱에서 왜 최신이 안보이지")
           cacheEnabled={false}
           style={styles.web}
-          injectedJavaScriptBeforeContentLoaded={PAGE_STYLE}
-          injectedJavaScript={noticeScript(w.only)}
+          injectedJavaScriptBeforeContentLoaded={pageScript(w.only)}
           onLoadStart={() => setLoading(true)}
           onLoadEnd={() => setLoading(false)}
           onNavigationStateChange={(s) => {
