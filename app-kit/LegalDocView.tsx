@@ -160,7 +160,8 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
                 const raw = req.url.slice('mailto:'.length).split('?')[0];
                 let email = raw;
                 try { email = decodeURIComponent(raw); } catch { /* 잘못된 퍼센트 열이면 그대로 */ }
-                Clipboard.setStringAsync(email).then(() => appDialog({ title: w.emailCopied, msg: email, buttons: [{ text: w.ok, kind: 'cancel' }] })).catch(() => undefined);
+                // 창에 보이는 주소만 '@' 뒤에 폭 없는 공백 — AX5에서 'ihwa.support@g/mail.com'으로 끊겼다(11-13 한배). 복사 값은 그대로.
+                Clipboard.setStringAsync(email).then(() => appDialog({ title: w.emailCopied, msg: email.replace('@', '@\u200b'), buttons: [{ text: w.ok, kind: 'cancel' }] })).catch(() => undefined);
               }
             });
             return false;

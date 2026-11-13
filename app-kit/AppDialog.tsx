@@ -95,8 +95,9 @@ export function appDialog(o: DialogOptions): Promise<number> {
   });
 }
 
-// 흐림 띠 시작색 — 'transparent'(검정 투명)로 섞으면 밝은 카드에서 회색 띠가 생겨 같은 색의 알파 0을 쓴다
-const clear = (h: string) => /^#[0-9a-f]{6}$/i.test(h) ? h + '00' : 'transparent';
+// 흐림 띠 색 — 'transparent'(검정 투명)로 섞으면 밝은 카드에서 회색 띠가 생겨 같은 색의 알파 0을 쓴다.
+// 8자리 헥스(#FFFFFF00)는 그라데이션 안에서 회색을 거쳐 보였다(11-13 한배 ru AX5 라이트) — rgba()로 적는다.
+const rgba = (h: string, a: number) => { const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(h); return m ? `rgba(${parseInt(m[1], 16)},${parseInt(m[2], 16)},${parseInt(m[3], 16)},${a})` : a ? h : 'transparent'; };
 const LIGHT: Palette = { card: '#FFFFFF', text: '#1C1C1E', sub: '#6C6C70', fill: 'rgba(120,120,128,0.16)', red: '#D70015' };
 const DARK: Palette = { card: '#2C2C2E', text: '#FFFFFF', sub: '#AEAEB2', fill: 'rgba(120,120,128,0.32)', red: '#D63A2F' };
 
@@ -179,7 +180,7 @@ export function AppDialogHost(props: Look) {
           })}
           {/* 큰 글씨(AX)를 줄이지 않는다 — 글이 길면 이 칸만 스크롤하고 버튼은 늘 보인다(iOS 기본 경고창과 같음, ihwa-design '큰 글씨'). */}
           {/* 제목 띠는 카드 좌우 안쪽 여백을 넘어 그려야 해서 글 칸을 여백만큼 넓힌다(ScrollView가 넘친 곳을 자르므로). */}
-          <ScrollView ref={scroll} onLayout={(e) => { box.current.h = e.nativeEvent.layout.height; flash(); edge(); }} onContentSizeChange={(_, h) => { box.current.c = h; flash(); edge(); }} onScroll={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} scrollEventThrottle={32} style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
+          <ScrollView ref={scroll} onLayout={(e) => { box.current.h = e.nativeEvent.layout.height; flash(); edge(); }} onContentSizeChange={(_, h) => { box.current.c = h; flash(); edge(); }} onScroll={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} onScrollEndDrag={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} onMomentumScrollEnd={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} scrollEventThrottle={32} style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
             {/* 글 칸이 터치 응답권을 받아야 바깥 카드 Pressable이 스크롤을 가로채지 않는다(11-12 알롱 AX5 es·fr·ru·tr 실측 — 감싸지 않으면 밀어도 안 움직임). */}
             <View onStartShouldSetResponder={() => true}>
               {look.titleBand ? (
@@ -198,7 +199,7 @@ export function AppDialogHost(props: Look) {
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
             </View>
           </ScrollView>
-          {more && <View pointerEvents="none" style={[st.fade, { experimental_backgroundImage: `linear-gradient(180deg, ${clear(c.card)} 0%, ${c.card} 100%)` }]} />}
+          {more && <View pointerEvents="none" style={[st.fade, { experimental_backgroundImage: `linear-gradient(180deg, ${rgba(c.card, 0)} 0%, ${rgba(c.card, 1)} 100%)` }]} />}
           <View style={[st.row, stack && st.stack]}>
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
