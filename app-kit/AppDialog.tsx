@@ -96,8 +96,14 @@ export function appDialog(o: DialogOptions): Promise<number> {
 }
 
 // 흐림 띠 색 — 'transparent'(검정 투명)로 섞으면 밝은 카드에서 회색 띠가 생겨 같은 색의 알파 0을 쓴다.
-// 8자리 헥스(#FFFFFF00)는 그라데이션 안에서 회색을 거쳐 보였다(11-13 한배 ru AX5 라이트) — rgba()로 적는다.
-const rgba = (h: string, a: number) => { const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(h); return m ? `rgba(${parseInt(m[1], 16)},${parseInt(m[2], 16)},${parseInt(m[3], 16)},${a})` : a ? h : 'transparent'; };
+// 카드색이 rgba(…)(한배 rgba(255,255,255,.97))면 예전 코드가 'transparent'(검정 투명)로 빠져 라이트에서 회색 막대가 됐다(11-13 한배 3차) — 헥스·rgb(a) 모두 같은 색의 알파 0으로.
+const rgba = (h: string, a: number) => {
+  if (a) return h;
+  const x = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})?$/i.exec(h);
+  if (x) return `rgba(${parseInt(x[1], 16)},${parseInt(x[2], 16)},${parseInt(x[3], 16)},0)`;
+  const r = /^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)/i.exec(h);
+  return r ? `rgba(${r[1]},${r[2]},${r[3]},0)` : 'transparent';
+};
 const LIGHT: Palette = { card: '#FFFFFF', text: '#1C1C1E', sub: '#6C6C70', fill: 'rgba(120,120,128,0.16)', red: '#D70015' };
 const DARK: Palette = { card: '#2C2C2E', text: '#FFFFFF', sub: '#AEAEB2', fill: 'rgba(120,120,128,0.32)', red: '#D63A2F' };
 
@@ -226,7 +232,8 @@ export function AppDialogHost(props: Look) {
 const st = StyleSheet.create({
   scrim: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 24, backgroundColor: 'rgba(0,0,0,0.4)' },
   card: { width: '100%', maxWidth: 400, maxHeight: '85%', borderRadius: 28, paddingTop: 24, paddingHorizontal: 20, paddingBottom: 20, shadowColor: '#000', shadowOpacity: 0.28, shadowRadius: 20, shadowOffset: { width: 0, height: 8 } },
-  cardDark: { borderWidth: StyleSheet.hairlineWidth * 2, borderColor: 'rgba(255,255,255,0.12)' }, // 다크에선 카드가 배경과 붙어 테두리
+  // 테두리만큼 안쪽 여백을 줄여 글 칸 폭을 라이트와 같게 — 1px쯤 좁아 ru 제목이 다크에서만 하이픈 셋으로 꺾였다(11-13 한배)
+  cardDark: { borderWidth: StyleSheet.hairlineWidth * 2, borderColor: 'rgba(255,255,255,0.12)', paddingHorizontal: 20 - StyleSheet.hairlineWidth * 2 }, // 다크에선 카드가 배경과 붙어 테두리
   body: { flexGrow: 0, flexShrink: 1 },
   fade: { height: 20, marginTop: -20 },
   bodyIn: { flexGrow: 0 },
