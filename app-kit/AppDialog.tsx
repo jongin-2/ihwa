@@ -136,7 +136,12 @@ export function AppDialogHost(props: Look) {
   const cancel = cur.buttons.findIndex((b) => b.kind === 'cancel');
   const closable = cur.dismissable !== false && cancel >= 0;
   const c = dark ? { ...DARK, ...look.colors?.dark } : { ...LIGHT, ...look.colors?.light };
-  const stack = !!look.stack || cur.buttons.length > 2;
+  // 두 단추 글이 반 폭 한 줄에 안 들면 위아래로 쌓는다 — 한 줄에 맞추려 글자만 줄이면 옆 단추와 크기가 크게 달라졌다(11-13 주량체커 de AX5 'Verbindung trennen' 절반 크기).
+  // iOS 경고창과 같은 규칙. 폭은 글자 수로 어림(제목과 같은 WIDE, 그 밖 0.6em), 글자 크기는 단추 상한 1.5배까지의 실제 배율.
+  const half = (Math.min(win.width - 48, 400) - 40 - 10) / 2 - 24;
+  const btnPx = 17 * Math.min(win.fontScale || 1, 1.5);
+  const fitsHalf = (t: string) => { let em = 0; for (const ch of t.replace(/[\u00AD\u2060]/g, '')) em += WIDE.test(ch) ? 1 : 0.6; return em * btnPx <= half; };
+  const stack = !!look.stack || cur.buttons.length > 2 || (cur.buttons.length === 2 && !cur.buttons.every((b) => fitsHalf(shown(b.text))));
   // 세로일 때 취소는 맨 아래로(누른 순번은 원래 순번 그대로 돌려준다)
   const order = cur.buttons.map((b, i) => ({ b, i }));
   // 제목 칸 폭: 카드(화면 − 좌우 24, 최대 400) − 카드 안쪽 20×2 − 제목 안쪽 8×2, 제목 띠면 띠 안쪽 32×2(띠는 카드 안쪽 여백을 넘어 그림)
