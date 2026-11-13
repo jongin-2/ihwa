@@ -24,9 +24,10 @@ ROOT = repo_root()
 P = lambda *a: os.path.join(ROOT, *a)
 cfg = json.load(open(P('prd', 'prototype', 'screens.json'), encoding='utf-8'))
 title, accent = cfg['title'], cfg['accent']
-# 갱신일 = 목업이 마지막으로 바뀐 커밋 날짜(빌드한 날로 하면 날마다 파일이 바뀌어 다시 게시해야 한다)
+# 갱신일 = 목업이 마지막으로 바뀐 커밋 날짜(빌드한 날로 하면 날마다 파일이 바뀌어 다시 게시해야 한다).
+# 기획서(.md)는 프로토타입에 안 들어가므로 뺀다 — 넣으면 기획서 한 줄 고친 커밋이 날을 넘길 때 날짜만 바뀌어 TF 업로드가 '다시 게시'로 멈춘다(11-14 차곡 빌드 39).
 try:
-    updated = subprocess.run(['git', '-C', ROOT, 'log', '-1', '--format=%cs', '--', 'prd'], capture_output=True, text=True).stdout.strip()
+    updated = subprocess.run(['git', '-C', ROOT, 'log', '-1', '--format=%cs', '--', 'prd', ':(exclude,glob)prd/**/*.md'], capture_output=True, text=True).stdout.strip()
 except Exception:
     updated = ''
 
