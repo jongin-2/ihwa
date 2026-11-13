@@ -11,6 +11,9 @@
 import json, os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+# 커밋 훅 안에선 git이 GIT_DIR 등을 넘겨 연결된 워크트리에서 스크립트 폴더가 뿌리로 잡힌다(11-13 맵나이츠) — 지우고 파일 위치로 찾는다.
+for _k in ('GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE'):
+    os.environ.pop(_k, None)
 ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=HERE, capture_output=True, text=True, check=True).stdout.strip()
 since = sys.argv[sys.argv.index('--since') + 1] if '--since' in sys.argv else None
 

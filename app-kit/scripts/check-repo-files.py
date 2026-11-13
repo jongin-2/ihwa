@@ -12,9 +12,15 @@ GitHub에는 기획(prd)·설계(spec)·개발(impl) 문서와 코드만 둔다(
 """
 import os, re, subprocess, sys
 
-ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=os.path.dirname(os.path.abspath(__file__)),
+# 커밋 훅 안에선 git이 GIT_DIR 등을 넘겨 연결된 워크트리(git worktree)에서 스크립트 폴더가 뿌리로 잡힌다(11-13 맵나이츠) — 지우고 파일 위치로 찾는다.
+for _k in ('GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE'):
+    os.environ.pop(_k, None)
+_HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=_HERE,
                       capture_output=True, text=True, check=True).stdout.strip()
-APP = os.path.basename(ROOT)
+# 앱 이름은 워크트리 폴더 이름이 아니라 본 저장소 폴더 이름
+APP = os.path.basename(os.path.dirname(subprocess.run(['git', 'rev-parse', '--path-format=absolute', '--git-common-dir'], cwd=_HERE,
+                      capture_output=True, text=True, check=True).stdout.strip()))
 files = subprocess.run(['git', 'ls-files'], cwd=ROOT, capture_output=True, text=True, check=True).stdout.split('\n')
 files = [f for f in files if f and os.path.exists(os.path.join(ROOT, f))]
 
