@@ -15,10 +15,10 @@
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도.
 //  · Android(11-06 한배): 머리줄은 Material 기본 ←(닫기), 하드웨어 뒤로 가기는 이전 문서부터, 색은 Android 테마 속성.
-// 앱마다 다른 값은 tint(강조색: 다시 시도)와 app(사이트 앱 페이지 이름)뿐. 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
+// 앱마다 다른 값은 tint(강조색: 다시 시도)와 app(사이트 앱 페이지 이름)뿐. react-navigation이 없는 앱은 navigation 대신 renderHeader(아래 LegalHeader). 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 머리글 색은 내비게이션 테마를 따른다 — NavigationContainer(expo-router는 ThemeProvider)에 다크·라이트 테마를 꼭 넘긴다(10-26 한배: 안 넘겨 다크 모드에서 머리글이 흰색).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
-import { useEffect, useLayoutEffect, useRef, useState, type ComponentRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentRef, type ReactNode } from 'react';
 import { ActivityIndicator, BackHandler, Linking, Platform, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
 import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 import { WebView } from 'react-native-webview';
@@ -64,6 +64,10 @@ const WORDS: Record<string, Words> = {
 
 // react-navigation·expo-router 어느 쪽 navigation이든 setOptions만 쓴다
 type HeaderNav = { setOptions: (options: object) => void };
+// 머리글 없이 띄우는 앱(11-13 맵나이츠 — react-navigation 없이 게임 자체 화면 전환): navigation 대신 renderHeader로 머리줄을 앱이 그린다.
+// 동작(문서 이름이 바뀌는 제목, 다른 문서로 가면 ‹ 이전 문서·처음엔 ✕ 닫기, 화면 낭독 이름, Android 뒤로 가기)은 이 부품이 정해 넘긴다 — 앱은 모양만.
+// 배치는 위 머리글과 같게: 가운데 제목, 왼쪽 끝 단추 하나(44pt 이상).
+export type LegalHeader = { title: string; button: 'close' | 'back'; label: string; onPress: () => void };
 
 // ✕의 화면 낭독 이름은 문서 이름을 붙인다 — 메일 복사 알림 단추 '닫기'와 겹쳐 자동 시험이 엉뚱한 쪽을 누름(10-30 종인님 "문서 이름 붙여", 주량체커 SET-44).
 // 한국어·영어는 자연스러운 어순, 나머지 언어는 새 번역 없이 "문서 이름, 닫기".
@@ -73,7 +77,7 @@ function closeLabel(lang: string, w: Words, doc: LegalDoc): string {
   return `${w[doc]}, ${w.close}`;
 }
 
-export default function LegalDocView({ doc, lang, app, tint, onClose, navigation }: { doc: LegalDoc; lang: string; app?: string; tint: ColorValue; onClose: () => void; navigation: HeaderNav }) {
+export default function LegalDocView({ doc, lang, app, tint, onClose, navigation, renderHeader }: { doc: LegalDoc; lang: string; app?: string; tint: ColorValue; onClose: () => void; navigation?: HeaderNav; renderHeader?: (h: LegalHeader) => ReactNode }) {
   const w = WORDS[lang] ?? WORDS.en;
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -89,6 +93,7 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
   useLayoutEffect(() => {
     // Android(11-06 한배): SF Symbol 바 버튼이 없어 머리줄에 아무 단추도 안 뜸 → Material 기본 ←(위로 = 시트 닫기)를 켜고,
     // 하드웨어 뒤로 가기는 아래 BackHandler가 이전 문서부터 되돌린다(Material: 위로는 화면 계층, 뒤로는 방문 순서).
+    if (!navigation) return;
     if (Platform.OS !== 'ios') { navigation.setOptions({ title: w[shown], headerBackVisible: true }); return; }
     navigation.setOptions({
       title: w[shown],
@@ -101,13 +106,18 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
     });
   }, [navigation, shown, canGoBack, w, lang, onClose]);
   useEffect(() => {
-    if (Platform.OS !== 'android' || !canGoBack) return;
+    if (Platform.OS !== 'android' || (!canGoBack && navigation)) return;
+    // 머리글 없는 앱은 앞 문서가 없으면 하드웨어 뒤로 가기 = 닫기(native-stack이 해 주던 일)
+    if (!canGoBack) { const sub = BackHandler.addEventListener('hardwareBackPress', () => { onClose(); return true; }); return () => sub.remove(); }
     // 네이티브 goBack은 기록을 모를 수 있어 페이지 안 history.back()으로(11-06 한배)
     const sub = BackHandler.addEventListener('hardwareBackPress', () => { web.current?.injectJavaScript('history.back();true;'); return true; });
     return () => sub.remove();
-  }, [canGoBack]);
+  }, [canGoBack, navigation, onClose]);
   return (
     <View style={styles.container}>
+      {!navigation && renderHeader?.(canGoBack
+        ? { title: w[shown], button: 'back', label: w.back, onPress: () => (Platform.OS === 'android' ? web.current?.injectJavaScript('history.back();true;') : web.current?.goBack()) }
+        : { title: w[shown], button: 'close', label: closeLabel(lang, w, shown), onPress: onClose })}
       {failed ? (
         <View style={styles.center}>
           <Text lineBreakStrategyIOS="hangul-word" style={styles.msg}>{w.offline}</Text>
