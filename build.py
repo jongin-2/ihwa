@@ -81,7 +81,7 @@ def current_date(md): m = re.search(r'최종 수정일: (\d{4}-\d{2}-\d{2})', md
 def archives(stem):
     d = ROOT/'src'/'archive'/stem
     return sorted((x.stem for x in d.glob('*.md')), reverse=True) if d.exists() else []
-def versions_html(stem, langs, prefix, cur=None, now=None):
+def versions_html(stem, langs, prefix, cur=None, now=None, here=None):
     """문서 맨 위 버전 고르기(10-12 종인님 "이전 버전 확인하는 UI 다른 사례 보고 개선해, 보통 드롭다운 리스트박스 같은 형태야").
     예전엔 맨 아래 날짜 링크 한 줄이라 찾기 어려웠다. prefix = 지금 페이지에서 /<문서>/까지의 상대 경로, cur = 보고 있는 보관 판 날짜(현재 판이면 None).
     iOS 웹뷰에선 기본 선택 목록(휠)이 뜬다. 스크립트가 꺼져도 아래 noscript 링크로 갈 수 있다"""
@@ -92,7 +92,7 @@ def versions_html(stem, langs, prefix, cur=None, now=None):
         sub = '' if len(langs) > 1 else f'{lang}/'
         # 토스처럼 제목 바로 아래, 날짜가 곧 이름(10-12 사례 확인: 토스 제목 아래 시행일 드롭다운, 쿠팡 본문 끝 "다른 버전 보기")
         head = f'{fmt(now, lang)} ({LABEL[lang][3]})' if now else LABEL[lang][3]
-        opts = [(f'{prefix}{sub}', head, cur is None)] + [(f'{prefix}archive/{v}/{sub}', fmt(v, lang), cur == v) for v in vs]
+        opts = [(here or f'{prefix}{sub}', head, cur is None)] + [(f'{prefix}archive/{v}/{sub}', fmt(v, lang), cur == v) for v in vs]  # here = 앱별 페이지의 현재 판 주소(자기 자신)
         o = ''.join(f'<option value="{u}"{" selected" if sel else ""}>{html.escape(t)}</option>' for u, t, sel in opts)
         links = ' · '.join(f'<a href="{u}">{html.escape(t)}</a>' for u, t, _ in opts)
         rows.append(f'<p class="ver"><select aria-label="{LABEL[lang][0]}" onchange="location.href=this.value">{o}</select>'
@@ -148,6 +148,79 @@ for src in sorted((ROOT/'src').glob('*.md')):
     build(fill(src.read_text()), ROOT/'docs'/src.stem, src.stem)
     for v in archives(src.stem):
         build(fill((ROOT/'src'/'archive'/src.stem/f'{v}.md').read_text()), ROOT/'docs'/src.stem/'archive'/v, src.stem, archived=v)
+# ---- 앱별 페이지(2026-11-13 종인님 "앱별 주소로 나눠") ----
+# 앱 안에서 약관·방침을 열면 다른 앱 조항이 섞여 보였다. 원본은 하나로 두고, 빌드 때 '공통 + 그 앱'만 남긴 페이지를
+# /<문서>/<앱>/(ko|en)/로 만든다(Google·카카오의 공통 문서 + 서비스별 문서 방식). 앱(LegalDocView)은 자기 주소만 연다.
+# 거르는 규칙 — 원본을 쓸 때 이 모양을 지킨다:
+#  · '**적용 앱: …**'·'**Applies to: …**' → 그 앱 이름만
+#  · 앱 이름만 굵게 쓴 머리 문단('**주량체커·차곡** — …')부터 다음 머리 문단·제목 전까지가 그 앱 묶음
+#  · '### <앱> 추가 조항'·'### <App> addendum' 절
+#  · 머리에 '앱'·'App(s)'이 든 표는 그 칸에 다른 앱 이름만 있는 줄을 뺀다('모든 앱'은 남김)
+#  · 목록 줄: 굵은 머리가 있으면 머리의 앱 이름으로, 없으면 줄 전체의 앱 이름으로 — 다른 앱만 적힌 줄을 뺀다
+#  · 앱 칸이 없는 묶음 표는 첫 칸이 다른 앱 이름으로 시작하는 줄만 뺀다, 머리 문단 이름은 그 앱 이름만으로
+#  · 그 밖의 문단은 그대로 — 이용 연령·공개 글처럼 여러 앱의 범위를 정하는 법 문장이라 문장을 잘라 내면 뜻이 바뀐다
+# 새 앱은 출시 준비 때 여기와 원본 문서에 함께 넣는다(맵나이츠는 아직 — 앱은 app 없이 전체 문서를 연다).
+APPS = {'drinkchecker': ('주량체커', 'DrinkChecker'), 'cheerseat': ('응원석', 'CheerSeat'), 'chagok': ('차곡', 'Chagok'),
+        'allong': ('알롱', 'Allong'), 'sameboat': ('한배', 'SameBoat')}
+SITE = 'https://jongin-2.github.io/ihwa'
+def names_in(t): return {k for k, (ko, en) in APPS.items() if ko in t or re.search(rf'\b{en}\b', t)}
+def only_names(t):
+    r = t
+    for ko, en in APPS.values(): r = r.replace(ko, '').replace(en, '')
+    return names_in(t) and not re.sub(r'[·,\s]|\band\b', '', r)
+def for_app(md, app):
+    out, skip = [], False
+    for b in md.split('\n\n'):
+        s = b.strip()
+        if s.startswith('#'):
+            m = re.match(r'#+ (.+?) (추가 조항|addendum)$', s)
+            skip = bool(m) and app not in names_in(m.group(1))
+            if not skip: out.append(b)
+            continue
+        if re.match(r'\*\*(적용 앱|Applies to): ', s):
+            out.append(re.sub(r'(\*\*(?:적용 앱|Applies to): ).*?\*\*', lambda m: m.group(1) + APPS[app][0 if '적용' in m.group(1) else 1] + '**', s)); continue
+        lead = re.match(r'\*\*([^*]+)\*\* —', s)
+        if lead and only_names(lead.group(1)):
+            skip = app not in names_in(lead.group(1))
+            if not skip: s = s.replace(lead.group(0), f'**{APPS[app][0] if re.search(r"[가-힣]", lead.group(1)) else APPS[app][1]}** —', 1)
+        if skip: continue
+        lines = s.split('\n')
+        if all(l.startswith('|') for l in lines):
+            head = [c.strip() for c in lines[0].strip('|').split('|')]
+            col = next((i for i, c in enumerate(head) if re.search(r'앱|\bapps?\b', c, re.I)), None)
+            if col is not None:
+                keep = [l for l in lines[2:] if not names_in(l.strip('|').split('|')[col]) or app in names_in(l.strip('|').split('|')[col])]
+                if not keep: continue
+                lines = lines[:2] + keep
+            else:  # 앱 칸이 없는 묶음 표: 첫 칸이 다른 앱 이름으로 시작하는 줄('차곡 기록(…)')만 뺀다
+                lines = lines[:2] + [l for l in lines[2:] if not ((n := names_in(l.strip('|').split('|')[0].strip().split('(')[0].split(' ')[0])) and app not in n)]
+            out.append('\n'.join(lines)); continue
+        if all(re.match(r' {0,2}- ', l) for l in lines):
+            keep, drop = [], False
+            for l in lines:
+                if not l.startswith('  '):
+                    bl = re.match(r'- \*\*([^*]+)\*\*', l)
+                    n = names_in(bl.group(1)) if bl else names_in(l)
+                    drop = bool(n) and app not in n
+                if not drop: keep.append(l)
+            if keep: out.append('\n'.join(keep))
+            continue
+        out.append(s)
+    md = '\n\n'.join(out)
+    for d in ('terms', 'privacy'):
+        for lang in ('ko', 'en'): md = md.replace(f'{SITE}/{d}/{lang}/', f'{SITE}/{d}/{app}/{lang}/')
+    return md
+for stem in ('terms', 'privacy'):
+    names, ko, en = split_lang(fill((ROOT/'src'/f'{stem}.md').read_text()))
+    for app, (ko_name, en_name) in APPS.items():
+        for lang, part, name in (('ko', ko, names[0]), ('en', en, names[-1])):
+            part = for_app(part, app)
+            other = {APPS[a][0 if lang == 'ko' else 1] for a in APPS if a != app}
+            hit = [h for h in re.findall(r'^### (.+?) (?:추가 조항|addendum)$', part, re.M) if h in other]
+            assert not hit and APPS[app][0 if lang == 'ko' else 1] in part, f'{stem}/{app}/{lang} 거르기 실패 {hit}'
+            _, lbody = render(f'# {name}\n\n' + part)
+            page(ROOT/'docs'/stem/app/lang/'index.html', lang, name, under_title(lbody, versions_html(stem, [lang], '../../', None, NOW.get(stem), here='./')))
+
 # ---- 옛 주소 이동 페이지 ----
 # 지원 페이지는 2026-10-10에 내렸지만, 판매 중인 주량체커 1.2.0의 ko·en-US·en-GB 스토어 지원 URL이 /support/(ko|en)/에 고정돼 있다
 # (출시된 버전은 supportUrl을 못 고침 — 409). 그 링크가 404가 되지 않게 방침 페이지(문의 이메일 포함)로 넘긴다.
