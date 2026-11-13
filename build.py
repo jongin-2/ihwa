@@ -26,17 +26,19 @@ def fill(md):
     return md
 CSS = """:root{--bg:#fff;--fg:#1c1c1e;--sub:#6e6e73;--line:#e5e5ea;--link:#0a7c3e}
 @media (prefers-color-scheme:dark){:root{--bg:#000;--fg:#f2f2f7;--sub:#98989d;--line:#2c2c2e;--link:#4cd07d}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:break-word}
 main{max-width:720px;margin:0 auto;padding:32px 16px 64px}h1{font-size:1.6rem;line-height:1.3;margin:0 0 8px}h2{font-size:1.3rem;margin:40px 0 8px}h3{font-size:1.05rem;margin:28px 0 4px}
 p{margin:8px 0}a{color:var(--link)}hr{border:0;border-top:1px solid var(--line);margin:40px 0}.lang{color:var(--sub)}
 .ver{margin:4px 0 20px}.ver select{font:inherit;font-size:min(1em,26px);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 28px 6px 10px;max-width:100%;box-sizing:border-box;height:max(44px,calc(1.25em + 14px))}.old{background:var(--line);border-radius:10px;padding:12px 14px;margin:0 0 20px}
 .tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{color:var(--sub);font-weight:600}
-th,td{overflow-wrap:normal}td a{overflow-wrap:anywhere}
+th,td{overflow-wrap:normal;min-width:7em}td a{overflow-wrap:anywhere}.nw{white-space:nowrap}
 ul{margin:8px 0;padding-left:1.3em}li{margin:6px 0}li ul{margin:6px 0}"""
 def inline(t):
     t = html.escape(t, quote=False).replace('&lt;a id=', '<a id=').replace('&gt;&lt;/a&gt;', '></a>')
     t = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', t)
     t = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', t)
+    # 11-13 주량체커 비평 AX5: 📧과 주소가 따로 꺾이지 않게 한 덩어리로(본문은 break-word라 긴 주소만 줄 끝에서 꺾임)
+    t = re.sub(r'📧 (<a href="mailto:[^"]+">[^<]+</a>)', r'<span class="nw">📧 \1</span>', t)
     return t
 def table(b):
     """| 머리 | 머리 |\n|---|---|\n| 칸 | 칸 | → <table>. 둘째 줄(구분선)은 건너뛴다."""

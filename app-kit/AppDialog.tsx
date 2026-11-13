@@ -7,7 +7,7 @@
 //    앱에 세로 쌓기 확인 카드가 이미 있으면 Host에 stack을 켠다 — 늘 세로, 위가 실행·아래가 취소(10-27 알롱 ConfirmCard B1과 같은 배치).
 //    빨강은 흰 글자 대비 4.5 이상(라이트 #D70015 5.4 · 다크 #D63A2F 4.7 — iOS 다크 빨강 #FF453A는 3.4라 쓰지 않음, 10-27 알롱).
 //    한국어는 단어 중간에서 꺾이지 않게 lineBreakStrategyIOS hangul-word(10-27 알롱 "완전/히").
-//    큰 글씨: 제목·설명은 줄이지 않고 글 칸만 스크롤(카드 최대 85%), 단추 글자만 1.3·한 줄 줄여 맞추기, 단추 높이 최소 50(11-11 공통안, 10-30 주량체커 SET-43).
+//    큰 글씨: 제목·설명은 줄이지 않고 글 칸만 스크롤(카드 최대 85%), 단추 글자는 1.5(11-13 주량체커 비평: 1.3이면 AX5에서 단추가 창에서 가장 작음 — 제목 상한과 같게)·한 줄 줄여 맞추기, 단추 높이 최소 50(11-11 공통안, 10-30 주량체커 SET-43).
 //    제목은 상한 2.65, 가장 긴 낱말이 한 줄에 안 들면 그 제목만 상한을 낮춤(11-13 맵나이츠 AX5 "로그아웃할까/요?"). 제목 띠가 있으면 띠가 카드 맨 위에 붙는다.
 //    긴 낱말: 앱이 setDialogText(softHyphen)를 한 번 부르면 제목·설명·단추에 숨은 하이픈이 들어간다 — 공용 사본(LegalDocView·UpdatePrompt)이 여는 창에도(11-11 주량체커 AX5 fr 'Supprim/er').
 //  · 바깥을 누르거나 뒤로 가기면 취소 단추(kind 'cancel')를 누른 것과 같다 — 취소 단추가 없거나 dismissable: false면 닫히지 않는다.
@@ -194,7 +194,7 @@ export function AppDialogHost(props: Look) {
                 <Pressable key={i} onPress={() => pick(i)} disabled={!!b.disabled} accessibilityRole="button" accessibilityState={{ disabled: !!b.disabled }} style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: b.disabled || b.dim ? (pressed && !b.disabled ? 0.3 : 0.4) : pressed ? 0.7 : 1 }, bl?.radius != null && { borderRadius: bl.radius }, bl?.border != null && { borderWidth: 1, borderColor: bl.border }, bl?.back && { overflow: 'hidden' }]}>
                   {({ pressed }) => (<>
                   {bl?.back && <View pointerEvents="none" style={st.fill}>{bl.back(pressed)}</View>}
-                  <Text style={[st.btnText, { color: fg, fontWeight: k === 'cancel' ? '600' : '700' }]} numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.3}>{shown(b.text)}</Text>
+                  <Text style={[st.btnText, { color: fg, fontWeight: k === 'cancel' ? '600' : '700' }]} numberOfLines={1} adjustsFontSizeToFit maxFontSizeMultiplier={1.5}>{shown(b.text)}</Text>
                   </>)}
                 </Pressable>
               );
