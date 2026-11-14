@@ -151,6 +151,10 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
           }}
           onError={fail}
           onHttpError={fail}
+          // 웹 내용 프로세스가 죽으면(메모리 부족 등) Android는 처리기가 없을 때 앱째 죽고, iOS는 흰 화면으로 남는다(11-14 한배 c17ca0f3 실기기)
+          // Android는 웹뷰를 새로 만든다 — 처음 문서부터 열리므로 머리글·다녀간 주소도 처음 상태로
+          onRenderProcessGone={() => { setCanGoBack(false); setShown(doc); trail.current = []; setLoading(true); setAttempt((a) => a + 1); }}
+          onContentProcessDidTerminate={() => web.current?.reload()}
           // 모든 링크를 아래 판단으로 — 기본값(http·https만)이면 메일 링크를 라이브러리가 먼저 가로채 실패해도 조용하다(주량체커 09-28 확인)
           originWhitelist={['*']}
           onShouldStartLoadWithRequest={(req) => {
