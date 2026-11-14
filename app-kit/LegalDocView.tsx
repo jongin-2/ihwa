@@ -93,6 +93,7 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
   // Android 웹뷰(react-native-webview 14)는 문서를 옮겨도 canGoBack을 늘 false로 보낸다(11-06 한배 실측) — 다녀간 주소를 직접 쌓는다
   const trail = useRef<string[]>([]);
   const fail = () => { setFailed(true); setCanGoBack(false); setShown(doc); trail.current = []; };
+  const restart = () => { setCanGoBack(false); setShown(doc); trail.current = []; setLoading(true); setAttempt((a) => a + 1); };
   useLayoutEffect(() => {
     // Android(11-06 한배): SF Symbol 바 버튼이 없어 머리줄에 아무 단추도 안 뜸 → Material 기본 ←(위로 = 시트 닫기)를 켜고,
     // 하드웨어 뒤로 가기는 아래 BackHandler가 이전 문서부터 되돌린다(Material: 위로는 화면 계층, 뒤로는 방문 순서).
@@ -152,9 +153,10 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
           onError={fail}
           onHttpError={fail}
           // 웹 내용 프로세스가 죽으면(메모리 부족 등) Android는 처리기가 없을 때 앱째 죽고, iOS는 흰 화면으로 남는다(11-14 한배 c17ca0f3 실기기)
-          // Android는 웹뷰를 새로 만든다 — 처음 문서부터 열리므로 머리글·다녀간 주소도 처음 상태로
-          onRenderProcessGone={() => { setCanGoBack(false); setShown(doc); trail.current = []; setLoading(true); setAttempt((a) => a + 1); }}
-          onContentProcessDidTerminate={() => web.current?.reload()}
+          // 둘 다 웹뷰를 새로 만든다 — 처음 문서부터 열리므로 머리글·다녀간 주소도 처음 상태로.
+          // iOS reload()는 canGoBack=true를 보내 누르면 같은 문서로 가는 헛 ‹ 단추가 생겼다(11-14 차곡 시뮬레이터 실측)
+          onRenderProcessGone={restart}
+          onContentProcessDidTerminate={restart}
           // 모든 링크를 아래 판단으로 — 기본값(http·https만)이면 메일 링크를 라이브러리가 먼저 가로채 실패해도 조용하다(주량체커 09-28 확인)
           originWhitelist={['*']}
           onShouldStartLoadWithRequest={(req) => {
