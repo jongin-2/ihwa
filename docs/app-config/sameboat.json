@@ -1,5 +1,6 @@
 {
   "minVersion": "1.0.3",
   "policy": "app",
-  "serverFallback": false
+  "serverFallback": false,
+  "serverAndroid": "https://sameboat-qa.ihwa-server.workers.dev"
 }
