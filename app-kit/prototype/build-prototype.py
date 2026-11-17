@@ -64,7 +64,17 @@ def inline_shared(text):
             if not os.path.exists(path):
                 sys.exit(f'✋ 목업이 {href}를 쓰는데 파일이 없습니다')
             text = pat.sub(lambda m, c=read(path): f'<style data-shared="{href}">\n{c}\n</style>', text)
-    return text
+    # 목업이 부르는 공용 부품 JS(../components/<이름>.js)도 본문에 넣는다 — 이름은 정하지 않는다(11-18 한배 sheet-fit.js: 시트 제목·✕ 고정, 내용만 스크롤).
+    def js(m):
+        href = m.group(1)
+        path = os.path.join(os.path.dirname(COMP_CSS), os.path.basename(href))
+        if not os.path.exists(path):
+            sys.exit(f'✋ 목업이 {href}를 쓰는데 파일이 없습니다')
+        c = read(path)
+        if '</script' in c.lower():
+            sys.exit(f'✋ {href} 본문에 </script가 있어 끼워 넣으면 목업이 깨집니다')
+        return f'<script data-shared="{href}">\n{c}\n</script>'
+    return re.sub(r'<script[^>]+src="(\.\./components/[\w.-]+\.js)"[^>]*>\s*</script>', js, text)
 
 
 def blocks(css):

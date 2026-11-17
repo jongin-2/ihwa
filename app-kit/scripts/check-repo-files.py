@@ -52,7 +52,8 @@ KIT = os.path.expanduser('~/Projects/ihwa-site/app-kit')
 COPIES = (('prototype/template.html', 'impl/prototype/template.html'),
           ('prototype/review-template.html', 'impl/prototype/review-template.html'),
           ('prototype/build-prototype.py', 'impl/scripts/build-prototype.py'),
-          ('scripts/check-repo-files.py', 'impl/scripts/check-repo-files.py'))
+          ('scripts/check-repo-files.py', 'impl/scripts/check-repo-files.py'),
+          ('scripts/asc.py', 'impl/scripts/asc.py'))
 for src, dst in COPIES:
     s, d = os.path.join(KIT, src), os.path.join(ROOT, dst)
     if os.path.exists(s) and os.path.exists(d) and open(s, 'rb').read() != open(d, 'rb').read():

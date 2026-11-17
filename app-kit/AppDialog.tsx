@@ -19,6 +19,7 @@
 //   const i = await appDialog({ title, msg, buttons: [{ text: '취소', kind: 'cancel' }, { text: '삭제', kind: 'destructive' }] })
 //   → 누른 단추 순번(바깥을 눌러 닫으면 취소 단추 순번). Host가 하나도 없으면 iOS 경고창으로 대신 띄운다(멈추지 않게).
 // 앱마다 다른 값: accent(실행 단추 색)·onAccent(그 위 글자색, 기본 흰색)·colors(카드·글자 색을 앱 장면 값으로 바꿀 때만)·stack(늘 세로 쌓기).
+//   colors.card는 불투명 색만 — 반투명이면 아래 '더 있음' 흐림 띠가 카드 위에 한 번 더 겹쳐 띠 자리만 진한 네모로 보인다(11-18 한배 rgba(255,255,255,.97)).
 //   장식(11-12 맵나이츠 'A 절충' — 모두 선택, 안 주면 지금 모양 그대로): radius(카드 모서리, 기본 28)·frame(2px 테두리+안쪽 이중선 2px/1px)
 //   ·cornerOrnament(모서리 L자 4개 14×2·2×14, 안쪽 6)·titleBand(위·아래 선 있는 제목 띠+양끝 마름모 — 위 빛·아래 선 따로, 바탕 그라데이션은 back, 글자는 textStyle)·buttons(종류별 단추 색·테·모서리·뒤판 그리기 — 그라데이션은 앱이 back으로).
 // 공용 원본 LegalDocView(메일 주소 복사 알림)·UpdatePrompt(업데이트 안내)가 './AppDialog'로 이 파일을 쓴다 — 셋을 같은 폴더에 함께 복사한다.
@@ -62,7 +63,7 @@ const TITLE_MUL = 2.65;
 // 한 낱말이 칸 폭을 넘으면 글자 단위로 꺾이므로(AX5 ko '로그아웃할까/요?', 11-13 맵나이츠) 그 제목만 상한을 낮춰 가장 긴 낱말이 한 줄에 들게 한다.
 // 낱말 폭은 글자 수로 어림(한글·한자·가나 1em, 그 밖 0.66em — 굵은 라틴·키릴 평균보다 넉넉히). 숨은 하이픈(U+00AD)·공백·하이픈에서 끊을 수 있으니 그 사이 조각으로 잰다.
 const WIDE = /[\u1100-\u11FF\u3040-\u30FF\u3130-\u318F\u4E00-\u9FFF\uAC00-\uD7AF\uFF00-\uFFEF]/;
-function titleMul(text: string, fontSize: number, width: number): number {
+export function titleMul(text: string, fontSize: number, width: number): number {
   let em = 0;
   for (const part of text.split(/[\s\u00AD\-‐–—/]+/)) {
     let w = 0;
@@ -75,6 +76,32 @@ function titleMul(text: string, fontSize: number, width: number): number {
 let shown: (t: string) => string = (t) => t;
 /** 앱 뿌리에서 한 번 — 창에 그릴 글자 변환(보통 makeSoftHyphen(앱 낱말).softHyphen). 기본은 그대로. iOS 경고창 대신 띄울 땐 쓰지 않는다. */
 export function setDialogText(fn: (t: string) => string): void { shown = fn; }
+/** 창에 그릴 글자 변환을 앱 부품이 같은 규칙으로 쓸 때(11-18 맵나이츠 닫을 수 없는 안내 창 — 사본 복제 걷어내기). */
+export const dialogText = (t: string): string => shown(t);
+
+/** 카드 장식(안쪽 이중선·모서리 L자) — 카드 View 안 맨 앞에 둔다. 앱이 같은 장식의 다른 창을 만들 때도 같은 값으로 그리게 내보낸다(11-18 맵나이츠).
+ *  frame·cornerOrnament가 없으면 아무것도 그리지 않는다(바깥 2px 테두리는 카드 style 몫). */
+export function DialogFrame({ look }: { look: Pick<Look, 'radius' | 'frame' | 'cornerOrnament'> }) {
+  return (
+    <>
+      {look.frame && (
+        <View pointerEvents="none" style={[st.fill, { margin: 2, borderWidth: 2, borderColor: look.frame.innerLo, borderRadius: Math.max(0, (look.radius ?? 28) - 4) }]}>
+          <View style={[st.fill, { borderWidth: 1, borderColor: look.frame.innerHi, borderRadius: Math.max(0, (look.radius ?? 28) - 6) }]} />
+        </View>
+      )}
+      {look.cornerOrnament != null && (['tl', 'tr', 'bl', 'br'] as const).map((k) => {
+        const v = k[0] === 't' ? { top: 6 } : { bottom: 6 };
+        const h = k[1] === 'l' ? { left: 6 } : { right: 6 };
+        return (
+          <View key={k} pointerEvents="none" style={[st.orn, v, h]}>
+            <View style={[st.ornH, { backgroundColor: look.cornerOrnament }, k[0] === 't' ? { top: 0 } : { bottom: 0 }, k[1] === 'l' ? { left: 0 } : { right: 0 }]} />
+            <View style={[st.ornV, { backgroundColor: look.cornerOrnament }, k[0] === 't' ? { top: 0 } : { bottom: 0 }, k[1] === 'l' ? { left: 0 } : { right: 0 }]} />
+          </View>
+        );
+      })}
+    </>
+  );
+}
 
 /** 지금 떠 있는 창(가장 위 층)의 단추·글·body를 바꾼다 — body 안 선택에 따라 단추 흐림을 풀 때. 떠 있는 창이 없으면 아무것도 안 한다. */
 export function updateDialog(patch: Partial<Pick<DialogOptions, 'buttons' | 'msg' | 'body'>>): void {
@@ -172,21 +199,7 @@ export function AppDialogHost(props: Look) {
     <Modal transparent animationType="fade" visible onRequestClose={() => { if (closable) pick(cancel); }}>
       <Pressable style={st.scrim} onPress={() => closable && pick(cancel)} accessible={false}>
         <Pressable style={[st.card, { backgroundColor: c.card }, look.radius != null && { borderRadius: look.radius }, look.titleBand && { paddingTop: 0 }, look.frame ? { borderWidth: 2, borderColor: look.frame.border } : dark && st.cardDark]} accessible={false} accessibilityViewIsModal>
-          {look.frame && (
-            <View pointerEvents="none" style={[st.fill, { margin: 2, borderWidth: 2, borderColor: look.frame.innerLo, borderRadius: Math.max(0, (look.radius ?? 28) - 4) }]}>
-              <View style={[st.fill, { borderWidth: 1, borderColor: look.frame.innerHi, borderRadius: Math.max(0, (look.radius ?? 28) - 6) }]} />
-            </View>
-          )}
-          {look.cornerOrnament != null && (['tl', 'tr', 'bl', 'br'] as const).map((k) => {
-            const v = k[0] === 't' ? { top: 6 } : { bottom: 6 };
-            const h = k[1] === 'l' ? { left: 6 } : { right: 6 };
-            return (
-              <View key={k} pointerEvents="none" style={[st.orn, v, h]}>
-                <View style={[st.ornH, { backgroundColor: look.cornerOrnament }, k[0] === 't' ? { top: 0 } : { bottom: 0 }, k[1] === 'l' ? { left: 0 } : { right: 0 }]} />
-                <View style={[st.ornV, { backgroundColor: look.cornerOrnament }, k[0] === 't' ? { top: 0 } : { bottom: 0 }, k[1] === 'l' ? { left: 0 } : { right: 0 }]} />
-              </View>
-            );
-          })}
+          <DialogFrame look={look} />
           {/* 큰 글씨(AX)를 줄이지 않는다 — 글이 길면 이 칸만 스크롤하고 버튼은 늘 보인다(iOS 기본 경고창과 같음, ihwa-design '큰 글씨'). */}
           {/* 제목 띠는 카드 좌우 안쪽 여백을 넘어 그려야 해서 글 칸을 여백만큼 넓힌다(ScrollView가 넘친 곳을 자르므로). */}
           <ScrollView ref={scroll} onLayout={(e) => { box.current.h = e.nativeEvent.layout.height; flash(); edge(); }} onContentSizeChange={(_, h) => { box.current.c = h; flash(); edge(); }} onScroll={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} onScrollEndDrag={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} onMomentumScrollEnd={(e) => { box.current.y = e.nativeEvent.contentOffset.y; edge(); }} scrollEventThrottle={32} style={[st.body, look.titleBand && st.bodyWide]} contentContainerStyle={[st.bodyIn, look.titleBand && st.bodyInWide]} bounces={false}>
