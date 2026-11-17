@@ -86,6 +86,7 @@ for f in scope:
 # 앱 실행 파일(번들)에 들어가지 않는 빌드·서버용 패키지 — 10-16 네 앱에서 확인한 원천. 새로 넣을 땐 이유를 적는다
 NOT_IN_APP = {
     'braces': '빌드 도구 metro', 'brace-expansion': '빌드 도구', 'micromatch': '빌드 도구 metro',
+    'picomatch': '빌드·시험 도구(metro·jest-util·RN CLI tinyglobby) — 11-18 한배 확인: @expo/cli·metro-file-map·micromatch·jest-util·fdir 경로만, 앱 코드 안 씀, Release 번들에 고유 문구 "Expected input to be a string"·POSIX_REGEX_SOURCE 0건',
     'shell-quote': 'Expo·RN 명령줄 도구', 'node-forge': 'Expo 코드 서명 도구',
     'zod': 'Expo CLI(@expo/cli) 설정 검증 — 10-24 응원석 확인: expo→@expo/cli→zod 3 한 경로, 앱 코드 안 씀, Release 번들에 ZodError 0건',
     '@grpc/grpc-js': 'Node용 firestore만 씀 — 10-16 확인: 앱 코드가 firebase JS를 안 불러오고 RN 진입점 index.rn.js에 grpc 없음',
