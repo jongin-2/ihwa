@@ -1,0 +1,199 @@
+# 이용약관 · Terms of Service
+
+[한국어](#ko) · [English](#en)
+
+<a id="ko"></a>
+## 한국어
+
+### 1. 서비스 소개
+
+**적용 앱: 주량체커 · 응원석 · 차곡 · 알롱 · 한배**
+
+앱은 사용자가 스스로 설정·기록한 정보를 관리할 수 있도록 돕는 무료 개인용 앱입니다. {{운영_문장}}
+
+- **주량체커**: 개인 음주량을 기록해 사용자가 정한 한도와 비교해 보여 주고 홈 화면 위젯으로 빠르게 기록할 수 있게 돕습니다.
+- **차곡**: 독서·음악·술·운동·영화 등 취미를 기록하면 차곡(CGK)이 쌓이는 취미 기록 앱입니다.
+- **응원석**: 사용자가 고른 응원팀의 KBO(한국 프로야구) 경기 점수·일정·순위를 앱, 홈 화면 위젯, 잠금 화면 실시간 현황으로 보여 줍니다.
+- **알롱**: 걸음과 위치로 지도를 탐험하며 단짝 알롱을 키우고, 꾸미기와 도감 기록을 모으는 게임 앱입니다.
+- **한배**: 같은 지하철 노선을 탄 사람들이 익명 말풍선으로 이야기하고, 출퇴근 시간에 노선끼리 미니 게임 대항전을 하는 앱입니다.
+
+### 2. 데이터 손실에 대한 책임
+
+사용자가 기록한 내용은 기기에 저장됩니다(자세한 수집 범위는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/) 참고). 기기 분실·초기화·앱 삭제 또는 앱 안에서 기록을 삭제하면 기기에 저장된 데이터가 복구 불가능하게 손실될 수 있습니다. 데이터 손실에 대해 운영자는 책임지지 않습니다.
+
+- **주량체커·차곡**: 계정을 연결하지 않으면 기기를 잃거나 앱을 지웠을 때 기록을 되살릴 수 없고, 운영자는 그 손실에 책임지지 않습니다. 계정 연결 시 데이터 처리는 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다.
+- **알롱**: 계정을 연결하지 않은 게스트는 앱을 지우거나 기기를 바꾸면 그 알롱을 다시 불러올 수 없고, 운영자는 그 손실에 책임지지 않습니다.
+- **주량체커**: 앱 안에서 기록을 삭제하는 예로 설정의 "모든 기록 삭제"가 있습니다.
+
+### 3. 보증의 부인
+
+앱은 "있는 그대로(AS-IS)"로 제공되며, 특정 목적에의 적합성을 포함해 어떠한 명시적·묵시적 보증도 하지 않습니다.
+
+### 4. 책임의 제한
+
+관련 법이 허용하는 최대 한도까지, 앱 사용으로 인해 발생하는 어떠한 손해에 대해서도 운영자는 책임지지 않습니다. 다만 운영자의 고의나 중대한 과실로 생긴 손해는 그렇지 않습니다.
+
+### 5. 이용 연령
+
+주량체커는 이용 중인 국가·지역의 법정 음주 가능 연령 이상, 알롱·한배는 만 14세 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 전체만 -->
+주량체커는 이용 중인 국가·지역의 법정 음주 가능 연령 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 앱만 drinkchecker -->
+알롱은 만 14세 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 앱만 allong -->
+한배는 만 14세 이상만 이용할 수 있습니다. 앱을 사용하면 이용자는 이 요건을 충족한다고 확인한 것으로 봅니다. <!-- 앱만 sameboat -->
+이 앱에는 해당하지 않습니다. <!-- 앱만 cheerseat,chagok -->
+
+### 6. 다른 이용자에게 보이는 이름과 글
+
+이름·닉네임·글이 다른 이용자에게 보이는 앱(알롱·한배)에서는 욕설·혐오·차별·성적인 내용·괴롭힘·광고·남의 개인정보·남을 사칭하는 내용·불법인 내용을 쓸 수 없고, 운영자는 이런 내용을 용납하지 않습니다. 운영자는 이런 이름·글이나 앱 변조·조작으로 얻은 기록·보상을 바꾸거나 지우고, 그 계정의 이용을 제한할 수 있습니다. 이용을 제한하면 가능한 한 앱 안에서 이유를 알리고, 이의는 아래 메일로 받습니다. 이용자가 쓴 글의 권리는 쓴 사람에게 있고, 운영자는 앱 안에서 보여 주고 신고를 검토하는 데 필요한 만큼만 씁니다. <!-- 전체만 -->
+이름·닉네임·글이 다른 이용자에게 보이는 알롱에서는 욕설·혐오·차별·성적인 내용·괴롭힘·광고·남의 개인정보·남을 사칭하는 내용·불법인 내용을 쓸 수 없고, 운영자는 이런 내용을 용납하지 않습니다. 운영자는 이런 이름·글이나 앱 변조·조작으로 얻은 기록·보상을 바꾸거나 지우고, 그 계정의 이용을 제한할 수 있습니다. 이용을 제한하면 가능한 한 앱 안에서 이유를 알리고, 이의는 아래 메일로 받습니다. 이용자가 쓴 글의 권리는 쓴 사람에게 있고, 운영자는 앱 안에서 보여 주고 신고를 검토하는 데 필요한 만큼만 씁니다. <!-- 앱만 allong -->
+이름·닉네임·글이 다른 이용자에게 보이는 한배에서는 욕설·혐오·차별·성적인 내용·괴롭힘·광고·남의 개인정보·남을 사칭하는 내용·불법인 내용을 쓸 수 없고, 운영자는 이런 내용을 용납하지 않습니다. 운영자는 이런 이름·글이나 앱 변조·조작으로 얻은 기록·보상을 바꾸거나 지우고, 그 계정의 이용을 제한할 수 있습니다. 이용을 제한하면 가능한 한 앱 안에서 이유를 알리고, 이의는 아래 메일로 받습니다. 이용자가 쓴 글의 권리는 쓴 사람에게 있고, 운영자는 앱 안에서 보여 주고 신고를 검토하는 데 필요한 만큼만 씁니다. <!-- 앱만 sameboat -->
+이 앱에는 해당하지 않습니다. <!-- 앱만 drinkchecker,cheerseat,chagok -->
+
+### 7. 앱 안 점수와 재화
+
+앱 안의 점수·재화·아이템은 돈의 가치가 없고, 현금·상품·다른 서비스로 바꾸거나 다른 사람에게 넘길 수 없습니다. 얻는 규칙은 앱을 고치면서 바뀔 수 있습니다.
+
+### 8. 계정 삭제
+
+계정을 만드는 앱(알롱·한배)은 앱 안의 '계정 삭제'로 언제든 계정을 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다. <!-- 전체만 -->
+앱 안의 '계정 삭제'로 언제든 계정을 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다. <!-- 앱만 allong,sameboat -->
+계정을 연결했다면 앱 안의 '연결 해제'로 언제든 서버의 계정과 기록을 지울 수 있고, 처리 방식은 [개인정보처리방침](https://jongin-2.github.io/ihwa/privacy/ko/)을 따릅니다. <!-- 앱만 drinkchecker,chagok -->
+이 앱에는 해당하지 않습니다. <!-- 앱만 cheerseat -->
+
+### 9. 약관 변경
+
+이 약관은 이 페이지에서 변경될 수 있습니다. 이용자에게 불리한 변경은 시행 7일 전부터 이 페이지 맨 위에 알립니다. 변경된 약관이 시행된 뒤에도 앱을 계속 사용하면 변경된 약관에 동의한 것으로 봅니다. 동의하지 않으면 앱 사용을 멈추고 계정을 삭제할 수 있습니다.
+
+### 10. 서비스 변경과 종료
+
+운영자는 운영이나 기술상 필요에 따라 앱 기능을 바꾸거나 서비스를 끝낼 수 있습니다. 서버를 쓰는 기능을 끝내거나 이용자에게 불리하게 바꿀 때는 앱 안이나 이 페이지에 미리 알립니다. 앱은 무료이므로 변경이나 종료에 따른 보상은 하지 않습니다.
+
+### 11. 앱의 사용 허락과 저작권
+
+앱과 앱 안 그림·글·소리의 권리는 운영자나 사용을 허락한 권리자에게 있습니다. 이용자는 앱을 개인적·비상업적으로 쓸 수 있습니다. 앱을 분해하거나 복제·변경해 배포하거나, 서버에 부담을 주는 자동화된 접근을 하면 안 됩니다. 앱 스토어에서 받은 앱에는 그 스토어의 표준 사용권 계약도 함께 적용됩니다.
+
+### 12. 준거법과 분쟁 해결
+
+이 약관은 대한민국 법을 따릅니다. 분쟁이 생기면 먼저 아래 메일로 알려 주시면 협의해 풀고, 소송은 법이 정한 관할 법원에서 합니다. 이용자가 사는 나라의 소비자 보호 법이 보장하는 권리는 이 약관으로 줄어들지 않습니다.
+
+### 주량체커 추가 조항
+
+**의료적 조언이 아님**: 앱이 제공하는 모든 계산(그램 환산, 한도 대비 잔 수, 다른 술로 환산한 양, 최근 기록 요약과 한도 조정 제안 등)은 사용자가 직접 입력한 값과 기록을 기준으로 한 단순 계산 결과이며, 의학적 조언·진단·치료를 대체하지 않습니다. 한도 조정 제안은 사용자의 기록만으로 계산한 것으로 의학적 권장 음주량이 아니며, 앱은 한도를 올리자고 제안하지 않습니다. 음주 습관에 대한 건강 관련 결정은 반드시 의료 전문가와 상담하세요.
+
+### 응원석 추가 조항
+
+**경기 정보**: 경기 점수·일정·순위는 공개 스포츠 데이터 서비스에서 받아 몇 분 간격으로 갱신하며, 갱신 시각을 함께 표시합니다. 실제 경기 진행·공식 기록과 차이가 있을 수 있으며 공식 기록은 KBO(한국야구위원회) 발표가 우선합니다. 앱의 정보를 베팅이나 그 밖의 금전적 판단에 쓰지 마세요.
+
+**상표**: 구단 이름과 엠블럼은 각 구단의, KBO는 한국야구위원회의 상표입니다. 응원석은 KBO·구단과 제휴하지 않은, 개인이 만든 독립 앱이며 구단을 구별해 보여 주기 위해서만 이름과 엠블럼을 씁니다.
+
+### 알롱 추가 조항
+
+**안전**: 알롱은 걸으며 쓰는 앱입니다. 주변을 살피고, 운전하거나 자전거를 타는 중에는 쓰지 마시며, 허락 없이 남의 땅이나 출입이 금지된 곳에 들어가지 마세요.
+
+### 한배 추가 조항
+
+**말풍선**: 말풍선과 닉네임은 같은 노선의 다른 이용자에게 보입니다. 말풍선을 눌러 신고하거나 그 사람을 가릴 수 있고, 운영자는 신고를 확인해 6절에 따라 조치합니다.
+
+### 문의
+
+📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
+
+최종 수정일: 2026-10-28
+
+---
+
+<a id="en"></a>
+## English
+
+### 1. About the service
+
+**Applies to: DrinkChecker · CheerSeat · Chagok · Allong · SameBoat**
+
+The app is a free, personal-use app that helps you manage information you set and record yourself. {{OPERATED_SENTENCE}}
+
+- **DrinkChecker**: logs your drinks against a limit you set and lets you log quickly from a Home Screen widget.
+- **Chagok**: a hobby log — record reading, music, drinks, exercise, films and more, and your CGK adds up.
+- **CheerSeat**: shows the KBO (Korean professional baseball) scores, schedule and standings for the team you choose, in the app, in a Home Screen widget and as a Live Activity on your Lock Screen.
+- **Allong**: a game where you explore the map with your steps and location, raise your buddy Allong, and collect outfits and collection-book records.
+- **SameBoat**: lets people on the same subway line talk in anonymous speech bubbles and compete line against line in mini-game matches at rush hour.
+
+### 2. Data loss
+
+The records you create are stored on your device (see the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/) for what is collected). Losing or resetting your device, deleting the app, or deleting records in the app can permanently delete the data stored on your device. The operator is not responsible for data loss.
+
+- **DrinkChecker and Chagok**: if you don't connect an account, your records cannot be recovered after you lose your device or delete the app, and the operator is not responsible for that loss. If you connect an account, data is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/).
+- **Allong**: if you play as a guest without connecting an account, you can't bring that Allong back after deleting the app or changing devices, and the operator is not responsible for that loss.
+- **DrinkChecker**: "Delete All Records" in Settings is an example of deleting records in the app.
+
+### 3. Disclaimer of warranties
+
+The app is provided "as is," without warranties of any kind, express or implied, including fitness for a particular purpose.
+
+### 4. Limitation of liability
+
+To the maximum extent permitted by law, the operator is not liable for any damages arising from your use of the app, except for damages caused by the operator's intentional misconduct or gross negligence.
+
+### 5. Age requirement
+
+DrinkChecker is for users who meet the legal drinking age in their country or region, and Allong and SameBoat are only for users aged 14 or older. By using an app, you confirm that you meet this requirement. <!-- 전체만 -->
+DrinkChecker is for users who meet the legal drinking age in their country or region. By using the app, you confirm that you meet this requirement. <!-- 앱만 drinkchecker -->
+Allong is only for users aged 14 or older. By using the app, you confirm that you meet this requirement. <!-- 앱만 allong -->
+SameBoat is only for users aged 14 or older. By using the app, you confirm that you meet this requirement. <!-- 앱만 sameboat -->
+This section does not apply to this app. <!-- 앱만 cheerseat,chagok -->
+
+### 6. Names and content visible to others
+
+In apps where names, nicknames or posts are visible to other users (Allong, SameBoat), you may not use abuse, hate, discrimination, sexual content, harassment, ads, other people's personal information, impersonation or anything illegal, and the operator has zero tolerance for such content. The operator may change or remove such names and posts, and records or rewards obtained by modifying or manipulating the app, and may restrict that account's use. When an account is restricted, we will tell you why in the app where possible, and you can object by email below. You keep the rights to what you post; the operator uses it only as needed to show it in the app and review reports. <!-- 전체만 -->
+In Allong, where names, nicknames and posts are visible to other users, you may not use abuse, hate, discrimination, sexual content, harassment, ads, other people's personal information, impersonation or anything illegal, and the operator has zero tolerance for such content. The operator may change or remove such names and posts, and records or rewards obtained by modifying or manipulating the app, and may restrict that account's use. When an account is restricted, we will tell you why in the app where possible, and you can object by email below. You keep the rights to what you post; the operator uses it only as needed to show it in the app and review reports. <!-- 앱만 allong -->
+In SameBoat, where names, nicknames and posts are visible to other users, you may not use abuse, hate, discrimination, sexual content, harassment, ads, other people's personal information, impersonation or anything illegal, and the operator has zero tolerance for such content. The operator may change or remove such names and posts, and records or rewards obtained by modifying or manipulating the app, and may restrict that account's use. When an account is restricted, we will tell you why in the app where possible, and you can object by email below. You keep the rights to what you post; the operator uses it only as needed to show it in the app and review reports. <!-- 앱만 sameboat -->
+This section does not apply to this app. <!-- 앱만 drinkchecker,cheerseat,chagok -->
+
+### 7. In-app scores and currency
+
+In-app scores, currency and items have no monetary value and cannot be exchanged for cash, goods or other services, or transferred to anyone else. The rules for earning them may change as the app is updated.
+
+### 8. Account deletion
+
+In apps where you create an account (Allong, SameBoat), you can delete your account anytime with Delete Account in the app; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/). <!-- 전체만 -->
+You can delete your account anytime with Delete Account in the app; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/). <!-- 앱만 allong,sameboat -->
+If you connected an account, you can delete it and its records from the server anytime with Disconnect in the app; it is handled as described in the [Privacy Policy](https://jongin-2.github.io/ihwa/privacy/en/). <!-- 앱만 drinkchecker,chagok -->
+This section does not apply to this app. <!-- 앱만 cheerseat -->
+
+### 9. Changes to these terms
+
+These terms may change on this page. Changes unfavorable to you are announced at the top of this page 7 days before they take effect. Continuing to use the app after a change takes effect means you accept the updated terms. If you do not agree, you can stop using the app and delete your account.
+
+### 10. Changes to and end of the service
+
+The operator may change app features or end a service for operational or technical reasons. Before ending a feature that uses a server or changing it in a way unfavorable to you, we will give notice in the app or on this page. The apps are free, so no compensation is provided for such changes or termination.
+
+### 11. License and copyright
+
+The rights to the apps and their images, text and sounds belong to the operator or to the rights holders who licensed them. You may use the apps for personal, non-commercial purposes. You may not decompile the apps, copy or modify them for distribution, or access servers with automated tools that place a burden on them. Apps downloaded from an app store are also subject to that store's standard license agreement.
+
+### 12. Governing law and disputes
+
+These terms are governed by the laws of the Republic of Korea. If a dispute arises, please first tell us by email below so we can resolve it together; any lawsuit will be brought in the court with jurisdiction under applicable law. Nothing in these terms limits the rights you have under the consumer protection laws of your country of residence.
+
+### DrinkChecker addendum
+
+**Not medical advice**: Every calculation the app shows (gram conversions, drinks against your limit, equivalents in other drinks, summaries of your recent logs and limit suggestions, etc.) is a simple computation based on values and logs you entered — it is not medical advice, diagnosis, or treatment. A limit suggestion is calculated only from your own logs, is not a medically recommended drinking amount, and the app never suggests raising your limit. Talk to a healthcare professional for any health decisions about your drinking.
+
+### CheerSeat addendum
+
+**Game information**: Scores, schedules and standings come from a public sports data service and update every few minutes, with the update time shown. They may differ from the actual game or official records; official records published by the KBO (Korea Baseball Organization) take precedence. Do not use the information in the app for betting or other financial decisions.
+
+**Trademarks**: Club names and emblems are trademarks of their respective clubs, and KBO is a trademark of the Korea Baseball Organization. CheerSeat is an independent app made by an individual developer, not affiliated with the KBO or any club, and uses club names and emblems only to identify the clubs.
+
+### Allong addendum
+
+**Safety**: Allong is played while walking. Stay aware of your surroundings, don't use it while driving or cycling, and don't enter private property or restricted areas without permission.
+
+### SameBoat addendum
+
+**Bubbles**: Bubbles and nicknames are visible to other users on the same line. You can tap a bubble to report it or hide that person, and the operator reviews reports and acts under section 6.
+
+### Contact
+
+📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
+
+Last updated: 2026-10-28
