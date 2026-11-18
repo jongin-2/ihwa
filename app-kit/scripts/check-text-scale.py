@@ -62,7 +62,8 @@ def mask_comments(src):
 
 def open_tags(src):
     """(시작 위치, 태그 이름, 여는 태그 글자) — 중괄호 깊이를 세어 `>`를 찾는다(화살표 함수 `=>` 제외)."""
-    for m in re.finditer(r'<(TextInput|Text)(?=[\s/>])', src):
+    # 바로 앞이 식별자 글자·'.'·'$'면 태그가 아니라 TS 제네릭(useRef<Text>(null)·Array<Text>) — 11-18 응원석 오탐
+    for m in re.finditer(r'(?<![\w.$])<(TextInput|Text)(?=[\s/>])', src):
         depth, q = 0, m.end()
         while q < len(src):
             c = src[q]
