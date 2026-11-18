@@ -107,6 +107,11 @@ def call(method, path, body=None, send=None, sleep=time.sleep, make_token=token)
     return 1, out
 
 
+def bad_path(path):
+    """공백·제어 문자가 든 주소는 urllib가 InvalidURL을 던져 traceback으로 끝난다(11-18 코어) → 미리 막고 종료 2."""
+    return any(c.isspace() or ord(c) < 32 for c in path)
+
+
 def read_body(arg):
     if arg is None:
         return None
@@ -119,6 +124,9 @@ def read_body(arg):
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print(__doc__)
+        sys.exit(2)
+    if bad_path(sys.argv[2]):
+        print(f'사용법 오류: 주소에 공백·제어 문자가 있습니다 — {sys.argv[2]!r} (셸에서 변수를 나눌 때 흔함)')
         sys.exit(2)
     rc, out = call(sys.argv[1].upper(), sys.argv[2], read_body(sys.argv[3] if len(sys.argv) > 3 else None))
     print(out)

@@ -65,5 +65,8 @@ ok_body = asc.read_body(f.name) == b'{"a":1}' and asc.read_body('{"b":2}') == b'
 os.unlink(f.name)
 print(('통과' if ok_body else '실패'), '본문: 파일 경로·JSON 문자열 둘 다')
 fail += not ok_body
+ok_path = asc.bad_path('/v1/apps/1 1.4.8/x') and asc.bad_path('/v1/a\tb') and not asc.bad_path('/v1/apps/1/appStoreVersions?filter[versionString]=1.4.8')
+print(('통과' if ok_path else '실패'), '주소: 공백·제어 문자 막고 정상 주소는 통과')
+fail += not ok_path
 print('실패', fail, '건')
 sys.exit(1 if fail else 0)

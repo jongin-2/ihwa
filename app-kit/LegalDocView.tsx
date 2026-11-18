@@ -26,8 +26,8 @@ import * as Clipboard from 'expo-clipboard';
 
 export const LEGAL_SITE = 'https://jongin-2.github.io/ihwa';
 export type LegalDoc = 'terms' | 'privacy';
-// app: 사이트 build.py APPS의 이름(drinkchecker·cheerseat·chagok·allong·sameboat) — '공통 + 그 앱'만 담은 페이지를 연다
-// (11-13 종인님 "앱별 주소로 나눠", 전에는 다섯 앱 조항이 한 문서에 섞여 보였다). 사이트에 아직 앱 페이지가 없는 앱(출시 전)은 빼고 부른다 → 전체 문서.
+// app은 선택 인자 — 11-18 종인님 "방침·약관 회사 공통"으로 앱은 넘기지 않고 /terms·privacy/<ko|en>/(전체 문서)를 연다.
+// 앱별 페이지(app = build.py APPS 이름)는 11-13~11-18 판 앱이 열고 있어 사이트에 남긴다.
 export const legalUrl = (doc: LegalDoc, lang: string, app?: string) => `${LEGAL_SITE}/${doc}/${app ? app + '/' : ''}${lang === 'ko' ? 'ko' : 'en'}/`;
 
 const PAGE_STYLE = `(function(){var s=document.createElement('style');s.textContent='html{font:-apple-system-body}body{font-size:1rem!important;line-height:1.7}html,body{background:transparent!important}h1{display:none}main{padding-top:8px}';document.documentElement.appendChild(s);})();true;`;
