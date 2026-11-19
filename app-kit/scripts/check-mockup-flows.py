@@ -76,6 +76,19 @@ with tempfile.TemporaryDirectory() as d:
             bad.append(f'{sc}: 목업 없음({path})')
             continue
         src = open(path).read()
+        # 임시 폴더로 옮겨 열어 상대 경로 공용 부품(../components/<이름>.js)을 못 읽으므로 본문에 끼운다 — build-prototype.py와 같은 꼴(11-19 한배 result-card.js)
+        miss = []
+        def inline(m):
+            f = f'{R}/prd/components/{m.group(1)}'
+            body = open(f).read() if os.path.exists(f) else None
+            if body is None or '</script' in body:
+                miss.append(m.group(1))
+                return m.group(0)
+            return '<script data-shared="' + m.group(1) + '">' + body + '</script>'
+        src = re.sub(r'<script src="\.\./components/([\w.-]+\.js)"></script>', inline, src)
+        if miss:
+            bad.append(f'{sc}: 공용 부품 JS를 끼울 수 없음(없거나 본문에 </script) — ' + ', '.join(miss))
+            continue
         runs = [('상태 단추', STATES)]
         if 'data-case' in src:
             runs.append(('경우 그림', CASES))
