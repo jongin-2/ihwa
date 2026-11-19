@@ -226,7 +226,7 @@ export function AppDialogHost(props: Look) {
             {order.map(({ b, i }) => {
               const k = b.kind ?? 'primary';
               const bl = look.buttons?.[k];
-              const bg = bl?.bg ?? (k === 'cancel' ? c.fill : k === 'destructive' ? c.red : look.accent ?? '#007AFF');
+              const bg = bl?.bg ?? (k === 'cancel' ? c.fill : k === 'destructive' ? c.red : look.accent ?? '#0066D6'); // 기본 파랑: 흰 17pt 단추 글자는 WCAG 큰 글자(18.66px) 아님 → 4.5:1 필요, #007AFF 4.02 → #0066D6 5.42(11-19 한배)
               const fg = bl?.fg ?? (k === 'cancel' ? c.text : k === 'destructive' ? '#FFFFFF' : look.onAccent ?? '#FFFFFF');
               return (
                 <Pressable key={i} onPress={() => pick(i)} disabled={!!b.disabled} accessibilityRole="button" accessibilityState={{ disabled: !!b.disabled }} style={({ pressed }) => [st.btn, !stack && st.btnFlex, { backgroundColor: bg, opacity: b.disabled || b.dim ? (pressed && !b.disabled ? 0.3 : 0.4) : pressed ? 0.7 : 1 }, bl?.radius != null && { borderRadius: bl.radius }, bl?.border != null && { borderWidth: 1, borderColor: bl.border }, bl?.back && { overflow: 'hidden' }]}>

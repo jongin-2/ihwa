@@ -15,7 +15,7 @@
 //  · 링크: 같은 사이트(약관 ↔ 방침, 이전 판)는 시트 안, 메일·다른 사이트는 기기 앱(메일 앱이 없으면 주소 복사).
 //  · 오프라인·오류: 안내 한 줄 + 다시 시도.
 //  · Android(11-06 한배): 머리줄은 Material 기본 ←(닫기), 하드웨어 뒤로 가기는 이전 문서부터, 색은 Android 테마 속성.
-// 앱마다 다른 값은 tint(강조색: 다시 시도)와 app(사이트 앱 페이지 이름)뿐. react-navigation이 없는 앱은 navigation 대신 renderHeader(아래 LegalHeader). 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
+// 앱마다 다른 값은 tint(글자용 강조색: 다시 시도 글자라 바탕 위 4.5:1 — 그래픽용 강조색 금지, 11-19 주량체커)와 app(사이트 앱 페이지 이름)뿐. react-navigation이 없는 앱은 navigation 대신 renderHeader(아래 LegalHeader). 앱은 모달 화면 옵션에 headerShown: true를 두고 navigation(setOptions가 있는 것)을 넘긴다. 언어는 앱 언어 코드(없으면 영어). 페이지는 한국어·영어 두 가지(한국어 밖은 영어).
 // 머리글 색은 내비게이션 테마를 따른다 — NavigationContainer(expo-router는 ThemeProvider)에 다크·라이트 테마를 꼭 넘긴다(10-26 한배: 안 넘겨 다크 모드에서 머리글이 흰색).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
 import { useEffect, useLayoutEffect, useRef, useState, type ComponentRef, type ReactNode } from 'react';
