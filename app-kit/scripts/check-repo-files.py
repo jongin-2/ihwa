@@ -58,6 +58,21 @@ for src, dst in COPIES:
     s, d = os.path.join(KIT, src), os.path.join(ROOT, dst)
     if os.path.exists(s) and os.path.exists(d) and open(s, 'rb').read() != open(d, 'rb').read():
         bad.append(f'{dst} — 공용 원본 ihwa-site/app-kit/{src}와 다름(원본을 다시 복사)')
+# 앱마다 자리가 다른 사본(코드 부품·검사기)은 파일 이름으로 찾아 대조 — 이름이 다른 앱은 별명(차곡 soft-hyphen.ts)
+#   11-19 코어: c30c687 숨은 하이픈 주석이 차곡 사본(이름이 달라)에서만 빠진 채 남았던 것을 계기로 넓힘(11-16 보류 줄).
+NAMED = {'AppDialog.tsx': (), 'LegalDocView.tsx': (), 'TextFit.tsx': (), 'UpdatePrompt.ts': (), 'softHyphen.ts': ('soft-hyphen.ts',),
+         'scripts/check-design-system.py': (), 'scripts/check-jsx-text.mjs': (), 'scripts/check-no-devmode.sh': (),
+         'scripts/check-prototype-level.py': (), 'scripts/check-qa-coverage.py': (), 'scripts/check-security.py': (),
+         'scripts/check-store-shots.py': (), 'scripts/check-text-scale.py': (), 'scripts/check-mockup-flows.py': ()}
+for src, more in NAMED.items():
+    s = os.path.join(KIT, src)
+    if not os.path.exists(s):
+        continue
+    names = {os.path.basename(src), *more}
+    for f in files:
+        if os.path.basename(f) in names and 'node_modules/' not in f and os.path.exists(os.path.join(ROOT, f)) \
+                and open(s, 'rb').read() != open(os.path.join(ROOT, f), 'rb').read():
+            bad.append(f'{f} — 공용 원본 ihwa-site/app-kit/{src}와 다름(원본을 다시 복사)')
 
 if bad:
     print('저장소에 넣지 않는 파일:')
