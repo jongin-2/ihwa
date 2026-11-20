@@ -16,6 +16,10 @@
 //    그래서 시트·모달 화면마다 그 안에 Host를 하나 더 두고, 가장 나중에 붙은(가장 위) Host 하나만 창을 그린다.
 //    창이 떠 있던 시트가 닫히면 그 요청은 아래 층 Host로 넘어가 다시 뜬다. 시트 안 Host는 모양 값을 생략하면 맨 아래(앱 뿌리) Host 값을 쓴다.
 // 쓰는 법: 앱 뿌리(내비게이션 바깥, 맨 마지막 자식)에 <AppDialogHost accent={브랜드색} />, 시트·모달 화면 안에는 <AppDialogHost />.
+//    모달 아래에서 presentation 없이 push한 화면도 expo-router가 암묵적 모달로 띄우므로 Host가 필요하다 — 탭 밖 모든 화면에 붙인다(층은 붙은 순서라 맨 위 하나만 그려 이중 표시 없음).
+//    빠지면 창이 아래 모달 Host로 가 네이티브 모달 뒤에 그려지고 투명 창이 남아 터치가 막힌다(11-20 차곡 e66745b).
+// 화면을 떠날 때(blur·unmount·딥 링크로 다른 화면) closeDialogs()로 떠 있는·줄 선 창을 모두 취소로 닫는다 —
+//    안 닫으면 창이 새 화면 위로 따라와 보이지 않는 대상을 지울 수 있다(11-20 차곡 딥 링크 삭제 확인 창).
 //   const i = await appDialog({ title, msg, buttons: [{ text: '취소', kind: 'cancel' }, { text: '삭제', kind: 'destructive' }] })
 //   → 누른 단추 순번(바깥을 눌러 닫으면 취소 단추 순번). Host가 하나도 없으면 iOS 경고창으로 대신 띄운다(멈추지 않게).
 // 앱마다 다른 값: accent(실행 단추 색)·onAccent(그 위 글자색, 기본 흰색)·colors(카드·글자 색을 앱 장면 값으로 바꿀 때만)·stack(늘 세로 쌓기).
@@ -109,6 +113,13 @@ export function updateDialog(patch: Partial<Pick<DialogOptions, 'buttons' | 'msg
   if (!top || !top.cur) return;
   Object.assign(top.cur, patch);
   top.redraw();
+}
+
+/** 떠 있는 창과 줄 선 창을 모두 닫는다 — 각 요청은 취소 단추 순번(없으면 -1)으로 끝난다(바깥을 눌러 닫은 것과 같음). 화면을 떠날 때 부른다. */
+export function closeDialogs(): void {
+  const cancelOf = (r: Req) => r.buttons.findIndex((b) => b.kind === 'cancel');
+  for (const l of layers) if (l.cur) { const r = l.cur; l.cur = null; l.give(null); r.done(cancelOf(r)); }
+  queue.splice(0).forEach((r) => r.done(cancelOf(r)));
 }
 
 export function appDialog(o: DialogOptions): Promise<number> {
