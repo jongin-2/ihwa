@@ -18,7 +18,7 @@
 // 쓰는 법: 앱 뿌리(내비게이션 바깥, 맨 마지막 자식)에 <AppDialogHost accent={브랜드색} />, 시트·모달 화면 안에는 <AppDialogHost />.
 //    모달 아래에서 presentation 없이 push한 화면도 expo-router가 암묵적 모달로 띄우므로 Host가 필요하다 — 탭 밖 모든 화면에 붙인다(층은 붙은 순서라 맨 위 하나만 그려 이중 표시 없음).
 //    빠지면 창이 아래 모달 Host로 가 네이티브 모달 뒤에 그려지고 투명 창이 남아 터치가 막힌다(11-20 차곡 e66745b).
-// 화면을 떠날 때(blur·unmount·딥 링크로 다른 화면) closeDialogs()로 떠 있는·줄 선 창을 모두 취소로 닫는다 —
+// 화면을 떠날 때(blur·unmount·딥 링크로 다른 화면) closeDialogs(owner)로 그 화면이 appDialog({ owner })로 띄운 창만 취소로 닫는다 —
 //    안 닫으면 창이 새 화면 위로 따라와 보이지 않는 대상을 지울 수 있다(11-20 차곡 딥 링크 삭제 확인 창).
 //   const i = await appDialog({ title, msg, buttons: [{ text: '취소', kind: 'cancel' }, { text: '삭제', kind: 'destructive' }] })
 //   → 누른 단추 순번(바깥을 눌러 닫으면 취소 단추 순번). Host가 하나도 없으면 iOS 경고창으로 대신 띄운다(멈추지 않게).
@@ -35,7 +35,7 @@ import { Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View, useColorSc
 // dim: 모양만 흐림(투명도 0.4)·누름은 그대로 — 눌렀을 때 왜 안 되는지 알려 줄 때(앱이 그 순번을 받아 토스트 등, 11-13 맵나이츠 골드 부족 [사기]).
 export type DialogButton = { text: string; kind?: 'cancel' | 'primary' | 'destructive'; disabled?: boolean; dim?: boolean };
 // body: 설명 글 아래(단추 위)에 그림 등 앱이 그린 내용을 넣을 때만(11-12 맵나이츠 장비·초상 확인 창). 안 주면 지금 그대로, Host가 없어 iOS 경고창으로 갈 땐 빠진다.
-export type DialogOptions = { title: string; msg?: string; body?: ReactNode; buttons: DialogButton[]; dismissable?: boolean };
+export type DialogOptions = { title: string; msg?: string; body?: ReactNode; buttons: DialogButton[]; dismissable?: boolean; owner?: unknown };
 type Req = DialogOptions & { done: (i: number) => void };
 type Palette = { card: string; text: string; sub: string; fill: string; red: string };
 type Kind = 'cancel' | 'primary' | 'destructive';
@@ -115,11 +115,17 @@ export function updateDialog(patch: Partial<Pick<DialogOptions, 'buttons' | 'msg
   top.redraw();
 }
 
-/** 떠 있는 창과 줄 선 창을 모두 닫는다 — 각 요청은 취소 단추 순번(없으면 -1)으로 끝난다(바깥을 눌러 닫은 것과 같음). 화면을 떠날 때 부른다. */
-export function closeDialogs(): void {
+/** 떠 있는 창과 줄 선 창을 닫는다 — 각 요청은 취소 단추 순번(없으면 -1)으로 끝난다(바깥을 눌러 닫은 것과 같음). 화면을 떠날 때 부른다.
+ *  owner를 주면 appDialog({ owner })로 띄운 그 화면의 창만 닫는다 — 안 주면 이어 받기·강제 업데이트 같은 전역 창까지 닫혀
+ *  사용자가 고르지 않은 선택(-1)으로 끝나므로, 화면에서 부를 땐 늘 owner를 준다(11-20 차곡). */
+export function closeDialogs(owner?: unknown): void {
+  const mine = (r: Req) => owner === undefined || r.owner === owner;
   const cancelOf = (r: Req) => r.buttons.findIndex((b) => b.kind === 'cancel');
-  for (const l of layers) if (l.cur) { const r = l.cur; l.cur = null; l.give(null); r.done(cancelOf(r)); }
-  queue.splice(0).forEach((r) => r.done(cancelOf(r)));
+  for (const l of layers) if (l.cur && mine(l.cur)) { const r = l.cur; l.cur = null; l.give(null); r.done(cancelOf(r)); }
+  const gone = queue.filter(mine);
+  queue.splice(0, queue.length, ...queue.filter((r) => !mine(r)));
+  gone.forEach((r) => r.done(cancelOf(r)));
+  pump();
 }
 
 export function appDialog(o: DialogOptions): Promise<number> {
