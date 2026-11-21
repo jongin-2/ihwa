@@ -148,7 +148,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 - 요청 뒤 `delDoneTitle` / `delDoneBody`, 실패 `failDel` / `tryLater`, 예정일 로컬 알림(알림 허용 때만) `acctDeleted`
 - 유예 중 같은 계정으로 다시 연결: `restoreTitle` / `restoreBody` / [`restoreYes`] [`restoreNow`(빨강)] [닫기]
 - 다른 기기에 남은 로그인이 밀려날 때: `kickedTitle` / `kickedDeletedBody`
-- 로그아웃(10-22 종인님 "계정 삭제 외에 계정 로그인 시 로그아웃도 필요해" — 연결 계정만, 게스트엔 없음): 계정 삭제 위 한 줄 `logoutRow` → 확인 창 `logoutTitle` / `logoutBody` / [취소] [`logoutRow`]. 로그아웃하면 이 기기를 비우고 첫 화면, 서버 기록은 그대로
+- 로그아웃(10-22 종인님 "계정 삭제 외에 계정 로그인 시 로그아웃도 필요해" — 연결 계정만, 게스트엔 없음): 계정 삭제 위 한 줄 `logoutRow` → 확인 창 `logoutTitle` / `logoutBody` / [취소] [`logoutRow`]. 로그아웃하면 이 기기를 비우고 첫 화면, 서버 기록은 그대로. 실패 `failLogout` / `tryLater`(서버를 거치는 앱만 — 한배는 기기 안에서만 끝나 해당 없음)
 
 #### delRow
 
@@ -282,6 +282,27 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | vi | Không thể xóa tài khoản |
 | zhHans | 无法删除账号 |
 | zhHant | 無法刪除帳號 |
+
+#### failLogout
+
+로그아웃 실패 창 제목(11-21 종인님 — 공용 `serverFailed` '연결하지 못했어요'는 무엇이 실패했는지 안 보여서, 원본 알롱 1c2bd5db), 본문 `tryLater`.
+
+| 언어 | 문구 |
+|---|---|
+| ko | 로그아웃하지 못했어요 |
+| en | Couldn’t Sign Out |
+| de | Abmelden nicht möglich |
+| es | No se pudo cerrar sesión |
+| fr | Déconnexion impossible |
+| id | Tidak Dapat Keluar |
+| it | Impossibile uscire |
+| ja | ログアウトできませんでした |
+| pt | Não foi possível sair |
+| ru | Не удалось выйти |
+| tr | Çıkış yapılamadı |
+| vi | Không thể đăng xuất |
+| zhHans | 无法退出登录 |
+| zhHant | 無法登出 |
 
 #### tryLater
 
