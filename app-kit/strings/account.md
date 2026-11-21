@@ -283,6 +283,27 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 | zhHans | 无法删除账号 |
 | zhHant | 無法刪除帳號 |
 
+#### continueGoogle
+
+Google 로그인 단추(11-21 종인님 — 알롱·한배·맵나이츠 공통, 원본 알롱 settings.ts). Apple 단추는 시스템 단추(Sign in with Apple)라 문구를 두지 않는다.
+
+| 언어 | 문구 |
+|---|---|
+| ko | Google로 계속하기 |
+| en | Continue with Google |
+| de | Weiter mit Google |
+| es | Continuar con Google |
+| fr | Continuer avec Google |
+| id | Lanjutkan dengan Google |
+| it | Continua con Google |
+| ja | Googleで続ける |
+| pt | Continuar com o Google |
+| ru | Продолжить с Google |
+| tr | Google ile devam et |
+| vi | Tiếp tục với Google |
+| zhHans | 通过 Google 继续 |
+| zhHant | 使用 Google 繼續 |
+
 #### failLogout
 
 로그아웃 실패 창 제목(11-21 종인님 — 공용 `serverFailed` '연결하지 못했어요'는 무엇이 실패했는지 안 보여서, 원본 알롱 1c2bd5db), 본문 `tryLater`.
@@ -557,7 +578,7 @@ nl·pl·sv·th·cs·uk는 주량체커 1.4.7(11-07, 327e1c1)이 옮김 — sv는
 
 ### ② 맵나이츠 몫 — 앱마다 다른 두 문구
 
-원본은 맵나이츠 저장소 `prd/settings/spec.md`(e859929). 게스트 없음(애플 로그인 필수), 나머지 ② 문구는 위 표를 글자 그대로. 서버에서 지우는 것 = 캐릭터(기사단)·가방, 이 기기에서 바로 지우는 것 = 기기 안 기록. `${p}`는 로그인한 계정 종류(지금은 Apple — Android 판에서 Google). 다국어 판을 만들 때 '가방'은 앱 안 가방 탭 이름과 같은 낱말로 맞춘다(11-11 코어 초안).
+원본은 맵나이츠 저장소 `prd/settings/spec.md`(e859929). 게스트 없음(Apple 또는 Google 로그인 필수, 11-22 종인님 "로그인은 구글 애플 두개 제공해"), 나머지 ② 문구는 위 표를 글자 그대로. 서버에서 지우는 것 = 캐릭터(기사단)·가방, 이 기기에서 바로 지우는 것 = 기기 안 기록. `${p}`는 로그인한 계정 종류(Apple·Google, 둘 다 1.0.0). 다국어 판을 만들 때 '가방'은 앱 안 가방 탭 이름과 같은 낱말로 맞춘다(11-11 코어 초안).
 
 #### 맵나이츠 delBodyLinked
 
