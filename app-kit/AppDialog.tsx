@@ -78,13 +78,13 @@ export function titleMul(text: string, fontSize: number, width: number): number 
 }
 
 /** 제목에서 한 줄에 통째로 들어가는 낱말의 숨은 하이픈은 뺀다(11-22 맵나이츠 de AX5 'Konto lö-/schen?' — 하이픈이 있으면 줄을 끝까지 채우느라
- *  둘째 줄에 들어갈 낱말도 꺾였다). 줄 폭보다 긴 낱말만 하이픈을 남긴다. px = 실제 그릴 글자 크기, 폭 어림은 titleMul과 같은 글자 폭에 5% 여유. */
+ *  둘째 줄에 들어갈 낱말도 꺾였다). 줄 폭보다 긴 낱말만 하이픈을 남긴다. px = 실제 그릴 글자 크기, 폭 어림은 titleMul과 같은 글자 폭 — titleMul이 가장 긴 낱말이 들어가게 배율을 고르므로 여유를 두면 그 낱말이 늘 꺾였다(11-22 한배 ru AX5 'почты ско-/пирован'), 반올림 0.5px만 둔다. */
 export function unhyphenFitting(text: string, px: number, width: number): string {
   return text.replace(/[^\s]+/g, (w) => {
     if (!w.includes('\u00AD')) return w;
     let em = 0;
     for (const ch of w.replace(/[\u00AD\u2060]/g, '')) em += WIDE.test(ch) ? 1 : 0.66;
-    return em * px <= width * 0.95 ? w.replace(/\u00AD/g, '') : w;
+    return em * px <= width + 0.5 ? w.replace(/\u00AD/g, '') : w;
   });
 }
 

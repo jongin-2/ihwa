@@ -5,6 +5,6 @@ const wide=src.match(/const WIDE = (\/.*\/);/)[1];
 const fn=src.match(/export function unhyphenFitting[\s\S]*?\n}\n/)[0].replace('export ','').replace(/: string|: number/g,'').replace(/\(w\)/,'(w)');
 const f=new Function(`const WIDE=${wide};${fn};return unhyphenFitting;`)();
 const S='­';
-const cases=[[`Konto lö${S}schen?`,19*2.65,289,'Konto löschen?'],[`Konto${S}lö${S}schungs${S}bestä${S}ti${S}gung`,19*2.65,289,null],[`Supp${S}ri${S}mer le compte ?`,19*2.65,289,null],[`Удалить ак${S}ка${S}унт?`,19*1,289,'Удалить аккаунт?'],['계정을 삭제할까요?',50,289,'계정을 삭제할까요?']];
+const cases=[[`Konto lö${S}schen?`,19*2.65,289,'Konto löschen?'],[`Konto${S}lö${S}schungs${S}bestä${S}ti${S}gung`,19*2.65,289,null],[`Supp${S}ri${S}mer le compte ?`,19*2.65,289,null],[`Удалить ак${S}ка${S}унт?`,19*1,289,'Удалить аккаунт?'],['계정을 삭제할까요?',50,289,'계정을 삭제할까요?'],[`Адрес эл. почты ско${S}пи${S}ро${S}ван`,289/6.6,289,'Адрес эл. почты скопирован']];
 let bad=0;for(const [t,px,w,exp] of cases){const r=f(t,px,w);const ok=exp===null?r.includes(S):r===exp;if(!ok)bad++;console.log(ok?'통과':'실패',JSON.stringify(r.replace(/­/g,'~')));}
 process.exit(bad);
