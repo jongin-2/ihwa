@@ -2,7 +2,7 @@
 
 계정이 있는 앱은 아래 두 유형 중 앱에 맞는 것을 글자 그대로 쓴다(10-21 종인님 — 알롱이 계정 삭제로 가며 두 갈래로 나눔).
 - **① 기록 연결**(주량체커·차곡): 계정은 기록을 백업하고 옮기는 수단, 기록의 주인은 기기. 메뉴 '연결 / 연결 해제' — 해제하면 기록은 이 기기에만 남고 서버 사본과 계정을 지운다.
-- **② 계정 생성**(알롱·한배·맵나이츠): 계정이 서버에 남는 정체성(순위·알롱 번호, 출시 뒤 친구·크루·거래소), 게스트도 처음부터 서버에 저장. 메뉴는 '계정 삭제' 하나(연결 해제·데이터 초기화를 합침, 게스트·연결 계정 모두) — 서버는 14일 유예 뒤 영구 삭제, 이 기기는 바로 새 알로. 연결 계정만 14일 안에 다시 로그인하면 되돌릴 수 있고 게스트는 되돌릴 수 없다. 애플·구글 연결은 누르는 순간 끊는다. 한배는 게스트 계정이 없다(로그인 전엔 보기만, 서버 저장 없음) — `delBodyGuest`를 쓰지 않고, 앱마다 다른 `delBodyLinked`·`logoutBody`만 맨 아래 '한배 몫' 표를 쓴다(10-23). 맵나이츠도 게스트가 없다(애플 로그인 필수) — 맨 아래 '맵나이츠 몫' 표(11-11).
+- **② 계정 생성**(알롱·한배·맵나이츠): 계정이 서버에 남는 정체성(순위·알롱 번호, 출시 뒤 친구·크루·거래소), 게스트도 처음부터 서버에 저장. 메뉴는 '계정 삭제' 하나(연결 해제·데이터 초기화를 합침, 게스트·연결 계정 모두) — 서버는 14일 유예 뒤 영구 삭제, 이 기기는 바로 새 알로. 연결 계정만 14일 안에 다시 로그인하면 되돌릴 수 있고 게스트는 되돌릴 수 없다. 애플·구글 연결은 누르는 순간 끊는다. 한배는 게스트 계정이 없다(로그인 전엔 보기만, 서버 저장 없음) — `delBodyGuest`를 쓰지 않고, 앱마다 다른 `delBodyLinked`·`logoutBody`만 맨 아래 '한배 몫' 표를 쓴다(10-23). 맵나이츠도 게스트가 있다(11-22 종인님 — 전부 허용+기기 제재, Apple·Google 연결은 설정 '계정 연결') — 게스트 삭제는 `맵나이츠 delBodyGuest`, 맨 아래 '맵나이츠 몫' 표(11-11).
 
 '연결 전 설정 줄'은 두 유형 공통(게스트가 애플·구글을 연결하는 줄). 앱에 넣을 땐 이 표를 복사하고, 고칠 땐 이 파일부터 고친 뒤 세 앱에 알린다. 번역 원본은 차곡 1.0.0(10-17, 57efabf) — '기록' 낱말은 주량체커 연결 해제 번역과 같게.
 
@@ -578,7 +578,7 @@ Google 로그인 단추(11-21 종인님 — 알롱·한배·맵나이츠 공통,
 
 ### ② 맵나이츠 몫 — 앱마다 다른 두 문구
 
-원본은 맵나이츠 저장소 `prd/settings/spec.md`(e859929). 게스트 없음(Apple 또는 Google 로그인 필수, 11-22 종인님 "로그인은 구글 애플 두개 제공해"), 나머지 ② 문구는 위 표를 글자 그대로. 서버에서 지우는 것 = 캐릭터(기사단)·가방, 이 기기에서 바로 지우는 것 = 기기 안 기록. `${p}`는 로그인한 계정 종류(Apple·Google, 둘 다 1.0.0). 다국어 판을 만들 때 '가방'은 앱 안 가방 탭 이름과 같은 낱말로 맞춘다(11-11 코어 초안).
+원본은 맵나이츠 저장소 `prd/settings/spec.md`(e859929). 게스트 있음(11-22 종인님 — 전부 허용+기기 제재, 기획 맵나이츠 guest1122), Apple·Google 연결은 설정 '계정 연결'(11-22 종인님 "로그인은 구글 애플 두개 제공해"), 나머지 ② 문구는 위 표를 글자 그대로. 서버에서 지우는 것 = 캐릭터(기사단)·가방, 이 기기에서 바로 지우는 것 = 기기 안 기록. `${p}`는 로그인한 계정 종류(Apple·Google, 둘 다 1.0.0). 다국어 판을 만들 때 '가방'은 앱 안 가방 탭 이름과 같은 낱말로 맞춘다(11-11 코어 초안).
 
 #### 맵나이츠 delBodyLinked
 
@@ -598,6 +598,27 @@ Google 로그인 단추(11-21 종인님 — 알롱·한배·맵나이츠 공통,
 | vi | Nhân vật và túi đồ của bạn sẽ bị xóa vĩnh viễn sau 14 ngày (${d}). Hãy đăng nhập lại bằng cùng tài khoản ${p} trước đó để hoàn tác. Ghi chép trên thiết bị này bị xóa ngay. |
 | zhHans | 你的角色和背包将在 14 天后（${d}）被永久删除。在此之前用同一个 ${p} 账号登录即可撤销。这台设备上的记录会立即删除。 |
 | zhHant | 你的角色與背包將在 14 天後（${d}）永久刪除。在此之前用同一個 ${p} 帳號登入即可復原。此裝置上的紀錄會立即刪除。 |
+
+#### 맵나이츠 delBodyGuest
+
+게스트 계정 삭제 확인 창 본문(11-22) — 맵나이츠 delBodyLinked 첫째·셋째 문장 + 위 delBodyGuest 마지막 문장.
+
+| 언어 | 문구 |
+|---|---|
+| ko | 캐릭터와 가방이 14일 뒤(${d}) 완전히 지워져요. 이 기기의 기록은 바로 지워져요. 되돌릴 수 없어요. |
+| en | Your characters and bag will be permanently deleted in 14 days (${d}). Records on this device are erased right away. This can't be undone. |
+| de | Deine Charaktere und deine Tasche werden in 14 Tagen (${d}) endgültig gelöscht. Die Einträge auf diesem Gerät werden sofort gelöscht. Das lässt sich nicht rückgängig machen. |
+| es | Tus personajes y tu bolsa se eliminarán definitivamente en 14 días (${d}). Los registros de este dispositivo se eliminan al instante. No se puede deshacer. |
+| fr | Vos personnages et votre sac seront définitivement supprimés dans 14 jours (${d}). Les données de cet appareil sont supprimées immédiatement. Cette action est irréversible. |
+| id | Karakter dan tas Anda akan dihapus permanen dalam 14 hari (${d}). Catatan di perangkat ini langsung dihapus. Tindakan ini tidak bisa dibatalkan. |
+| it | I tuoi personaggi e la borsa verranno eliminati definitivamente tra 14 giorni (${d}). I dati su questo dispositivo vengono eliminati subito. L’operazione non si può annullare. |
+| ja | キャラクターとバッグは14日後（${d}）に完全に削除されます。このデバイスの記録はすぐに削除されます。元に戻せません。 |
+| pt | Seus personagens e sua bolsa serão excluídos permanentemente em 14 dias (${d}). Os registros deste dispositivo são excluídos na hora. Isso não pode ser desfeito. |
+| ru | Ваши персонажи и сумка будут безвозвратно удалены через 14 дней (${d}). Записи на этом устройстве удаляются сразу. Это нельзя отменить. |
+| tr | Karakterleriniz ve çantanız 14 gün sonra (${d}) kalıcı olarak silinir. Bu cihazdaki kayıtlar hemen silinir. Bu işlem geri alınamaz. |
+| vi | Nhân vật và túi đồ của bạn sẽ bị xóa vĩnh viễn sau 14 ngày (${d}). Ghi chép trên thiết bị này bị xóa ngay. Không thể hoàn tác. |
+| zhHans | 你的角色和背包将在 14 天后（${d}）被永久删除。这台设备上的记录会立即删除。此操作无法撤销。 |
+| zhHant | 你的角色與背包將在 14 天後（${d}）永久刪除。此裝置上的紀錄會立即刪除。此操作無法還原。 |
 
 #### 맵나이츠 logoutBody
 
