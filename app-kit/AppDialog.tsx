@@ -77,6 +77,17 @@ export function titleMul(text: string, fontSize: number, width: number): number 
   return em ? Math.max(1, Math.min(TITLE_MUL, width / (fontSize * em))) : TITLE_MUL;
 }
 
+/** 제목에서 한 줄에 통째로 들어가는 낱말의 숨은 하이픈은 뺀다(11-22 맵나이츠 de AX5 'Konto lö-/schen?' — 하이픈이 있으면 줄을 끝까지 채우느라
+ *  둘째 줄에 들어갈 낱말도 꺾였다). 줄 폭보다 긴 낱말만 하이픈을 남긴다. px = 실제 그릴 글자 크기, 폭 어림은 titleMul과 같은 글자 폭에 5% 여유. */
+export function unhyphenFitting(text: string, px: number, width: number): string {
+  return text.replace(/[^\s]+/g, (w) => {
+    if (!w.includes('\u00AD')) return w;
+    let em = 0;
+    for (const ch of w.replace(/[\u00AD\u2060]/g, '')) em += WIDE.test(ch) ? 1 : 0.66;
+    return em * px <= width * 0.95 ? w.replace(/\u00AD/g, '') : w;
+  });
+}
+
 let shown: (t: string) => string = (t) => t;
 /** 앱 뿌리에서 한 번 — 창에 그릴 글자 변환(보통 makeSoftHyphen(앱 낱말).softHyphen). 기본은 그대로. iOS 경고창 대신 띄울 땐 쓰지 않는다. */
 export function setDialogText(fn: (t: string) => string): void { shown = fn; }
@@ -202,6 +213,7 @@ export function AppDialogHost(props: Look) {
   const titleText = shown(cur.title);
   const bandSize = StyleSheet.flatten(look.titleBand?.textStyle)?.fontSize ?? 19;
   const mul = titleMul(titleText, look.titleBand ? bandSize : 19, titleW);
+  const titleDraw = unhyphenFitting(titleText, (look.titleBand ? bandSize : 19) * Math.min(win.fontScale || 1, mul), titleW);
   // 본문은 줄이지 않되 제목보다 커지지 않게 — 긴 낱말 때문에 제목 상한이 낮아지면 회색 본문이 제목보다 커져 위계가 뒤집혔다(11-13 차곡 AX5 ru).
   // 애플 경고창의 제목(headline)·본문(footnote) AX5 크기 비 0.83을 지킨다.
   const msgMul = Math.max(1, (0.83 * (look.titleBand ? bandSize : 19) * mul) / 15);
@@ -229,10 +241,10 @@ export function AppDialogHost(props: Look) {
                     : <View pointerEvents="none" style={[st.fill, { top: '50%', backgroundColor: look.titleBand.to }]} />}
                   <View pointerEvents="none" style={[st.diamond, { left: 18, backgroundColor: look.titleBand.line }]} />
                   <View pointerEvents="none" style={[st.diamond, { right: 18, backgroundColor: look.titleBand.line }]} />
-                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleText}</Text>
+                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleDraw}</Text>
                 </View>
               ) : (
-                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleText}</Text>
+                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleDraw}</Text>
               )}
               {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={msgMul}>{shown(cur.msg)}</Text>}
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
