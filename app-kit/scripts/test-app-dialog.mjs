@@ -1,10 +1,18 @@
-// 공용 AppDialog unhyphenFitting 시험(11-22) — node app-kit/scripts/test-app-dialog.mjs app-kit/AppDialog.tsx, 종료 코드 0이면 통과. fr 'Supprimer'(AX5 한 줄 폭 초과)는 하이픈을 남긴다.
+// 공용 AppDialog brokeInsideShyWord 시험(11-22) — node app-kit/scripts/test-app-dialog.mjs app-kit/AppDialog.tsx, 종료 코드 0이면 통과.
+// 제목은 하이픈 없이 먼저 그리고, 하이픈 든 낱말 한가운데에서 줄이 나뉜 경우만 하이픈을 넣어 다시 그린다.
 import fs from 'fs';
-const src=fs.readFileSync(process.argv[2],'utf8');
-const wide=src.match(/const WIDE = (\/.*\/);/)[1];
-const fn=src.match(/export function unhyphenFitting[\s\S]*?\n}\n/)[0].replace('export ','').replace(/: string|: number/g,'').replace(/\(w\)/,'(w)');
-const f=new Function(`const WIDE=${wide};${fn};return unhyphenFitting;`)();
-const S='­';
-const cases=[[`Konto lö${S}schen?`,19*2.65,289,'Konto löschen?'],[`Konto${S}lö${S}schungs${S}bestä${S}ti${S}gung`,19*2.65,289,null],[`Supp${S}ri${S}mer le compte ?`,19*2.65,289,null],[`Удалить ак${S}ка${S}унт?`,19*1,289,'Удалить аккаунт?'],['계정을 삭제할까요?',50,289,'계정을 삭제할까요?'],[`Адрес эл. почты ско${S}пи${S}ро${S}ван`,289/6.6,289,'Адрес эл. почты скопирован']];
-let bad=0;for(const [t,px,w,exp] of cases){const r=f(t,px,w);const ok=exp===null?r.includes(S):r===exp;if(!ok)bad++;console.log(ok?'통과':'실패',JSON.stringify(r.replace(/­/g,'~')));}
+const src = fs.readFileSync(process.argv[2], 'utf8');
+const fn = src.match(/export function brokeInsideShyWord[\s\S]*?\n}\n/)[0].replace('export ', '').replace(/: readonly string\[\]|: string|: boolean|: \[number, number\]\[\]/g, '');
+const f = new Function(`${fn};return brokeInsideShyWord;`)();
+const S = '­';
+const cases = [
+  ['de 낱말 사이에서 나뉨', `Konto lö${S}schen?`, ['Konto ', 'löschen?'], false],
+  ['ru 낱말 사이에서 나뉨', `Адрес эл. почты ско${S}пи${S}ро${S}ван`, ['Адрес эл. почты ', 'скопирован'], false],
+  ['fr 낱말 안에서 나뉨', `Supp${S}ri${S}mer le compte ?`, ['Supprim', 'er le compte ?'], true],
+  ['ko 하이픈 없는 낱말 안은 무시', '계정을 삭제할까요?', ['계정을 삭', '제할까요?'], false],
+  ['한 줄', `Konto lö${S}schen?`, ['Konto löschen?'], false],
+  ['둘째 낱말 안에서 나뉨', `Konto${S}lö${S}schungs bestä${S}ti${S}gung`, ['Kontolöschungs ', 'bestä', 'tigung'], true],
+];
+let bad = 0;
+for (const [name, t, lines, exp] of cases) { const r = f(t, lines); if (r !== exp) bad++; console.log(r === exp ? '통과' : '실패', name); }
 process.exit(bad);

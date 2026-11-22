@@ -77,15 +77,24 @@ export function titleMul(text: string, fontSize: number, width: number): number 
   return em ? Math.max(1, Math.min(TITLE_MUL, width / (fontSize * em))) : TITLE_MUL;
 }
 
-/** 제목에서 한 줄에 통째로 들어가는 낱말의 숨은 하이픈은 뺀다(11-22 맵나이츠 de AX5 'Konto lö-/schen?' — 하이픈이 있으면 줄을 끝까지 채우느라
- *  둘째 줄에 들어갈 낱말도 꺾였다). 줄 폭보다 긴 낱말만 하이픈을 남긴다. px = 실제 그릴 글자 크기, 폭 어림은 titleMul과 같은 글자 폭 — titleMul이 가장 긴 낱말이 들어가게 배율을 고르므로 여유를 두면 그 낱말이 늘 꺾였다(11-22 한배 ru AX5 'почты ско-/пирован'), 반올림 0.5px만 둔다. */
-export function unhyphenFitting(text: string, px: number, width: number): string {
-  return text.replace(/[^\s]+/g, (w) => {
-    if (!w.includes('\u00AD')) return w;
-    let em = 0;
-    for (const ch of w.replace(/[\u00AD\u2060]/g, '')) em += WIDE.test(ch) ? 1 : 0.66;
-    return em * px <= width + 0.5 ? w.replace(/\u00AD/g, '') : w;
-  });
+/** 제목은 먼저 숨은 하이픈 없이 그리고, 실제 줄 나눔(onTextLayout)이 하이픈 넣은 낱말 안에서 일어났을 때만 하이픈을 넣어 다시 그린다.
+ *  글자 폭 어림으로 판정하면 글꼴·글자마다 틀렸다(11-22 맵나이츠 de AX5 'Konto lö-/schen?' — 하이픈이 있으면 줄을 끝까지 채우느라 둘째 줄에 들어갈 낱말도 꺾임,
+ *  한배 ru AX5 'почты ско-/пирован' — 키릴 굵은 글자 실측 약 0.57em인데 어림 0.66em이라 들어가는 낱말을 못 들어간다고 봄).
+ *  hyText = 하이픈 든 제목, lines = 하이픈을 뺀 글로 그린 줄들의 글자. 하이픈 든 낱말 한가운데에서 줄이 나뉘었으면 참. */
+export function brokeInsideShyWord(hyText: string, lines: readonly string[]): boolean {
+  const spans: [number, number][] = [];
+  let out = 0;
+  for (const m of hyText.match(/\s+|[^\s]+/g) ?? []) {
+    const clean = m.replace(/\u00AD/g, '');
+    if (m.includes('\u00AD')) spans.push([out, out + clean.length]);
+    out += clean.length;
+  }
+  let at = 0;
+  for (let i = 0; i < lines.length - 1; i++) {
+    at += lines[i].length;
+    if (spans.some(([s, e]) => at > s && at < e)) return true;
+  }
+  return false;
 }
 
 let shown: (t: string) => string = (t) => t;
@@ -173,6 +182,7 @@ export function AppDialogHost(props: Look) {
   // 띠를 켠 창(요청)을 기억한다 — 참·거짓 하나로 두고 cur가 바뀔 때 effect로 끄면, 창이 열린 직후의 레이아웃 판정(참)을 effect가 뒤에서 덮어
   // 첫 화면에 띠가 안 보였다(11-13 알롱 de AX5 계정 삭제 창). 창마다 다른 값이라 이전 창의 띠도 남지 않는다.
   const [moreFor, setMoreFor] = useState<Req | null>(null);
+  const [hyFor, setHyFor] = useState<Req | null>(null);
   const me = useRef<Layer>({ look: props, cur: null, give: setCur, redraw: () => setTick((n) => n + 1) }).current;
   me.look = props;
   useEffect(() => {
@@ -213,7 +223,12 @@ export function AppDialogHost(props: Look) {
   const titleText = shown(cur.title);
   const bandSize = StyleSheet.flatten(look.titleBand?.textStyle)?.fontSize ?? 19;
   const mul = titleMul(titleText, look.titleBand ? bandSize : 19, titleW);
-  const titleDraw = unhyphenFitting(titleText, (look.titleBand ? bandSize : 19) * Math.min(win.fontScale || 1, mul), titleW);
+  // 하이픈은 실제 줄 나눔을 본 뒤에만(brokeInsideShyWord) — 창마다 기억해 이전 창 판정이 남지 않게(moreFor와 같은 방식)
+  const keepHy = hyFor === cur;
+  const titleDraw = keepHy ? titleText : titleText.replace(/\u00AD/g, '');
+  const onTitleLayout = (e: { nativeEvent: { lines: { text: string }[] } }) => {
+    if (!keepHy && brokeInsideShyWord(titleText, e.nativeEvent.lines.map((l) => l.text))) setHyFor(cur);
+  };
   // 본문은 줄이지 않되 제목보다 커지지 않게 — 긴 낱말 때문에 제목 상한이 낮아지면 회색 본문이 제목보다 커져 위계가 뒤집혔다(11-13 차곡 AX5 ru).
   // 애플 경고창의 제목(headline)·본문(footnote) AX5 크기 비 0.83을 지킨다.
   const msgMul = Math.max(1, (0.83 * (look.titleBand ? bandSize : 19) * mul) / 15);
@@ -241,10 +256,10 @@ export function AppDialogHost(props: Look) {
                     : <View pointerEvents="none" style={[st.fill, { top: '50%', backgroundColor: look.titleBand.to }]} />}
                   <View pointerEvents="none" style={[st.diamond, { left: 18, backgroundColor: look.titleBand.line }]} />
                   <View pointerEvents="none" style={[st.diamond, { right: 18, backgroundColor: look.titleBand.line }]} />
-                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleDraw}</Text>
+                  <Text style={[st.title, st.bandTitle, { color: look.titleBand.text }, look.titleBand.textStyle]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul} onTextLayout={onTitleLayout}>{titleDraw}</Text>
                 </View>
               ) : (
-                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul}>{titleDraw}</Text>
+                <Text style={[st.title, { color: c.text }]} accessibilityRole="header" lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={mul} onTextLayout={onTitleLayout}>{titleDraw}</Text>
               )}
               {!!cur.msg && <Text style={[st.msg, { color: c.sub }]} lineBreakStrategyIOS="hangul-word" maxFontSizeMultiplier={msgMul}>{shown(cur.msg)}</Text>}
               {cur.body != null && <View style={st.extra}>{cur.body}</View>}
