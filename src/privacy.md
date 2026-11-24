@@ -149,7 +149,9 @@
 
 ### 6. 파기 절차와 방법
 
-1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 법령에 따라 따로 보관하는 정보는 없습니다.
+1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 다만 운영자 서버(Cloudflare)의 장애 복구용 기록에는 지운 정보가 최대 30일 남았다가 자동으로 사라지며, 이 기록은 장애 복구에만 씁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 전체만 -->
+1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 다만 운영자 서버(Cloudflare)의 장애 복구용 기록에는 지운 정보가 최대 30일 남았다가 자동으로 사라지며, 이 기록은 장애 복구에만 씁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 앱만 cheerseat,sameboat -->
+1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 앱만 drinkchecker,chagok,allong -->
 
 ### 7. 안전성 확보 조치
 
@@ -346,7 +348,9 @@ You can ask at any time to see, correct, delete or stop the processing of your p
 
 ### 6. Deletion procedure and method
 
-When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. We keep no information under other legal retention requirements.
+When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. However, deleted data can remain in the disaster-recovery history of the operator's server (Cloudflare) for up to 30 days before it disappears automatically, and that history is used only to recover from outages. We keep no information under other legal retention requirements. <!-- 전체만 -->
+When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. However, deleted data can remain in the disaster-recovery history of the operator's server (Cloudflare) for up to 30 days before it disappears automatically, and that history is used only to recover from outages. We keep no information under other legal retention requirements. <!-- 앱만 cheerseat,sameboat -->
+When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. We keep no information under other legal retention requirements. <!-- 앱만 drinkchecker,chagok,allong -->
 
 ### 7. Security measures
 
