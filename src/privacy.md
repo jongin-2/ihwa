@@ -70,12 +70,12 @@
 
 | 받는 곳(연락처) | 맡기는 일(앱) | 정보가 있는 곳 |
 |---|---|---|
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록·게임 데이터·순위·알롱 번호는 대한민국(서울 리전) | <!-- 전체만 -->
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 앱만 drinkchecker,chagok -->
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 게임 데이터·순위·알롱 번호는 대한민국(서울 리전) | <!-- 앱만 allong -->
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡), 로그인(알롱) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 전체만 -->
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡), 로그인(알롱) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 앱만 drinkchecker,chagok -->
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡), 로그인(알롱) | 계정 식별자·이메일은 미국 | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics(같음) | 사용 통계(모든 앱) | 미국 |
 | Google LLC — Play Integrity·ML Kit(같음) | 앱 확인·말풍선 번역(한배 Android) | 미국 |
-| Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
+| Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배·알롱) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다. <!-- 전체만 -->
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경 등) 인터넷으로 암호화해 보냅니다. <!-- 앱만 drinkchecker,chagok,allong -->
@@ -109,9 +109,10 @@
 | Open Library(Internet Archive, 미국)·국립중앙도서관 — 도서 정보 | 차곡 | 사진에서 읽은 책 바코드 번호(ISBN) 또는 제목으로 보이는 글자(사진 자체는 보내지 않음) |
 | Apple 지도 — 지도와 주변 장소 | 알롱 | 현재 위치 좌표('항상 허용'이면 앱을 닫은 동안에도) |
 | Apple 날씨(WeatherKit) — 탐험·홈·전투 화면의 날씨 | 알롱 | 약 1km 단위로 반올림한 위치 |
-| 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 | <!-- 전체만 -->
+| 운영자 서버(Cloudflare) — 점수·일정·순위, 노선·열차·말풍선·순위, 게임 저장·주간 순위 | 응원석·한배·알롱 | 접속 정보 | <!-- 전체만 -->
 | 운영자 서버(Cloudflare) — 점수·일정·순위 | 응원석·한배 | 접속 정보 | <!-- 앱만 cheerseat -->
 | 운영자 서버(Cloudflare) — 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 | <!-- 앱만 sameboat -->
+| 운영자 서버(Cloudflare) — 게임 저장·주간 순위 | 알롱 | 접속 정보 | <!-- 앱만 allong -->
 | Apple 푸시 알림 서비스(APNs) — 잠금 화면·위젯 점수 | 응원석 | 1절의 토큰 |
 | Apple App Attest — 앱 변조 확인 | 차곡·응원석·한배 | 앱 확인 값 |
 | Google Play Integrity(Google) — 앱 확인 | 한배(Android) | 앱 확인 값과 기기 판정 정보 |
@@ -153,8 +154,8 @@
 ### 6. 파기 절차와 방법
 
 1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 다만 운영자 서버(Cloudflare)의 장애 복구용 기록에는 지운 정보가 최대 30일 남았다가 자동으로 사라지며, 이 기록은 장애 복구에만 씁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 전체만 -->
-1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 다만 운영자 서버(Cloudflare)의 장애 복구용 기록에는 지운 정보가 최대 30일 남았다가 자동으로 사라지며, 이 기록은 장애 복구에만 씁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 앱만 cheerseat,sameboat -->
-1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 앱만 drinkchecker,chagok,allong -->
+1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 다만 운영자 서버(Cloudflare)의 장애 복구용 기록에는 지운 정보가 최대 30일 남았다가 자동으로 사라지며, 이 기록은 장애 복구에만 씁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 앱만 cheerseat,sameboat,allong -->
+1절의 보관 기간이 끝나거나 삭제를 요청하면 서버에서 되살릴 수 없는 방법으로 지웁니다. 법령에 따라 따로 보관하는 정보는 없습니다. <!-- 앱만 drinkchecker,chagok -->
 
 ### 7. 안전성 확보 조치
 
@@ -272,12 +273,12 @@ We do not provide your information to others. We entrust server operation and st
 
 | Recipient (contact) | Task (apps) | Where the data is |
 |---|---|---|
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records, game data, rankings and Allong numbers in South Korea (Seoul region) | <!-- 전체만 -->
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 앱만 drinkchecker,chagok -->
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; game data, rankings and Allong numbers in South Korea (Seoul region) | <!-- 앱만 allong -->
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok); sign-in (Allong) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 전체만 -->
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok); sign-in (Allong) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 앱만 drinkchecker,chagok -->
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok); sign-in (Allong) | Account identifiers and email in the United States | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics (same) | Usage statistics (all apps) | United States |
 | Google LLC — Play Integrity and ML Kit (same) | App integrity checks and bubble translation (SameBoat on Android) | United States |
-| Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat) | US company; database in the Asia-Pacific region |
+| Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat, Allong) | US company; database in the Asia-Pacific region |
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on). <!-- 전체만 -->
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records and so on). <!-- 앱만 drinkchecker,chagok,allong -->
@@ -311,9 +312,10 @@ When an app makes a request to the external services below, connection details s
 | Open Library (Internet Archive, United States) and the National Library of Korea — book details | Chagok | A book barcode number (ISBN) or text that looks like a title, read from a photo (the photo itself is never sent) |
 | Apple Maps — map and nearby places | Allong | Current location coordinates (also while the app is closed if you choose Always Allow) |
 | Apple Weather (WeatherKit) — weather on the Explore, Home and battle screens | Allong | Location rounded to about 1 km |
-| Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details | <!-- 전체만 -->
+| Operator's server (Cloudflare) — scores, schedules and standings; lines, trains, bubbles and rankings; game saves and weekly rankings | CheerSeat, SameBoat, Allong | Connection details | <!-- 전체만 -->
 | Operator's server (Cloudflare) — scores, schedules and standings | CheerSeat, SameBoat | Connection details | <!-- 앱만 cheerseat -->
 | Operator's server (Cloudflare) — lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details | <!-- 앱만 sameboat -->
+| Operator's server (Cloudflare) — game saves and weekly rankings | Allong | Connection details | <!-- 앱만 allong -->
 | Apple Push Notification service (APNs) — Lock Screen and widget scores | CheerSeat | The tokens in section 1 |
 | Apple App Attest — app integrity check | Chagok, CheerSeat, SameBoat | Integrity check data |
 | Google Play Integrity (Google) — app integrity check | SameBoat (Android) | Integrity check data and device verdict |
@@ -355,8 +357,8 @@ You can ask at any time to see, correct, delete or stop the processing of your p
 ### 6. Deletion procedure and method
 
 When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. However, deleted data can remain in the disaster-recovery history of the operator's server (Cloudflare) for up to 30 days before it disappears automatically, and that history is used only to recover from outages. We keep no information under other legal retention requirements. <!-- 전체만 -->
-When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. However, deleted data can remain in the disaster-recovery history of the operator's server (Cloudflare) for up to 30 days before it disappears automatically, and that history is used only to recover from outages. We keep no information under other legal retention requirements. <!-- 앱만 cheerseat,sameboat -->
-When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. We keep no information under other legal retention requirements. <!-- 앱만 drinkchecker,chagok,allong -->
+When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. However, deleted data can remain in the disaster-recovery history of the operator's server (Cloudflare) for up to 30 days before it disappears automatically, and that history is used only to recover from outages. We keep no information under other legal retention requirements. <!-- 앱만 cheerseat,sameboat,allong -->
+When the retention period in section 1 ends or you request deletion, we delete the data from the server in a way that cannot be restored. We keep no information under other legal retention requirements. <!-- 앱만 drinkchecker,chagok -->
 
 ### 7. Security measures
 
