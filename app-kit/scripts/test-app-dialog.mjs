@@ -11,6 +11,8 @@ const cases = [
   ['fr 낱말 안에서 나뉨', `Supp${S}ri${S}mer le compte ?`, ['Supprim', 'er le compte ?'], true],
   ['ko 하이픈 없는 낱말 안은 무시', '계정을 삭제할까요?', ['계정을 삭', '제할까요?'], false],
   ['한 줄', `Konto lö${S}schen?`, ['Konto löschen?'], false],
+  ['de 경계 낱말이 통째로 다음 줄(11-24 응원석 AX5 Update ver-/fügbar)', `Update ver${S}füg${S}bar`, ['Update ', 'verfügbar'], false],
+  ['de 경계 낱말 안에서 나뉨', `Update ver${S}füg${S}bar`, ['Update ver', 'fügbar'], true],
   ['둘째 낱말 안에서 나뉨', `Konto${S}lö${S}schungs bestä${S}ti${S}gung`, ['Kontolöschungs ', 'bestä', 'tigung'], true],
 ];
 let bad = 0;
