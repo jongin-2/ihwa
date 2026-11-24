@@ -9,7 +9,7 @@
 
 **적용 앱: 주량체커 · 응원석 · 차곡 · 한배**
 
-앱을 쓰다가 궁금한 점이나 문제가 있으면 메일로 문의해 주세요. 앱 이름, 기기·iOS 버전, 겪은 문제를 함께 적어 주시면 더 빨리 확인할 수 있어요.
+앱을 쓰다가 궁금한 점이나 문제가 있으면 메일로 문의해 주세요. 앱 이름, 기기·iOS/Android 버전, 겪은 문제를 함께 적어 주시면 더 빨리 확인할 수 있어요.
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
@@ -52,7 +52,7 @@ Apple '이메일 가리기'로 로그인했다면 iPhone 설정 › 이름 › �
 
 **Applies to: DrinkChecker · CheerSeat · Chagok · SameBoat**
 
-If you have a question or run into a problem while using the apps, please email us. Including the app name, your device and iOS version, and what happened helps us look into it faster.
+If you have a question or run into a problem while using the apps, please email us. Including the app name, your device and iOS/Android version, and what happened helps us look into it faster.
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 

@@ -53,7 +53,7 @@
 
 | 정보 | 목적 | 보관 기간 |
 |---|---|---|
-| 계정 식별자(Apple·Google, 이메일은 받지 않음) | 로그인 | 계정 삭제 요청 뒤 14일(그 안에 다시 로그인하면 취소) |
+| 계정 식별자(Apple·Google, 이메일은 저장하지 않음) | 로그인 | 계정 삭제 요청 뒤 14일(그 안에 다시 로그인하면 취소) |
 | 닉네임·포인트·대항전 기록·이용 제한 기록 | 말풍선·대항전·개인 순위·이용 제한 | 계정 삭제 요청 뒤 14일 |
 | 대항전에서 고른 노선(계정과 함께) | 대항전 포인트 지급 | 지급하면 바로(주·월 우승은 기간이 끝날 때까지, 최대 31일) |
 | 신고된 말풍선(글·신고 사유·시각·양쪽 닉네임) | 신고 검토 | 검토가 끝나고 90일 |
@@ -74,6 +74,7 @@
 | Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 앱만 drinkchecker,chagok -->
 | Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡·알롱) | 계정 식별자·이메일은 미국, 게임 데이터·순위·알롱 번호는 대한민국(서울 리전) | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics(같음) | 사용 통계(모든 앱) | 미국 |
+| Google LLC — Play Integrity·ML Kit(같음) | 앱 확인·말풍선 번역(한배 Android) | 미국 |
 | Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
 - **옮기는 정보·시기·방법**: 1절의 정보와 3절의 통계를, 앱을 쓸 때(계정 연결·기록 변경·토큰 등록·로그인 등) 인터넷으로 암호화해 보냅니다. <!-- 전체만 -->
@@ -103,7 +104,7 @@
 | 외부 서비스 | 앱 | 보내는 것 |
 |---|---|---|
 | GitHub Pages(GitHub, Inc.) — 약관·방침 페이지, 업데이트 안내 설정 파일 | 모든 앱 | 접속 정보 |
-| App Store 공개 조회(Apple) — 최신 버전 확인 | 모든 앱 | 접속 정보 |
+| App Store 공개 조회(Apple) — 최신 버전 확인 · Google Play 업데이트 조회(Android) | 모든 앱 | 접속 정보 |
 | Sign in with Apple·Google 로그인 | 주량체커·차곡·알롱·한배 | 로그인할 때 그 서비스가 받는 정보 |
 | Open Library(Internet Archive, 미국)·국립중앙도서관 — 도서 정보 | 차곡 | 사진에서 읽은 책 바코드 번호(ISBN) 또는 제목으로 보이는 글자(사진 자체는 보내지 않음) |
 | Apple 지도 — 지도와 주변 장소 | 알롱 | 현재 위치 좌표('항상 허용'이면 앱을 닫은 동안에도) |
@@ -113,6 +114,8 @@
 | 운영자 서버(Cloudflare) — 노선·열차·말풍선·순위 | 응원석·한배 | 접속 정보 | <!-- 앱만 sameboat -->
 | Apple 푸시 알림 서비스(APNs) — 잠금 화면·위젯 점수 | 응원석 | 1절의 토큰 |
 | Apple App Attest — 앱 변조 확인 | 차곡·응원석·한배 | 앱 확인 값 |
+| Google Play Integrity(Google) — 앱 확인 | 한배(Android) | 앱 확인 값과 기기 판정 정보 |
+| Google ML Kit — 말풍선 번역·언어 확인 | 한배(Android) | 기기 정보·앱 버전·설치별 무작위 식별값·고른 언어(번역 문장은 보내지 않음), 번역 모델을 받을 때의 접속 정보 |
 
 ### 4. 기기 권한
 
@@ -158,9 +161,9 @@
 - 앱이 주고받는 모든 전송은 암호화(HTTPS)합니다.
 - 주량체커·차곡·알롱의 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다. <!-- 전체만 -->
 - 계정별 공간은 본인 계정으로만 읽고 쓸 수 있습니다. <!-- 앱만 drinkchecker,chagok,allong -->
-- 응원석의 토큰 등록과 한배의 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다. <!-- 전체만 -->
+- 응원석의 토큰 등록과 한배의 대항전 참가는 정품 앱에서 왔는지 Apple App Attest(iOS)·Google Play Integrity(Android)로 확인합니다. <!-- 전체만 -->
 - 토큰 등록은 정품 앱에서 왔는지 Apple App Attest로 확인합니다. <!-- 앱만 cheerseat -->
-- 대항전 참가는 정품 앱에서 왔는지 Apple App Attest로 확인합니다. <!-- 앱만 sameboat -->
+- 대항전 참가는 정품 앱에서 왔는지 Apple App Attest(iOS)·Google Play Integrity(Android)로 확인합니다. <!-- 앱만 sameboat -->
 - 서버 관리 권한은 운영자 한 명만 가집니다.
 
 ### 8. 아동의 개인정보
@@ -252,7 +255,7 @@ Apart from what the tables below list, what you enter in an app is stored on you
 
 | Information | Purpose | Kept until |
 |---|---|---|
-| Account identifier (Apple or Google; no email) | Sign-in | 14 days after you request account deletion (signing in again within that time cancels it) |
+| Account identifier (Apple or Google; email is not stored) | Sign-in | 14 days after you request account deletion (signing in again within that time cancels it) |
 | Nickname, points, battle records and restriction record | Bubbles, battles, personal rankings and restrictions | 14 days after you request account deletion |
 | The line you picked in a battle (with your account) | Paying battle points | Deleted once paid (for weekly and monthly winners, until the period ends, up to 31 days) |
 | Reported bubbles (text, reason, time and both nicknames) | Reviewing reports | 90 days after review |
@@ -273,6 +276,7 @@ We do not provide your information to others. We entrust server operation and st
 | Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 앱만 drinkchecker,chagok -->
 | Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok, Allong) | Account identifiers and email in the United States; game data, rankings and Allong numbers in South Korea (Seoul region) | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics (same) | Usage statistics (all apps) | United States |
+| Google LLC — Play Integrity and ML Kit (same) | App integrity checks and bubble translation (SameBoat on Android) | United States |
 | Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat) | US company; database in the Asia-Pacific region |
 
 - **What, when and how**: the information in section 1 and the statistics in section 3 are sent encrypted over the internet when you use the app (connecting an account, changing records, registering tokens, signing in and so on). <!-- 전체만 -->
@@ -302,7 +306,7 @@ When an app makes a request to the external services below, connection details s
 | External service | Apps | What is sent |
 |---|---|---|
 | GitHub Pages (GitHub, Inc.) — Terms and Privacy pages, update-notice settings file | All apps | Connection details |
-| App Store public lookup (Apple) — latest version check | All apps | Connection details |
+| App Store public lookup (Apple) — latest version check · Google Play update check (Android) | All apps | Connection details |
 | Sign in with Apple and Google Sign-In | DrinkChecker, Chagok, Allong, SameBoat | What that service receives when you sign in |
 | Open Library (Internet Archive, United States) and the National Library of Korea — book details | Chagok | A book barcode number (ISBN) or text that looks like a title, read from a photo (the photo itself is never sent) |
 | Apple Maps — map and nearby places | Allong | Current location coordinates (also while the app is closed if you choose Always Allow) |
@@ -312,6 +316,8 @@ When an app makes a request to the external services below, connection details s
 | Operator's server (Cloudflare) — lines, trains, bubbles and rankings | CheerSeat, SameBoat | Connection details | <!-- 앱만 sameboat -->
 | Apple Push Notification service (APNs) — Lock Screen and widget scores | CheerSeat | The tokens in section 1 |
 | Apple App Attest — app integrity check | Chagok, CheerSeat, SameBoat | Integrity check data |
+| Google Play Integrity (Google) — app integrity check | SameBoat (Android) | Integrity check data and device verdict |
+| Google ML Kit — bubble translation and language detection | SameBoat (Android) | Device information, app version, a random identifier for each installation and the languages you chose (the sentences being translated are never sent), plus connection details when a translation model is downloaded |
 
 ### 4. Device permissions
 
@@ -357,9 +363,9 @@ When the retention period in section 1 ends or you request deletion, we delete t
 - All traffic to and from the apps is encrypted (HTTPS).
 - In DrinkChecker, Chagok and Allong, each per-account space can be read and written only by its own account. <!-- 전체만 -->
 - Each per-account space can be read and written only by its own account. <!-- 앱만 drinkchecker,chagok,allong -->
-- CheerSeat token registrations and SameBoat battle entries are checked with Apple App Attest to confirm they come from the genuine app. <!-- 전체만 -->
+- CheerSeat token registrations and SameBoat battle entries are checked with Apple App Attest (iOS) and Google Play Integrity (Android) to confirm they come from the genuine app. <!-- 전체만 -->
 - Token registrations are checked with Apple App Attest to confirm they come from the genuine app. <!-- 앱만 cheerseat -->
-- Battle entries are checked with Apple App Attest to confirm they come from the genuine app. <!-- 앱만 sameboat -->
+- Battle entries are checked with Apple App Attest (iOS) and Google Play Integrity (Android) to confirm they come from the genuine app. <!-- 앱만 sameboat -->
 - Only the operator has administrative access to the servers.
 
 ### 8. Children's privacy
