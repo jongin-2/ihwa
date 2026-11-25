@@ -137,9 +137,11 @@ export function updateDialog(patch: Partial<Pick<DialogOptions, 'buttons' | 'msg
 
 /** 떠 있는 창과 줄 선 창을 닫는다 — 각 요청은 취소 단추 순번(없으면 -1)으로 끝난다(바깥을 눌러 닫은 것과 같음). 화면을 떠날 때 부른다.
  *  owner를 주면 appDialog({ owner })로 띄운 그 화면의 창만 닫는다 — 안 주면 이어 받기·강제 업데이트 같은 전역 창까지 닫혀
- *  사용자가 고르지 않은 선택(-1)으로 끝나므로, 화면에서 부를 땐 늘 owner를 준다(11-20 차곡). */
+ *  사용자가 고르지 않은 선택(-1)으로 끝나므로, 화면에서 부를 땐 늘 owner를 준다(11-20 차곡).
+ *  owner 없이 부르면 닫을 수 없는 창(dismissable: false — 강제 업데이트 등)은 남긴다(11-26 알롱 DLG-02: 딥 링크가 시트를 걷기 전 모든 창을 닫다
+ *  강제 업데이트 창이 -1로 끝나 누르지 않았는데 스토어로 감). */
 export function closeDialogs(owner?: unknown): void {
-  const mine = (r: Req) => owner === undefined || r.owner === owner;
+  const mine = (r: Req) => (owner === undefined ? r.dismissable !== false : r.owner === owner);
   const cancelOf = (r: Req) => r.buttons.findIndex((b) => b.kind === 'cancel');
   for (const l of layers) if (l.cur && mine(l.cur)) { const r = l.cur; l.cur = null; l.give(null); r.done(cancelOf(r)); }
   const gone = queue.filter(mine);
@@ -193,8 +195,10 @@ export function AppDialogHost(props: Look) {
     return () => {
       const i = layers.indexOf(me);
       if (i >= 0) layers.splice(i, 1);
-      if (me.cur) { queue.unshift(me.cur); me.cur = null; }
-      pump();
+      // 떠 있던 창을 되돌릴 땐 아래 층에서 바로 띄우지 않고 시트가 다 내려간 뒤에 — 시트가 내려가는 중에 아래 Host가 Modal을 올리면
+      // 네이티브 표시가 어긋나 창은 안 보이고 투명 덮개만 남아 모든 터치가 막혔다(11-26 알롱 1.0.0 DLG-02, 딥 링크가 처리방침 시트를 걷을 때).
+      // 시트 내림(약 0.35~0.5초)보다 넉넉히 0.6초. 그사이 다른 층이 붙거나 새 요청이 오면 그쪽 pump가 먼저 띄운다.
+      if (me.cur) { queue.unshift(me.cur); me.cur = null; setTimeout(pump, 600); } else pump();
     };
   }, [me]);
   if (!cur) return null;

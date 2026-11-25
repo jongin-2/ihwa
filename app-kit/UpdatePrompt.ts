@@ -282,7 +282,8 @@ function showPrompt(cfg: UpdateConfig, s: UpdateState) {
   const done = () => { alertShowing = false; };
   if (s.forced) {
     appDialog({ title: w.title, msg: w.forced, buttons: [{ text: w.updateNow }], dismissable: false })
-      .then(() => { done(); startUpdate(cfg); });
+      // -1 = 누르지 않고 닫힘(closeDialogs 등) — 스토어로 보내지 않고 안내 상태만 풀어 다음 조회 때 다시 띄운다(11-26 알롱)
+      .then((i) => { done(); if (i < 0) return; startUpdate(cfg); });
   } else {
     appDialog({ title: w.title, buttons: [{ text: w.later, kind: 'cancel' }, { text: w.updateNow }] })
       .then((i) => { done(); if (i === 1) startUpdate(cfg); });
