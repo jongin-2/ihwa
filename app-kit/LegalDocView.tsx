@@ -20,7 +20,7 @@
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
 import { useEffect, useLayoutEffect, useRef, useState, type ComponentRef, type ReactNode } from 'react';
 import { ActivityIndicator, BackHandler, Linking, Platform, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
-import { appDialog } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
+import { appDialog, closeDialogs } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 import { WebView } from 'react-native-webview';
 import * as Clipboard from 'expo-clipboard';
 
@@ -92,6 +92,10 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
   // 실패하면 웹뷰가 내려가고 다시 시도는 처음 문서부터 연다 — 머리글도 처음 상태(✕·처음 문서 이름)로(11-06 알롱 전수 검토: ‹가 남아 눌러도 반응 없음)
   // Android 웹뷰(react-native-webview 14)는 문서를 옮겨도 canGoBack을 늘 false로 보낸다(11-06 한배 실측) — 다녀간 주소를 직접 쌓는다
   const trail = useRef<string[]>([]);
+  // 메일 복사 알림은 이 화면 소속 — 딥 링크·알림 열기가 시트를 걷으면 같이 닫는다. 전역 창으로 두면 아래 층으로 넘어가 다시 뜨다
+  // 시트 내림과 어긋나 보이지 않는 덮개가 남았다(11-26 차곡 방침 modal + 홈 주소, 5회 중 2회 — AppDialog의 0.6초 미룸으로도 못 막음).
+  const owner = useRef({}).current;
+  useEffect(() => () => closeDialogs(owner), [owner]);
   const fail = () => { setFailed(true); setCanGoBack(false); setShown(doc); trail.current = []; };
   const restart = () => { setCanGoBack(false); setShown(doc); trail.current = []; setLoading(true); setAttempt((a) => a + 1); };
   useLayoutEffect(() => {
@@ -167,7 +171,7 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
                 let email = raw;
                 try { email = decodeURIComponent(raw); } catch { /* 잘못된 퍼센트 열이면 그대로 */ }
                 // 창에 보이는 주소만 '@' 뒤에 폭 없는 공백 — AX5에서 'ihwa.support@g/mail.com'으로 끊겼다(11-13 한배). 복사 값은 그대로.
-                Clipboard.setStringAsync(email).then(() => appDialog({ title: w.emailCopied, msg: email.replace('@', '@\u200b'), buttons: [{ text: w.ok, kind: 'cancel' }] })).catch(() => undefined);
+                Clipboard.setStringAsync(email).then(() => appDialog({ title: w.emailCopied, msg: email.replace('@', '@\u200b'), buttons: [{ text: w.ok, kind: 'cancel' }], owner })).catch(() => undefined);
               }
             });
             return false;
