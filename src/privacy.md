@@ -200,7 +200,7 @@ ihwa.app은 GitHub Pages(GitHub, Inc., 미국)에서 제공되며, 방문 통계
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-최종 수정일: 2026-11-19
+최종 수정일: 2026-11-25
 
 ---
 
@@ -402,4 +402,4 @@ Any change to this policy is published on this page right away, except that chan
 
 📧 [ihwa.support@gmail.com](mailto:ihwa.support@gmail.com)
 
-Last updated: 2026-11-19
+Last updated: 2026-11-25
