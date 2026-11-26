@@ -5,8 +5,6 @@
 <a id="ko"></a>
 ## 한국어
 
-**이 판은 2026-11-26부터 시행합니다.** 그 전까지는 2026-10-28 판이 적용되며, 위 버전 고르기에서 볼 수 있습니다.
-
 ### 1. 서비스 소개
 
 **적용 앱: 주량체커 · 응원석 · 차곡 · 알롱 · 한배**
@@ -105,8 +103,6 @@
 
 <a id="en"></a>
 ## English
-
-**This version takes effect on 2026-11-26.** Until then the 2026-10-28 version applies; you can view it with the version picker above.
 
 ### 1. About the service
 
