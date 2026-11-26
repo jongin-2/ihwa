@@ -19,7 +19,7 @@
 // 머리글 색은 내비게이션 테마를 따른다 — NavigationContainer(expo-router는 ThemeProvider)에 다크·라이트 테마를 꼭 넘긴다(10-26 한배: 안 넘겨 다크 모드에서 머리글이 흰색).
 // 필요한 라이브러리: react-native-webview, expo-clipboard.
 import { useEffect, useLayoutEffect, useRef, useState, type ComponentRef, type ReactNode } from 'react';
-import { ActivityIndicator, BackHandler, Linking, Platform, PlatformColor, Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
+import { ActivityIndicator, BackHandler, Linking, Platform, PlatformColor, Pressable, StyleSheet, Text, View, useColorScheme, type ColorValue } from 'react-native';
 import { appDialog, closeDialogs } from './AppDialog'; // 공용 원본 — 함께 복사(10-27 앱 확인 창)
 import { WebView } from 'react-native-webview';
 import * as Clipboard from 'expo-clipboard';
@@ -82,6 +82,7 @@ function closeLabel(lang: string, w: Words, doc: LegalDoc): string {
 
 export default function LegalDocView({ doc, lang, app, tint, onClose, navigation, renderHeader }: { doc: LegalDoc; lang: string; app?: string; tint: ColorValue; onClose: () => void; navigation?: HeaderNav; renderHeader?: (h: LegalHeader) => ReactNode }) {
   const w = WORDS[lang] ?? WORDS.en;
+  const subColor = useSub();
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -128,7 +129,7 @@ export default function LegalDocView({ doc, lang, app, tint, onClose, navigation
         : { title: w[shown], button: 'close', label: closeLabel(lang, w, shown), onPress: onClose })}
       {failed ? (
         <View style={styles.center}>
-          <Text lineBreakStrategyIOS="hangul-word" style={styles.msg}>{w.offline}</Text>
+          <Text lineBreakStrategyIOS="hangul-word" style={[styles.msg, { color: subColor }]}>{w.offline}</Text>
           <Pressable onPress={() => { setFailed(false); setLoading(true); setAttempt((a) => a + 1); }} style={styles.btn} accessibilityRole="button">
             {({ pressed }) => <Text lineBreakStrategyIOS="hangul-word" style={[styles.retry, { color: tint }, pressed && styles.pressed]}>{w.retry}</Text>}
           </Pressable>
@@ -194,6 +195,7 @@ const NO_DATA_DETECTORS: 'none'[] = ['none'];
 const SHOW_AFTER_MS = 300;
 const MIN_SHOW_MS = 400;
 function DelayedSpinner({ visible }: { visible: boolean }) {
+  const subColor = useSub();
   const [on, setOn] = useState(false);
   const shownAt = useRef(0);
   useEffect(() => {
@@ -206,12 +208,16 @@ function DelayedSpinner({ visible }: { visible: boolean }) {
     const t = setTimeout(() => setOn(false), Math.max(0, shownAt.current + MIN_SHOW_MS - Date.now()));
     return () => clearTimeout(t);
   }, [visible, on]);
-  return on ? <ActivityIndicator style={StyleSheet.absoluteFill} pointerEvents="none" color={SUB} /> : null;
+  return on ? <ActivityIndicator style={StyleSheet.absoluteFill} pointerEvents="none" color={subColor} /> : null;
 }
 
 // 시스템 색 — iOS 이름은 Android에서 못 찾아 앱이 멈춘다(11-06 한배 Android "ColorValue: None of the paths…"), Android는 테마 속성으로
 const BG = Platform.select({ ios: PlatformColor('systemBackground'), default: PlatformColor('?android:attr/colorBackground') });
-const SUB = Platform.select({ ios: PlatformColor('secondaryLabel'), default: PlatformColor('?android:attr/textColorSecondary') });
+// Android 보조 글자색은 값으로 — ?android:attr/textColorSecondary는 색 목록(ColorStateList) 파일이라 RN이 outValue.data를 색으로 읽어 안 보이게 됨(11-27 한배 Android 16 오프라인 안내 글 안 보임, ece5ca9a). 머티리얼 보조 글자색 라이트 #5F6368·다크 #BDC1C6
+function useSub(): ColorValue {
+  const dark = useColorScheme() === 'dark';
+  return Platform.OS === 'ios' ? PlatformColor('secondaryLabel') : dark ? '#BDC1C6' : '#5F6368';
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: BG },
@@ -219,6 +225,6 @@ const styles = StyleSheet.create({
   pressed: { opacity: 0.6 }, // 앱들의 Tap(PRESSED_OPACITY 0.6)과 같게 — 2026-10-14 차곡 빌드 11 회귀 DSN-02
   web: { flex: 1, backgroundColor: 'transparent' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 24 },
-  msg: { fontSize: 17, color: SUB, textAlign: 'center' },
+  msg: { fontSize: 17, textAlign: 'center' },
   retry: { fontSize: 17, fontWeight: '600' },
 });
