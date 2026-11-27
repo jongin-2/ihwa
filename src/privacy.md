@@ -71,8 +71,8 @@
 | 받는 곳(연락처) | 맡기는 일(앱) | 정보가 있는 곳 |
 |---|---|---|
 | Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡), 로그인(알롱) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 전체만 -->
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡), 로그인(알롱) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 앱만 drinkchecker,chagok -->
-| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡), 로그인(알롱) | 계정 식별자·이메일은 미국 | <!-- 앱만 allong -->
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 계정과 기록 보관(주량체커·차곡) | 계정 식별자·이메일은 미국, 기록은 대한민국(서울 리전) | <!-- 앱만 drinkchecker,chagok -->
+| Google LLC — Firebase([문의](https://support.google.com/policies/contact/general_privacy_form)) | 로그인 확인(알롱) | 계정 식별자·이메일은 미국 | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics(같음) | 사용 통계(모든 앱) | 미국 |
 | Cloudflare, Inc.([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | 운영자 서버(응원석·한배·알롱) | 미국 회사, 데이터베이스는 아시아·태평양 지역 |
 
@@ -271,8 +271,8 @@ We do not provide your information to others. We entrust server operation and st
 | Recipient (contact) | Task (apps) | Where the data is |
 |---|---|---|
 | Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok); sign-in (Allong) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 전체만 -->
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok); sign-in (Allong) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 앱만 drinkchecker,chagok -->
-| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok); sign-in (Allong) | Account identifiers and email in the United States | <!-- 앱만 allong -->
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Storing accounts and records (DrinkChecker, Chagok) | Account identifiers and email in the United States; records in South Korea (Seoul region) | <!-- 앱만 drinkchecker,chagok -->
+| Google LLC — Firebase ([contact](https://support.google.com/policies/contact/general_privacy_form)) | Sign-in verification (Allong) | Account identifiers and email in the United States | <!-- 앱만 allong -->
 | Google LLC — Firebase Analytics (same) | Usage statistics (all apps) | United States |
 | Cloudflare, Inc. ([privacyquestions@cloudflare.com](mailto:privacyquestions@cloudflare.com)) | Operator's server (CheerSeat, SameBoat, Allong) | US company; database in the Asia-Pacific region |
 
